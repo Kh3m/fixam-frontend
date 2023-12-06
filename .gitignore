@@ -28,4 +28,3 @@ dist-ssr
 socket.ts
 Chat.tsx
 chat-server
-./src/chat/components
