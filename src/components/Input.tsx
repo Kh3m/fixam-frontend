@@ -4,7 +4,7 @@ const Input = () => {
   return (
     <div className="inline-block relative h-10">
       <input
-        className="outline-0 px-10 rounded-md h-full text-gray-600"
+        className="outline-0 px-10 rounded-[5px] h-full text-gray-600"
         placeholder="Enter E-Mail Address"
       />
       <img

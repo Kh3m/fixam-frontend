@@ -1,12 +1,16 @@
 import Icon from "./IconHolder";
 import chevronRight from "../assets/chevron-right.svg";
 
-const FeaturedBar = () => {
+interface Props {
+  title: string;
+}
+const FeaturedBar = ({ title }: Props) => {
   return (
-    <div className="py-4 px-6 bg-sec-600 text-white text-sm flex justify-between items-center">
-      <span>Featured Products</span>
+    <div className="py-4 px-8 bg-fyellow text-white text-sm flex justify-between items-center my-7">
+      <span>{title}</span>
       <span className="flex items-center cursor-pointer">
-        <span>View More</span> <Icon image={{ src: chevronRight, alt: "" }} />
+        <span>View More</span> <span className="mx-1"></span>{" "}
+        <Icon image={{ src: chevronRight, alt: "" }} />
       </span>
     </div>
   );

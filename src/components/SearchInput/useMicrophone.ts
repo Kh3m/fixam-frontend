@@ -17,6 +17,7 @@ const useMicrophone = (
 
       if (micRef && micRef.current)
         micRef.current.addEventListener("click", () => {
+      console.log("LIstening...")
           recognition.start();
         });
 

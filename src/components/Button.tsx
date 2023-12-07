@@ -4,11 +4,13 @@ interface Props {
   variant?: "outlined" | "w-icon" | "elevated" | "text";
   color?: string;
   children: ReactNode;
+  styles?: string;
+  noSizingClass?: boolean;
 }
-const Button = ({ children, variant }: Props) => {
-  const baseClass = "transition-color duration-500 rounded-md ";
+const Button = ({ children, variant, styles, noSizingClass }: Props) => {
+  const baseClass = "transition-color duration-500 rounded-[5px] ";
 
-  const btnClass = "px-[45px] py-[12px] text-[12px]";
+  const sizingClass = "px-[32px] py-[8px] text-[12px]";
   switch (variant) {
     /**
      * w-icon : Button with icon
@@ -16,7 +18,7 @@ const Button = ({ children, variant }: Props) => {
     case "outlined":
       return (
         <button
-          className={` ${baseClass} ${btnClass} border-[3px] text-white border-white`}
+          className={` ${baseClass} ${sizingClass} border-2 border-white text-white`}
         >
           {children}
         </button>
@@ -24,7 +26,7 @@ const Button = ({ children, variant }: Props) => {
     case "elevated":
       return (
         <button
-          className={` ${baseClass} ${btnClass} bg-white text-fyellow border-[3px] border-white`}
+          className={` ${baseClass} ${!noSizingClass && sizingClass} ${styles}`}
         >
           {children}
         </button>
@@ -32,7 +34,7 @@ const Button = ({ children, variant }: Props) => {
     case "text":
       return (
         <button
-          className={` ${baseClass} p-10 text-white text-base font-semibold`}
+          className={` ${baseClass} p-2 text-white text-base font-semibold`}
         >
           {children}
         </button>

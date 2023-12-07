@@ -7,7 +7,7 @@ const IconPlus = ({ name = "" }: { name?: string }) => {
     <span
       className={`
     ${classNames[name]}
-    rounded-full h-3 w-3 inline-flex justify-center items-center `}
+    rounded-full h-5 w-5 inline-flex justify-center items-center bg-fgrey`}
     >
       <span className="inline-block text-xs">+</span>
     </span>

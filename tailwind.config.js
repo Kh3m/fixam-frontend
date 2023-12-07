@@ -10,6 +10,9 @@ export default {
       colors: {
         'fblack': "#1F1F1F",
         'fyellow': '#FF9900',
+        'fpurple': '#DF22FE',
+        'fgrey': '#9B9B9B',
+        'fdarkery-grey': '#616161',
         'pri': {
           '50': '#fffeea',
           '100': '#fffac5',

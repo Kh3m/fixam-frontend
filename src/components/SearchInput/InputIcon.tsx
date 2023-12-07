@@ -13,7 +13,7 @@ const InputIcon = ({ image, side }: Props) => {
     <span
       className={`${classeNames[side]}
       inline-flex justify-center  from-pri-default to-pri-600 
-    items-center absolute w-[54px] h-[56px] fshadow`}
+    items-center absolute w-[44px] h-[46px] fshadow-search`}
     >
       {typeof image === "string" ? (
         <img src={image} alt="Search" className="w-4 h-4" />
