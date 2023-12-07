@@ -24,8 +24,8 @@ const Mic = () => {
           y2="9.63894"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FCB900" />
-          <stop offset="0.898204" stop-color="#FF6900" />
+          <stop stopColor="#FCB900" />
+          <stop offset="0.898204" stopColor="#FF6900" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2002_448"
@@ -35,8 +35,8 @@ const Mic = () => {
           y2="18.7381"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FCB900" />
-          <stop offset="0.898204" stop-color="#FF6900" />
+          <stop stopColor="#FCB900" />
+          <stop offset="0.898204" stopColor="#FF6900" />
         </linearGradient>
       </defs>
     </svg>

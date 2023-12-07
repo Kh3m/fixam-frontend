@@ -20,8 +20,8 @@ const SearchIconSvg = () => {
           y2="15.1316"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FCB900" />
-          <stop offset="0.898204" stop-color="#FF6900" />
+          <stop stopColor="#FCB900" />
+          <stop offset="0.898204" stopColor="#FF6900" />
         </linearGradient>
       </defs>
     </svg>

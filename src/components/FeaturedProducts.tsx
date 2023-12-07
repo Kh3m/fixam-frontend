@@ -2,13 +2,18 @@ import FeaturedBar from "./FeaturedBar";
 import MiniAdBanner from "./MiniAdBanner";
 import Products from "./Products/Products";
 
-const FeaturedProducts = ({ title }: { title: string }) => {
+interface Props {
+  title: string;
+  to: string;
+}
+
+const FeaturedProducts = ({ title, to }: Props) => {
   return (
-    <div className="flex-grow my-8">
+    <>
       <MiniAdBanner />
-      <FeaturedBar title={title} />
+      <FeaturedBar title={title} to={to} />
       <Products />
-    </div>
+    </>
   );
 };
 

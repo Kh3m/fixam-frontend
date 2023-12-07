@@ -1,6 +1,22 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
-const Container = ({ children }: PropsWithChildren) => {
+interface Props {
+  twoColLayout?: boolean;
+  Aside?: ReactNode;
+}
+const Container = ({
+  children,
+  twoColLayout,
+  Aside,
+}: PropsWithChildren<Props>) => {
+  if (twoColLayout) {
+    return (
+      <div className="md:w-[1220px] m-auto flex space-x-8">
+        <div className="max-w-[300px] grow-0">{Aside}</div>
+        <div className="flex-grow">{children}</div>
+      </div>
+    );
+  }
   return <div className="md:w-[1220px] m-auto">{children}</div>;
 };
 

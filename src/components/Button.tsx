@@ -6,8 +6,15 @@ interface Props {
   children: ReactNode;
   styles?: string;
   noSizingClass?: boolean;
+  onClick?: () => void;
 }
-const Button = ({ children, variant, styles, noSizingClass }: Props) => {
+const Button = ({
+  children,
+  variant,
+  styles,
+  noSizingClass,
+  onClick,
+}: Props) => {
   const baseClass = "transition-color duration-500 rounded-[5px] ";
 
   const sizingClass = "px-[32px] py-[8px] text-[12px]";
@@ -18,6 +25,7 @@ const Button = ({ children, variant, styles, noSizingClass }: Props) => {
     case "outlined":
       return (
         <button
+          onClick={onClick}
           className={` ${baseClass} ${sizingClass} border-2 border-white text-white`}
         >
           {children}
@@ -26,6 +34,7 @@ const Button = ({ children, variant, styles, noSizingClass }: Props) => {
     case "elevated":
       return (
         <button
+          onClick={onClick}
           className={` ${baseClass} ${!noSizingClass && sizingClass} ${styles}`}
         >
           {children}
@@ -34,7 +43,8 @@ const Button = ({ children, variant, styles, noSizingClass }: Props) => {
     case "text":
       return (
         <button
-          className={` ${baseClass} p-2 text-white text-base font-semibold`}
+          onClick={onClick}
+          className={`${baseClass}  ${styles} font-semibold`}
         >
           {children}
         </button>
@@ -42,6 +52,7 @@ const Button = ({ children, variant, styles, noSizingClass }: Props) => {
     case "w-icon":
       return (
         <button
+          onClick={onClick}
           className={` ${baseClass} py-2 px-6
           flex space-x-2 justify-center items-center
           hover:bg-pri-600  `}
@@ -51,7 +62,7 @@ const Button = ({ children, variant, styles, noSizingClass }: Props) => {
       );
     default:
       return (
-        <button className={` ${baseClass} py-2 px-6 hover:bg-pri-600`}>
+        <button onClick={onClick} className={`${styles}`}>
           {children}
         </button>
       );

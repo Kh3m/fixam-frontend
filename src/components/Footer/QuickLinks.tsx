@@ -12,7 +12,7 @@ const QuickLinks = ({ links, title }: Props) => {
       <h4 className="font-bold text-lg text-white my-6">{title}</h4>
       <ul>
         {links.map(({ to, text }) => (
-          <li className=" text-sm text-white font-normal my-4">
+          <li key={to + text} className=" text-sm text-white font-normal my-4">
             <Link to={to}>{text}</Link>
           </li>
         ))}

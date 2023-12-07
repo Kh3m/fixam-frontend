@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "./Button";
 import Container from "./Container";
 import Logo from "./Logo";
@@ -9,13 +10,17 @@ const Header = () => {
       <Container>
         <div className=" h-24  flex items-center justify-between">
           <div className="flex items-center">
-            <div className="w-[95px] h-[78px]">
-              <Logo color="white" />
+            <div className="w-[95px] h-[78px] cursor-pointer">
+              <Link to={"/"}>
+                <Logo color="white" />
+              </Link>
             </div>
             <SearchInput />
           </div>
           <div className="flex items-center space-x-5">
-            <Button variant="text">Login</Button>
+            <Button variant="text" styles="text-white text-base ">
+              Login
+            </Button>
             <Button variant="outlined">Register</Button>
             <Button
               variant="elevated"
