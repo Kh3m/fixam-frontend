@@ -1,7 +1,4 @@
 import { ImageType } from "../../utils/types";
-import IconHolder from "../IconHolder";
-
-import wishList from "../../assets/wish-list-yes.png";
 import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import WishListIcon from "../../WishListIcon";

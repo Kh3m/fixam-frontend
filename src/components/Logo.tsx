@@ -1,4 +1,4 @@
-import logo from "/fixam-logo.png";
+import logo from "../assets/fixam-logo2.png";
 import WLogo from "../assets/fixamlogo-w.png";
 
 interface Props {

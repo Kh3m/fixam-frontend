@@ -9,10 +9,10 @@ interface Props {
 const QuickLinks = ({ links, title }: Props) => {
   return (
     <div>
-      <h4>{title}</h4>
+      <h4 className="font-bold text-lg text-white my-6">{title}</h4>
       <ul>
         {links.map(({ to, text }) => (
-          <li>
+          <li className=" text-sm text-white font-normal my-4">
             <Link to={to}>{text}</Link>
           </li>
         ))}

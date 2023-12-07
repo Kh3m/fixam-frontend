@@ -1,14 +1,11 @@
-import linkedIn from "../assets/linkedin.svg";
 import Banner from "../components/Banner";
-import Button from "../components/Button";
 import Categories from "../components/Categories/Categories";
 import FeaturedProducts from "../components/FeaturedProducts";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
-import Icon from "../components/IconHolder";
-import IconPlus from "../components/IconPlus";
-import Logo from "../components/Logo";
+
 import NewsLetter from "../components/NewsLetter";
+import Partners from "../components/Partners";
 import TopAdBanner from "../components/TopAdBannner";
 
 function HomePage() {
@@ -32,23 +29,15 @@ function HomePage() {
           <FeaturedProducts title="Flash Deals" />
         </div>
       </div>
-
+      <Partners />
       <NewsLetter />
-
-      <div className="md:w-[1140px] m-auto">
-        <div className="flex space-x-1 items-center flex-wrap">
-          <Icon image={{ src: linkedIn, alt: "Fixam LinkedIn Profile" }} />
-          <Logo color="yellow" />
-          <Button>Buy Now</Button>
+      <Footer />
+      {/* 
           <Button variant="w-icon">
             <IconPlus />
             <span>Fix Ad Here</span>
           </Button>
-          <Button variant="outlined">Register</Button>
-        </div>
-      </div>
-
-      <Footer />
+   */}
     </main>
   );
 }

@@ -3,9 +3,9 @@ import Input from "./Input";
 
 const NewsLetter = () => {
   return (
-    <div
+    <section
       color="black"
-      className="flex flex-col my-5 text-center text-white bg-fblack h-72 justify-center"
+      className="flex flex-col text-center text-white bg-fblack h-72 justify-center"
     >
       <div className="my-2">
         <p className="text-2xl my-1 font-semibold leading-normal">
@@ -26,7 +26,7 @@ const NewsLetter = () => {
           Submit
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 
