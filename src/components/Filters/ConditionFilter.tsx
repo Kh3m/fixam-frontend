@@ -1,5 +1,3 @@
-import FilterCard from "./FilterCard";
-import FilterListItem from "./FilterListItem";
 import Space from "../Space";
 import FiltersWithInputField from "./FiltersWithInputField";
 
