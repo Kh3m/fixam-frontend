@@ -47,7 +47,7 @@ const InputFilter = ({ label, defaultValue }: Props) => {
         min={1}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="border border-fgrey outline-1 outline-fgrey w-full "
+        className="border border-fgrey outline-1 outline-fgrey w-full p-2 text-sm"
       />
     </label>
   );

@@ -40,7 +40,7 @@ const TypeFilter = () => {
     <FilterCard filterBy="Type">
       <div className="flex space-x-1">
         <input
-          className="border border-fgrey outline-1 outline-fgrey w-full "
+          className="border border-fgrey outline-1 outline-fgrey w-full p-2 text-sm "
           placeholder="Find Type"
         />
       </div>

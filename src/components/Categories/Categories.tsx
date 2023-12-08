@@ -15,8 +15,8 @@ const categories: string[] = [
 const Categories = () => {
   return (
     <ul className="bg-white px-6 py-10 rounded-b-2xl w-full fshadow">
-      {categories.map((cat) => (
-        <Category text={cat} />
+      {categories.map((cat, i) => (
+        <Category text={cat} key={i} />
       ))}
     </ul>
   );

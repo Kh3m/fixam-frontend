@@ -1,7 +1,7 @@
 import { ImageType } from "../../utils/types";
 import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
-import WishListIcon from "../../WishListIcon";
+import { AiOutlineHeart } from "react-icons/ai";
 
 export type ProductType = {
   image: ImageType;
@@ -13,11 +13,14 @@ export type ProductType = {
 
 interface Props {
   product: ProductType;
+  handleFavStatus: (index: number) => void;
+  temId: number;
 }
 const Product = ({
   product: { status, title, favorite, price, image },
+  handleFavStatus,
+  temId,
 }: Props) => {
-  console.log(favorite);
   return (
     <article className="fshadow">
       <div className="relative">
@@ -30,8 +33,19 @@ const Product = ({
         >
           {status}
         </span>
-        <span className="absolute -bottom-7 right-7 cursor-pointer ">
-          <WishListIcon />
+        <span
+          onClick={() => handleFavStatus(temId)}
+          className={`${
+            favorite ? "bg-fyellow" : "bg-white"
+          } absolute -bottom-7 right-7 
+        flex justify-center items-center
+        cursor-pointer  h-12 w-12 rounded-full fshadow`}
+        >
+          <AiOutlineHeart
+            width="50px"
+            size={28}
+            color={`${favorite ? "#FFF" : "#FF9900"}`}
+          />
         </span>
       </div>
       <div className="p-5 bg-white  rounded-b-lg">
@@ -66,23 +80,23 @@ const Product = ({
               <path
                 d="M24.9366 25.4679C25.486 25.4679 25.9315 25.0944 25.9315 24.6337C25.9315 24.173 25.486 23.7996 24.9366 23.7996C24.3871 23.7996 23.9417 24.173 23.9417 24.6337C23.9417 25.0944 24.3871 25.4679 24.9366 25.4679Z"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M35.8807 25.4679C36.4301 25.4679 36.8756 25.0944 36.8756 24.6337C36.8756 24.173 36.4301 23.7996 35.8807 23.7996C35.3312 23.7996 34.8857 24.173 34.8857 24.6337C34.8857 25.0944 35.3312 25.4679 35.8807 25.4679Z"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M16.9773 7.95044H20.9569L23.6233 19.1199C23.7143 19.5039 23.9635 19.8489 24.3272 20.0944C24.691 20.34 25.1462 20.4704 25.6131 20.4629H35.2837C35.7506 20.4704 36.2058 20.34 36.5695 20.0944C36.9333 19.8489 37.1825 19.5039 37.2735 19.1199L38.8653 12.1213H21.9518"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </Button>

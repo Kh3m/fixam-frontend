@@ -4,8 +4,9 @@ import Product, { ProductType } from "./Product";
 import product1 from "../../assets/product_1.png";
 import product2 from "../../assets/product_2.png";
 import product3 from "../../assets/product_3.png";
+import { useState } from "react";
 
-const products: ProductType[] = [
+const initialProducts: ProductType[] = [
   {
     image: {
       src: product1,
@@ -13,7 +14,7 @@ const products: ProductType[] = [
     },
     title: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: true,
+    favorite: false,
     status: "For Sale",
   },
   {
@@ -33,15 +34,30 @@ const products: ProductType[] = [
     },
     title: "Washing Machine",
     price: 34_557.537,
-    favorite: true,
+    favorite: false,
     status: "For Sale",
   },
 ];
 const Products = () => {
+  const [products, setProducts] = useState(initialProducts);
+
+  const handleFavStatus = (id: number) => {
+    setProducts((prevProds) => {
+      return prevProds.map((prod, indx) =>
+        indx === id ? { ...prod, favorite: !prod.favorite } : prod
+      );
+    });
+  };
+
   return (
     <Grid cols={3}>
       {products.map((prod, i) => (
-        <Product key={i} product={prod} />
+        <Product
+          key={i}
+          product={prod}
+          handleFavStatus={handleFavStatus}
+          temId={i}
+        />
       ))}
     </Grid>
   );
