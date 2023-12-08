@@ -59,7 +59,12 @@ const CategoryFilter = () => {
       <h3 className="text-sm">Home, Furniture & Appliances</h3>
       <ul className="ml-4">
         {categories.slice(0, sliceLen).map(({ category, count, selected }) => (
-          <FilterListItem text={category} count={count} selected={selected} />
+          <FilterListItem
+            isFor="categories"
+            text={category}
+            count={count}
+            selected={selected}
+          />
         ))}
         <Button
           onClick={() => {
