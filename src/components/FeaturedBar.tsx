@@ -13,7 +13,7 @@ const FeaturedBar = ({ title, to }: Props) => {
       <Link to={to}>
         <span className="flex items-center cursor-pointer">
           <span>View More</span> <span className="mx-1"></span>
-          <Icon image={{ src: chevronRight, alt: "" }} />
+          <Icon image={{ src: chevronRight, alt: "icon - chevron right" }} />
         </span>
       </Link>
     </div>

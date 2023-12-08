@@ -22,6 +22,7 @@ function HomePage() {
         <FeaturedProducts title="Flash Deals" to="/products/flash-sales" />
         <FeaturedProducts title="Flash Deals" to="/products/flash-sales" />
       </Container>
+      <Space spacing="my-14" />
       <Partners />
       {/* 
           <Button variant="w-icon">
