@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import Main from "../components/Main";
@@ -10,6 +10,7 @@ function Layout() {
   const { pathname } = useLocation();
   return (
     <Main>
+      <ScrollRestoration />
       {pathname === "/" && <TopAdBanner />}
       <Header />
       <Outlet />

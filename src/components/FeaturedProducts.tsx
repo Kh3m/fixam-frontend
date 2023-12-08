@@ -1,6 +1,7 @@
 import FeaturedBar from "./FeaturedBar";
 import MiniAdBanner from "./MiniAdBanner";
 import Products from "./Products/Products";
+import Space from "./Space";
 
 interface Props {
   title: string;
@@ -13,6 +14,7 @@ const FeaturedProducts = ({ title, to }: Props) => {
       <MiniAdBanner />
       <FeaturedBar title={title} to={to} />
       <Products />
+      <Space spacing="my-8" />
     </>
   );
 };
