@@ -28,6 +28,14 @@ const ProductsPage = () => {
         <Space spacing="my-8" />
         <Products />
         <Space spacing="my-8" />
+        <Products />
+        <Space spacing="my-8" />
+        <Products />
+        <Space spacing="my-8" />
+        <Products />
+        <Space spacing="my-8" />
+        <Products />
+        <Space spacing="my-8" />
       </Container>
       <Space spacing="my-14" />
     </Main>

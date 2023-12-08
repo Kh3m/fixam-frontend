@@ -55,7 +55,7 @@ const InputFilter = ({ label, defaultValue }: Props) => {
 
 const PriceFilter = () => {
   return (
-    <FilterCard filterBy="Price, ₦">
+    <FilterCard filterTitle="Price, ₦">
       <div className="flex space-x-1">
         <InputFilter label="Min" defaultValue="" />
         <InputFilter label="Max" defaultValue="" />

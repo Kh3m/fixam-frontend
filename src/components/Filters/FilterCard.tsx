@@ -3,13 +3,13 @@ import Card from "../Card";
 import Space from "../Space";
 
 interface Props {
-  filterBy: string;
+  filterTitle: string;
 }
 
-const FilterCard = ({ children, filterBy }: PropsWithChildren<Props>) => {
+const FilterCard = ({ children, filterTitle }: PropsWithChildren<Props>) => {
   return (
     <Card>
-      <h3 className="text-sm text-slate-900 font-semibold">{filterBy}</h3>
+      <h3 className="text-sm text-slate-900 font-semibold">{filterTitle}</h3>
       <Space spacing="my-2" />
       {children}
     </Card>

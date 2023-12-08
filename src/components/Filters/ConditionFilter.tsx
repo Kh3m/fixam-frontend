@@ -1,6 +1,7 @@
 import FilterCard from "./FilterCard";
 import FilterListItem from "./FilterListItem";
 import Space from "../Space";
+import FiltersWithInputField from "./FiltersWithInputField";
 
 const conditions = [
   {
@@ -17,19 +18,14 @@ const conditions = [
 
 const ConditionFilter = () => {
   return (
-    <FilterCard filterBy="Condition">
-      <ul>
-        {conditions.map(({ category, count }) => (
-          <FilterListItem
-            isFor="condition"
-            text={category}
-            count={count}
-            variant="checkbox"
-          />
-        ))}
-      </ul>
+    <>
+      <FiltersWithInputField
+        filters={conditions}
+        filterTitle="Conditions"
+        variant="checkbox"
+      />
       <Space spacing="my-4" />
-    </FilterCard>
+    </>
   );
 };
 
