@@ -26,7 +26,9 @@ const Button = ({
       return (
         <button
           onClick={onClick}
-          className={` ${baseClass} ${sizingClass} border-2 border-white text-white`}
+          className={` ${baseClass} ${sizingClass} ${
+            styles ? `${styles}` : " border-white text-white"
+          } border-2`}
         >
           {children}
         </button>

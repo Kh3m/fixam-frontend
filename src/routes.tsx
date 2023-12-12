@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/product/ProductsPage";
 import AppLayout from "./pages/AppLayout";
+import ProductDetailPage from "./pages/product/ProductDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -13,14 +14,18 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/products/:feauture",
+        path: "/products/featured/:featuredName",
         element: <ProductsPage />,
       },
-      { path: "/login", element: <div>Login</div> },
-      { path: "/register", element: <div>Register</div> },
-      { path: "/admin", element: <div>Admin</div> },
+      {
+        path: "/products/:productId",
+        element: <ProductDetailPage />,
+      },
     ],
   },
+  { path: "/login", element: <div>Login</div> },
+  { path: "/register", element: <div>Register</div> },
+  { path: "/admin", element: <div>Admin</div> },
 ]);
 
 export default router;
