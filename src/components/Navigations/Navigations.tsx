@@ -25,7 +25,7 @@ const Navigations = ({ direction, items }: Props) => {
               color={`${
                 pathname.includes(item.text.toLowerCase())
                   ? "white"
-                  : `${isDarkMode ? "white" : "black"}`
+                  : `${isDarkMode ? "#d3d3d3" : "black"}`
               }`}
             />
           );
