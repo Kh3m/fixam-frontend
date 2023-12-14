@@ -38,7 +38,7 @@ export default {
           '900': '#7c400b',
           '950': '#482100',
       },
-      'blue': '#4054B2',
+      'fblue': '#4054B2',
       },
       fontFamily: {
         poppins: "'Poppins', sans-serif",

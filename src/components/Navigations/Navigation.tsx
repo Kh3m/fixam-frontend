@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { LinkType } from "../../utils/types";
+import useDarkMode from "../../hooks/useDarkMode";
 
 interface Props {
   withIcon?: boolean;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const Navigation = ({ item: { icon, to, text } }: Props) => {
+  const { isDarkMode } = useDarkMode();
   return (
     <li className="">
       <NavLink
@@ -15,7 +17,9 @@ const Navigation = ({ item: { icon, to, text } }: Props) => {
           isPending
             ? "pending"
             : isActive
-            ? "cursor-pointer text-white bg-fyellow px-6 py-3 block rounded-lg text-lg font-semibold fshadow"
+            ? `${
+                isDarkMode ? "bg-fdark-700" : "bg-fyellow"
+              } cursor-pointer text-white px-6 py-3 block rounded-lg text-lg font-semibold fshadow`
             : "cursor-pointer dark:text-white text-black  px-6 py-3 block rounded-lg text-lg font-semibold"
         }
       >

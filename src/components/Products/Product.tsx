@@ -3,6 +3,7 @@ import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import useDarkMode from "../../hooks/useDarkMode";
 
 export type ProductType = {
   image: ImageType;
@@ -18,12 +19,17 @@ interface Props {
   temId: number;
   isAdProduct?: boolean;
 }
+
 const Product = ({
   product: { status, title, favorite, price, image },
   handleFavStatus,
   temId,
   isAdProduct,
 }: Props) => {
+  const { isDarkMode } = useDarkMode();
+  // slate-800
+  const tempCartColor = isDarkMode ? "#1e293b" : "#FF9900";
+
   return (
     <article className={`${isAdProduct && "w-[265px]"} fshadow `}>
       <div className="relative">
@@ -38,7 +44,7 @@ const Product = ({
         {!isAdProduct && (
           <span
             className="py-2 px-4 absolute top-10 text-xs font-semibold
-        bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
+            dark:bg-slate-800 bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
           >
             {status}
           </span>
@@ -46,7 +52,7 @@ const Product = ({
         <span
           onClick={() => handleFavStatus(temId)}
           className={`${
-            favorite ? "bg-fyellow" : "bg-white"
+            favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
           } absolute -bottom-7 right-7 
         flex justify-center items-center
         cursor-pointer  h-12 w-12 rounded-full fshadow`}
@@ -54,17 +60,23 @@ const Product = ({
           <AiOutlineHeart
             width="50px"
             size={28}
-            color={`${favorite ? "#FFF" : "#FF9900"}`}
+            color={`${
+              favorite && isDarkMode
+                ? "#FFF"
+                : favorite && !isDarkMode
+                ? "#FF9900"
+                : tempCartColor
+            }`}
           />
         </span>
       </div>
-      <div className="p-5 bg-white  rounded-b-lg">
+      <div className="p-5 dark:bg-fdark-700 bg-white  rounded-b-lg">
         <Link to="/products/detail">
-          <p className="text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
+          <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
             {title}
           </p>
         </Link>
-        <p className="text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
+        <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
           <span>{formatPrice(price)}</span>
           <span className="text-fdarkery-grey text-[10px] font-semibold">
             (5 items left)
@@ -74,7 +86,7 @@ const Product = ({
           <div className="flex justify-end items-center space-x-1 my-3">
             <Button
               variant="elevated"
-              styles="bg-fyellow text-white font-bold"
+              styles="text-white font-bold"
               noSizingClass
             >
               <svg
@@ -90,7 +102,7 @@ const Product = ({
                   width="54.7201"
                   height="33.3665"
                   rx="5"
-                  fill="#FF9900"
+                  fill={tempCartColor}
                 />
                 <path
                   d="M24.9366 25.4679C25.486 25.4679 25.9315 25.0944 25.9315 24.6337C25.9315 24.173 25.486 23.7996 24.9366 23.7996C24.3871 23.7996 23.9417 24.173 23.9417 24.6337C23.9417 25.0944 24.3871 25.4679 24.9366 25.4679Z"
@@ -115,7 +127,10 @@ const Product = ({
                 />
               </svg>
             </Button>
-            <Button variant="elevated" styles="bg-fyellow text-white font-bold">
+            <Button
+              variant="elevated"
+              styles="dark:bg-slate-800 bg-fyellow text-white font-bold"
+            >
               Buy Now
             </Button>
           </div>

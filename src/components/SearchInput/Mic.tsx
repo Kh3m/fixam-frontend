@@ -1,4 +1,10 @@
+import useDarkMode from "../../hooks/useDarkMode";
+
 const Mic = () => {
+  const { isDarkMode } = useDarkMode();
+  const tempStopColor = isDarkMode ? "#202020" : "#FF6900";
+  const tempOffsetStopColor = isDarkMode ? "#202020" : "#FF6900";
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +30,7 @@ const Mic = () => {
           y2="9.63894"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FCB900" />
+          <stop stopColor={tempStopColor} />
           <stop offset="0.898204" stopColor="#FF6900" />
         </linearGradient>
         <linearGradient
@@ -35,8 +41,8 @@ const Mic = () => {
           y2="18.7381"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FCB900" />
-          <stop offset="0.898204" stopColor="#FF6900" />
+          <stop stopColor={tempStopColor} />
+          <stop offset="0.898204" stopColor={tempOffsetStopColor} />
         </linearGradient>
       </defs>
     </svg>

@@ -1,6 +1,12 @@
+import useDarkMode from "../hooks/useDarkMode";
+
 const IconPlus = ({ name = "" }: { name?: string }) => {
+  const { isDarkMode } = useDarkMode();
+
   const classNames: { [key: string]: string } = {
-    "": "bg-white text-pri-default",
+    "": `${
+      isDarkMode ? "bg-fdark-500 text-fdark-200" : "bg-white text-pri-default"
+    } `,
     cat: "bg-black text-white",
   };
   return (

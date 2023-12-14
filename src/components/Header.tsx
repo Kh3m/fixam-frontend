@@ -27,8 +27,9 @@ const Header = () => {
     const createdStore = apiClient.post("/api/v1/stores", store);
     console.log(createdStore);
   };
+
   return (
-    <header className="bg-fyellow">
+    <header className="dark:bg-fdark-700 bg-fyellow">
       <Container>
         <div className=" h-24  flex items-center justify-between">
           <div className="flex items-center">
@@ -47,7 +48,7 @@ const Header = () => {
             <Link to="/stores/storeId">
               <Button
                 variant="elevated"
-                styles="bg-white text-fyellow border-2 border-white"
+                styles=" bg-white dark:text-slate-800 text-fyellow border-2 border-white"
               >
                 Be a vendor
               </Button>

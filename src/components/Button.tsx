@@ -27,7 +27,9 @@ const Button = ({
         <button
           onClick={onClick}
           className={` ${baseClass} ${sizingClass} ${
-            styles ? `${styles}` : " border-white text-white"
+            styles
+              ? `${styles}`
+              : " dark:border-fdark-200 border-white dark:text-fdark-200 text-white"
           } border-2`}
         >
           {children}
