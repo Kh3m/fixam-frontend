@@ -3,12 +3,14 @@ import { PropsWithChildren, ReactNode } from "react";
 interface Props {
   withHeader?: boolean;
   headerContent?: ReactNode | string;
+  styles?: string;
 }
 
 const Card = ({
   children,
   withHeader,
   headerContent,
+  styles,
 }: PropsWithChildren<Props>) => {
   return (
     <>
@@ -18,7 +20,7 @@ const Card = ({
         </header>
       )}
       <div
-        className={`${
+        className={`${styles} ${
           withHeader ? "rounded-b-md " : "rounded-md "
         } bg-white px-5 py-3 w-full fshadow`}
       >

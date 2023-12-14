@@ -55,9 +55,10 @@ const Button = ({
       return (
         <button
           onClick={onClick}
-          className={` ${baseClass} py-2 px-6
+          className={` ${baseClass} ${sizingClass}
+          ${styles ? `${styles}` : ""}
           flex space-x-2 justify-center items-center
-          hover:bg-pri-600  `}
+         `}
         >
           {children}
         </button>

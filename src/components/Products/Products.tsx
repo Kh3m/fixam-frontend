@@ -88,9 +88,8 @@ const Products = ({ direction }: Props) => {
     return (
       <Flex>
         {products.map((prod, i) => (
-          <div className="w-[665px]">
+          <div key={i} className="w-[665px]">
             <Product
-              key={i}
               product={prod}
               handleFavStatus={handleFavStatus}
               temId={i}

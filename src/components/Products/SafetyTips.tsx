@@ -10,7 +10,9 @@ const SafetyTips = () => {
       <h3 className="text-base"> Safety tips</h3>
       <ul className="text-xs text-fgrey text-left">
         {safetyTips.map((tip) => (
-          <li className="my-1">{tip}</li>
+          <li key={tip} className="my-1">
+            {tip}
+          </li>
         ))}
       </ul>
     </div>

@@ -48,12 +48,6 @@ function HomePage() {
       </Container>
       <Space spacing="my-14" />
       <Partners />
-      {/* 
-          <Button variant="w-icon">
-            <IconPlus />
-            <span>Fix Ad Here</span>
-          </Button>
-   */}
     </Main>
   );
 }

@@ -3,6 +3,12 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/product/ProductsPage";
 import AppLayout from "./pages/AppLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
+import StorePage from "./pages/store/StorePage";
+import StoreProducts from "./pages/store/StoreProducts";
+import StoreSettings from "./pages/store/StoreSettings";
+import StoreMessages from "./pages/store/StoreMessages";
+import StoreCustomers from "./pages/store/StoreCustomers";
+import StoreOrders from "./pages/store/StoreOrders";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +26,32 @@ const router = createBrowserRouter([
       {
         path: "/products/:productId",
         element: <ProductDetailPage />,
+      },
+      {
+        path: "/stores/:storeId",
+        element: <StorePage />,
+        children: [
+          {
+            path: "products",
+            element: <StoreProducts />,
+          },
+          {
+            path: "orders",
+            element: <StoreOrders />,
+          },
+          {
+            path: "customers",
+            element: <StoreCustomers />,
+          },
+          {
+            path: "messages",
+            element: <StoreMessages />,
+          },
+          {
+            path: "settings",
+            element: <StoreSettings />,
+          },
+        ],
       },
     ],
   },

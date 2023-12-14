@@ -10,7 +10,8 @@ function Layout() {
   const { pathname } = useLocation();
   return (
     <Main>
-      <ScrollRestoration />
+      {!pathname.includes("stores") && <ScrollRestoration />}
+
       {pathname === "/" && <TopAdBanner />}
       <Header />
       <Outlet />
