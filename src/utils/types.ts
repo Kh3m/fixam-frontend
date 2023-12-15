@@ -6,7 +6,14 @@ export type ImageType = {
 };
 
 export type DirectionType = {
-  direction: "horizontal" | "vertical"
-}
+  direction: "horizontal" | "vertical";
+};
 
-export type LinkType = { icon?: ReactNode | string; to:string; text: string };
+export type LinkType = { icon?: ReactNode | string; to: string; text: string };
+
+export type InputConfigType = {
+  placeholder?: string;
+  type?: string;
+  multiple?: boolean;
+  name?: string;
+};

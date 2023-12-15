@@ -8,7 +8,7 @@ interface Props {
 }
 const FeaturedBar = ({ title, to }: Props) => {
   return (
-    <div className="py-4 px-8 dark:bg-fdark-700 bg-fyellow text-white text-sm flex justify-between items-center my-7">
+    <div className="py-4 px-8 dark:bg-slate-800 bg-fyellow text-white text-sm flex justify-between items-center my-7">
       <span>{title}</span>
       <Link to={to}>
         <span className="flex items-center cursor-pointer">

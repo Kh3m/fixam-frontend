@@ -11,7 +11,7 @@ const Container = ({
 }: PropsWithChildren<Props>) => {
   if (twoColLayout) {
     return (
-      <div className="md:w-[1220px] m-auto flex space-x-8">
+      <div className="max-w-[1220px] m-auto flex space-x-8">
         <div className="w-[300px] grow-0">{Aside}</div>
         <div className="flex-grow">{children}</div>
       </div>

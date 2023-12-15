@@ -16,9 +16,7 @@ const UserAccountCard = () => {
           />
         </div>
         <div>
-          <h3 className="text-lg font-semibold dark:text-fdark-200 text-fdark-600">
-            Khem
-          </h3>
+          <h3 className="text-lg font-semibold dark:text-fdark-200 ">Khem</h3>
           <h4 className="text-base font-semibold text-fgrey">User's Account</h4>
         </div>
         <FaAngleDown size={26} color="#6c6c6c" />

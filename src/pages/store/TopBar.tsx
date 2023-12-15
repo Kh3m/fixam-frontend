@@ -4,9 +4,9 @@ import IconPlus from "../../components/IconPlus";
 
 const TopBar = () => {
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-4 items-center">
       <div
-        className="dark:bg-fdark-800 dark:text-fdark-200 bg-white px-5 py-3 fshadow rounded-md 
+        className="dark:bg-slate-700 dark:text-slate-200 bg-white px-5 py-3 pagination-shadow rounded-md 
       flex-grow flex items-center space-x-4"
       >
         <MenuButton
@@ -20,8 +20,9 @@ const TopBar = () => {
         <MenuButton items={["Price 1", "Price 2", "Price 3"]}>Price</MenuButton>
       </div>
       <Button
+        noSizingClass
         variant="w-icon"
-        styles="dark:bg-slate-800 bg-fyellow text-white text-sm font-semibold w-[250px]"
+        styles="dark:bg-slate-800 bg-fyellow text-white text-sm font-semibold w-[250px] py-5"
       >
         <IconPlus />
         <span>Add Product</span>

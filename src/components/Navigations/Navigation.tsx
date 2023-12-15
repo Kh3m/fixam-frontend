@@ -18,7 +18,7 @@ const Navigation = ({ item: { icon, to, text } }: Props) => {
             ? "pending"
             : isActive
             ? `${
-                isDarkMode ? "bg-fdark-700" : "bg-fyellow"
+                isDarkMode ? "bg-slate-800" : "bg-fyellow"
               } cursor-pointer text-white px-6 py-3 block rounded-lg text-lg font-semibold fshadow`
             : "cursor-pointer dark:text-white text-black  px-6 py-3 block rounded-lg text-lg font-semibold"
         }

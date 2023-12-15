@@ -12,7 +12,7 @@ const FilterListItem = ({ variant, text, count, selected, isFor }: Props) => {
   switch (variant) {
     case "radio":
       return (
-        <li className="text-sm my-2 cursor-pointer">
+        <li className="text-sm my-2 cursor-pointer dark:text-white">
           <RadioButton text={text} radioFor={isFor} />
           <span className="text-fgrey"> {count}</span>
         </li>

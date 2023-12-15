@@ -12,7 +12,7 @@ import RoomFilter from "./RoomFilter";
 import TypeFilter from "./TypeFilter";
 
 const Filters = () => (
-  <div>
+  <>
     <CategoryFilter />
     <Space spacing="my-4" />
     <LocationFilter />
@@ -35,7 +35,7 @@ const Filters = () => (
     <Space spacing="my-4" />
     <MiniAdBanner shouldRotate />
     <Space spacing="my-4" />
-  </div>
+  </>
 );
 
 export default Filters;

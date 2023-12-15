@@ -9,6 +9,7 @@ import StoreSettings from "./pages/store/StoreSettings";
 import StoreMessages from "./pages/store/StoreMessages";
 import StoreCustomers from "./pages/store/StoreCustomers";
 import StoreOrders from "./pages/store/StoreOrders";
+import StoreCreationProcessPage from "./pages/store/StoreCreationProcessPage";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
   },
   { path: "/login", element: <div>Login</div> },
   { path: "/register", element: <div>Register</div> },
+  { path: "/stores/create", element: <StoreCreationProcessPage /> },
   { path: "/admin", element: <div>Admin</div> },
 ]);
 

@@ -60,17 +60,11 @@ const Product = ({
           <AiOutlineHeart
             width="50px"
             size={28}
-            color={`${
-              favorite && isDarkMode
-                ? "#FFF"
-                : favorite && !isDarkMode
-                ? "#FF9900"
-                : tempCartColor
-            }`}
+            color={`${favorite ? "#FFF" : "#FF9900"}`}
           />
         </span>
       </div>
-      <div className="p-5 dark:bg-fdark-700 bg-white  rounded-b-lg">
+      <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
         <Link to="/products/detail">
           <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
             {title}
@@ -78,7 +72,7 @@ const Product = ({
         </Link>
         <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
           <span>{formatPrice(price)}</span>
-          <span className="text-fdarkery-grey text-[10px] font-semibold">
+          <span className="text-fgrey text-[10px] font-semibold">
             (5 items left)
           </span>
         </p>
@@ -129,7 +123,7 @@ const Product = ({
             </Button>
             <Button
               variant="elevated"
-              styles="dark:bg-slate-800 bg-fyellow text-white font-bold"
+              styles="dark:bg-slate-600 bg-fyellow text-white font-bold"
             >
               Buy Now
             </Button>

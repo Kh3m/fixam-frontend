@@ -29,7 +29,7 @@ const Header = () => {
   };
 
   return (
-    <header className="dark:bg-fdark-700 bg-fyellow">
+    <header className=" bg-fyellow">
       <Container>
         <div className=" h-24  flex items-center justify-between">
           <div className="flex items-center">
@@ -45,10 +45,10 @@ const Header = () => {
               Login
             </Button>
             <Button variant="outlined">Register</Button>
-            <Link to="/stores/storeId">
+            <Link to="/stores/create">
               <Button
                 variant="elevated"
-                styles=" bg-white dark:text-slate-800 text-fyellow border-2 border-white"
+                styles=" bg-white text-fyellow border-2 border-white"
               >
                 Be a vendor
               </Button>

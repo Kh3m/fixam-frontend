@@ -23,11 +23,11 @@ const SearchInput = () => {
           onChange={(event) => setSearchText(event.target.value)}
           ref={searchRef}
           placeholder="Search products, materials, and professionals"
-          className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none placeholder:dark:text-fdark-700 dark:text-fdark-700 dark:bg-fdark-300"
+          className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none placeholder:dark:text-fgrey text-fgrey"
         />
         <InputIcon side="right" image={<SearchIconSvg />} />
       </div>
-      <div className="dark:bg-fdark-300 bg-white h-[46px] w-[44px] rounded-md flex justify-center items-center cursor-pointer">
+      <div className="bg-white h-[46px] w-[44px] rounded-md flex justify-center items-center cursor-pointer">
         <Mic />
       </div>
     </form>
