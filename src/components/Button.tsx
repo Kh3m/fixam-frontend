@@ -1,6 +1,6 @@
-import { type ReactNode } from "react";
+import { ButtonHTMLAttributes, type ReactNode } from "react";
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "outlined" | "w-icon" | "elevated" | "text";
   color?: string;
   children: ReactNode;
@@ -14,6 +14,7 @@ const Button = ({
   styles,
   noSizingClass,
   onClick,
+  ...props
 }: Props) => {
   const baseClass = "transition-color duration-500 rounded-[5px] ";
 
@@ -25,6 +26,7 @@ const Button = ({
     case "outlined":
       return (
         <button
+          {...props}
           onClick={onClick}
           className={` ${baseClass} ${sizingClass} ${
             styles ? `${styles}` : "border-white text-white"
@@ -36,6 +38,7 @@ const Button = ({
     case "elevated":
       return (
         <button
+          {...props}
           onClick={onClick}
           className={` ${baseClass} ${!noSizingClass && sizingClass} ${styles}`}
         >
@@ -45,6 +48,7 @@ const Button = ({
     case "text":
       return (
         <button
+          {...props}
           onClick={onClick}
           className={`${baseClass}  ${styles} font-semibold`}
         >
@@ -54,6 +58,7 @@ const Button = ({
     case "w-icon":
       return (
         <button
+          {...props}
           onClick={onClick}
           className={` ${baseClass} ${sizingClass}
           ${styles ? `${styles}` : ""}
@@ -65,7 +70,7 @@ const Button = ({
       );
     default:
       return (
-        <button onClick={onClick} className={`${styles}`}>
+        <button {...props} onClick={onClick} className={`${styles}`}>
           {children}
         </button>
       );

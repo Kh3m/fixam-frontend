@@ -16,4 +16,5 @@ export type InputConfigType = {
   type?: string;
   multiple?: boolean;
   name?: string;
+  value?: string;
 };
