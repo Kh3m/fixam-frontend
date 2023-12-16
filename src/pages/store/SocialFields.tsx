@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Input from "../../components/Input";
 import { Controller, useFormContext } from "react-hook-form";
+import CheckBox from "../../components/CheckBox";
 
 interface Props {}
 
@@ -25,6 +26,24 @@ const SocialFields: FC<Props> = () => {
         name="xLink"
         render={({ field }) => <Input {...field} placeholder="X Link" />}
       />
+
+      <Controller
+        rules={{
+          required: "Agree to the terms.",
+        }}
+        defaultValue={false}
+        control={control}
+        name="agreement"
+        render={({ field, fieldState }) => (
+          <CheckBox
+            {...field}
+            fieldState={fieldState}
+            text="I have read and agree with the website terms and conditions"
+            boxFor="accept_terms_condition"
+          />
+        )}
+      />
+
       {/* <Input
         config={{
           placeholder: "Facebook Link",

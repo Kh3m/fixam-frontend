@@ -16,20 +16,20 @@ const ProcessBar = ({ stepName, handleStepClick }: Props) => {
       <div className="flex justify-between items-center">
         <ProgressCircle
           label="Contact"
-          isActive={isActiveContact}
+          isActive={isActiveContact || isActiveBrand || isActiveSocials}
           handleStepClick={handleStepClick}
         >
           1
         </ProgressCircle>
-        <Bar />
+        <Bar isActive={isActiveBrand || isActiveSocials} />
         <ProgressCircle
           label="Brand"
-          isActive={isActiveBrand}
+          isActive={isActiveBrand || isActiveSocials}
           handleStepClick={handleStepClick}
         >
           2
         </ProgressCircle>
-        <Bar />
+        <Bar isActive={isActiveSocials} />
         <ProgressCircle
           label="Socials"
           isActive={isActiveSocials}
@@ -40,12 +40,18 @@ const ProcessBar = ({ stepName, handleStepClick }: Props) => {
       </div>
       <div className="flex justify-between items-center">
         <span
-          className={`${isActiveContact ? "text-fyellow" : "text-fgrey"}  my-1`}
+          className={`${
+            isActiveContact || isActiveBrand || isActiveSocials
+              ? "text-fyellow"
+              : "text-fgrey"
+          }  my-1`}
         >
           Contact
         </span>
         <span
-          className={`${isActiveBrand ? "text-fyellow" : "text-fgrey"} my-1`}
+          className={`${
+            isActiveBrand || isActiveSocials ? "text-fyellow" : "text-fgrey"
+          } my-1`}
         >
           Brand
         </span>

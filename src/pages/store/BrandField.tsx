@@ -1,18 +1,27 @@
+import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import Input from "../../components/Input";
+import { wordCountValidation } from "../../utils/validationRules";
 import ImageUpload from "./ImageUpload";
 
 interface Props {}
 
-const BrandFields: React.FC<Props> = () => {
+const BrandFields: FC<Props> = () => {
   const { control } = useFormContext();
   return (
     <div className="flex flex-col space-y-4 ">
       <Controller
+        rules={{
+          required: "Brand Name is required",
+        }}
         control={control}
         name="storeName"
-        render={({ field }) => (
-          <Input {...field} config={{ placeholder: "Store Name" }} />
+        render={({ field, fieldState }) => (
+          <Input
+            {...field}
+            fieldState={fieldState}
+            config={{ placeholder: "Store Name" }}
+          />
         )}
       />
 
@@ -25,13 +34,18 @@ const BrandFields: React.FC<Props> = () => {
       />
 
       <Controller
+        rules={{
+          required: "Slug is required to uniquely access your store",
+        }}
         control={control}
         name="slug"
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <Input
             {...field}
-            placeholder="fixam.africa.com/stores/{slug}"
+            fieldState={fieldState}
+            placeholder="Enter a unique name for accessing your store"
             type="url"
+            customPlaceholder="fixam.africa/stores/"
           />
         )}
       />
@@ -73,11 +87,16 @@ const BrandFields: React.FC<Props> = () => {
       />
 
       <Controller
+        rules={{
+          required: "In 50-250 words tell us about your store",
+          validate: wordCountValidation,
+        }}
         control={control}
         name="description"
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <Input
             {...field}
+            fieldState={fieldState}
             placeholder="Provide description about this store here..."
             name="description"
             isTextArea
