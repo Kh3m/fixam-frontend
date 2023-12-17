@@ -15,7 +15,6 @@ const ProcessBar = ({ stepName, handleStepClick }: Props) => {
     <Fragment>
       <div className="flex justify-between items-center">
         <ProgressCircle
-          label="Contact"
           isActive={isActiveContact || isActiveBrand || isActiveSocials}
           handleStepClick={handleStepClick}
         >
@@ -23,7 +22,6 @@ const ProcessBar = ({ stepName, handleStepClick }: Props) => {
         </ProgressCircle>
         <Bar isActive={isActiveBrand || isActiveSocials} />
         <ProgressCircle
-          label="Brand"
           isActive={isActiveBrand || isActiveSocials}
           handleStepClick={handleStepClick}
         >
@@ -31,7 +29,6 @@ const ProcessBar = ({ stepName, handleStepClick }: Props) => {
         </ProgressCircle>
         <Bar isActive={isActiveSocials} />
         <ProgressCircle
-          label="Socials"
           isActive={isActiveSocials}
           handleStepClick={handleStepClick}
         >

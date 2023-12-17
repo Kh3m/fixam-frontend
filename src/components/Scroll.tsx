@@ -1,30 +1,58 @@
 import { PropsWithChildren, useRef } from "react";
 import { DirectionType } from "../utils/types";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import Flex from "./Flex";
+import { motion } from "framer-motion";
 
 const Scroll = ({ direction, children }: PropsWithChildren<DirectionType>) => {
-  const divRef = useRef<HTMLDivElement>(null);
-  //   const [width, setWidth] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  //   useEffect(() => {
-  //     setWidth(
-  //       (divRef.current?.scrollWidth || 0) - (divRef.current?.offsetWidth || 0)
-  //     );
-  //   }, []);
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft -= 250;
+      console.log(
+        "INSIDE scrollContainerRef.current",
+        scrollContainerRef.current.scrollLeft
+      );
+    }
+  };
 
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft += 250;
+      console.log(
+        "INSIDE scrollContainerRef.current",
+        scrollContainerRef.current.scrollLeft
+      );
+    }
+  };
   return (
     <div
-      ref={divRef}
       className={` 
         ${direction === "vertical" && "flex-col"}
-        flex relative cursor-grabbing
-        after:absolute after:right-0 after:h-full
-        after:bg-black after:w-6 after:z-10 after:blur-lg
-
-        before:absolute before:left-0 before:h-full 
-        before:bg-black before:w-6 before:z-10 before:blur-lg
+        flex relative
     `}
     >
-      {children}
+      <motion.span
+        initial={{ y: -50, scale: 0.9 }}
+        whileHover={{ scale: 1 }}
+        onClick={scrollLeft}
+        className="h-12 w-12 font-bold dark:bg-slate-200 bg-slate-100 rounded-full flex justify-center items-center
+      absolute -left-6 top-[50%] translate-y-[-50%] z-20 text-2xl fshadow cursor-pointer"
+      >
+        <FaChevronLeft />
+      </motion.span>
+      <motion.span
+        initial={{ y: -50, scale: 0.9 }}
+        whileHover={{ scale: 1 }}
+        onClick={scrollRight}
+        className="h-12 w-12 font-bold dark:bg-slate-200 bg-slate-100 rounded-full flex justify-center items-center
+      absolute -right-6 top-[50%] translate-y-[-50%] z-20 text-2xl fshadow cursor-pointer"
+      >
+        <FaChevronRight />
+      </motion.span>
+
+      <Flex ref={scrollContainerRef}>{children}</Flex>
     </div>
   );
 };

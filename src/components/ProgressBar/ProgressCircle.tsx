@@ -2,13 +2,11 @@ import { PropsWithChildren } from "react";
 
 interface Props {
   isActive?: boolean;
-  label?: string;
   handleStepClick?: (indexNumber: number) => void;
 }
 const ProgressCircle = ({
   children,
   isActive,
-  label,
   handleStepClick,
 }: PropsWithChildren<Props>) => {
   return (
