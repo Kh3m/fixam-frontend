@@ -5,8 +5,8 @@ import partner4 from "../assets/partners/Sun-King-Logo-01.png";
 
 const Partners = () => {
   return (
-    <section className="bg-[#EEE] p-5">
-      <h3 className="text-center text-black font-medium text-4xl">
+    <section className="bg-slate-600 p-5">
+      <h3 className="text-center text-slate-100 font-medium text-4xl">
         Trust Partners
       </h3>
 

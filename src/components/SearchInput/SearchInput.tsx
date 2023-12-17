@@ -1,8 +1,8 @@
 import InputIcon from "./InputIcon";
 import useMicrophone from "./useMicrophone";
 import { type FormEvent, useRef } from "react";
-import SearchIconSvg from "./SearchIconSvg";
-import Mic from "./Mic";
+import { FaMicrophone } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 
 const SearchInput = () => {
   const micRef = useRef<HTMLSpanElement>(null);
@@ -25,10 +25,13 @@ const SearchInput = () => {
           placeholder="Search products, materials, and professionals"
           className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none placeholder:dark:text-fgrey text-fgrey"
         />
-        <InputIcon side="right" image={<SearchIconSvg />} />
+        <span className="dark:bg-fdark-100 dark:text-slate-500 text-fyellow bg-white">
+          <InputIcon side="right" image={<FaSearch />} />
+        </span>
       </div>
-      <div className="dark:bg-fdark-300 bg-white h-[46px] w-[44px] rounded-md flex justify-center items-center cursor-pointer">
-        <Mic />
+      <div className="dark:bg-fdark-100 dark:text-slate-500 text-fyellow bg-white h-[46px] w-[44px] rounded-md flex justify-center items-center cursor-pointer">
+        <FaMicrophone size={18} />
+        {/* <FaMicrophoneSlash size={18} /> */}
       </div>
     </form>
   );

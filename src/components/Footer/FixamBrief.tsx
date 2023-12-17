@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import GooglePlayAppStoreSVG from "../../GooglePlayAppStoreSVG";
 import Logo from "../Logo";
 import Space from "../Space";
 import SocialLinks from "./SocialLinks";
+import GooglePlayAppStoreSVG from "../SVGs/GooglePlayAppStoreSVG";
 
 const FixamBrief = () => {
   return (

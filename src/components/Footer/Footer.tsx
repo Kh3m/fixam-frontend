@@ -1,4 +1,4 @@
-import { LinkType } from "../../uitls/DataTypes";
+import { LinkType } from "../../utils/types";
 import FixamBrief from "./FixamBrief";
 import QuickLinks from "./QuickLinks";
 

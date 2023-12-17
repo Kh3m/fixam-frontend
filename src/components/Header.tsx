@@ -6,7 +6,7 @@ import SearchInput from "./SearchInput/SearchInput";
 
 const Header = () => {
   return (
-    <header className=" bg-fyellow">
+    <header className="dark:bg-slate-800 bg-fyellow">
       <Container>
         <div className=" h-24  flex items-center justify-between">
           <div className="flex items-center">

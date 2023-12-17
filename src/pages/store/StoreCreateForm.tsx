@@ -128,14 +128,6 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
       isStepValid = await validate("socials", getFieldState, trigger);
 
     if (!isLastStep && isStepValid) {
-      console.log(
-        "Stepname",
-        stepName,
-        "isStepValid",
-        isStepValid,
-        "isLastStep",
-        isLastStep
-      );
       setStepIndex((prevStepIndex) => {
         return prevStepIndex + 1;
       });

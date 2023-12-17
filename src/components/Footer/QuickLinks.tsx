@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LinkType } from "../../uitls/DataTypes";
+import { LinkType } from "../../utils/types";
 
 interface Props {
   links: LinkType[];
