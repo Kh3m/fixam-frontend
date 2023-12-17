@@ -60,7 +60,13 @@ const Product = ({
           <AiOutlineHeart
             width="50px"
             size={28}
-            color={`${favorite ? "#FFF" : "#FF9900"}`}
+            color={`${
+              favorite && isDarkMode
+                ? "#FFF"
+                : favorite && !isDarkMode
+                ? "#FF9900"
+                : tempCartColor
+            }`}
           />
         </span>
       </div>

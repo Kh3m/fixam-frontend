@@ -1,4 +1,8 @@
+import useDarkMode from "../../hooks/useDarkMode";
+
 const SearchIconSvg = () => {
+  const { isDarkMode } = useDarkMode();
+  const tempStopColor = isDarkMode ? "#202020" : "#FCB900";
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,8 +24,8 @@ const SearchIconSvg = () => {
           y2="15.1316"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FCB900" />
-          <stop offset="0.898204" stopColor="#FF6900" />
+          <stop stopColor={tempStopColor} />
+          <stop offset="0.898204" stopColor={tempStopColor} />
         </linearGradient>
       </defs>
     </svg>

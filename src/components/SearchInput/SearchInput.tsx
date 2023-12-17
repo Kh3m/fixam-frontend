@@ -27,7 +27,7 @@ const SearchInput = () => {
         />
         <InputIcon side="right" image={<SearchIconSvg />} />
       </div>
-      <div className="bg-white h-[46px] w-[44px] rounded-md flex justify-center items-center cursor-pointer">
+      <div className="dark:bg-fdark-300 bg-white h-[46px] w-[44px] rounded-md flex justify-center items-center cursor-pointer">
         <Mic />
       </div>
     </form>
