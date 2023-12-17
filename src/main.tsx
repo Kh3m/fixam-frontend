@@ -4,9 +4,12 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 
 import router from "./routes.tsx";
+import { StoreProgressContextProvider } from "./store/contexts/store-progress.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <StoreProgressContextProvider>
+      <RouterProvider router={router} />
+    </StoreProgressContextProvider>
   </React.StrictMode>
 );
