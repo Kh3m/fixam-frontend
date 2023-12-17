@@ -26,8 +26,8 @@ const StoreCreationProcessPage = () => {
       storeName: "",
       businessRCNumber: "",
       slug: "",
-      logo: null,
-      banner: null,
+      logo: undefined,
+      banner: undefined,
       description:
         "Performed yesterday along side crossda_boss at Davido’s concert in Abuja and also signed with Dorty Worldwide Entertainment.   The power of consistency is turning small steps into big victories. It's doing a little bit every day and seeing big results over time.   Consistency builds habits, and habits shape your future.   Stick with it, stay committed, and watch how little efforts add up to something amazing 🤩",
       //   Socials

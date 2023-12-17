@@ -1,14 +1,15 @@
-import Button from "../../components/Button";
-import { FormProvider, useForm } from "react-hook-form";
-import ContactFields from "./ContactFields";
-import BrandFields from "./BrandField";
-import SocialFields from "./SocialFields";
 import { useState } from "react";
+import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
+import Space from "../../components/Space";
 import apiClient from "../../services/apiClient";
 import { useStoreProgressContext } from "../../store/contexts/store-progress";
-import Space from "../../components/Space";
 import { StoreFormData } from "../../utils/types";
+import BrandFields from "./BrandField";
+import ContactFields from "./ContactFields";
+import SocialFields from "./SocialFields";
+import { validate } from "./formValidationUtils";
 
 interface Props {
   stepName: string;
@@ -18,12 +19,7 @@ interface Props {
 const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
   const { stepIndex, setStepIndex } = useStoreProgressContext();
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    trigger,
-    getFieldState,
-  } = methods;
+  const { handleSubmit, trigger, getFieldState, getValues } = methods;
 
   const [isCreatingStore, setIsCreatingStore] = useState(false);
   const navigate = useNavigate();
@@ -31,29 +27,46 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
   const onSubmit = async (data: StoreFormData) => {
     setIsCreatingStore(true);
 
-    const newStore = {
-      owner: "developer",
-      name: data.storeName,
-      email: data.email,
-      phone: data.phone,
-      slug: data.slug,
-      logo_img_url:
-        "https://fixam-media.s3.eu-north-1.amazonaws.com/stores/3fa85f64-5717-4562-b3fc-2c963f66afa6/2023-12-12/my-cat.jpg",
-      banner_img_url:
-        "https://fixam-media.s3.eu-north-1.amazonaws.com/stores/3fa85f64-5717-4562-b3fc-2c963f66afa6/2023-12-12/my-cat.jpg",
-      website: "https://www.khemshield.com",
-      address: data.address,
-      description: data.description,
-      business_license_number: data.businessRCNumber,
-      agreement: data.agreement,
-    };
+    const formData = new FormData();
+    formData.append("owner", "developer");
+    formData.append("name", data.storeName);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("slug", data.slug);
+    formData.append("logo_img_url", data.logo[0]);
+    formData.append("banner_img_url", data.banner[0]);
+    formData.append("website", "https://www.khemshield.com");
+    formData.append("address", data.address);
+    formData.append("description", data.description);
+    formData.append("business_license_number", data.businessRCNumber);
+    formData.append("agreement", data.agreement + "");
+
+    // const newStore = {
+    //   owner: "developer",
+    //   name: data.storeName,
+    //   email: data.email,
+    //   phone: data.phone,
+    //   slug: data.slug,
+    //   logo_img_url: data.logo[0],
+    //   banner_img_url: data.banner[0],
+    //   website: "https://www.khemshield.com",
+    //   address: data.address,
+    //   description: data.description,
+    //   business_license_number: data.businessRCNumber,
+    //   agreement: data.agreement,
+    // };
+
+    console.log("formData: ", getValues());
 
     try {
-      const createdStore = await apiClient.post("/api/v1/stores", newStore, {
+      const createdStore = await apiClient.post("/api/v1/stores", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      console.log("createdStore by backend", createdStore);
+
       navigate("/stores/slug");
     } catch (err) {
       setIsCreatingStore(false);
@@ -65,55 +78,66 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
     // if (isValid) navigate("/stores/" + data);
   };
 
-  const validate = async (infoData: "contact" | "brand" | "socials") => {
-    switch (infoData) {
-      case "contact":
-        await trigger(["firstName", "lastName", "email", "phone", "address"]);
+  //   const validate = async (infoData: "contact" | "brand" | "socials") => {
+  //     switch (infoData) {
+  //       case "contact":
+  //         await trigger(["firstName", "lastName", "email", "phone", "address"]);
 
-        if (
-          getFieldState("firstName").invalid ||
-          getFieldState("lastName").invalid ||
-          getFieldState("email").invalid ||
-          getFieldState("phone").invalid ||
-          getFieldState("address").invalid
-        ) {
-          return false;
-        } else return true;
+  //         if (
+  //           getFieldState("firstName").invalid ||
+  //           getFieldState("lastName").invalid ||
+  //           getFieldState("email").invalid ||
+  //           getFieldState("phone").invalid ||
+  //           getFieldState("address").invalid
+  //         ) {
+  //           return false;
+  //         } else return true;
 
-      case "brand":
-        await trigger(["storeName", "businessRCNumber", "slug", "description"]);
-        if (
-          getFieldState("storeName").invalid ||
-          getFieldState("businessRCNumber").invalid ||
-          getFieldState("slug").invalid ||
-          getFieldState("description").invalid
-        ) {
-          return false;
-        } else return true;
+  //       case "brand":
+  //         await trigger(["storeName", "businessRCNumber", "slug", "description"]);
+  //         if (
+  //           getFieldState("storeName").invalid ||
+  //           getFieldState("businessRCNumber").invalid ||
+  //           getFieldState("slug").invalid ||
+  //           getFieldState("description").invalid
+  //         ) {
+  //           return false;
+  //         } else return true;
 
-      case "socials":
-        await trigger(["facebookLink", "igLink", "xLink"]);
-        if (
-          getFieldState("facebookLink").invalid ||
-          getFieldState("igLink").invalid ||
-          getFieldState("xLink").invalid
-        ) {
-          return false;
-        } else return true;
-    }
-  };
+  //       case "socials":
+  //         await trigger(["facebookLink", "igLink", "xLink"]);
+  //         if (
+  //           getFieldState("facebookLink").invalid ||
+  //           getFieldState("igLink").invalid ||
+  //           getFieldState("xLink").invalid
+  //         ) {
+  //           return false;
+  //         } else return true;
+  //     }
+  //   };
 
   const handleProgress = async () => {
     let isStepValid = false;
-    if (stepName === "contact") isStepValid = await validate("contact");
+    if (stepName === "contact")
+      isStepValid = await validate("contact", getFieldState, trigger);
 
-    if (stepName === "brand") isStepValid = await validate("brand");
+    if (stepName === "brand")
+      isStepValid = await validate("brand", getFieldState, trigger);
 
-    if (stepName === "socials") isStepValid = await validate("socials");
+    if (stepName === "socials")
+      isStepValid = await validate("socials", getFieldState, trigger);
 
     if (!isLastStep && isStepValid) {
+      console.log(
+        "Stepname",
+        stepName,
+        "isStepValid",
+        isStepValid,
+        "isLastStep",
+        isLastStep
+      );
       setStepIndex((prevStepIndex) => {
-        return prevStepIndex++;
+        return prevStepIndex + 1;
       });
     }
   };

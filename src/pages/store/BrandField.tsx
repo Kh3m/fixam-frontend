@@ -8,6 +8,7 @@ interface Props {}
 
 const BrandFields: FC<Props> = () => {
   const { control } = useFormContext();
+
   return (
     <div className="flex flex-col space-y-4 ">
       <Controller
@@ -17,11 +18,7 @@ const BrandFields: FC<Props> = () => {
         control={control}
         name="storeName"
         render={({ field, fieldState }) => (
-          <Input
-            {...field}
-            fieldState={fieldState}
-            config={{ placeholder: "Store Name" }}
-          />
+          <Input {...field} fieldState={fieldState} placeholder="Store Name" />
         )}
       />
 
@@ -33,7 +30,7 @@ const BrandFields: FC<Props> = () => {
         )}
       />
 
-      <Controller
+      {/* <Controller
         rules={{
           required: "Slug is required to uniquely access your store",
         }}
@@ -48,21 +45,17 @@ const BrandFields: FC<Props> = () => {
             customPlaceholder="fixam.africa/stores/"
           />
         )}
-      />
+      /> */}
 
       <Controller
         control={control}
         name="logo"
-        render={({ field }) => (
+        render={({}) => (
           <ImageUpload
-            {...field}
             label="Logo"
             hint="Must be a png file, Max size of 5mb"
-            config={{
-              placeholder: "Upload a File",
-              type: "file",
-              name: "logo",
-            }}
+            placeholder="Upload a File"
+            type="file"
             isFull
           />
         )}
@@ -71,17 +64,12 @@ const BrandFields: FC<Props> = () => {
       <Controller
         control={control}
         name="banner"
-        render={({ field }) => (
+        render={({}) => (
           <ImageUpload
-            {...field}
             label="Banner"
             hint="Must be a png file, Max size of 5mb"
-            config={{
-              multiple: true,
-              placeholder: "Choose a banner",
-              type: "file",
-              name: "banner",
-            }}
+            placeholder="Choose a banner"
+            type="file"
           />
         )}
       />

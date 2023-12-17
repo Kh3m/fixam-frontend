@@ -11,16 +11,7 @@ export type DirectionType = {
 
 export type LinkType = { icon?: ReactNode | string; to: string; text: string };
 
-export type InputConfigType = {
-  placeholder?: string;
-  type?: string;
-  multiple?: boolean;
-  name?: string;
-  value?: string;
-};
-
 // STORE
-
 export type StoreFormData = {
   // Contact
   firstName: string;
@@ -33,8 +24,8 @@ export type StoreFormData = {
   storeName: string;
   businessRCNumber: string;
   slug: string;
-  logo: FileList | null;
-  banner: FileList | null;
+  logo: FileList;
+  banner: FileList;
   description: string;
 
   //   Socials

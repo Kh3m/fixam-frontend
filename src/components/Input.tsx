@@ -10,12 +10,10 @@ import {
 
 import emailIcon from "../assets/email-icon.svg";
 
-import { InputConfigType } from "../utils/types";
 import { ControllerFieldState } from "react-hook-form";
 
 type CommonProps = {
   withIcon?: boolean;
-  config?: InputConfigType;
   isTextArea?: boolean;
   fieldState?: ControllerFieldState;
   customPlaceholder?: string;
@@ -30,14 +28,7 @@ type Props = MyInputProps | MyTextareaProps;
 
 const Input = forwardRef(
   (
-    {
-      withIcon,
-      isTextArea,
-      config,
-      fieldState,
-      customPlaceholder,
-      ...props
-    }: Props,
+    { withIcon, isTextArea, fieldState, customPlaceholder, ...props }: Props,
     ref: ForwardedRef<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const targetElementRef = useRef<HTMLDivElement>(null);
@@ -70,7 +61,6 @@ const Input = forwardRef(
             ref={ref as ForwardedRef<HTMLTextAreaElement>}
             className={`${fieldState?.invalid ? "border-red-400 border-4" : ""} 
             w-full outline resize-none text-gray-600 rounded-md px-4 py-2 h-20 outline-1 border blur-0 `}
-            {...config}
             {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
           ></textarea>
         ) : (
@@ -86,7 +76,6 @@ const Input = forwardRef(
             ${
               withIcon ? "px-11" : "px-4"
             } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full text-gray-600 w-full `}
-            {...config}
             {...(props as InputHTMLAttributes<HTMLInputElement>)}
           />
         )}
