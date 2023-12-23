@@ -61,7 +61,9 @@ const Product = ({
             width="50px"
             size={28}
             color={`${
-              favorite && isDarkMode
+              favorite
+                ? "#FFF"
+                : favorite && isDarkMode
                 ? "#FFF"
                 : favorite && !isDarkMode
                 ? "#FF9900"

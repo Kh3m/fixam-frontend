@@ -16,6 +16,7 @@ type CommonProps = {
   withIcon?: boolean;
   isTextArea?: boolean;
   fieldState?: ControllerFieldState;
+  hint?: string;
   customPlaceholder?: string;
 };
 
@@ -28,7 +29,14 @@ type Props = MyInputProps | MyTextareaProps;
 
 const Input = forwardRef(
   (
-    { withIcon, isTextArea, fieldState, customPlaceholder, ...props }: Props,
+    {
+      withIcon,
+      isTextArea,
+      fieldState,
+      customPlaceholder,
+      hint,
+      ...props
+    }: Props,
     ref: ForwardedRef<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const targetElementRef = useRef<HTMLDivElement>(null);
@@ -59,8 +67,13 @@ const Input = forwardRef(
         {isTextArea ? (
           <textarea
             ref={ref as ForwardedRef<HTMLTextAreaElement>}
-            className={`${fieldState?.invalid ? "border-red-400 border-4" : ""} 
-            w-full outline resize-none text-gray-600 rounded-md px-4 py-2 h-20 outline-1 border blur-0 `}
+            className={`${
+              fieldState?.invalid
+                ? "border-red-400 border-2"
+                : "border-[#c1c1c1]"
+            } 
+              w-full resize-none text-gray-600 rounded-md px-4 py-2 h-20 
+              outline-1 border blur-0  focus:outline-fyellow`}
             {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
           ></textarea>
         ) : (
@@ -71,15 +84,26 @@ const Input = forwardRef(
             }}
             ref={ref as ForwardedRef<HTMLInputElement>}
             className={`
-            ${fieldState?.invalid ? "border-red-400 border-2" : ""}
+            ${
+              fieldState?.invalid
+                ? "border-red-400 border-2"
+                : "border-[#c1c1c1]"
+            }
             ${customPlaceholder && ""}
             ${
               withIcon ? "px-11" : "px-4"
-            } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full text-gray-600 w-full `}
+            } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full 
+            text-gray-600 w-full  focus:outline-fyellow`}
             {...(props as InputHTMLAttributes<HTMLInputElement>)}
           />
         )}
-        <p className="text-red-400">{fieldState?.error?.message}</p>
+        <p
+          className={`${
+            fieldState?.invalid ? "text-red-400" : "text-fgrey"
+          } text-sm`}
+        >
+          {fieldState?.invalid ? fieldState?.error?.message : hint}
+        </p>
         {customPlaceholder && (
           <div
             ref={targetElementRef}

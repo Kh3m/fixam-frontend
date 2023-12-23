@@ -1,17 +1,101 @@
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
+import AccessibleMenu from "../../components/Menu/AccessibleMenu";
 import Space from "../../components/Space";
+import { StoreResponseType, StoreType } from "../../entities/store";
 import SideBar from "./SideBar";
 import UserAccountCard from "./UserAccountCard";
+import LoadingFixam from "./skeletons/LoadingFixam";
+import SideBarSkeleton from "./skeletons/SideBarSkeleton";
+import UserAccountCardSkeleton from "./skeletons/UserAccountCardSkeleton";
+import useAuth from "../../hooks/useAuth";
+import apiClient from "../../services/apiClient";
+import { getCookie } from "../../utils/cookies";
+
+const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
 const StorePage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [storeData, setStoreData] = useState<StoreResponseType[]>([]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const user = { id: getCookie("userId") };
+
+    console.log("isAuthenticated", isAuthenticated(), "user", user);
+
+    if (isAuthenticated() && user) {
+      apiClient
+        .get<StoreResponseType[]>("/stores/owner/" + user?.id + "/")
+        .then((res) => {
+          // TODO: User's store slug to load user
+          const foundUserStores = res.data;
+          console.log("foundUserStore", foundUserStores);
+          if (foundUserStores.length) {
+            setStoreData(foundUserStores);
+            setIsLoading(false);
+          }
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          console.log("Something went wrong", err);
+        });
+      // navigate(`/stores/${"userId"}/dashboard`);
+    } else {
+      // User is not authenticated
+      console.log("USER is not auth");
+      setStoreData([]);
+      setIsLoading(false);
+    }
+
+    setIsLoading(false);
+  }, []);
+
   return (
     <Main>
       <Space spacing="my-14" />
-      <Container Aside={<SideBar />} twoColLayout>
-        <UserAccountCard />
-        <Outlet />
+      <Container
+        Aside={
+          isLoading ? (
+            <SideBarSkeleton />
+          ) : (
+            <SideBar
+              logo={
+                storeData.length
+                  ? storeData[storeData.length - 1].logo_img_url
+                  : ""
+              }
+              storeName={
+                storeData.length ? storeData[storeData.length - 1].name : ""
+              }
+              slug={
+                storeData.length ? storeData[storeData.length - 1].slug : ""
+              }
+              withLogo
+            />
+          )
+        }
+        twoColLayout
+      >
+        <div className="flex justify-end">
+          {isLoading && <UserAccountCardSkeleton />}
+          {!isLoading && (
+            <AccessibleMenu
+              stylesForDropdown="top-[94px]"
+              menuItems={menuItems}
+            >
+              <UserAccountCard />
+            </AccessibleMenu>
+          )}
+        </div>
+        <Space spacing="my-2" />
+        {isLoading && <LoadingFixam />}
+        {!isLoading && <Outlet />}
       </Container>
       <Space spacing="my-14" />
     </Main>

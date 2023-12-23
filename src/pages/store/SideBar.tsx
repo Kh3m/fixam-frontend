@@ -1,20 +1,42 @@
+import Heading from "../../components/Heading";
 import Navigations from "../../components/Navigations/Navigations";
-import khemLogo from "../../assets/khem/testlogok.png";
 import Space from "../../components/Space";
+import { LinkType } from "../../utils/types";
 
-const items = [
-  { text: "Products", to: "/stores/storeId/products" },
-  { text: "Orders", to: "/stores/storeId/orders" },
-  { text: "Customers", to: "/stores/storeId/customers" },
-  { text: "Messages", to: "/stores/storeId/messages" },
-  { text: "Settings", to: "/stores/storeId/settings" },
-  { text: "Log out", to: "/logout" },
-];
+interface Props {
+  logo?: string;
+  storeName?: string;
+  slug?: string;
+  withLogo?: boolean;
+  newItems?: LinkType[];
+}
 
-const SideBar = () => {
+const SideBar = ({ logo, storeName, slug, withLogo, newItems }: Props) => {
+  const items = newItems
+    ? newItems
+    : [
+        { text: "Dashboard", to: `/stores/${slug}/dashboard` },
+        { text: "Products", to: `/stores/${slug}/products` },
+        { text: "Orders", to: `/stores/${slug}/orders` },
+        { text: "Customers", to: `/stores/${slug}/customers` },
+        { text: "Messages", to: `/stores/${slug}/messages` },
+        { text: "Settings", to: `/stores/${slug}/settings` },
+        { text: "Log out", to: "/logout" },
+      ];
+
   return (
     <div>
-      <img src={khemLogo} alt="Store Logo" className=" w-36" />
+      {withLogo && (
+        <img
+          src={logo}
+          alt="Store Logo"
+          className="w-36 h-36 bg-slate-100 rounded-full object-contain  p-5 m-auto"
+        />
+      )}
+      <Space spacing="my-2" />
+      <Heading variant="h4" styles="text-center font-semibold text-fgrey">
+        {storeName}
+      </Heading>
       <Space spacing="my-14" />
       <Navigations items={items} direction="vertical" />
     </div>

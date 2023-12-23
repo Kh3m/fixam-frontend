@@ -5,7 +5,7 @@ const Flex = forwardRef(
     return (
       <div
         ref={ref}
-        className="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth"
+        className="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth h-[380px]"
       >
         {children}
       </div>

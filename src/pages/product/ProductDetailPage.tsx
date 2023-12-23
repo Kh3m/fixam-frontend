@@ -45,7 +45,7 @@ const ProductDetailPage = () => {
       <MiniAdBanner />
       <Space spacing="my-12" />
       <Container>
-        <SimilarAds />
+        <SimilarAds heading="Similar Advert" />
         <Space spacing="my-12" />
       </Container>
     </Main>

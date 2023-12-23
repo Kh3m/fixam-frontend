@@ -10,6 +10,11 @@ import StoreMessages from "./pages/store/StoreMessages";
 import StoreCustomers from "./pages/store/StoreCustomers";
 import StoreOrders from "./pages/store/StoreOrders";
 import StoreCreationProcessPage from "./pages/store/StoreCreationProcessPage";
+import AddProductForm from "./pages/store/AddProductForm/AddProductForm";
+import DashboardPage from "./pages/dashboard/DashboardPage";
+import CartPage from "./pages/cart/CartPage";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
+import WishListPage from "./pages/wishlist/WishListPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +26,18 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "/cart/:userId",
+        element: <CartPage />,
+      },
+      {
+        path: "/wishlist/:userId",
+        element: <WishListPage />,
+      },
+      {
+        path: "/checkout/:userId",
+        element: <CheckoutPage />,
+      },
+      {
         path: "/products/featured/:featuredName",
         element: <ProductsPage />,
       },
@@ -29,27 +46,32 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
       },
       {
-        path: "/stores/:storeId",
+        path: "/stores",
         element: <StorePage />,
         children: [
           {
-            path: "products",
-            element: <StoreProducts />,
+            path: ":slug/dashboard",
+            element: <DashboardPage />,
           },
           {
-            path: "orders",
+            path: ":slug/products",
+            element: <StoreProducts />,
+            children: [{ path: "add-product", element: <AddProductForm /> }],
+          },
+          {
+            path: ":slug/orders",
             element: <StoreOrders />,
           },
           {
-            path: "customers",
+            path: ":slug/customers",
             element: <StoreCustomers />,
           },
           {
-            path: "messages",
+            path: ":slug/messages",
             element: <StoreMessages />,
           },
           {
-            path: "settings",
+            path: ":slug/settings",
             element: <StoreSettings />,
           },
         ],

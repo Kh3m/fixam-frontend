@@ -4,6 +4,9 @@ import LogoutSVG from "./LogoutSVG";
 import MessagesSVG from "./MessagesSVG";
 import OrdersSVG from "./OrdersSVG";
 import SettingsSVG from "./SettingsSVG";
+import DashboardSVG from "./DashboardSVG";
+import AccountSVG from "./AccountSVG";
+import WishListSVG from "./WishListSVG";
 
 interface Props {
   type: string;
@@ -11,6 +14,10 @@ interface Props {
 }
 const FSVGs = ({ color, type }: Props) => {
   switch (type) {
+    case "account":
+      return <AccountSVG color={color} />;
+    case "dashboard":
+      return <DashboardSVG color={color} />;
     case "customers":
       return <CustomersSVG color={color} />;
     case "logout":
@@ -23,6 +30,8 @@ const FSVGs = ({ color, type }: Props) => {
       return <SettingsSVG color={color} />;
     case "products":
       return <ProductsSVG color={color} />;
+    case "wishlist":
+      return <WishListSVG color={color} />;
   }
 };
 

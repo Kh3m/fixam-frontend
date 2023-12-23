@@ -5,16 +5,16 @@ import Logo from "../../components/Logo";
 import Main from "../../components/Main";
 import ProcessBar from "../../components/ProgressBar/ProcessBar";
 import Space from "../../components/Space";
-import { useStoreProgressContext } from "../../store/contexts/store-progress";
+import { useStoreProgressContext } from "../../contexts/store-progress";
 import StoreCreateForm from "./StoreCreateForm";
 import { validate } from "./formValidationUtils";
 import { useForm } from "react-hook-form";
-import { StoreFormData } from "../../utils/types";
+import { StoreType } from "../../entities/store";
 
 const steps = ["Contact", "Brand", "Socials"];
 
 const StoreCreationProcessPage = () => {
-  const methods = useForm<StoreFormData>({
+  const methods = useForm<StoreType>({
     defaultValues: {
       //  Contact
       firstName: "",

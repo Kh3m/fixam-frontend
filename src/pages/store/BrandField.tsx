@@ -29,24 +29,6 @@ const BrandFields: FC<Props> = () => {
           <Input {...field} placeholder="Business RC Number" />
         )}
       />
-
-      {/* <Controller
-        rules={{
-          required: "Slug is required to uniquely access your store",
-        }}
-        control={control}
-        name="slug"
-        render={({ field, fieldState }) => (
-          <Input
-            {...field}
-            fieldState={fieldState}
-            placeholder="Enter a unique name for accessing your store"
-            type="url"
-            customPlaceholder="fixam.africa/stores/"
-          />
-        )}
-      /> */}
-
       <Controller
         control={control}
         name="logo"
@@ -55,7 +37,6 @@ const BrandFields: FC<Props> = () => {
             label="Logo"
             hint="Must be a png file, Max size of 5mb"
             placeholder="Upload a File"
-            type="file"
             isFull
           />
         )}
@@ -69,7 +50,6 @@ const BrandFields: FC<Props> = () => {
             label="Banner"
             hint="Must be a png file, Max size of 5mb"
             placeholder="Choose a banner"
-            type="file"
           />
         )}
       />

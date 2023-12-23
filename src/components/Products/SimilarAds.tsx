@@ -70,7 +70,11 @@ const similarProducts: ProductType[] = [
   },
 ];
 
-const SimilarAds = () => {
+interface Props {
+  heading: string;
+}
+
+const SimilarAds = ({ heading }: Props) => {
   const [products, setProducts] = useState(similarProducts);
 
   const handleFavStatus = (id: number) => {
@@ -82,8 +86,8 @@ const SimilarAds = () => {
   };
 
   return (
-    <div>
-      <h3 className="dark:text-white text-2xl">Similar Advert</h3>
+    <>
+      <h3 className="dark:text-white text-2xl">{heading}</h3>
       <Space spacing="my-4" />
       <Scroll direction="horizontal">
         {products.map((prod, i) => (
@@ -97,7 +101,7 @@ const SimilarAds = () => {
           </div>
         ))}
       </Scroll>
-    </div>
+    </>
   );
 };
 

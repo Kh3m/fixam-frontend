@@ -19,6 +19,7 @@ const Navigations = ({ direction, items }: Props) => {
         `}
       >
         {items.map((item) => {
+          // Dynamically computes the icon to be added to item
           const icon = (
             <FSVGs
               type={item.text.toLowerCase().replace(/\s/g, "")}
@@ -29,8 +30,10 @@ const Navigations = ({ direction, items }: Props) => {
               }`}
             />
           );
+          // Add the computed icon to item
           item.icon = icon;
-          return <Navigation key={item.text} withIcon item={item} />;
+          // Return Nav with the computed icon
+          return <Navigation key={item.text} item={item} />;
         })}
       </ul>
     </nav>

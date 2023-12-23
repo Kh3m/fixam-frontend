@@ -3,14 +3,13 @@ import { LinkType } from "../../utils/types";
 import useDarkMode from "../../hooks/useDarkMode";
 
 interface Props {
-  withIcon?: boolean;
   item: LinkType;
 }
 
 const Navigation = ({ item: { icon, to, text } }: Props) => {
   const { isDarkMode } = useDarkMode();
   return (
-    <li className="">
+    <li>
       <NavLink
         to={to}
         className={({ isPending, isActive }) =>
@@ -20,7 +19,7 @@ const Navigation = ({ item: { icon, to, text } }: Props) => {
             ? `${
                 isDarkMode ? "bg-slate-800" : "bg-fyellow"
               } cursor-pointer text-white px-6 py-3 block rounded-lg text-lg font-semibold fshadow`
-            : "cursor-pointer dark:text-white text-black  px-6 py-3 block rounded-lg text-lg font-semibold"
+            : "cursor-pointer dark:text-white text-black px-6 py-3 block rounded-lg text-lg font-semibold"
         }
       >
         <div className="flex items-center cursor-pointer space-x-4">
