@@ -6,13 +6,7 @@ import Space from "../../../components/Space";
 import Input from "../../../components/Input";
 
 const VariantFields = () => {
-  const { control, setValue } = useFormContext();
-
-  const handleAddVariant = () => {};
-
-  const handleVariantChange = () => {};
-
-  const handleOptionsAdded = () => {};
+  const { control } = useFormContext();
 
   return (
     <FormFieldCard title="Product Variant (optional)">

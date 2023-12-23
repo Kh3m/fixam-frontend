@@ -52,7 +52,7 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
     console.log("formData: ", getValues());
 
     try {
-      const createdStore: StoreType = await apiClient.post(
+      const createdStore = await apiClient.post<StoreType>(
         "/stores/",
         formData,
         {
@@ -64,7 +64,7 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
 
       console.log("createdStore by backend", createdStore);
 
-      navigate("/stores/" + createdStore.slug);
+      navigate("/stores/" + createdStore.data.slug + "/dashboard");
     } catch (err) {
       setIsCreatingStore(false);
       console.log("Something went wrong", err);

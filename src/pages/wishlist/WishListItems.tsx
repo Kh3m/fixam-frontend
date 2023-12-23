@@ -13,7 +13,7 @@ type WishListType = {
 };
 
 const WishListItems = () => {
-  const [wishListItems, setCartItems] = useState<WishListType[]>([
+  const [wishListItems, _] = useState<WishListType[]>([
     {
       product: {
         title: "Turkish Royal Fabric Sofa",

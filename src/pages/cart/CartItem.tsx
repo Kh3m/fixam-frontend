@@ -25,7 +25,6 @@ const CartItem = ({
   imageURL,
   handleOnIcrementQuantity,
   handleOnDecrementQuantity,
-  handleInputChange,
   onChange,
 }: Props) => {
   return (
@@ -47,13 +46,10 @@ const CartItem = ({
           <Space spacing="my-1" />
           <Rating></Rating>
           <Space spacing="my-1" />
-          {/* <QuantitiyOption /> */}
-
           <QuantityField
             quantity={quantity}
             handleOnIcrementQuantity={() => handleOnIcrementQuantity(0)}
             handleOnDecrementQuantity={() => handleOnDecrementQuantity(0)}
-            // onChange={(e) => handleInputChange(e, 0)}
             onChange={onChange}
           />
 

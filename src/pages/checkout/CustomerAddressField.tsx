@@ -2,16 +2,6 @@ import Input from "../../components/Input";
 import Space from "../../components/Space";
 import CheckoutFormFieldCard from "./CheckoutFormFieldCard";
 
-const WithTwoInput = () => (
-  <div className="flex space-x-10">
-    <div className="flex-grow">
-      <Input placeholder="First Name" />
-    </div>
-    <div className="flex-grow">
-      <Input placeholder="Last Name" />
-    </div>
-  </div>
-);
 const CustomerAddressField = () => {
   return (
     <section>

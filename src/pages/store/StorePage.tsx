@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import AccessibleMenu from "../../components/Menu/AccessibleMenu";
 import Space from "../../components/Space";
-import { StoreResponseType, StoreType } from "../../entities/store";
+import { StoreResponseType } from "../../entities/store";
 import SideBar from "./SideBar";
 import UserAccountCard from "./UserAccountCard";
 import LoadingFixam from "./skeletons/LoadingFixam";
@@ -20,7 +20,6 @@ const StorePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [storeData, setStoreData] = useState<StoreResponseType[]>([]);
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);

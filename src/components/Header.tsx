@@ -4,12 +4,9 @@ import Container from "./Container";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput/SearchInput";
 import { FaCartShopping } from "react-icons/fa6";
-import { getCookie } from "../utils/cookies";
 import { IoListSharp } from "react-icons/io5";
 
 const Header = () => {
-  const userId = getCookie("userId");
-
   return (
     <header className="dark:bg-slate-800 bg-fyellow">
       <Container>
@@ -23,10 +20,10 @@ const Header = () => {
             <SearchInput />
           </div>
           <div className="flex items-center space-x-5">
-            <Link to={`/wishlist/${userId}`} className="text-white text-lg">
+            <Link to={`/wishlist`} className="text-white text-lg">
               <IoListSharp />
             </Link>
-            <Link to={`/cart/${userId}`} className="text-white text-lg">
+            <Link to={`/cart`} className="text-white text-lg">
               <FaCartShopping />
             </Link>
 

@@ -5,19 +5,16 @@ import Heading from "../../components/Heading";
 import Main from "../../components/Main";
 import SimilarAds from "../../components/Products/SimilarAds";
 import Space from "../../components/Space";
-import { getCookie } from "../../utils/cookies";
 import SideBar from "../store/SideBar";
 import WishListItems from "./WishListItems";
 
 const WishListPage = () => {
-  const userId = getCookie("userId");
-
   const newItems = [
-    { text: "Account", to: `/acount/${userId}` },
-    { text: "Orders", to: `/orders/${userId}` },
-    { text: "Wishlist", to: `/wishlist/${userId}` },
-    { text: "Messages", to: `/messages/${userId}` },
-    { text: "Settings", to: `/settings/${userId}` },
+    { text: "Account", to: `/acount` },
+    { text: "Orders", to: `/orders` },
+    { text: "Wishlist", to: `/wishlist` },
+    { text: "Messages", to: `/messages` },
+    { text: "Settings", to: `/settings` },
     { text: "Log out", to: "/logout" },
   ];
 

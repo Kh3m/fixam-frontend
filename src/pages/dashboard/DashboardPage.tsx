@@ -2,18 +2,14 @@ import { useEffect, useState } from "react";
 import Banner from "../../components/Banner";
 import { getCookie } from "../../utils/cookies";
 import { StoreResponseType } from "../../entities/store";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
 
 const DashboardPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [_, setIsLoading] = useState(true);
   const [storeData, setStoreData] = useState<StoreResponseType[]>([]);
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
 
-  // Get user's store by id
-  const userId = getCookie("userId");
   useEffect(() => {
     setIsLoading(true);
 
@@ -37,7 +33,6 @@ const DashboardPage = () => {
           setIsLoading(false);
           console.log("Something went wrong", err);
         });
-      // navigate(`/stores/${"userId"}/dashboard`);
     } else {
       // User is not authenticated
       console.log("USER is not auth");

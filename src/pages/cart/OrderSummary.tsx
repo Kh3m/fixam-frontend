@@ -5,11 +5,8 @@ import HR from "../../components/HR";
 import Heading from "../../components/Heading";
 import Space from "../../components/Space";
 import { formatPrice } from "../../utils/number-formatter";
-import { getCookie } from "../../utils/cookies";
 
 const OrderSummary = () => {
-  const userId = getCookie("userId");
-
   return (
     <Card>
       <Heading variant="h3" styles="text-2xl font-semibold text-center">
@@ -29,7 +26,7 @@ const OrderSummary = () => {
         <HR />
       </div>
       <Space spacing="my-8" />
-      <Link to={`/checkout/${userId}`}>
+      <Link to={`/checkout`}>
         <Button
           variant="elevated"
           styles="bg-fyellow text-white font-bold w-full mb-8"

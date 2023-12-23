@@ -27,7 +27,7 @@ const Banner = ({
       } relative `}
     >
       <div
-        className={`${
+        className={`${styles} ${
           isStoreBanner && "rounded-md"
         } bg-fblack/75 absolute top-0 bottom-0 right-0 left-0 flex justify-center items-center`}
       >

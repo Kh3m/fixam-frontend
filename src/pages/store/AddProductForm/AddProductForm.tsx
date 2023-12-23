@@ -11,7 +11,7 @@ import TypeFields from "./TypeFields";
 
 const AddProductForm = () => {
   const methods = useForm();
-  const productImageMethods = useForm();
+  // const productImageMethods = useForm();
 
   const { handleSubmit } = methods;
 

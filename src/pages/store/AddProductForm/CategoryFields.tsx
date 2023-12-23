@@ -4,6 +4,7 @@ import Space from "../../../components/Space";
 import FormFieldCard from "./FormFieldCard";
 import { useEffect, useState } from "react";
 import apiClient from "../../../services/apiClient";
+import { ActionMeta, MultiValue, SingleValue } from "react-select";
 
 type CategoryType = {
   id: string;
@@ -25,7 +26,7 @@ const CategoryFields = () => {
   const { control } = useFormContext();
   const [categories, setCategories] = useState<CategoryType[]>([]);
   // const [subCategories, setSubCategories] = useState<string[]>([]);
-  const [subCategories, setSubCategories] = useState<CategoryType[]>([]);
+  const [_, setSubCategories] = useState<CategoryType[]>([]);
   const [hasSubCategories, setHasSubCategories] = useState(false);
   const [isLoadingSubCategories, setIsLoadingSubCategories] = useState(false);
 
@@ -44,14 +45,20 @@ const CategoryFields = () => {
         console.log("COULDN'T FETCH CATEGORIES", err);
       });
   }, []);
-
-  const handleCatSelect = async (selected: OptionType) => {
-    const hasSubCat = categories.find((cat) => cat.name === selected.label);
+  const handleCatSelect = async (
+    selected: SingleValue<OptionType> | MultiValue<OptionType>,
+    _: ActionMeta<OptionType>
+  ) => {
+    const hasSubCat = categories.find(
+      (cat) => cat.name === (selected as OptionType)?.label
+    );
     if (hasSubCat?.subcategories.length) {
       setHasSubCategories(true);
       setIsLoadingSubCategories(true);
       const subCatsResponse = await apiClient.get<CategoryResponseType>(
-        "/products/categories/" + selected.value + "/subcategories/"
+        "/products/categories/" +
+          (selected as OptionType)?.value +
+          "/subcategories/"
       );
       console.log("\n\n\n subCatsResponse", subCatsResponse.data.results);
       setSubCategories(subCatsResponse.data.results);

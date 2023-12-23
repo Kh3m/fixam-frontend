@@ -1,4 +1,3 @@
-import { ValueType } from "framer-motion";
 import { useState } from "react";
 import Select, { ActionMeta, StylesConfig } from "react-select";
 
@@ -58,7 +57,7 @@ const QuantitiyOption = () => {
     label: "QTY: 2",
   } as Option);
 
-  const handleChange = (newValue: unknown, actionMeta: ActionMeta<unknown>) => {
+  const handleChange = (newValue: unknown, _: ActionMeta<unknown>) => {
     console.log(newValue);
     setSelectedOption({
       value: (newValue as Option).value,

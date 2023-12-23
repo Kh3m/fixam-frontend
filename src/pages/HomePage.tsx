@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner";
 import Categories from "../components/Categories/Categories";
 import Container from "../components/Container";

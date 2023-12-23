@@ -33,7 +33,6 @@ const CartPage = () => {
         <Space spacing="my-14" />
         <SimilarAds heading="Recommended" />
       </Container>
-
       <Space spacing="my-14" />
     </Main>
   );

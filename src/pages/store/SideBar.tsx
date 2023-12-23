@@ -12,6 +12,7 @@ interface Props {
 }
 
 const SideBar = ({ logo, storeName, slug, withLogo, newItems }: Props) => {
+  // TODO: Store slug in local storage
   const items = newItems
     ? newItems
     : [

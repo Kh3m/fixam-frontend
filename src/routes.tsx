@@ -26,15 +26,15 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/cart/:userId",
+        path: "/cart",
         element: <CartPage />,
       },
       {
-        path: "/wishlist/:userId",
+        path: "/wishlist",
         element: <WishListPage />,
       },
       {
-        path: "/checkout/:userId",
+        path: "/checkout",
         element: <CheckoutPage />,
       },
       {

@@ -12,3 +12,12 @@ export const wordCountValidation = (value: string) => {
 
   return true; // validation passed
 };
+
+export const validateGeneralInternationalPhoneNumber = (value: string) => {
+  // Validate international phone numbers with a plus sign and at least one digit
+  const internationalRegex = /^\+\d+$/;
+  return (
+    internationalRegex.test(value) ||
+    "Please enter a valid phone number starting with + followed by country code e.g +234"
+  );
+};

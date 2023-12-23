@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import Input from "../../components/Input";
+import { validateGeneralInternationalPhoneNumber } from "../../utils/validationRules";
 
 interface Props {}
 
@@ -54,6 +55,7 @@ const ContactFields: FC<Props> = () => {
       <Controller
         rules={{
           required: "Phone number is required",
+          validate: validateGeneralInternationalPhoneNumber,
           minLength: { value: 6, message: "Should be atleast 6 characters" },
         }}
         control={control}

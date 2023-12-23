@@ -1,6 +1,12 @@
 import { Control, Controller, FieldValues } from "react-hook-form";
-import Select, { StylesConfig } from "react-select";
+import Select, {
+  ActionMeta,
+  MultiValue,
+  SingleValue,
+  StylesConfig,
+} from "react-select";
 import { customNoOptionMessage } from "./CustomNoOptionMesaage";
+import { OptionType } from "../../pages/store/AddProductForm/CategoryFields";
 
 type OptionsType = {
   value: string;
@@ -13,10 +19,13 @@ interface Props {
   name: string;
   control: Control<FieldValues>;
   noOptionsMessage: string;
-  onChange?: (seleted: OptionsType) => void;
+  onChange?: (
+    newValue: SingleValue<OptionType> | MultiValue<OptionType>,
+    actionMeta: ActionMeta<OptionType>
+  ) => void;
 }
 
-const styles: StylesConfig = {
+const styles: StylesConfig<OptionType> = {
   control: (provided, state) => ({
     ...provided,
     border: state.isFocused ? "1px solid #FF9900" : "1px solid #c1c1c1",

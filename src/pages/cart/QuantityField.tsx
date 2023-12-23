@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 
 interface Props {
   quantity: number;
@@ -13,8 +13,6 @@ const QuantityField = ({
   handleOnDecrementQuantity,
   onChange,
 }: Props) => {
-  const [qty, setQty] = useState(quantity);
-
   return (
     <div className="flex space-x-1 items-center">
       <span
@@ -26,7 +24,6 @@ const QuantityField = ({
       <input
         value={quantity}
         onChange={onChange}
-        // onChange={(e) => setQty(Number.parseInt(e.target.value))}
         className="user-select-none w-8 h-4 text-xs text-center border border-gray-400 rounded-[3px] outline-none p-1 font-semibold"
       />
       <span
