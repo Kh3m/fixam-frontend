@@ -10,12 +10,12 @@ const ProductInfoFields = () => {
   return (
     <FormFieldCard title="Product Information">
       <Controller
+        name="name"
         control={control}
         rules={{
           required: "Product name is required",
           minLength: { value: 3, message: "Should be atleast 3 characters" },
         }}
-        name="name"
         render={({ fieldState, field }) => (
           <Input
             {...field}
@@ -26,12 +26,12 @@ const ProductInfoFields = () => {
       />
       <Space spacing="my-4" />
       <Controller
+        name="price"
         control={control}
         rules={{
           required: "Product price is required",
           min: { value: 0, message: "Should not be less than 0" },
         }}
-        name="price"
         render={({ fieldState, field }) => (
           <Input
             {...field}
@@ -43,12 +43,12 @@ const ProductInfoFields = () => {
       />
       <Space spacing="my-4" />
       <Controller
+        name="description"
         control={control}
         rules={{
           required: "Product name is required",
           validate: wordCountValidation,
         }}
-        name="description"
         render={({ fieldState, field }) => (
           <Input
             {...field}

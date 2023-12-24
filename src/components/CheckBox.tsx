@@ -37,7 +37,7 @@ const CheckBox = forwardRef(
         <span
           className={`${
             fieldState?.invalid ? "text-red-400" : "text-gray-800"
-          } dark:text-white peer-checked:text-fyellow`}
+          } dark:text-white peer-checked:text-fyellow user-select-none`}
         >
           {text}
         </span>

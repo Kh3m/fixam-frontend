@@ -7,7 +7,7 @@ const RadioButton = ({ text, radioFor }: Props) => {
   return (
     <label className="group inline-flex cursor-pointer text-sm font-medium align-middle relative pl-[30px] items-center">
       <input type="radio" name={radioFor} className="hidden peer/radio" />
-      <span className="dark:text-white text-gray-800 peer-checked/radio:text-fyellow">
+      <span className="dark:text-white text-gray-800 peer-checked/radio:text-fyellow user-select-none">
         {text}
       </span>
       <span

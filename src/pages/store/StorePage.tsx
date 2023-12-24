@@ -34,7 +34,7 @@ const StorePage = () => {
         .then((res) => {
           // TODO: User's store slug to load user
           const foundUserStores = res.data;
-          console.log("foundUserStore", foundUserStores);
+          // console.log("foundUserStore", foundUserStores);
           if (foundUserStores.length) {
             setStoreData(foundUserStores);
             setIsLoading(false);

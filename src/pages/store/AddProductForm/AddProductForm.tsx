@@ -9,13 +9,25 @@ import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
 
-const AddProductForm = () => {
-  const methods = useForm();
-  // const productImageMethods = useForm();
+type ProductUploadType = {
+  name: string;
+  description: string;
+  price: number;
+  user_id: string;
+  store_id: string;
+  type: string;
+  category: string;
+};
 
+const AddProductForm = () => {
+  const methods = useForm<ProductUploadType>();
+  // const productImageMethods = useForm();
   const { handleSubmit } = methods;
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: ProductUploadType) => {
+    console.log("Entered Product Data", data);
+  };
+
   return (
     <Fragment>
       <FormProvider {...methods}>
@@ -28,7 +40,7 @@ const AddProductForm = () => {
           <Space spacing="my-8" />
           <ProductInfoFields />
           <Space spacing="my-8" />
-          <FeaturesField /> <Space spacing="my-8" />
+          <FeaturesField />
           <Space spacing="my-8" />
           <ProductImageUpload />
           <Space spacing="my-8" />
