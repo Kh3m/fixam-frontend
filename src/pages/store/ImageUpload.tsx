@@ -9,30 +9,48 @@ import {
 import imageUploadPlaceholder from "../../assets/images-upload-placeholder.png";
 import imagePlaceholder from "../../assets/image-placeholder.png";
 import bannerPlaceholder from "../../assets/banner-placeholder.jpg";
-import { useFormContext } from "react-hook-form";
+import { ControllerFieldState, useFormContext } from "react-hook-form";
+import Tooltip from "../../components/Tooltip";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   isFull?: boolean;
   hint?: string;
   styledLabel?: boolean;
+  fieldState: ControllerFieldState;
+  onUpload?: (image: File) => void; // Add this line for onUpload prop
+  errorMessage?: string | null;
 }
+
 const ImageUpload = forwardRef(
   (
-    { label, styledLabel, isFull, hint, ...props }: Props,
+    {
+      label,
+      styledLabel,
+      isFull,
+      hint,
+      fieldState,
+      onUpload,
+      errorMessage,
+      ...props
+    }: Props,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     const imageUploadRef = useRef(null);
-
-    const { setValue, getValues } = useFormContext();
+    const { setValue, getValues, trigger } = useFormContext();
 
     //  Remove space from label name
     const labelName = label.toLowerCase().split(" ").join("");
     const imageFile = getValues()[labelName];
 
-    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-      // Use the labelName to set the control name -> Hence the names has to be equal
-      setValue(labelName, e.target.files?.item(0));
+    const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = e.target.files?.item(0);
+      // Call the onUpload callback with the selected image
+      if (onUpload && selectedFile) {
+        onUpload(selectedFile);
+      }
+      // setValue(labelName, selectedFile);
+      await trigger(labelName);
     };
 
     return (
@@ -40,9 +58,14 @@ const ImageUpload = forwardRef(
         <span
           className={`${
             styledLabel &&
-            "bg-fgrey inline-flex justify-center items-center rounded-md py-2 px-4 text-white font-semibold text-xs"
-          }`}
+            "relative group/tooltip inline-flex justify-center items-center rounded-md py-2 px-4 text-white font-semibold text-xs"
+          } ${fieldState.invalid ? "bg-red-400" : "bg-fgrey"}`}
         >
+          {fieldState.invalid && (
+            <Tooltip
+              tip={errorMessage ? errorMessage : fieldState.error?.message}
+            />
+          )}
           {label}
         </span>
         <label
@@ -51,7 +74,7 @@ const ImageUpload = forwardRef(
           className={`
           ${
             styledLabel &&
-            " text-center bg-fgrey inline-flex justify-center items-center"
+            "text-center bg-fgrey inline-flex justify-center items-center"
           }
           ${labelName === "banner" && "h-48"}
           ${labelName === "logo" && "h-32 w-32"}
@@ -79,7 +102,7 @@ const ImageUpload = forwardRef(
             {...props}
             ref={ref}
             onChange={handleImageChange}
-            accept="/image"
+            accept="image/jpeg, image/jpg, image/png, image/webp"
             id={label}
             type="file"
           />

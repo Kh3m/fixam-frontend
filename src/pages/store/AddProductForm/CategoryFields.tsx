@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import SelectOption from "../../../components/Option/SelectOption";
 import Space from "../../../components/Space";
 import FormFieldCard from "./FormFieldCard";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import apiClient, { FetchResponseType } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
@@ -30,6 +30,8 @@ const CategoryFields = () => {
   const { data: categories, error, isLoading } = useCategories();
   const { data: subCategories, isLoading: isLoadingSubCategories } =
     useSubCategories(categoryId);
+
+  const [subCatElements, setSubCatElements] = useState<JSX.Element[]>([]);
 
   const { control } = useFormContext();
   const [hasSubCategories, setHasSubCategories] = useState(false);
@@ -60,9 +62,32 @@ const CategoryFields = () => {
     const foundCategory = (
       categories as FetchResponseType<CategoryType>
     )?.results.find((cat) => cat.name === (selected as OptionType).label);
-    foundCategory?.subcategories.length
-      ? setHasSubCategories(true)
-      : setHasSubCategories(false);
+    if (foundCategory?.subcategories.length) {
+      setHasSubCategories(true);
+      if (subCategories) {
+        const newSubCatElement = (
+          <SelectOption
+            key={subCatElements?.length}
+            name="sub-category"
+            control={control}
+            options={(subCategories as CategoryType[]).map((cat) => ({
+              label: cat.name,
+              value: cat.id,
+            }))}
+            placeholder="--Select a Sub Category--"
+            noOptionsMessage="No category found"
+            onChange={handleCatSelect}
+          />
+        );
+
+        setSubCatElements((prevSubCatElement) => [
+          ...prevSubCatElement,
+          newSubCatElement,
+        ]);
+      }
+    } else {
+      setHasSubCategories(false);
+    }
     console.log("SELECTED", selected, subCategories);
     // console.log("SELECTED", selected, hasSubCat);
   };
@@ -89,19 +114,7 @@ const CategoryFields = () => {
         {hasSubCategories && isLoadingSubCategories && (
           <p className="text-fyellow text-lg">Loadind...</p>
         )}
-        {hasSubCategories && subCategories && (
-          <SelectOption
-            name="sub-category"
-            control={control}
-            options={(subCategories as CategoryType[]).map((cat) => ({
-              label: cat.name,
-              value: cat.id,
-            }))}
-            placeholder="--Select a Sub Category--"
-            noOptionsMessage="No category found"
-            onChange={handleCatSelect}
-          />
-        )}
+        {hasSubCategories && subCategories && subCatElements}
       </FormFieldCard>
     );
   }

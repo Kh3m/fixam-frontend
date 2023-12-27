@@ -21,3 +21,22 @@ export const validateGeneralInternationalPhoneNumber = (value: string) => {
     "Please enter a valid phone number starting with + followed by country code e.g +234"
   );
 };
+
+export const validateImage = (file: File) => {
+  const acceptedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+  if (!file) {
+    return "Please select an image.";
+  }
+
+  if (!acceptedTypes.includes(file.type)) {
+    return "Invalid file type. Please choose a valid image (JPEG, PNG or WEBP).";
+  }
+
+  if (file.size > 5242880) {
+    // 5MB limit
+    return "File size exceeds the limit (5MB). Please choose a smaller image.";
+  }
+
+  return true; // Validation passed
+};

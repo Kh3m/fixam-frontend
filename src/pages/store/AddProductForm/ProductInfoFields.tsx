@@ -38,6 +38,7 @@ const ProductInfoFields = () => {
             fieldState={fieldState}
             placeholder="Enter product price"
             type="number"
+            min="0"
           />
         )}
       />

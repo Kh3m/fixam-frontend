@@ -5,6 +5,7 @@ import Select, {
   SingleValue,
   StylesConfig,
 } from "react-select";
+
 import { customNoOptionMessage } from "./CustomNoOptionMesaage";
 import { OptionType } from "../../pages/store/AddProductForm/CategoryFields";
 
@@ -35,6 +36,7 @@ const styles: StylesConfig<OptionType> = {
       cursor: "pointer",
     },
   }),
+
   option: (provided, state) => ({
     ...provided,
     backgroundColor: state.isSelected ? "#4054B2" : provided.backgroundColor,
@@ -69,6 +71,7 @@ const SelectOption = ({
           noOptionsMessage={() => customNoOptionMessage(noOptionsMessage)}
           // TODO: Fix later
           onChange={onChange}
+          name={name}
         />
       )}
     />

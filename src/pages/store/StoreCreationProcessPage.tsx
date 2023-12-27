@@ -45,6 +45,7 @@ const StoreCreationProcessPage = () => {
   const stepName: string = isLastStep ? "" : steps[stepIndex].toLowerCase();
 
   const handleStepClick = async (selectedStep: number) => {
+    // TODO: Try using callback
     if (selectedStep === 1) setStepIndex(selectedStep - 1);
     if (
       (await validate("contact", getFieldState, trigger)) &&

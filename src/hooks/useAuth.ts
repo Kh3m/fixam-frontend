@@ -71,7 +71,7 @@ const useAuth = () => {
   };
 
   const isAuthenticated = () => {
-    return !!getCookie("userId");
+    return !!getCookie("userId"); // !!"user" convert to it's boolean equivalent -> true
   };
 
   const fetchUserDummy = async (userId: string) => {
