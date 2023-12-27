@@ -154,7 +154,7 @@ const ProductImageUpload = () => {
             control={control}
             name={`selectimage${index}`}
             rules={{
-              required: { value: true, message: "Image is required" },
+              // required: { value: true, message: "Image is required" },
               validate: validateImage,
             }}
             render={({ fieldState }) => (
@@ -173,8 +173,8 @@ const ProductImageUpload = () => {
       </div>
 
       <div className="my-2 text-fgrey text-sm">
+        <p>Images are required</p>
         <p>Maximum image size 5mb</p>
-        <p>Must have a Resolution of (1000x800)px</p>
         <p>Must be either jpeg, png, or webp</p>
       </div>
     </FormFieldCard>
