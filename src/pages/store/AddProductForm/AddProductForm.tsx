@@ -16,15 +16,15 @@ import { StoreResponseType } from "../../../entities/store";
 type ProductUploadType = {
   name: string;
   description: string;
-  price: number;
+  price: number | string;
   user_id: string;
   store_id: string;
   type: string;
   category: string;
-  selectimage1: File;
-  selectimage2: File;
-  selectimage3: File;
-  selectimage4: File;
+  selectimage1: File | null;
+  selectimage2: File | null;
+  selectimage3: File | null;
+  selectimage4: File | null;
 };
 
 const AddProductForm = () => {
@@ -35,12 +35,22 @@ const AddProductForm = () => {
 
   useEffect(() => {
     setUserId(getCookie("userId"));
-  }, []);
+  }, [userId]);
 
   const methods = useForm<ProductUploadType>({
     defaultValues: {
       description:
         "Introducing the LuminaX Pro, an innovative smart flashlight designed to redefine portable illumination. This cutting-edge device boasts a sleek aluminum alloy body, combining durability with a modern aesthetic. LuminaX Pro features advanced LED technology, delivering a powerful beam with adjustable intensity for various scenarios. Its rechargeable lithium-ion battery ensures long-lasting performance, while a built-in USB port facilitates convenient charging on the go. With a compact and lightweight design, LuminaX Pro is an ideal companion for outdoor adventures, emergency situations, and everyday tasks. Elevate your lighting experience with LuminaX Pro — where functionality meets sophistication.",
+      name: "",
+      price: "",
+      user_id: "",
+      store_id: "",
+      type: "",
+      category: "",
+      selectimage1: null,
+      selectimage2: null,
+      selectimage3: null,
+      selectimage4: null,
     },
   });
   // const productImageMethods = useForm();
@@ -70,7 +80,7 @@ const AddProductForm = () => {
       ];
       // Now `formData` contains the images in an array-like structure under the "image" key
       images.forEach((image, index) => {
-        formData.append(`image[${index}]`, image);
+        formData.append(`image[${index}]`, image as File);
       });
 
       formData.append("user_id", userId);

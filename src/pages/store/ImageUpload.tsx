@@ -37,7 +37,7 @@ const ImageUpload = forwardRef(
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     const imageUploadRef = useRef(null);
-    const { setValue, getValues, trigger } = useFormContext();
+    const { getValues, trigger } = useFormContext();
 
     //  Remove space from label name
     const labelName = label.toLowerCase().split(" ").join("");
@@ -58,8 +58,10 @@ const ImageUpload = forwardRef(
         <span
           className={`${
             styledLabel &&
-            "relative group/tooltip inline-flex justify-center items-center rounded-md py-2 px-4 text-white font-semibold text-xs"
-          } ${fieldState.invalid ? "bg-red-400" : "bg-fgrey"}`}
+            `relative group/tooltip inline-flex justify-center items-center rounded-md 
+            py-2 px-4 text-white font-semibold text-xs 
+            ${fieldState.invalid ? "bg-red-400" : "bg-fgrey"}`
+          }`}
         >
           {fieldState.invalid && (
             <Tooltip

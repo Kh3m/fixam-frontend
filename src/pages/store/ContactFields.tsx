@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import Input from "../../components/Input";
 import { validateGeneralInternationalPhoneNumber } from "../../utils/validationRules";
 
@@ -10,29 +10,27 @@ const ContactFields: FC<Props> = () => {
 
   return (
     <div className="flex flex-col space-y-4 ">
-      <Controller
+      <Input
         rules={{
           required: "First Name is required",
           minLength: { value: 3, message: "Should be atleast 3 characters" },
         }}
         control={control}
         name="firstName"
-        render={({ field, fieldState }) => (
-          <Input {...field} fieldState={fieldState} placeholder="First Name" />
-        )}
+        placeholder="First Name"
       />
-      <Controller
+
+      <Input
         rules={{
           required: "Last Name is required",
           minLength: { value: 3, message: "Should be atleast 3 characters" },
         }}
         control={control}
         name="lastName"
-        render={({ field, fieldState }) => (
-          <Input {...field} fieldState={fieldState} placeholder="Last Name" />
-        )}
+        placeholder="Last Name"
       />
-      <Controller
+
+      <Input
         rules={{
           required: "Email is required",
           pattern: {
@@ -43,16 +41,11 @@ const ContactFields: FC<Props> = () => {
         }}
         control={control}
         name="email"
-        render={({ field, fieldState }) => (
-          <Input
-            {...field}
-            fieldState={fieldState}
-            placeholder="Email Address"
-            type="email"
-          />
-        )}
+        placeholder="Email Address"
+        type="email"
       />
-      <Controller
+
+      <Input
         rules={{
           required: "Phone number is required",
           validate: validateGeneralInternationalPhoneNumber,
@@ -60,30 +53,19 @@ const ContactFields: FC<Props> = () => {
         }}
         control={control}
         name="phone"
-        render={({ field, fieldState }) => (
-          <Input
-            {...field}
-            fieldState={fieldState}
-            placeholder="Phone Number"
-            type="phone"
-          />
-        )}
+        placeholder="Phone Number"
+        type="phone"
       />
-      <Controller
+
+      <Input
         rules={{
           required: "Physical address is required",
           minLength: { value: 10, message: "Should be atleast 10 characters" },
         }}
         control={control}
         name="address"
-        render={({ field, fieldState }) => (
-          <Input
-            {...field}
-            fieldState={fieldState}
-            placeholder="Address"
-            isTextArea
-          />
-        )}
+        placeholder="Address"
+        isTextArea
       />
     </div>
   );

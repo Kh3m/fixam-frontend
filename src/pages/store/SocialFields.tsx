@@ -9,23 +9,15 @@ const SocialFields: FC<Props> = () => {
   const { control } = useFormContext();
   return (
     <div className="flex flex-col space-y-4 ">
-      <Controller
+      <Input
         control={control}
         name="facebookLink"
-        render={({ field }) => <Input {...field} placeholder="Facebook Link" />}
+        placeholder="Facebook Link"
       />
-      <Controller
-        control={control}
-        name="igLink"
-        render={({ field }) => (
-          <Input {...field} placeholder="Instagram Link" />
-        )}
-      />
-      <Controller
-        control={control}
-        name="xLink"
-        render={({ field }) => <Input {...field} placeholder="X Link" />}
-      />
+
+      <Input control={control} name="igLink" placeholder="Instagram Link" />
+
+      <Input control={control} name="xLink" placeholder="X Link" />
 
       <Controller
         rules={{

@@ -7,37 +7,36 @@ import ImageUpload from "./ImageUpload";
 interface Props {}
 
 const BrandFields: FC<Props> = () => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
 
   return (
     <div className="flex flex-col space-y-4 ">
-      <Controller
+      <Input
         rules={{
           required: "Brand Name is required",
         }}
         control={control}
         name="storeName"
-        render={({ field, fieldState }) => (
-          <Input {...field} fieldState={fieldState} placeholder="Store Name" />
-        )}
+        placeholder="Store Name"
+      />
+
+      <Input
+        control={control}
+        name="businessRCNumber"
+        placeholder="Business RC Number"
       />
 
       <Controller
         control={control}
-        name="businessRCNumber"
-        render={({ field }) => (
-          <Input {...field} placeholder="Business RC Number" />
-        )}
-      />
-      <Controller
-        control={control}
         name="logo"
-        render={({}) => (
+        render={({ fieldState }) => (
           <ImageUpload
+            fieldState={fieldState}
             label="Logo"
             hint="Must be a png file, Max size of 5mb"
             placeholder="Upload a File"
             isFull
+            onUpload={(image) => setValue("logo", image)}
           />
         )}
       />
@@ -45,31 +44,26 @@ const BrandFields: FC<Props> = () => {
       <Controller
         control={control}
         name="banner"
-        render={({}) => (
+        render={({ fieldState }) => (
           <ImageUpload
+            fieldState={fieldState}
             label="Banner"
             hint="Must be a png file, Max size of 5mb"
             placeholder="Choose a banner"
+            onUpload={(image) => setValue("banner", image)}
           />
         )}
       />
 
-      <Controller
+      <Input
         rules={{
           required: "In 50-250 words tell us about your store",
           validate: wordCountValidation,
         }}
         control={control}
         name="description"
-        render={({ field, fieldState }) => (
-          <Input
-            {...field}
-            fieldState={fieldState}
-            placeholder="Provide description about this store here..."
-            name="description"
-            isTextArea
-          />
-        )}
+        placeholder="Provide description about this store here..."
+        isTextArea
       />
 
       {/*       

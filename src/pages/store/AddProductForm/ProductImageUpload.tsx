@@ -124,11 +124,6 @@ const ProductImageUpload = () => {
   // };
 
   const handleImageUpload = async (imageFieldName: string, image: File) => {
-    // Get the current values from the useForm context
-    const currentValues = getValues();
-
-    console.log("currentValues", currentValues);
-
     // Check if the current image has already been uploaded
     if (isImageAlreadyUploaded(image)) {
       const error = "Image has already been uploaded";

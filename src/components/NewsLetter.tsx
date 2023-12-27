@@ -1,8 +1,13 @@
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import Button from "./Button";
 import Input from "./Input";
 import Space from "./Space";
 
 const NewsLetter = () => {
+  const methods = useForm();
+
+  const { control } = methods;
+
   return (
     <section
       color="black"
@@ -18,7 +23,13 @@ const NewsLetter = () => {
           </p>
         </div>
         <div>
-          <Input placeholder="Enter your email" />
+          <FormProvider {...methods}>
+            <Input
+              name="news-letter"
+              control={control}
+              placeholder="Enter your email"
+            />
+          </FormProvider>
           <Space spacing="my-2"></Space>
           <Button
             variant="elevated"

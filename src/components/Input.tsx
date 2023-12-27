@@ -1,5 +1,6 @@
 import {
   ForwardedRef,
+  Fragment,
   InputHTMLAttributes,
   TextareaHTMLAttributes,
   forwardRef,
@@ -10,14 +11,17 @@ import {
 
 import emailIcon from "../assets/email-icon.svg";
 
-import { ControllerFieldState } from "react-hook-form";
+import { Controller, Control, FieldValues } from "react-hook-form";
 
 type CommonProps = {
   withIcon?: boolean;
   isTextArea?: boolean;
-  fieldState?: ControllerFieldState;
   hint?: string;
   customPlaceholder?: string;
+  control: Control<FieldValues>;
+  name: string;
+  // TODO: Fix appropriate type
+  rules?: any;
 };
 
 type MyInputProps = CommonProps & InputHTMLAttributes<HTMLInputElement>;
@@ -32,9 +36,11 @@ const Input = forwardRef(
     {
       withIcon,
       isTextArea,
-      fieldState,
       customPlaceholder,
       hint,
+      name,
+      control,
+      rules,
       ...props
     }: Props,
     ref: ForwardedRef<HTMLInputElement | HTMLTextAreaElement>
@@ -65,45 +71,76 @@ const Input = forwardRef(
     return (
       <div className={`relative`}>
         {isTextArea ? (
-          <textarea
-            ref={ref as ForwardedRef<HTMLTextAreaElement>}
-            className={`${
-              fieldState?.invalid
-                ? "border-red-400 border-2"
-                : "border-[#c1c1c1]"
-            } 
+          <Controller
+            name={name}
+            control={control}
+            rules={rules}
+            render={({ fieldState, field }) => {
+              return (
+                <Fragment>
+                  <textarea
+                    {...field}
+                    name={name}
+                    ref={ref as ForwardedRef<HTMLTextAreaElement>}
+                    className={`${
+                      fieldState?.invalid
+                        ? "border-red-400 border-2"
+                        : "border-[#c1c1c1]"
+                    } 
               w-full resize-none text-gray-600 rounded-md px-4 py-2 h-20 
               outline-1 border blur-0  focus:outline-fyellow`}
-            {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          ></textarea>
-        ) : (
-          <input
-            style={{
-              paddingLeft:
-                paddingLeft !== undefined ? `${paddingLeft}px` : "16px",
+                    {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+                  ></textarea>
+                  <p
+                    className={`${
+                      fieldState?.invalid ? "text-red-400" : "text-fgrey"
+                    } text-sm`}
+                  >
+                    {fieldState?.invalid ? fieldState?.error?.message : hint}
+                  </p>
+                </Fragment>
+              );
             }}
-            ref={ref as ForwardedRef<HTMLInputElement>}
-            className={`
-            ${
-              fieldState?.invalid
-                ? "border-red-400 border-2"
-                : "border-[#c1c1c1]"
-            }
-            ${customPlaceholder && ""}
-            ${
-              withIcon ? "px-11" : "px-4"
-            } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full 
-            text-gray-600 w-full  focus:outline-fyellow`}
-            {...(props as InputHTMLAttributes<HTMLInputElement>)}
+          />
+        ) : (
+          <Controller
+            name={name}
+            rules={rules}
+            control={control}
+            render={({ fieldState, field }) => (
+              <Fragment>
+                <input
+                  {...field}
+                  style={{
+                    paddingLeft:
+                      paddingLeft !== undefined ? `${paddingLeft}px` : "16px",
+                  }}
+                  ref={ref as ForwardedRef<HTMLInputElement>}
+                  className={`
+              ${
+                fieldState?.invalid
+                  ? "border-red-400 border-2"
+                  : "border-[#c1c1c1]"
+              }
+              ${customPlaceholder && ""}
+              ${
+                withIcon ? "px-11" : "px-4"
+              } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full
+              text-gray-600 w-full  focus:outline-fyellow`}
+                  {...(props as InputHTMLAttributes<HTMLInputElement>)}
+                />
+                <p
+                  className={`${
+                    fieldState?.invalid ? "text-red-400" : "text-fgrey"
+                  } text-sm`}
+                >
+                  {fieldState?.invalid ? fieldState?.error?.message : hint}
+                </p>
+              </Fragment>
+            )}
           />
         )}
-        <p
-          className={`${
-            fieldState?.invalid ? "text-red-400" : "text-fgrey"
-          } text-sm`}
-        >
-          {fieldState?.invalid ? fieldState?.error?.message : hint}
-        </p>
+
         {customPlaceholder && (
           <div
             ref={targetElementRef}
