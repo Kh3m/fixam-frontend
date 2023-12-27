@@ -10,6 +10,8 @@ import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
 import useAuth from "../../../hooks/useAuth";
+import apiClient from "../../../services/apiClient";
+import { StoreResponseType } from "../../../entities/store";
 
 type ProductUploadType = {
   name: string;
@@ -27,6 +29,8 @@ type ProductUploadType = {
 
 const AddProductForm = () => {
   const [userId, setUserId] = useState<string | null>();
+  const [isLoading, setIsLoading] = useState(false);
+
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -42,18 +46,57 @@ const AddProductForm = () => {
   // const productImageMethods = useForm();
   const { handleSubmit } = methods;
 
-  const onSubmit = async (data: ProductUploadType) => {
-    console.log("Entered Product Data", data);
+  const onSubmit = async (newProductData: ProductUploadType) => {
+    //TODO: remove below line
+    console.log("Entered Product Data", newProductData);
+
+    setIsLoading(true);
 
     const formData = new FormData();
     if (userId && isAuthenticated()) {
+      const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
+        `/stores/owner/${userId}/`
+      );
+
+      const getLastStoreIndex = getStoreForUserId.data.length - 1;
+      // Use the id of last created store of user
+      formData.append("store_id", getStoreForUserId.data[getLastStoreIndex].id);
+
+      const images = [
+        newProductData.selectimage1,
+        newProductData.selectimage2,
+        newProductData.selectimage3,
+        newProductData.selectimage4,
+      ];
+      // Now `formData` contains the images in an array-like structure under the "image" key
+      images.forEach((image, index) => {
+        formData.append(`image[${index}]`, image);
+      });
+
       formData.append("user_id", userId);
-      formData.append("store_id", "21ee7c8a-e42c-4e7d-bf3e-8f1ed9c756f2");
-      formData.append("price", data.price.toString());
-      formData.append("type", data.type);
-      formData.append("category", data.category);
-      formData.append("name", data.name);
-      formData.append("description", data.description);
+      formData.append("price", newProductData.price.toString());
+      formData.append("type", newProductData.type);
+      formData.append("category", newProductData.category);
+      formData.append("name", newProductData.name);
+      formData.append("description", newProductData.description);
+
+      // formData.forEach((v, k) => console.log(`${k}: ${v}`));
+
+      // Send data to server
+      try {
+        const createdProduct = await apiClient.post("/products/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log("createdProduct", createdProduct);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(`Error - Failed to create product ${error}`);
+        console.log(error);
+        setIsLoading(false);
+      }
     } else {
       console.log("No user/auth: Couldn't create product");
     }
@@ -79,7 +122,7 @@ const AddProductForm = () => {
           variant="elevated"
           styles="bg-fyellow text-white font-semibold text-lg pagination-shadow"
         >
-          Submit
+          {isLoading ? "Loading..." : "Submit"}
         </Button>
       </form>
       {/* <Space spacing="my-8" />

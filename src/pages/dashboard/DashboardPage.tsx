@@ -45,7 +45,7 @@ const DashboardPage = () => {
   return (
     <section>
       <Banner
-        styles="h-[200px] rounded-lg"
+        styles="rounded-lg"
         bannerURL={
           storeData.length ? storeData[storeData.length - 1].banner_img_url : ""
         }
