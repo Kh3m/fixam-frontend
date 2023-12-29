@@ -8,13 +8,16 @@ import StoreProducts from "./pages/store/StoreProducts";
 import StoreSettings from "./pages/store/StoreSettings";
 import StoreMessages from "./pages/store/StoreMessages";
 import StoreCustomers from "./pages/store/StoreCustomers";
-import StoreOrders from "./pages/store/StoreOrders";
+import StoreOrders from "./pages/store/orders/StoreOrders";
 import StoreCreationProcessPage from "./pages/store/StoreCreationProcessPage";
 import AddProductForm from "./pages/store/AddProductForm/AddProductForm";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import CartPage from "./pages/cart/CartPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import WishListPage from "./pages/wishlist/WishListPage";
+import LoginPage from "./pages/auth/LoginForm";
+import RegistrationPage from "./pages/auth/RegistrationForm";
+import AuthPage from "./pages/auth/AuthPage";
 
 const router = createBrowserRouter([
   {
@@ -78,8 +81,15 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "/login", element: <div>Login</div> },
-  { path: "/register", element: <div>Register</div> },
+  {
+    path: "/auth",
+    element: <AuthPage />,
+    children: [
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegistrationPage /> },
+    ],
+  },
+
   { path: "/stores/create", element: <StoreCreationProcessPage /> },
   { path: "/admin", element: <div>Admin</div> },
 ]);

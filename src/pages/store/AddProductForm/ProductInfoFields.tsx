@@ -29,6 +29,7 @@ const ProductInfoFields = () => {
         placeholder="Enter product price"
         type="number"
         min="0"
+        step="any"
       />
       <Space spacing="my-4" />
       <Input

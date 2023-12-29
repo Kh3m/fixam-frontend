@@ -12,6 +12,7 @@ import TypeFields from "./TypeFields";
 import useAuth from "../../../hooks/useAuth";
 import apiClient from "../../../services/apiClient";
 import { StoreResponseType } from "../../../entities/store";
+import { useNavigate } from "react-router-dom";
 
 type ProductUploadType = {
   name: string;
@@ -30,7 +31,7 @@ type ProductUploadType = {
 const AddProductForm = () => {
   const [userId, setUserId] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -101,6 +102,12 @@ const AddProductForm = () => {
         });
 
         console.log("createdProduct", createdProduct);
+
+        // Find store and use slug to navigate
+        navigate(
+          `/stores/${getStoreForUserId.data[getLastStoreIndex].slug}/products`
+        );
+
         setIsLoading(false);
       } catch (error) {
         console.log(`Error - Failed to create product ${error}`);
@@ -131,6 +138,7 @@ const AddProductForm = () => {
         <Button
           variant="elevated"
           styles="bg-fyellow text-white font-semibold text-lg pagination-shadow"
+          isLoading={isLoading}
         >
           {isLoading ? "Loading..." : "Submit"}
         </Button>

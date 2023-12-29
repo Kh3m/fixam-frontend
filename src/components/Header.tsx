@@ -5,8 +5,11 @@ import Logo from "./Logo";
 import SearchInput from "./SearchInput/SearchInput";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoListSharp } from "react-icons/io5";
+import useAuth from "../hooks/useAuth";
 
 const Header = () => {
+  const { isAuthenticated, storeSlug } = useAuth();
+  const slug = storeSlug().then();
   return (
     <header className="dark:bg-slate-800 bg-fyellow">
       <Container>
@@ -27,18 +30,24 @@ const Header = () => {
               <FaCartShopping />
             </Link>
 
-            <Link to={`/stores/khem-store/dashboard`}>
+            <Link to={`/auth/login`}>
               <Button variant="text" styles="text-white text-base ">
                 Login
               </Button>
             </Link>
-            <Button variant="outlined">Register</Button>
-            <Link to="/stores/create">
+            <Link to={`/auth/register`}>
+              <Button variant="outlined">Register</Button>
+            </Link>
+            <Link
+              to={`${
+                isAuthenticated() ? `/stores/${slug}/dashboard` : "/auth/login"
+              } `}
+            >
               <Button
                 variant="elevated"
                 styles=" bg-white text-fyellow border-2 border-white"
               >
-                Be a vendor
+                {isAuthenticated() ? "SELL" : "Be a vendor"}
               </Button>
             </Link>
           </div>

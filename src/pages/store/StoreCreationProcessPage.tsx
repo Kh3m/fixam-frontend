@@ -10,6 +10,8 @@ import StoreCreateForm from "./StoreCreateForm";
 import { validate } from "./formValidationUtils";
 import { useForm } from "react-hook-form";
 import { StoreType } from "../../entities/store";
+import LogoFormSplitLayout from "../../components/LogoFormSplitLayout";
+import MainContent from "../../components/MainContent";
 
 const steps = ["Contact", "Brand", "Socials"];
 
@@ -62,39 +64,19 @@ const StoreCreationProcessPage = () => {
   };
 
   return (
-    <Main>
-      <Space spacing="my-14" />
-      <Container>
-        <section className="grid store-reg-grid justify-center items-center">
-          <div className="w-[40%] opacity-80 ">
-            <div className=" fixed top-[30%] bottom-0">
-              <Link to="/">
-                <Logo color="yellow" styles=" scale-125" />
-              </Link>
-            </div>
-          </div>
-          <Card styles="pagination-shadow w-[60%]">
-            <Space spacing="my-14" />
-            <section className="w-[80%] m-auto">
-              <div className="w-[80%] m-auto">
-                <ProcessBar
-                  stepName={stepName}
-                  handleStepClick={handleStepClick}
-                />
-              </div>
-              <Space spacing="my-14" />
-
-              <StoreCreateForm
-                methods={methods}
-                stepName={stepName}
-                isLastStep={isLastStep}
-              />
-            </section>
-            <Space spacing="my-14" />
-          </Card>
-        </section>
-      </Container>
-    </Main>
+    <MainContent>
+      <LogoFormSplitLayout>
+        <div className="w-[80%] m-auto">
+          <ProcessBar stepName={stepName} handleStepClick={handleStepClick} />
+        </div>
+        <Space spacing="my-14" />
+        <StoreCreateForm
+          methods={methods}
+          stepName={stepName}
+          isLastStep={isLastStep}
+        />
+      </LogoFormSplitLayout>
+    </MainContent>
   );
 };
 

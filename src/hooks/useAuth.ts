@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
+import { StoreType } from "../entities/store";
 
 interface UserData {
   id: string;
@@ -74,6 +75,19 @@ const useAuth = () => {
     return !!getCookie("userId"); // !!"user" convert to it's boolean equivalent -> true
   };
 
+  const storeSlug = async () => {
+    if (isAuthenticated()) {
+      const userId = getCookie("userId");
+
+      const stores = await apiClient.get<StoreType[]>(
+        "/stores/owner/" + userId + "/"
+      );
+      return stores.data[stores.data.length - 1].slug;
+    }
+
+    throw Error("User is not authenticated");
+  };
+
   const fetchUserDummy = async (userId: string) => {
     try {
       // Make API call to backend auth endpoint using axios
@@ -95,7 +109,15 @@ const useAuth = () => {
     }
   };
 
-  return { user, login, logout, register, isAuthenticated, fetchUserDummy };
+  return {
+    user,
+    login,
+    logout,
+    register,
+    isAuthenticated,
+    storeSlug,
+    fetchUserDummy,
+  };
 };
 
 export default useAuth;
