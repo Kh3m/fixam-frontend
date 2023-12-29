@@ -1,3 +1,5 @@
+import { ProductType } from "../../services/product";
+import capitalize from "../../utils/capitalize";
 import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import Rating from "../Rating";
@@ -26,10 +28,67 @@ const TempLocationSVG = () => (
   </svg>
 );
 
-const ProductDetail = () => {
+interface Props {
+  isStore?: boolean;
+  product?: ProductType;
+  onDeleteProduct?: () => void;
+}
+
+const ProductDetail = ({ isStore, product, onDeleteProduct }: Props) => {
+  const labelValuesProd = [
+    { label: "Type", value: capitalize(product?.type || "") },
+    { label: "Condition", value: "Brand New" },
+    { label: "Place of Use", value: "Indoor" },
+    { label: "Warranty", value: "Yes" },
+  ];
+
+  if (product)
+    return (
+      <div className={`${isStore ? "" : "w-[40%]"}`}>
+        {!isStore && (
+          <h2 className="dark:text-white text-3xl">{product.name}</h2>
+        )}
+        <Space spacing="my-3" />
+        <h3 className="text-sm text-fgrey">{product.category_name}</h3>
+        <span className="text-2xl font-bold dark:text-fgrey">
+          {formatPrice(product.price as number)}
+        </span>
+        <Space spacing="my-3" />
+        <Rating />
+        <Space spacing="my-3" />
+        <ProductSummary direction="horizontal" labelValues={labelValuesProd} />
+        <Space spacing="my-3" />
+        <p className="dark:text-fgrey flex space-x-1 text-xs font-semibold">
+          <span>
+            <TempLocationSVG />
+          </span>
+          <span>
+            Luxurious 7 seater turkish fabric sofa, assembled in Nigeria by
+            Nigerians.
+          </span>
+        </p>
+        <Space spacing="my-3" />
+        <Button
+          variant="elevated"
+          styles="w-full bg-fyellow text-white font-semibold text-xs"
+        >
+          {isStore ? "Edit" : "Buy Now"}
+        </Button>
+        <Space spacing="my-3" />
+        <Button
+          onClick={isStore && onDeleteProduct ? onDeleteProduct : () => {}}
+          variant="outlined"
+          styles="w-full border-2 border-fyellow text-fyellow "
+        >
+          {isStore ? "Delete" : "Add to Cart"}
+        </Button>
+      </div>
+    );
   return (
-    <div className="w-[40%]">
-      <h2 className="dark:text-white text-3xl">Turkish Royal Fabric Sofa</h2>
+    <div className={`${isStore ? "" : "w-[40%]"}`}>
+      {!isStore && (
+        <h2 className="dark:text-white text-3xl">Turkish Royal Fabric Sofa</h2>
+      )}
       <Space spacing="my-3" />
       <h3 className="text-sm text-fgrey">Leather Sofa Chair</h3>
       <span className="text-2xl font-bold dark:text-fgrey">
@@ -54,14 +113,14 @@ const ProductDetail = () => {
         variant="elevated"
         styles="w-full bg-fyellow text-white font-semibold text-xs"
       >
-        Buy Now
+        {isStore ? "Edit" : "Buy Now"}
       </Button>
       <Space spacing="my-3" />
       <Button
         variant="outlined"
         styles="w-full border-2 border-fyellow text-fyellow "
       >
-        Add to Cart
+        {isStore ? "Delete" : "Add to Cart"}
       </Button>
     </div>
   );

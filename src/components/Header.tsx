@@ -6,10 +6,12 @@ import SearchInput from "./SearchInput/SearchInput";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoListSharp } from "react-icons/io5";
 import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const Header = () => {
   const { isAuthenticated, storeSlug } = useAuth();
-  const slug = storeSlug().then();
+
+  useEffect;
   return (
     <header className="dark:bg-slate-800 bg-fyellow">
       <Container>
@@ -40,14 +42,16 @@ const Header = () => {
             </Link>
             <Link
               to={`${
-                isAuthenticated() ? `/stores/${slug}/dashboard` : "/auth/login"
+                isAuthenticated() && storeSlug
+                  ? `/stores/${storeSlug}/dashboard`
+                  : "/stores/create"
               } `}
             >
               <Button
                 variant="elevated"
                 styles=" bg-white text-fyellow border-2 border-white"
               >
-                {isAuthenticated() ? "SELL" : "Be a vendor"}
+                {isAuthenticated() && storeSlug ? "Store" : "Be a vendor"}
               </Button>
             </Link>
           </div>

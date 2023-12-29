@@ -1,25 +1,29 @@
-import Card from "../../components/Card";
-import TopBar from "./TopBar";
+import Card from "../../../components/Card";
+import TopBar from "../TopBar";
 
-import Pagination from "../../components/Pagination";
-import Table from "../../components/Table";
+import Pagination from "../../../components/Pagination";
+import Table from "../../../components/Table";
 import { Outlet, useLocation } from "react-router-dom";
-import { Fragment } from "react";
-import Heading from "../../components/Heading";
-import Space from "../../components/Space";
-import useProducts from "../../hooks/products/useProducts";
-import { FetchResponseType } from "../../services/apiClient";
-import { ProductType } from "../../services/product";
-import { getRandomInt } from "../../utils/randomValues";
-import { formatPrice } from "../../utils/number-formatter";
-import { FaEllipsisVertical } from "react-icons/fa6";
-import StorePageTitle from "./StorePageTitle";
+import { Fragment, useEffect } from "react";
+import useProducts from "../../../hooks/products/useProducts";
+import { FetchResponseType } from "../../../services/apiClient";
+import { ProductType } from "../../../services/product";
+import { getRandomInt } from "../../../utils/randomValues";
+import { formatPrice } from "../../../utils/number-formatter";
+import StorePageTitle from "../StorePageTitle";
+import ActionMenu from "../../../components/Menu/ActionMenu";
 
 const StoreProducts = () => {
   const { pathname } = useLocation();
-  const { data, isLoading } = useProducts();
+  // TODO: Use mutation instead
+  const location = useLocation();
+  const { data, isLoading, refetch } = useProducts();
 
   const products = data as FetchResponseType<ProductType>;
+
+  useEffect(() => {
+    if (location.pathname.endsWith("/products")) refetch();
+  });
 
   const generateTableProductData = () => {
     if (isLoading) return <p>Loading...</p>;
@@ -39,9 +43,7 @@ const StoreProducts = () => {
             <td>{formatPrice(Number.parseFloat(product.price as string))}</td>
             <td className="text-center">8</td>
             <td className="text-center">
-              <span className="inline-flex cursor-pointer">
-                <FaEllipsisVertical />
-              </span>
+              <ActionMenu itemId={product.id} />
             </td>
           </tr>
         ))}

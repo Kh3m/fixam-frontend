@@ -1,8 +1,3 @@
-import { Link } from "react-router-dom";
-import Card from "../../components/Card";
-import Container from "../../components/Container";
-import Logo from "../../components/Logo";
-import Main from "../../components/Main";
 import ProcessBar from "../../components/ProgressBar/ProcessBar";
 import Space from "../../components/Space";
 import { useStoreProgressContext } from "../../contexts/store-progress";

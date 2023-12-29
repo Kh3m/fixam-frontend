@@ -9,6 +9,7 @@ export type ProductType = {
   price: number | string;
   type: string;
   category: string;
+  category_name: string;
 };
 
 const apiClient = new APIClient<ProductType>("/products/");

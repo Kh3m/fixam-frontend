@@ -2,8 +2,8 @@ import { useFormContext } from "react-hook-form";
 import SelectOption from "../../../components/Option/SelectOption";
 import Space from "../../../components/Space";
 import FormFieldCard from "./FormFieldCard";
-import { ReactNode, useEffect, useState } from "react";
-import apiClient, { FetchResponseType } from "../../../services/apiClient";
+import { useState } from "react";
+import { FetchResponseType } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
 import useSubCategories from "../../../hooks/category/useSubCategories";
@@ -16,9 +16,9 @@ type CategoryType = {
   parent: string | null;
 };
 
-type CategoryResponseType = {
-  results: CategoryType[];
-};
+// type CategoryResponseType = {
+//   results: CategoryType[];
+// };
 
 export type OptionType = {
   label: string;
@@ -27,7 +27,7 @@ export type OptionType = {
 
 const CategoryFields = () => {
   const [categoryId, setcategoryId] = useState<string | undefined>();
-  const { data: categories, error, isLoading } = useCategories();
+  const { data: categories } = useCategories();
   const { data: subCategories, isLoading: isLoadingSubCategories } =
     useSubCategories(categoryId);
 

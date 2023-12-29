@@ -15,6 +15,7 @@ type UserCredentialType = {
 
 const useAuth = () => {
   const [user, setUser] = useState<UserData | null>(null);
+  const [storeSlug, setStoreSlug] = useState<string | null>(null);
 
   useEffect(() => {
     // Check for an existing user cookie when the component mount
@@ -22,6 +23,17 @@ const useAuth = () => {
     if (userIdFromCookie) {
       // If a use cookie exists, set the user's state
       setUser({ id: userIdFromCookie });
+    }
+
+    // Set store slug
+    if (isAuthenticated()) {
+      const userId = getCookie("userId");
+
+      apiClient
+        .get<StoreType[]>("/stores/owner/" + userId + "/")
+        .then((res) => {
+          setStoreSlug(res.data[res.data.length - 1].slug);
+        });
     }
   }, []);
 
@@ -75,19 +87,6 @@ const useAuth = () => {
     return !!getCookie("userId"); // !!"user" convert to it's boolean equivalent -> true
   };
 
-  const storeSlug = async () => {
-    if (isAuthenticated()) {
-      const userId = getCookie("userId");
-
-      const stores = await apiClient.get<StoreType[]>(
-        "/stores/owner/" + userId + "/"
-      );
-      return stores.data[stores.data.length - 1].slug;
-    }
-
-    throw Error("User is not authenticated");
-  };
-
   const fetchUserDummy = async (userId: string) => {
     try {
       // Make API call to backend auth endpoint using axios
@@ -97,7 +96,7 @@ const useAuth = () => {
 
       if (res.status === 200) {
         const foundUserData = res.data;
-        setCookie("userId", foundUserData.id, 7); // Expires in 7 days
+        setCookie("userId", foundUserData.id, 8); // Expires in 8 days
         setUser({ id: foundUserData.id });
         console.log("COOKIES SET", document.cookie);
       } else {

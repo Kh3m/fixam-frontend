@@ -1,0 +1,74 @@
+import { useNavigate, useParams } from "react-router-dom";
+import ProductBottomSummary from "../../../components/Products/ProductBottomSummary";
+import Preview from "../../../components/Preview";
+import Space from "../../../components/Space";
+import ProductDetail from "../../../components/Products/ProductDetail";
+import useProduct from "../../../hooks/products/useProduct";
+import apiClient from "../../../services/apiClient";
+import useAuth from "../../../hooks/useAuth";
+
+type ParamsType = {
+  productId: string;
+  slug: string;
+};
+
+const content = {
+  left: ["Promoted", "Posted 3 hours", "Lagos, Ikeja"],
+  right: ["39 views"],
+};
+
+const ViewProduct = () => {
+  const params = useParams<ParamsType>();
+  console.log(params.productId);
+
+  const navigate = useNavigate();
+
+  const { storeSlug } = useAuth();
+
+  const {
+    data: product,
+    isLoading,
+    isSuccess,
+  } = useProduct(params.productId || "");
+
+  let images = [{ src: "", alt: "" }];
+
+  if (isSuccess && product.images)
+    images = product?.images.map((imageUrl) => ({
+      src: imageUrl,
+      alt: "Product image",
+    }));
+
+  if (isLoading) return <p>Loading...</p>;
+  return (
+    <div className="">
+      <h2 className="dark:text-white text-3xl">{product?.name}</h2>
+      <Space spacing="my-12" />
+      <section>
+        <div>
+          <Preview images={images} />
+          <Space spacing="my-2" />
+          <ProductBottomSummary content={content} />
+          <Space spacing="my-4" />
+          <p className="text-fgrey text-justify">{product?.description}</p>
+        </div>
+        {/* TODO: fix */}
+        <ProductDetail
+          isStore
+          product={product}
+          onDeleteProduct={() => {
+            console.log("AM IN", product?.id);
+            apiClient
+              .delete(`/products/${product?.id}/`)
+              .then((_) => navigate(`/stores/${storeSlug}/products`))
+              .catch((err) => console.log("Deletion ERRor", err));
+          }}
+        />
+      </section>
+      <Space spacing="my-12" />
+      {/* <ProductDescription /> */}
+    </div>
+  );
+};
+
+export default ViewProduct;

@@ -1,10 +1,10 @@
-import { FaEllipsisVertical } from "react-icons/fa6";
 import Table from "../../../components/Table";
 import StorePageTitle from "../StorePageTitle";
 import OrderQuickFilter from "./OrderQuickFilter";
 import { formatPrice } from "../../../utils/number-formatter";
 import Space from "../../../components/Space";
 import removeSpacing from "../../../utils/removeSpacing";
+import ActionMenu from "../../../components/Menu/ActionMenu";
 
 const orders = [
   {
@@ -72,9 +72,7 @@ const StoreOrders = () => {
               </td>
               <td>{formatPrice(Number.parseFloat(order.amount.toString()))}</td>
               <td className="text-center">
-                <span className="inline-flex cursor-pointer">
-                  <FaEllipsisVertical />
-                </span>
+                <ActionMenu />
               </td>
             </tr>
           );

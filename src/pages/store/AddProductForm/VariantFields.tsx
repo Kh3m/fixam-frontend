@@ -18,8 +18,13 @@ const VariantFields = () => {
         <Controller
           name="variant"
           control={control}
-          render={({ field }) => (
-            <Input {...field} placeholder="Name of Variant" />
+          render={({}) => (
+            <Input
+              name=""
+              rules={{}}
+              control={control}
+              placeholder="Name of Variant"
+            />
           )}
         />
 

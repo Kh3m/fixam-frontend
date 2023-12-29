@@ -32,6 +32,12 @@ export class APIClient<T> {
       .then((res) => res.data);
   };
 
+  fetch = async (productId: string) => {
+    return apiClient
+      .get<T>(this.endpoint + productId + "/")
+      .then((res) => res.data);
+  };
+
   post = async (data: T | FormData, config?: AxiosRequestConfig) => {
     return apiClient
       .post<T>(this.endpoint, data, config)

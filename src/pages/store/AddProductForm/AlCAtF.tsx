@@ -2,11 +2,10 @@ import { useFormContext } from "react-hook-form";
 import SelectOption from "../../../components/Option/SelectOption";
 import Space from "../../../components/Space";
 import FormFieldCard from "./FormFieldCard";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import apiClient, { FetchResponseType } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
-import useSubCategories from "../../../hooks/category/useSubCategories";
 
 type CategoryType = {
   id: string;
@@ -16,9 +15,9 @@ type CategoryType = {
   parent: string | null;
 };
 
-type CategoryResponseType = {
-  results: CategoryType[];
-};
+// type CategoryResponseType = {
+//   results: CategoryType[];
+// };
 
 export type OptionType = {
   label: string;

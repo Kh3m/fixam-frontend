@@ -4,7 +4,7 @@ import ProductsPage from "./pages/product/ProductsPage";
 import AppLayout from "./pages/AppLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import StorePage from "./pages/store/StorePage";
-import StoreProducts from "./pages/store/StoreProducts";
+import StoreProducts from "./pages/store/products/StoreProducts";
 import StoreSettings from "./pages/store/StoreSettings";
 import StoreMessages from "./pages/store/StoreMessages";
 import StoreCustomers from "./pages/store/StoreCustomers";
@@ -18,6 +18,8 @@ import WishListPage from "./pages/wishlist/WishListPage";
 import LoginPage from "./pages/auth/LoginForm";
 import RegistrationPage from "./pages/auth/RegistrationForm";
 import AuthPage from "./pages/auth/AuthPage";
+import ViewProduct from "./pages/store/products/ViewProduct";
+import LogoutPage from "./pages/auth/LogoutPage";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +61,10 @@ const router = createBrowserRouter([
           {
             path: ":slug/products",
             element: <StoreProducts />,
-            children: [{ path: "add-product", element: <AddProductForm /> }],
+            children: [
+              { path: "add-product", element: <AddProductForm /> },
+              { path: ":productId", element: <ViewProduct /> },
+            ],
           },
           {
             path: ":slug/orders",
@@ -87,6 +92,7 @@ const router = createBrowserRouter([
     children: [
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegistrationPage /> },
+      { path: "logout", element: <LogoutPage /> },
     ],
   },
 

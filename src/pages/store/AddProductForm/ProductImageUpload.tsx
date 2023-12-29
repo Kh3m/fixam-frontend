@@ -91,7 +91,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import ImageUpload from "../ImageUpload";
 import FormFieldCard from "./FormFieldCard";
 import { validateImage } from "../../../utils/validationRules";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // ... (other imports)
 
@@ -101,7 +101,7 @@ const ProductImageUpload = () => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { getValues } = useFormContext();
+  // const { getValues } = useFormContext();
 
   const isImageAlreadyUploaded = (image: File) => {
     return uploadedImages.some((uploadedImage) => {

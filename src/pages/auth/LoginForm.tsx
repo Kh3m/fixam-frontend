@@ -1,10 +1,24 @@
 import { useFormContext } from "react-hook-form";
 import Input from "../../components/Input";
 import Space from "../../components/Space";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const LoginForm = () => {
   const { control } = useFormContext();
+  const { fetchUserDummy } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const login = false;
+    if (login) {
+      fetchUserDummy("545801ff-ad84-4928-87da-3368ebc79016");
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <Input
