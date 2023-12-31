@@ -3,7 +3,7 @@ import productService from "../../services/product";
 
 const useProducts = (productId: string) =>
   useQuery({
-    queryKey: [productId],
+    queryKey: ["products", productId],
     queryFn: () => productService.fetch(productId),
   });
 

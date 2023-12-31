@@ -1,7 +1,7 @@
 import {} from "../entities/store";
 import { APIClient } from "./apiClient";
 
-type CategoryType = {
+export type CategoryType = {
   id: string;
   subcategories: string[];
   name: string;

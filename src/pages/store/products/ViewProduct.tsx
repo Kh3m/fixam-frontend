@@ -6,10 +6,10 @@ import ProductDetail from "../../../components/Products/ProductDetail";
 import useProduct from "../../../hooks/products/useProduct";
 import apiClient from "../../../services/apiClient";
 import useAuth from "../../../hooks/useAuth";
+import { useState } from "react";
 
 type ParamsType = {
   productId: string;
-  slug: string;
 };
 
 const content = {
@@ -19,11 +19,9 @@ const content = {
 
 const ViewProduct = () => {
   const params = useParams<ParamsType>();
-  console.log(params.productId);
-
   const navigate = useNavigate();
-
-  const { storeSlug } = useAuth();
+  const { userStores } = useAuth();
+  const [isDeletingProduct, setIsDeletingProduct] = useState(false);
 
   const {
     data: product,
@@ -33,11 +31,32 @@ const ViewProduct = () => {
 
   let images = [{ src: "", alt: "" }];
 
-  if (isSuccess && product.images)
+  if (isSuccess && product.images) {
     images = product?.images.map((imageUrl) => ({
       src: imageUrl,
       alt: "Product image",
     }));
+  }
+
+  console.log("Productssss", product);
+
+  const handleDelete = () => {
+    setIsDeletingProduct(true);
+    apiClient
+      .delete(`/products/${product?.id}/`)
+      .then((_) => {
+        setIsDeletingProduct(false);
+        navigate(
+          `/stores/${
+            userStores && userStores[userStores?.length - 1].slug
+          }/products`
+        );
+      })
+      .catch((err) => {
+        setIsDeletingProduct(false);
+        console.log("Deletion ERRor", err);
+      });
+  };
 
   if (isLoading) return <p>Loading...</p>;
   return (
@@ -56,13 +75,8 @@ const ViewProduct = () => {
         <ProductDetail
           isStore
           product={product}
-          onDeleteProduct={() => {
-            console.log("AM IN", product?.id);
-            apiClient
-              .delete(`/products/${product?.id}/`)
-              .then((_) => navigate(`/stores/${storeSlug}/products`))
-              .catch((err) => console.log("Deletion ERRor", err));
-          }}
+          onDeleteProduct={handleDelete}
+          isDeletingProduct={isDeletingProduct}
         />
       </section>
       <Space spacing="my-12" />

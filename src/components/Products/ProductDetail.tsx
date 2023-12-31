@@ -32,9 +32,15 @@ interface Props {
   isStore?: boolean;
   product?: ProductType;
   onDeleteProduct?: () => void;
+  isDeletingProduct?: boolean;
 }
 
-const ProductDetail = ({ isStore, product, onDeleteProduct }: Props) => {
+const ProductDetail = ({
+  isStore,
+  product,
+  isDeletingProduct,
+  onDeleteProduct,
+}: Props) => {
   const labelValuesProd = [
     { label: "Type", value: capitalize(product?.type || "") },
     { label: "Condition", value: "Brand New" },
@@ -54,7 +60,7 @@ const ProductDetail = ({ isStore, product, onDeleteProduct }: Props) => {
           {formatPrice(product.price as number)}
         </span>
         <Space spacing="my-3" />
-        <Rating />
+        <Rating count={5} withViews />
         <Space spacing="my-3" />
         <ProductSummary direction="horizontal" labelValues={labelValuesProd} />
         <Space spacing="my-3" />
@@ -77,6 +83,7 @@ const ProductDetail = ({ isStore, product, onDeleteProduct }: Props) => {
         <Space spacing="my-3" />
         <Button
           onClick={isStore && onDeleteProduct ? onDeleteProduct : () => {}}
+          disabled={isStore && isDeletingProduct}
           variant="outlined"
           styles="w-full border-2 border-fyellow text-fyellow "
         >
@@ -84,6 +91,7 @@ const ProductDetail = ({ isStore, product, onDeleteProduct }: Props) => {
         </Button>
       </div>
     );
+
   return (
     <div className={`${isStore ? "" : "w-[40%]"}`}>
       {!isStore && (
@@ -95,7 +103,7 @@ const ProductDetail = ({ isStore, product, onDeleteProduct }: Props) => {
         {formatPrice(549_999)}
       </span>
       <Space spacing="my-3" />
-      <Rating />
+      <Rating count={5} withViews />
       <Space spacing="my-3" />
       <ProductSummary direction="horizontal" labelValues={labelValues} />
       <Space spacing="my-3" />

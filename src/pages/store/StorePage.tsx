@@ -5,14 +5,14 @@ import Main from "../../components/Main";
 import AccessibleMenu from "../../components/Menu/AccessibleMenu";
 import Space from "../../components/Space";
 import { StoreResponseType } from "../../entities/store";
+import useAuth from "../../hooks/useAuth";
+import apiClient from "../../services/apiClient";
+import { getCookie } from "../../utils/cookies";
 import SideBar from "./SideBar";
 import UserAccountCard from "./UserAccountCard";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
 import UserAccountCardSkeleton from "./skeletons/UserAccountCardSkeleton";
-import useAuth from "../../hooks/useAuth";
-import apiClient from "../../services/apiClient";
-import { getCookie } from "../../utils/cookies";
 
 const menuItems = ["Switch account", "Change profile picture", "Log out"];
 

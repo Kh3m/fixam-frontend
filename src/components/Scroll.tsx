@@ -37,19 +37,22 @@ const Scroll = ({ direction, children }: PropsWithChildren<DirectionType>) => {
         initial={{ y: -50, scale: 0.9 }}
         whileHover={{ scale: 1 }}
         onClick={scrollLeft}
-        className="h-12 w-12 font-bold dark:bg-slate-200 bg-slate-100 rounded-full flex justify-center items-center
-      absolute -left-6 top-[50%] translate-y-[-50%] z-20 text-2xl fshadow cursor-pointer"
+        //   className="h-12 w-12 font-bold dark:bg-slate-200 bg-slate-100 rounded-full flex justify-center items-center
+        // absolute -left-6 top-[50%] translate-y-[-50%] z-20 text-2xl fshadow cursor-pointer"
       >
-        <FaChevronLeft />
+        {/* Left Icon */}
+        {/* <FaChevronLeft /> */}
       </motion.span>
       <motion.span
         initial={{ y: -50, scale: 0.9 }}
         whileHover={{ scale: 1 }}
         onClick={scrollRight}
-        className="h-12 w-12 font-bold dark:bg-slate-200 bg-slate-100 rounded-full flex justify-center items-center
-      absolute -right-6 top-[50%] translate-y-[-50%] z-20 text-2xl fshadow cursor-pointer"
+        // className="h-12 w-12 font-bold dark:bg-slate-200 bg-slate-100 rounded-full flex
+        // justify-center items-center absolute -right-6 top-[50%] translate-y-[-50%] z-20
+        // text-2xl fshadow cursor-pointer"
       >
-        <FaChevronRight />
+        {/* Right Icon */}
+        {/* <FaChevronRight /> */}
       </motion.span>
 
       <Flex ref={scrollContainerRef}>{children}</Flex>

@@ -9,7 +9,7 @@ interface Props {
 const ActionMenu = ({ itemId }: Props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const ulMenuRef = useRef<HTMLUListElement>(null);
-  const { storeSlug } = useAuth();
+  const { userStores } = useAuth();
 
   // const handleMenuItemClick = (item: string) => {
   //   setOpenMenu(false);
@@ -71,13 +71,23 @@ const ActionMenu = ({ itemId }: Props) => {
           ref={ulMenuRef}
           className="text-left absolute p-1 z-30 bg-white fshadow rounded-md text-sm top-[102%]"
         >
-          <Link to={`/stores/${storeSlug}/products/${itemId}`}>
-            <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
-              View
-            </li>
-          </Link>
           <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
-            Edit
+            <Link
+              to={`/stores/${
+                userStores && userStores[userStores?.length - 1].slug
+              }/products/${itemId}`}
+            >
+              View
+            </Link>
+          </li>
+          <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
+            <Link
+              to={`/stores/${
+                userStores && userStores[userStores?.length - 1].slug
+              }/products/${itemId}/edit`}
+            >
+              Edit
+            </Link>
           </li>
           <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
             Delete

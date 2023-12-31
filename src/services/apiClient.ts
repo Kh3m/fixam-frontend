@@ -13,34 +13,30 @@ export type FetchResponseType<T> = {
   results: T[];
 };
 
-export class APIClient<T> {
+export class APIClient<TData, TVariables = Partial<any>> {
   private endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
 
-  setEndpoint = (endpoint: string) => {
-    this.endpoint = endpoint;
-  };
-
   // Arrow functions don't have their own this context
   // this will refer to the this context of APIClient instance
   fetchAll = async (config?: AxiosRequestConfig) => {
     return apiClient
-      .get<T[] | FetchResponseType<T>>(this.endpoint, config)
+      .get<TData[] | FetchResponseType<TData>>(this.endpoint, config)
       .then((res) => res.data);
   };
 
   fetch = async (productId: string) => {
     return apiClient
-      .get<T>(this.endpoint + productId + "/")
+      .get<TData>(this.endpoint + productId + "/")
       .then((res) => res.data);
   };
 
-  post = async (data: T | FormData, config?: AxiosRequestConfig) => {
+  post = async (data: TVariables, config?: AxiosRequestConfig) => {
     return apiClient
-      .post<T>(this.endpoint, data, config)
+      .post<TData>(this.endpoint, data, config)
       .then((res) => res.data);
   };
 

@@ -22,6 +22,7 @@ type CommonProps = {
   name: string;
   // TODO: Fix appropriate type
   rules?: any;
+  defaultInputValue?: string;
 };
 
 type MyInputProps = CommonProps & InputHTMLAttributes<HTMLInputElement>;
@@ -39,6 +40,7 @@ const Input = forwardRef(
       customPlaceholder,
       hint,
       name,
+      defaultInputValue,
       control,
       rules,
       ...props
@@ -73,6 +75,7 @@ const Input = forwardRef(
         {isTextArea ? (
           <Controller
             name={name}
+            defaultValue={defaultInputValue}
             control={control}
             rules={rules}
             render={({ fieldState, field }) => {
@@ -105,6 +108,7 @@ const Input = forwardRef(
         ) : (
           <Controller
             name={name}
+            defaultValue={defaultInputValue}
             rules={rules}
             control={control}
             render={({ fieldState, field }) => (

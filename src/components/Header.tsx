@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
 
 const Header = () => {
-  const { isAuthenticated, storeSlug } = useAuth();
+  const { isAuthenticated, userStores } = useAuth();
 
   useEffect;
   return (
@@ -42,8 +42,10 @@ const Header = () => {
             </Link>
             <Link
               to={`${
-                isAuthenticated() && storeSlug
-                  ? `/stores/${storeSlug}/dashboard`
+                isAuthenticated() && userStores?.length
+                  ? `/stores/${
+                      userStores[userStores.length - 1].slug
+                    }/dashboard`
                   : "/stores/create"
               } `}
             >
@@ -51,7 +53,8 @@ const Header = () => {
                 variant="elevated"
                 styles=" bg-white text-fyellow border-2 border-white"
               >
-                {isAuthenticated() && storeSlug ? "Store" : "Be a vendor"}
+                {/* TODO: Check to ensure this checks succeeds */}
+                {isAuthenticated() && userStores ? "Store" : "Be a vendor"}
               </Button>
             </Link>
           </div>

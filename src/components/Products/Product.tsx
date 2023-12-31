@@ -4,6 +4,12 @@ import Button from "../Button";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import useDarkMode from "../../hooks/useDarkMode";
+import { ProductType as RealProductType } from "../../services/product";
+import capitalize from "../../utils/capitalize";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import useCreateCart from "../../hooks/cart/useCreateCart";
+import useAuth from "../../hooks/useAuth";
+import apiClient from "../../services/apiClient";
 
 export type ProductType = {
   image: ImageType;
@@ -18,18 +24,128 @@ interface Props {
   handleFavStatus: (index: number) => void;
   temId: number;
   isAdProduct?: boolean;
+  // TODO: Remove
+  isDummy?: boolean;
+  realProduct?: RealProductType;
+  categoryId?: string;
 }
 
 const Product = ({
   product: { status, title, favorite, price, image },
+  realProduct,
+  isDummy,
   handleFavStatus,
   temId,
   isAdProduct,
+  categoryId,
 }: Props) => {
   const { isDarkMode } = useDarkMode();
   // slate-800
   const tempCartColor = isDarkMode ? "#1e293b" : "#FF9900";
 
+  const cartCreateMutation = useCreateCart();
+  const { isAuthenticated, user } = useAuth();
+
+  const handleAddToCart = async () => {
+    // Check if user is authenticate
+    if (isAuthenticated() && user?.id) {
+      console.log("Add to cart");
+      // Check if the user already has a cart
+      const userCart = await apiClient.get(`/carts/user/${user.id}/`);
+      console.log("Found User's Cart", userCart);
+      // If yes add item to cart
+      // If not create a new cart
+      // cartCreateMutation.mutate({ user_id: user.id });
+      // Add items to the cart
+    } else {
+      // If user is not authenticated
+    }
+  };
+
+  if (!isDummy && realProduct) {
+    return (
+      <article className={`${isAdProduct && "w-[265px]"} fshadow `}>
+        <div className="relative">
+          <div className="h-[250px]">
+            <img
+              alt={realProduct.name + " product"}
+              src={realProduct?.images[0]}
+              className={`${
+                isAdProduct ? " rounded-t-lg" : ""
+              } object-cover h-full w-full`}
+            />
+          </div>
+          {!isAdProduct && (
+            <span
+              className="py-2 absolute top-10 text-xs font-semibold
+            dark:bg-slate-800 bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
+            >
+              {"For " + capitalize(realProduct.type || "")}
+            </span>
+          )}
+          <span
+            onClick={() => handleFavStatus(temId)}
+            className={`${
+              favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
+            } absolute -bottom-7 right-7 
+        flex justify-center items-center
+        cursor-pointer  h-12 w-12 rounded-full fshadow`}
+          >
+            <AiOutlineHeart
+              width="50px"
+              size={28}
+              color={`${
+                favorite
+                  ? "#FFF"
+                  : favorite && isDarkMode
+                  ? "#FFF"
+                  : favorite && !isDarkMode
+                  ? "#FF9900"
+                  : tempCartColor
+              }`}
+            />
+          </span>
+        </div>
+        <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
+          <Link
+            state={{ productId: realProduct.id, categoryId }}
+            to={`/${realProduct.category_name}/${realProduct.name}`}
+          >
+            <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
+              {realProduct.name}
+            </p>
+          </Link>
+          <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
+            <span>{formatPrice(realProduct.price as number)}</span>
+            <span className="text-fgrey text-[10px] font-semibold">
+              (5 items left)
+            </span>
+          </p>
+          {!isAdProduct && (
+            <div className="flex justify-end items-center space-x-1 my-3">
+              <Button
+                variant="elevated"
+                styles="text-white text-2xl font-bold bg-fyellow py-1 px-3"
+                whileClickScale={1.2}
+                noSizingClass
+                onClick={handleAddToCart}
+              >
+                <PiShoppingCartSimpleBold />
+              </Button>
+              <Button
+                variant="elevated"
+                styles="dark:bg-slate-600 bg-fyellow text-white font-bold"
+              >
+                Buy Now
+              </Button>
+            </div>
+          )}
+        </div>
+      </article>
+    );
+  }
+
+  // TODO: Clean Up
   return (
     <article className={`${isAdProduct && "w-[265px]"} fshadow `}>
       <div className="relative">

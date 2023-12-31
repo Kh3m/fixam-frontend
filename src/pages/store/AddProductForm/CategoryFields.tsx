@@ -7,6 +7,7 @@ import { FetchResponseType } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
 import useSubCategories from "../../../hooks/category/useSubCategories";
+import { getMainCategory } from "../../../utils/category";
 
 type CategoryType = {
   id: string;
@@ -62,6 +63,7 @@ const CategoryFields = () => {
     const foundCategory = (
       categories as FetchResponseType<CategoryType>
     )?.results.find((cat) => cat.name === (selected as OptionType).label);
+
     if (foundCategory?.subcategories.length) {
       setHasSubCategories(true);
       if (subCategories) {
@@ -95,10 +97,14 @@ const CategoryFields = () => {
   let mainCat: OptionType[] = [];
 
   if (categories) {
-    mainCat = (categories as FetchResponseType<CategoryType>).results
-      .filter((cat) => cat.parent === null)
-      .map((fCat) => ({ label: fCat.name, value: fCat.id }));
+    mainCat = getMainCategory(
+      categories as FetchResponseType<CategoryType>
+    ).map((fCat) => ({
+      label: fCat.name,
+      value: fCat.id,
+    }));
   }
+
   if (categories && mainCat.length) {
     return (
       <FormFieldCard title="Select Category">

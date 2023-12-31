@@ -4,7 +4,10 @@ import Space from "../../../components/Space";
 import FormFieldCard from "./FormFieldCard";
 import { wordCountValidation } from "../../../utils/validationRules";
 
-const ProductInfoFields = () => {
+interface Props {
+  defaultProductInfo: { name: string; price: string; description: string };
+}
+const ProductInfoFields = ({ defaultProductInfo }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -17,6 +20,7 @@ const ProductInfoFields = () => {
         control={control}
         name="name"
         placeholder="Enter product name"
+        defaultInputValue={defaultProductInfo.name}
       />
       <Space spacing="my-4" />
       <Input
@@ -25,6 +29,7 @@ const ProductInfoFields = () => {
           min: { value: 0, message: "Should not be less than 0" },
         }}
         name="price"
+        defaultInputValue={defaultProductInfo.price}
         control={control}
         placeholder="Enter product price"
         type="number"
@@ -34,6 +39,7 @@ const ProductInfoFields = () => {
       <Space spacing="my-4" />
       <Input
         name="description"
+        defaultInputValue={defaultProductInfo.description}
         control={control}
         rules={{
           required: "Product name is required",

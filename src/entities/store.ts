@@ -1,5 +1,6 @@
 // STORE
 export type StoreType = {
+  id: string;
   // Contact
   firstName: string;
   lastName: string;

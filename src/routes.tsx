@@ -20,6 +20,7 @@ import RegistrationPage from "./pages/auth/RegistrationForm";
 import AuthPage from "./pages/auth/AuthPage";
 import ViewProduct from "./pages/store/products/ViewProduct";
 import LogoutPage from "./pages/auth/LogoutPage";
+import EditProductForm from "./pages/store/AddProductForm/EditProductForm";
 
 const router = createBrowserRouter([
   {
@@ -43,11 +44,11 @@ const router = createBrowserRouter([
         element: <CheckoutPage />,
       },
       {
-        path: "/products/featured/:featuredName",
+        path: ":categoryName",
         element: <ProductsPage />,
       },
       {
-        path: "/products/:productId",
+        path: ":categoryName/:productName",
         element: <ProductDetailPage />,
       },
       {
@@ -62,8 +63,9 @@ const router = createBrowserRouter([
             path: ":slug/products",
             element: <StoreProducts />,
             children: [
-              { path: "add-product", element: <AddProductForm /> },
               { path: ":productId", element: <ViewProduct /> },
+              { path: ":productId/edit", element: <EditProductForm /> },
+              { path: "add-product", element: <AddProductForm /> },
             ],
           },
           {

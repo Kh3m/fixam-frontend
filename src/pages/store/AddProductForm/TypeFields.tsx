@@ -3,9 +3,25 @@ import SelectOption from "../../../components/Option/SelectOption";
 import FormFieldCard from "./FormFieldCard";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import { OptionType } from "./CategoryFields";
+import capitalize from "../../../utils/capitalize";
 
-const TypeFields = () => {
+interface Props {
+  defaultTypeValue?: string;
+}
+
+const TypeFields = ({ defaultTypeValue }: Props) => {
   const { control, setValue } = useFormContext();
+
+  const options = [
+    { value: "sale", label: "Sale" },
+    { value: "rent", label: "Rent" },
+    { value: "Hire", label: "Hire" },
+    { value: "Job", label: "Job" },
+  ];
+
+  if (defaultTypeValue) {
+    setValue("type", defaultTypeValue);
+  }
 
   const handleCatSelect = async (
     selected: SingleValue<OptionType> | MultiValue<OptionType>,
@@ -18,12 +34,11 @@ const TypeFields = () => {
       <SelectOption
         name="type"
         control={control}
-        options={[
-          { value: "sale", label: "Sale" },
-          { value: "rent", label: "Rent" },
-          { value: "Hire", label: "Hire" },
-          { value: "Job", label: "Job" },
-        ]}
+        options={options}
+        defaultValue={{
+          label: capitalize(defaultTypeValue || ""),
+          value: defaultTypeValue || "",
+        }}
         placeholder="--Select a Type--"
         noOptionsMessage="No type found"
         onChange={handleCatSelect}

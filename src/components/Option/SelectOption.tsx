@@ -16,6 +16,7 @@ type OptionsType = {
 
 interface Props {
   options: OptionsType[];
+  defaultValue?: OptionType;
   placeholder: string;
   name: string;
   control: Control<FieldValues>;
@@ -53,6 +54,7 @@ const styles: StylesConfig<OptionType> = {
 
 const SelectOption = ({
   options,
+  defaultValue,
   name,
   control,
   noOptionsMessage,
@@ -72,6 +74,7 @@ const SelectOption = ({
           // TODO: Fix later
           onChange={onChange}
           name={name}
+          defaultValue={defaultValue}
         />
       )}
     />

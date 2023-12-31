@@ -15,7 +15,7 @@ type UserCredentialType = {
 
 const useAuth = () => {
   const [user, setUser] = useState<UserData | null>(null);
-  const [storeSlug, setStoreSlug] = useState<string | null>(null);
+  const [userStores, setUserStores] = useState<StoreType[] | null>(null);
 
   useEffect(() => {
     // Check for an existing user cookie when the component mount
@@ -32,7 +32,7 @@ const useAuth = () => {
       apiClient
         .get<StoreType[]>("/stores/owner/" + userId + "/")
         .then((res) => {
-          setStoreSlug(res.data[res.data.length - 1].slug);
+          setUserStores(res.data);
         });
     }
   }, []);
@@ -114,7 +114,7 @@ const useAuth = () => {
     logout,
     register,
     isAuthenticated,
-    storeSlug,
+    userStores,
     fetchUserDummy,
   };
 };

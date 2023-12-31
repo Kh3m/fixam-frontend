@@ -44,7 +44,7 @@ const CartItem = ({
             {description}
           </p>
           <Space spacing="my-1" />
-          <Rating></Rating>
+          <Rating count={5} withViews />
           <Space spacing="my-1" />
           <QuantityField
             quantity={quantity}

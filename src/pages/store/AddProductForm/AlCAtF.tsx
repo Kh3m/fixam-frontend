@@ -24,7 +24,11 @@ export type OptionType = {
   value: string;
 };
 
-const CategoryFields = () => {
+interface Props {
+  defaultCategory?: OptionType;
+}
+
+const CategoryFields = ({ defaultCategory }: Props) => {
   const { control, setValue } = useFormContext();
   let selectedCat = "";
 
@@ -32,6 +36,10 @@ const CategoryFields = () => {
   const { data: categories } = useCategories();
 
   const [isLoadingSubCategories, setIsLoadingSubCategories] = useState(false);
+
+  if (defaultCategory?.value) {
+    setValue("category", defaultCategory.value);
+  }
 
   const handleCatSelect = async (
     selected: SingleValue<OptionType> | MultiValue<OptionType>,
@@ -114,6 +122,7 @@ const CategoryFields = () => {
       <FormFieldCard title="Select Category">
         <SelectOption
           name={`category`}
+          defaultValue={defaultCategory}
           control={control}
           options={mainCat}
           placeholder={`--Select a Category--`}

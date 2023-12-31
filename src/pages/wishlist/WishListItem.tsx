@@ -28,7 +28,7 @@ const WishListItem = ({ title, price, imageURL }: Props) => {
           <Space spacing="my-1" />
 
           <Space spacing="my-1" />
-          <Rating></Rating>
+          <Rating count={5} withViews />
           <Space spacing="my-1" />
 
           <Space spacing="my-1" />

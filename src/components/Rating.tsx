@@ -1,35 +1,26 @@
-const Rating = () => {
+import { FaStar, FaStarHalf } from "react-icons/fa6";
+
+interface Props {
+  count: number;
+  withViews?: boolean;
+}
+
+const Rating = ({ count, withViews }: Props) => {
   return (
     <div className="flex items-center space-x-3">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="77"
-        height="13"
-        viewBox="0 0 77 13"
-        fill="none"
-      >
-        <path
-          d="M54.25 9.79375L58.1125 12.125L57.0875 7.73125L60.5 4.775L56.0063 4.39375L54.25 0.25L52.4937 4.39375L48 4.775L51.4125 7.73125L50.3875 12.125L54.25 9.79375Z"
-          fill="#FF9900"
-        />
-        <path
-          d="M38.25 9.79375L42.1125 12.125L41.0875 7.73125L44.5 4.775L40.0063 4.39375L38.25 0.25L36.4937 4.39375L32 4.775L35.4125 7.73125L34.3875 12.125L38.25 9.79375Z"
-          fill="#FF9900"
-        />
-        <path
-          d="M22.25 9.79375L26.1125 12.125L25.0875 7.73125L28.5 4.775L24.0063 4.39375L22.25 0.25L20.4937 4.39375L16 4.775L19.4125 7.73125L18.3875 12.125L22.25 9.79375Z"
-          fill="#FF9900"
-        />
-        <path
-          d="M6.25 9.79375L10.1125 12.125L9.0875 7.73125L12.5 4.775L8.00625 4.39375L6.25 0.25L4.49375 4.39375L0 4.775L3.4125 7.73125L2.3875 12.125L6.25 9.79375Z"
-          fill="#FF9900"
-        />
-        <path
-          d="M76.5 4.775L72.0063 4.3875L70.25 0.25L68.4937 4.39375L64 4.775L67.4125 7.73125L66.3875 12.125L70.25 9.79375L74.1125 12.125L73.0938 7.73125L76.5 4.775ZM70.25 8.625V2.8125L71.3187 5.3375L74.0562 5.575L71.9813 7.375L72.6063 10.05L70.25 8.625Z"
-          fill="#FF9900"
-        />
-      </svg>
-      <span className="dark:text-fgrey font-semibold text-xs">(100 views)</span>
+      <div className=" flex space-x-1">
+        {Array.from({ length: 5 }, () => (
+          <span className={`${count <= 5 ? "text-fyellow" : "text-fgrey"}`}>
+            <FaStar />
+          </span>
+        ))}
+      </div>
+
+      {withViews && (
+        <span className="dark:text-fgrey font-semibold text-xs">
+          (100 views)
+        </span>
+      )}
     </div>
   );
 };

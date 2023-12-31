@@ -2,8 +2,12 @@ import { Controller, useFormContext } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { customNoOptionMessage } from "../../../components/Option/CustomNoOptionMesaage";
 import FormFieldCard from "./FormFieldCard";
+import { OptionType } from "./CategoryFields";
 
-const FeaturesField = () => {
+interface Props {
+  defaultFeatures: OptionType[];
+}
+const FeaturesField = ({ defaultFeatures }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -20,6 +24,7 @@ const FeaturesField = () => {
             {...field}
             name="features"
             placeholder="Add features for product"
+            defaultValue={defaultFeatures}
           />
         )}
       />

@@ -18,13 +18,13 @@ interface Props extends BaseProps {
 
 const Summary = ({ label, value, direction }: SummaryProps) => (
   <li
-    className={`flex text-left font-semibold text-xs 
+    className={`flex text-left font-semibold text-xs my-2
     ${direction === "vertical" && "flex-col justify-center space-y-1"}
     ${direction === "horizontal" && "justify-between"}
   `}
   >
-    <div className="dark:text-fgrey w-1/2 uppercase">{label}</div>
-    <div className="dark:text-white w-1/2 ">{value}</div>
+    <div className="text-fgrey uppercase mr-4">{label}</div>
+    <div className="dark:text-white ">{value}</div>
   </li>
 );
 
