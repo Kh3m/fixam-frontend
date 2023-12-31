@@ -73,7 +73,11 @@ const ImageUpload = forwardRef(
         <label
           ref={imageUploadRef}
           htmlFor={label}
-          className={`
+          className={`${
+            fieldState.invalid
+              ? "bg-red-50 border-2 border-red-400"
+              : "bg-fgrey"
+          }
           ${
             styledLabel &&
             "text-center bg-fgrey inline-flex justify-center items-center"

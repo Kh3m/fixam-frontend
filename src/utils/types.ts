@@ -10,3 +10,8 @@ export type DirectionType = {
 };
 
 export type LinkType = { icon?: ReactNode | string; to: string; text: string };
+
+export type OptionType = {
+  label: string;
+  value: string;
+};

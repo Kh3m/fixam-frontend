@@ -8,6 +8,7 @@ import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
 import useSubCategories from "../../../hooks/category/useSubCategories";
 import { getMainCategory } from "../../../utils/category";
+import { OptionType } from "../../../utils/types";
 
 type CategoryType = {
   id: string;
@@ -20,11 +21,6 @@ type CategoryType = {
 // type CategoryResponseType = {
 //   results: CategoryType[];
 // };
-
-export type OptionType = {
-  label: string;
-  value: string;
-};
 
 const CategoryFields = () => {
   const [categoryId, setcategoryId] = useState<string | undefined>();

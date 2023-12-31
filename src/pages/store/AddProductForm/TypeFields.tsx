@@ -2,8 +2,8 @@ import { useFormContext } from "react-hook-form";
 import SelectOption from "../../../components/Option/SelectOption";
 import FormFieldCard from "./FormFieldCard";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
-import { OptionType } from "./CategoryFields";
 import capitalize from "../../../utils/capitalize";
+import { OptionType } from "../../../utils/types";
 
 interface Props {
   defaultTypeValue?: string;
@@ -29,6 +29,7 @@ const TypeFields = ({ defaultTypeValue }: Props) => {
   ) => {
     setValue("type", (selected as OptionType).value);
   };
+
   return (
     <FormFieldCard title="Select Type">
       <SelectOption
@@ -36,7 +37,9 @@ const TypeFields = ({ defaultTypeValue }: Props) => {
         control={control}
         options={options}
         defaultValue={{
-          label: capitalize(defaultTypeValue || ""),
+          label: defaultTypeValue
+            ? capitalize(defaultTypeValue)
+            : "--Select a Type--",
           value: defaultTypeValue || "",
         }}
         placeholder="--Select a Type--"

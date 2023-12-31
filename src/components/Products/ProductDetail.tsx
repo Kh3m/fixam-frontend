@@ -4,6 +4,7 @@ import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import Rating from "../Rating";
 import Space from "../Space";
+import VariantOption from "../VariantOption";
 import ProductSummary from "./ProductSummary";
 
 const labelValues = [
@@ -63,7 +64,29 @@ const ProductDetail = ({
         <Rating count={5} withViews />
         <Space spacing="my-3" />
         <ProductSummary direction="horizontal" labelValues={labelValuesProd} />
-        <Space spacing="my-3" />
+        <Space spacing="my-6" />
+        <div className="flex space-x-2">
+          <VariantOption
+            variant="Color"
+            defaultSelectValue={{ label: "Black", value: "Black" }}
+            options={[
+              { label: "Red", value: "Red" },
+              { label: "Green", value: "Green" },
+              { label: "Black", value: "Black" },
+              { label: "Purple", value: "Purple" },
+              { label: "Cyan", value: "Cyan" },
+            ]}
+          />
+          <VariantOption
+            variant="Size"
+            defaultSelectValue={{ label: "40", value: "40" }}
+            options={[
+              { label: "20", value: "20" },
+              { label: "40", value: "40" },
+            ]}
+          />
+        </div>
+        <Space spacing="my-6" />
         <p className="dark:text-fgrey flex space-x-1 text-xs font-semibold">
           <span>
             <TempLocationSVG />

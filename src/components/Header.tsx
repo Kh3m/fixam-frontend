@@ -7,6 +7,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { IoListSharp } from "react-icons/io5";
 import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
+import ShoppingCart from "./ShoppingCart";
 
 const Header = () => {
   const { isAuthenticated, userStores } = useAuth();
@@ -28,8 +29,8 @@ const Header = () => {
             <Link to={`/wishlist`} className="text-white text-lg">
               <IoListSharp />
             </Link>
-            <Link to={`/cart`} className="text-white text-lg">
-              <FaCartShopping />
+            <Link to={`/cart`} className="text-white text-2xl">
+              <ShoppingCart />
             </Link>
 
             <Link to={`/auth/login`}>

@@ -2,10 +2,10 @@ import { Controller, useFormContext } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { customNoOptionMessage } from "../../../components/Option/CustomNoOptionMesaage";
 import FormFieldCard from "./FormFieldCard";
-import { OptionType } from "./CategoryFields";
+import { OptionType } from "../../../utils/types";
 
 interface Props {
-  defaultFeatures: OptionType[];
+  defaultFeatures?: OptionType[];
 }
 const FeaturesField = ({ defaultFeatures }: Props) => {
   const { control } = useFormContext();

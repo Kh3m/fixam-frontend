@@ -16,11 +16,17 @@ const WishListItem = ({ title, price, imageURL }: Props) => {
   return (
     <section className="flex space-x-24 justify-between">
       <div className="flex space-x-6 ">
-        <img
-          src={imageURL}
-          alt={title}
-          className="h-[137px] w-[207px] object-contain overflow-hidden rounded-lg"
-        />
+        <div>
+          <img
+            src={imageURL}
+            alt={title}
+            className="h-[137px] w-[207px] object-cover overflow-hidden rounded-lg"
+          />
+          <div className="text-fgrey text-xs py-1">
+            Item added 21st december, 2023
+          </div>
+        </div>
+
         <div>
           <Heading variant="h4" styles="font-semibold text-[20px]">
             {title}
@@ -37,19 +43,16 @@ const WishListItem = ({ title, price, imageURL }: Props) => {
         </div>
       </div>
 
-      <div className="flex-grow-0 basis-[200px] flex flex-col">
-        <Button
-          variant="outlined"
-          styles="border border-gray-800 text-gray-800 font-bold"
-        >
+      <div className="flex-grow-0 basis-[200px] flex flex-col items-center">
+        <Button variant="elevated" styles="bg-fyellow font-bold text-white">
           Move to Cart
         </Button>
         <Space spacing="my-1" />
-        <div className="flex space-x-4 justify-center items-center">
-          <span className="cursor-pointer inline-flex h-8 w-10 text-lg rounded-md items-center justify-center border-2 border-fblack">
+        <div className="flex space-x-4">
+          <span className="text-fyellow border cursor-pointer text-lg border-fyellow rounded-md w-1/2 px-5 py-1">
             <TbShare2 />
           </span>
-          <span className="cursor-pointer inline-flex h-8 w-10 text-lg rounded-md items-center justify-center border-2 border-fblack">
+          <span className="text-fyellow border cursor-pointer text-lg border-fyellow rounded-md w-1/2 px-5 py-1">
             <RiDeleteBin6Line />
           </span>
         </div>

@@ -1,11 +1,12 @@
 import khemReviewImg from "../../assets/khem/khem-review.jpg";
+import Card from "../Card";
 import Heading from "../Heading";
 import Rating from "../Rating";
 import Space from "../Space";
 
 const Review = () => {
   return (
-    <div className="">
+    <Card>
       <div className="flex space-x-2 items-center">
         <img
           src={khemReviewImg}
@@ -28,7 +29,7 @@ const Review = () => {
         performance. It's a game-changer, providing a seamless and efficient
         experience that enhances my daily tasks.
       </p>
-    </div>
+    </Card>
   );
 };
 

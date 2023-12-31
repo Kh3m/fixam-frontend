@@ -6,6 +6,8 @@ import SafetyTips from "./SafetyTips";
 import VendorContact from "./VendorContact";
 import Reviews from "../Reviews/Reviews";
 import { ProductType } from "../../services/product";
+import ProductFeatures from "./ProductFeatures";
+import ProductDescriptionText from "./ProductDescriptionText";
 
 const labelValues = [
   { label: "Brand", value: "Royal" },
@@ -32,26 +34,30 @@ const ProductDescription = ({ product }: Props) => {
           <ProductSummary labelValues={labelValues} direction="vertical" />
         </div>
         <div className="w-[38%] px-8">
-          <Reviews />
+          <ProductFeatures
+            features={[
+              "Love me please",
+              "Again and Again",
+              "This Product is way xyz  than abc",
+              "This Product is way xyz  than abc",
+              "This Product is way xyz  than abc",
+              "This Product is way xyz  than abc This Product is way xyz  than abc",
+              "This Product is way xyz  than abc This Product is way xyz  than abc",
+              "This Product is way xyz  than abc This Product is way xyz  than abc",
+              "This Product is way xyz  than abc This Product is way xyz  than abc",
+              "This Product is way xyz  than abc This Product is way xyz  than abc",
+              "This Product is way xyz  than abc This Product is way xyz  than abc",
+            ]}
+          />
         </div>
         <div className="w-[28%]">
           <ReviewRating productId={product?.id || ""} />
         </div>
-        {/* <div className="w-[20%]">
-          <VendorContact />
-        </div>
-        <Space spacing="mx-8" /> */}
-        {/* <div className="w-[20%]">
-          <SafetyTips />
-        </div> */}
       </div>
-
-      {/* <div>
-        <Button variant="outlined" styles="border-fyellow text-fyellow">
-          Make an Offer
-        </Button>
-        <div className="text-sm text-fgrey my-1">Payment on Delivery!</div>
-      </div> */}
+      <Space spacing="my-8" />
+      <ProductDescriptionText />
+      <Space spacing="my-8" />
+      <Reviews />
     </div>
   );
 };

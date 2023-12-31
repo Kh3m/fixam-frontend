@@ -55,7 +55,7 @@ const ReviewRating = ({ productId }: Props) => {
               render={() => <StarRating />}
             />
           </div>
-          <div className="pl-8">
+          <div>
             <Controller
               name="review_text"
               control={control}

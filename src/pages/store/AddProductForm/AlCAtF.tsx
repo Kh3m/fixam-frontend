@@ -6,6 +6,7 @@ import { Fragment, useState } from "react";
 import apiClient, { FetchResponseType } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
+import { OptionType } from "../../../utils/types";
 
 type CategoryType = {
   id: string;
@@ -18,11 +19,6 @@ type CategoryType = {
 // type CategoryResponseType = {
 //   results: CategoryType[];
 // };
-
-export type OptionType = {
-  label: string;
-  value: string;
-};
 
 interface Props {
   defaultCategory?: OptionType;
