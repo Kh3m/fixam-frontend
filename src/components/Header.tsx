@@ -3,15 +3,17 @@ import Button from "./Button";
 import Container from "./Container";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput/SearchInput";
-import { FaCartShopping } from "react-icons/fa6";
 import { IoListSharp } from "react-icons/io5";
 import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
 import ShoppingCart from "./ShoppingCart";
 
 const Header = () => {
-  const { isAuthenticated, userStores } = useAuth();
+  const { isAuthenticated, userStores, user } = useAuth();
 
+  if (isAuthenticated()) {
+    console.log("isAuthenticated()", user);
+  }
   useEffect;
   return (
     <header className="dark:bg-slate-800 bg-fyellow">

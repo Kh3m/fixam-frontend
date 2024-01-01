@@ -15,7 +15,7 @@ const Card = ({
   notFullWidth,
 }: PropsWithChildren<Props>) => {
   return (
-    <>
+    <section>
       {withHeader && (
         <header className="rounded-t-md px-5 py-3 text-m text-white font-semibold  bg-fyellow">
           {headerContent}
@@ -28,7 +28,7 @@ const Card = ({
       >
         {children}
       </div>
-    </>
+    </section>
   );
 };
 

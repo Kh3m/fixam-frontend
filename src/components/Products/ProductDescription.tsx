@@ -8,6 +8,7 @@ import Reviews from "../Reviews/Reviews";
 import { ProductType } from "../../services/product";
 import ProductFeatures from "./ProductFeatures";
 import ProductDescriptionText from "./ProductDescriptionText";
+import ExpandableText from "../ExpandableText";
 
 const labelValues = [
   { label: "Brand", value: "Royal" },
@@ -27,6 +28,20 @@ interface Props {
 const ProductDescription = ({ product }: Props) => {
   return (
     <div>
+      <ExpandableText>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius
+        asperiores ipsum officiis ducimus? Aliquid ipsam nostrum blanditiis ut
+        eos corrupti necessitatibus dolores ipsum vel harum libero vitae rem
+        porro animi fuga quos id aperiam amet, quidem deserunt doloremque
+        inventore. Maiores quo nulla corrupti cupiditate harum eaque in error,
+        recusandae corporis optio sit omnis vitae expedita. Incidunt recusandae
+        in, expedita soluta a labore omnis voluptate cum laborum magni obcaecati
+        nam eveniet, officia est, quibusdam tenetur temporibus. Voluptatum
+        aperiam aspernatur ipsa quod nulla alias adipisci. Sequi non nostrum
+        temporibus a inventore eligendi, nobis eveniet hic quidem repellat omnis
+        aliquid asperiores nemo.
+      </ExpandableText>
+      <Space spacing="my-8" />
       <h3 className="dark:text-white ">Description</h3>
       <Space spacing="my-2" />
       <div className="flex justify-between items-start">
@@ -54,8 +69,6 @@ const ProductDescription = ({ product }: Props) => {
           <ReviewRating productId={product?.id || ""} />
         </div>
       </div>
-      <Space spacing="my-8" />
-      <ProductDescriptionText />
       <Space spacing="my-8" />
       <Reviews />
     </div>

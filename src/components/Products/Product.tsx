@@ -10,6 +10,7 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import useCreateCart from "../../hooks/cart/useCreateCart";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
+import { getCookie, setCookie } from "../../utils/cookies";
 
 export type ProductType = {
   image: ImageType;
@@ -46,19 +47,70 @@ const Product = ({
   const cartCreateMutation = useCreateCart();
   const { isAuthenticated, user } = useAuth();
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (productId: string) => {
+    console.log("ProductID", productId);
+
     // Check if user is authenticate
     if (isAuthenticated() && user?.id) {
       console.log("Add to cart");
       // Check if the user already has a cart
-      const userCart = await apiClient.get(`/carts/user/${user.id}/`);
-      console.log("Found User's Cart", userCart);
+      // const userCart = await apiClient.get(`/carts/user/${user.id}/`);
+      try {
+        const userCart = await apiClient.get(`/carts/user/${1}/`);
+        console.log("Found User's Cart", userCart);
+      } catch (error) {
+        console.log("Found User's Cart Error", error);
+      }
       // If yes add item to cart
       // If not create a new cart
       // cartCreateMutation.mutate({ user_id: user.id });
       // Add items to the cart
     } else {
       // If user is not authenticated
+      // Check for cartId in cookie
+      const cartIdFromCookie = getCookie("cartId");
+      if (cartIdFromCookie) {
+        // Use the cartId in cookie
+        // Find cart by cartId
+        const foundCart = await apiClient.get(`/carts/${cartIdFromCookie}`);
+        if (foundCart.status === 200) {
+          // Add Items to cart
+          const addedItem = await apiClient.post(
+            `/carts/${cartIdFromCookie}/items/`,
+            {
+              prod_id: productId,
+              item_options: [
+                {
+                  attribute: "Color",
+                  value: "Black",
+                },
+                {
+                  attribute: "Size",
+                  value: "XL",
+                },
+              ],
+              quantity: 1,
+            }
+          );
+          console.log("AddedItem to CArt", addedItem);
+        }
+      } else {
+        // Create guest user cart without user_id
+        try {
+          const createdCart = await apiClient.post<{ id: string }>("/carts/", {
+            user_id: null,
+          });
+          if (createdCart.status === 201) {
+            setCookie("cartId", createdCart.data.id, 7);
+          }
+          console.log(createdCart.data);
+        } catch (err) {
+          console.log("ERROR CAREATTING CART", err);
+        }
+      }
+
+      // Save cart id to cookie
+      // Add item to cart
     }
   };
 
@@ -128,7 +180,7 @@ const Product = ({
                 styles="text-white text-2xl font-bold bg-fyellow py-1 px-3"
                 whileClickScale={1.2}
                 noSizingClass
-                onClick={handleAddToCart}
+                onClick={() => handleAddToCart(realProduct.id)}
               >
                 <PiShoppingCartSimpleBold />
               </Button>

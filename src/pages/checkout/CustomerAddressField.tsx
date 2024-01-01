@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import Input from "../../components/Input";
 import Space from "../../components/Space";
-import CheckoutFormFieldCard from "./CheckoutFormFieldCard";
+import CheckoutFormFieldCard from "./CheckoutFormFieldContainer";
 
 const CustomerAddressField = () => {
   const { control } = useFormContext();

@@ -1,30 +1,21 @@
-import { FormProvider, useForm } from "react-hook-form";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import Space from "../../components/Space";
-import CustomerAddressField from "./CustomerAddressField";
-import OrderSummary from "../cart/OrderSummary";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
-import CustomerDeliveryAddressFields from "./CustomerDeliveryAddressFields";
-import PaymentMethodFields from "./PaymentMethodFields";
+import OrderSummary from "../cart/OrderSummary";
+import CheckoutInfoWithState from "./CheckoutInfoWithState";
 
 const CheckoutPage = () => {
-  const methods = useForm();
-
   return (
     <Main>
       <Space spacing="my-14" />
       <Container>
         <FlexWithOrderSummary OrderSummary={<OrderSummary />}>
-          <FormProvider {...methods}>
-            <form className="w-full">
-              <CustomerAddressField />
-              <Space spacing="my-14" />
-              <CustomerDeliveryAddressFields />
-              <Space spacing="my-14" />
-              <PaymentMethodFields />
-            </form>
-          </FormProvider>
+          <section className="grow">
+            <CheckoutInfoWithState heading="DELIVERY ADDRESS" />
+            <Space spacing="my-14" />
+            <CheckoutInfoWithState heading="PAYMENT METHOD" isPaymentMethod />
+          </section>
         </FlexWithOrderSummary>
 
         <Space spacing="my-14" />

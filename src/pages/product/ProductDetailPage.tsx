@@ -69,7 +69,7 @@ const ProductDetailPage = () => {
               <ProductDetail product={foundProduct} />
             </section>
           )}
-          <Space spacing="my-12" />
+          <Space spacing="my-6" />
           <ProductDescription product={foundProduct} />
         </Container>
         <Space spacing="my-12" />

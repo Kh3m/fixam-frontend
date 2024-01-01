@@ -1,13 +1,17 @@
 import { useFormContext } from "react-hook-form";
 import Input from "../../components/Input";
 import Space from "../../components/Space";
-import CheckoutFormFieldCard from "./CheckoutFormFieldCard";
+import CheckoutFormFieldContainer from "./CheckoutFormFieldContainer";
 
-const PaymentMethodFields = () => {
+interface Props {
+  handleCancel: () => void;
+}
+const PaymentMethodFields = ({ handleCancel }: Props) => {
   const { control } = useFormContext();
   return (
     <section>
-      <CheckoutFormFieldCard
+      <CheckoutFormFieldContainer
+        handleCancel={handleCancel}
         checkbox={{
           text: "use as my default address",
           boxFor: "default-delivery-address",
@@ -43,7 +47,7 @@ const PaymentMethodFields = () => {
             placeholder="Security Code CVV"
           />
         </div>
-      </CheckoutFormFieldCard>
+      </CheckoutFormFieldContainer>
     </section>
   );
 };

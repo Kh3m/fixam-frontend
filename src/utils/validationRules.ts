@@ -1,12 +1,11 @@
-export const wordCountValidation = (value: string) => {
-  const words = value.trim().split(/\s+/);
-  const wordCount = words.length;
+import { wordCount } from "./words";
 
-  if (wordCount < 50) {
+export const wordCountValidation = (value: string) => {
+  if (wordCount(value) < 50) {
     return "Enter atleast 50 words.";
   }
 
-  if (wordCount > 250) {
+  if (wordCount(value) > 250) {
     return "Not more than 250 words.";
   }
 

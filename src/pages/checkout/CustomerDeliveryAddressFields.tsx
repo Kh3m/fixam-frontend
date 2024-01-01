@@ -1,18 +1,24 @@
-import CheckoutFormFieldCard from "./CheckoutFormFieldCard";
+import CheckoutFormFieldCard from "./CheckoutFormFieldContainer";
 import Space from "../../components/Space";
 import Input from "../../components/Input";
 import { useFormContext } from "react-hook-form";
+import CheckoutFormFieldContainer from "./CheckoutFormFieldContainer";
 
-const CustomerDeliveryAddressFields = () => {
+interface Props {
+  handleCancel: () => void;
+}
+
+const CustomerDeliveryAddressFields = ({ handleCancel }: Props) => {
   const { control } = useFormContext();
   return (
     <section>
-      <CheckoutFormFieldCard
+      <CheckoutFormFieldContainer
         checkbox={{
           text: "use as my default address",
           boxFor: "default-delivery-address",
         }}
         heading="DELIVERY ADDRESS"
+        handleCancel={handleCancel}
       >
         {/* TODO: Fix duplicate */}
         <div className="flex space-x-10">
@@ -80,7 +86,7 @@ const CustomerDeliveryAddressFields = () => {
           </div>
           <Input name="" rules={{}} control={control} placeholder="State" />
         </div>
-      </CheckoutFormFieldCard>
+      </CheckoutFormFieldContainer>
     </section>
   );
 };
