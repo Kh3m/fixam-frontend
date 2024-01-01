@@ -83,6 +83,7 @@ const ProductDetail = ({
             options={[
               { label: "20", value: "20" },
               { label: "40", value: "40" },
+              { label: "60", value: "60" },
             ]}
           />
         </div>
