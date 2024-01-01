@@ -58,7 +58,7 @@ const FiltersWithInputField = ({
     ) : null;
 
   return (
-    <FilterCard filterTitle={filterTitle}>
+    <>
       {Input}
       <Space spacing="my-4" />
       <ul>
@@ -72,7 +72,7 @@ const FiltersWithInputField = ({
         ))}
       </ul>
       <Space spacing="my-4" />
-    </FilterCard>
+    </>
   );
 };
 

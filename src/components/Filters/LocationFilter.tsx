@@ -1,12 +1,12 @@
-import FilterCard from "./FilterCard";
+import Collapsible from "../Collapsibles/Collapsible";
 
 const LocationFilter = () => {
   return (
-    <FilterCard filterTitle="Location">
+    <Collapsible headerName="Location">
       <ul>
         <li className="text-sm text-fgrey">All Nigeria</li>
       </ul>
-    </FilterCard>
+    </Collapsible>
   );
 };
 

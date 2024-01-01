@@ -1,3 +1,4 @@
+import Collapsible from "../Collapsibles/Collapsible";
 import Space from "../Space";
 import FiltersWithInputField from "./FiltersWithInputField";
 
@@ -16,14 +17,14 @@ const conditions = [
 
 const ConditionFilter = () => {
   return (
-    <>
+    <Collapsible headerName="Condition">
       <FiltersWithInputField
         filters={conditions}
         filterTitle="Conditions"
         variant="checkbox"
       />
       <Space spacing="my-4" />
-    </>
+    </Collapsible>
   );
 };
 

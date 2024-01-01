@@ -1,3 +1,4 @@
+import Collapsible from "../Collapsibles/Collapsible";
 import Space from "../Space";
 import FiltersWithInputField from "./FiltersWithInputField";
 
@@ -21,14 +22,14 @@ const rooms = [
 
 const BulkPriceFilter = () => {
   return (
-    <>
+    <Collapsible headerName="Bulk Price">
       <FiltersWithInputField
         filters={rooms}
         filterTitle="Bulk Price"
         variant="radio"
       />
       <Space spacing="my-4" />
-    </>
+    </Collapsible>
   );
 };
 

@@ -1,3 +1,4 @@
+import Collapsible from "../Collapsibles/Collapsible";
 import Space from "../Space";
 import FiltersWithInputField from "./FiltersWithInputField";
 
@@ -36,7 +37,7 @@ const rooms = [
 
 const RoomFilter = () => {
   return (
-    <>
+    <Collapsible headerName="Room">
       <FiltersWithInputField
         filters={rooms}
         filterTitle="Room"
@@ -45,7 +46,7 @@ const RoomFilter = () => {
         placeholder="Find Room"
       />
       <Space spacing="my-4" />
-    </>
+    </Collapsible>
   );
 };
 

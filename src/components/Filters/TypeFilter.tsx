@@ -1,3 +1,4 @@
+import Collapsible from "../Collapsibles/Collapsible";
 import Space from "../Space";
 import FiltersWithInputField from "./FiltersWithInputField";
 
@@ -36,7 +37,7 @@ const types = [
 
 const TypeFilter = () => {
   return (
-    <>
+    <Collapsible headerName="Type">
       <FiltersWithInputField
         filters={types}
         filterTitle="Type"
@@ -45,7 +46,7 @@ const TypeFilter = () => {
         placeholder="Find Type"
       />
       <Space spacing="my-4" />
-    </>
+    </Collapsible>
   );
 };
 

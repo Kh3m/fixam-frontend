@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Card from "../Card";
 import Button from "../Button";
+import Collapsible from "../Collapsibles/Collapsible";
 import FilterListItem from "./FilterListItem";
 
 const CategoryFilter = () => {
@@ -55,7 +55,7 @@ const CategoryFilter = () => {
   const [sliceLen, setSliceLen] = useState(4);
 
   return (
-    <Card withHeader headerContent="Categories">
+    <Collapsible headerName="Categories">
       <h3 className="text-sm">Home, Furniture & Appliances</h3>
       <ul className="ml-4">
         {categories.slice(0, sliceLen).map(({ category, count, selected }) => (
@@ -81,7 +81,7 @@ const CategoryFilter = () => {
             : "Show all " + (categories.length - 4)}
         </Button>
       </ul>
-    </Card>
+    </Collapsible>
   );
 };
 
