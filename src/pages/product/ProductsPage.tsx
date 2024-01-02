@@ -31,10 +31,6 @@ const ProductsPage = () => {
       </Container>
       <Space spacing="my-8" />
       <Container Aside={<Filters />} twoColLayout>
-        <Card>
-          <QuickFilter />
-        </Card>
-        <Space spacing="my-8" />
         <SortFilter />
         <Products />
         <Space spacing="my-8" />

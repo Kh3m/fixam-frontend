@@ -24,7 +24,7 @@ const customStyles: StylesConfig<OptionType> = {
 
   indicatorsContainer: (base) => ({
     ...base,
-    padding: "0",
+    padding: 0,
     margin: 0,
   }),
 
@@ -50,6 +50,7 @@ const customStyles: StylesConfig<OptionType> = {
     ...base,
     fontSize: "12px",
   }),
+
   option: (base, props) => ({
     ...base,
     backgroundColor: props.isSelected ? "#FF9900" : "",

@@ -6,6 +6,7 @@ const useCategories = (categoryId?: string) =>
   useQuery({
     queryKey: categoryId ? ["categories", categoryId] : ["categories"],
     queryFn: categoryService.fetchAll,
+    staleTime: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
 export default useCategories;

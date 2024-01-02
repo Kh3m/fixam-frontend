@@ -7,6 +7,7 @@ const useCategories = (categoryId?: string) =>
       ? ["categories", categoryId, "subcategories"]
       : ["categories"],
     queryFn: () => subCategoryService(categoryId).fetchAll(),
+    staleTime: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
 export default useCategories;

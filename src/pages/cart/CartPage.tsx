@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import Card from "../../components/Card";
 import Container from "../../components/Container";
 import HR from "../../components/HR";
@@ -8,8 +9,13 @@ import Space from "../../components/Space";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import CartItems from "./CartItems";
 import OrderSummary from "./OrderSummary";
+import { CartType } from "../../services/cart";
 
 const CartPage = () => {
+  const { state } = useLocation();
+
+  const userCart = state.userCart as CartType;
+
   return (
     <Main>
       <Space spacing="my-14" />
@@ -20,10 +26,10 @@ const CartPage = () => {
               <Heading variant="h2" styles="text-2xl">
                 Shopping Cart
               </Heading>
-              <span className="text-lg">3 Items</span>
+              <span className="text-lg">{userCart.total_quantity} Items</span>
             </div>
             <HR styles="mt-4 mb-8" />
-            <CartItems />
+            <CartItems cartItems={userCart.cart_items} />
             <Space spacing="my-8" />
           </Card>
         </FlexWithOrderSummary>

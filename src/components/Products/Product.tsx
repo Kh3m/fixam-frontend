@@ -11,6 +11,8 @@ import useCreateCart from "../../hooks/cart/useCreateCart";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
 import { getCookie, setCookie } from "../../utils/cookies";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { CartItemType, CartType, baseURL } from "../../services/cart";
 
 export type ProductType = {
   image: ImageType;
@@ -18,6 +20,7 @@ export type ProductType = {
   favorite: boolean;
   title: string;
   price: number;
+  id: string;
 };
 
 interface Props {
@@ -32,7 +35,7 @@ interface Props {
 }
 
 const Product = ({
-  product: { status, title, favorite, price, image },
+  product: { status, title, favorite, price, image, id },
   realProduct,
   isDummy,
   handleFavStatus,
@@ -111,6 +114,141 @@ const Product = ({
 
       // Save cart id to cookie
       // Add item to cart
+    }
+  };
+
+  const handleAddDummyDataToCart = async (productId: string) => {
+    console.log("ProductID", productId);
+    // Check if user is authenticate
+    if (isAuthenticated() && user?.id) {
+      console.log("Add to cart user isAuthenticated");
+      // Create item
+      const item: CartItemType = {
+        prod_id: productId,
+        item_options: [
+          {
+            // TODO: Ask is the id field optional?
+            attribute: "Color",
+            value: "red",
+          },
+          {
+            // TODO: Ask is the id field optional?
+            attribute: "Size",
+            value: "2XL",
+          },
+        ],
+        quantity: 1,
+        is_active: true,
+      };
+
+      try {
+        // Find user cart with user id
+        const foundUserCart = await apiClient.get<CartType>(
+          `${baseURL}/carts/user/${user.id}/`
+        );
+        console.log("Found User's Cart user isAuthenticated", foundUserCart);
+        // Check if the user already has a cart
+        if (foundUserCart.status === 200) {
+          // Add item to the cart
+          const addedCartItem = await apiClient.post(
+            `${baseURL}/carts/${foundUserCart.data.id}/items/`,
+            item
+          );
+
+          console.log("addedCartItem user isAuthenticated", addedCartItem);
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (
+            error.response?.status === 404 &&
+            error.response.data.detail === "Not found."
+          ) {
+            // No Cart Found - Create a New Cart
+            console.log(
+              "NO CART FOUND!!! user isAuthenticated",
+              error.response
+            );
+            // Use userId to creat new cart
+            const newCartForUser = await apiClient.post(`${baseURL}/carts/`, {
+              user_id: user.id,
+            });
+            // Add item to newCartForUser
+            const addedCartItem = await apiClient.post(
+              `${baseURL}/carts/${newCartForUser.data.id}/items/`,
+              item
+            );
+
+            console.log(
+              "addedCartItem user isAuthenticated no cart",
+              addedCartItem
+            );
+          }
+        }
+      }
+    } else {
+      // If user is not authenticated
+      // Check for cartId in cookie
+      const cartIdFromCookie = getCookie("cartId");
+      if (cartIdFromCookie) {
+        // Use the cartId in cookie to find a cart by it's cartId
+        const foundCart = await apiClient.get(
+          `${baseURL}/carts/${cartIdFromCookie}/`
+        );
+
+        if (foundCart.status === 200) {
+          // Create item
+          const item: CartItemType = {
+            prod_id: productId,
+            item_options: [
+              {
+                // TODO: Ask is the id field optional?
+                attribute: "Color",
+                value: "red",
+              },
+              {
+                // TODO: Ask is the id field optional?
+                attribute: "Size",
+                value: "2XL",
+              },
+            ],
+            quantity: 1,
+            is_active: true,
+          };
+
+          // Add Items to cart
+          const addedItem = await apiClient.post(
+            `${baseURL}/carts/${cartIdFromCookie}/items/`,
+            item
+          );
+          console.log(
+            "AddedItem to Cart from cookie's cartid is not authenticated",
+            addedItem
+          );
+        }
+      } else {
+        // There is no cartId in cookie and user is not authenticated
+        // Create guest user cart without user_id
+        try {
+          const createdCart = await apiClient.post<{ id: string }>(
+            `${baseURL}/carts/`,
+            {
+              user_id: null,
+            }
+          );
+          if (createdCart.status === 201) {
+            setCookie("cartId", createdCart.data.id, 7);
+          }
+          console.log(
+            "no cookie cartId, createdCart user is not authenticated",
+            createdCart.data
+          );
+        } catch (err) {
+          console.log(
+            "ERROR CREATING CART no cookie cartId, user is not authenticated",
+            err
+          );
+        }
+      }
     }
   };
 
@@ -255,6 +393,7 @@ const Product = ({
         {!isAdProduct && (
           <div className="flex justify-end items-center space-x-1 my-3">
             <Button
+              onClick={() => handleAddDummyDataToCart(id)}
               variant="elevated"
               styles="text-white font-bold"
               noSizingClass

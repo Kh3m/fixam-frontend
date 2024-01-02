@@ -1,9 +1,12 @@
+import RecommendedSelect from "./RecommendedSelect";
+import TimeSort from "./TimeSort";
+
 const SortFilter = () => {
   return (
-    <div className="flex space-x-4 justify-end dark:text-fgrey text-sm p-2">
+    <div className="flex space-x-4 justify-end items-center dark:text-fgrey text-sm p-2">
       <span>Sort by: </span>
-      <span className="cursor-pointer">Recommended </span>
-      <span className="cursor-pointer">Any time</span>
+      <RecommendedSelect />
+      <TimeSort />
     </div>
   );
 };

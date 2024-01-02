@@ -17,8 +17,10 @@ const initialProducts: ProductType[] = [
     price: 34_557.537,
     favorite: false,
     status: "For Sale",
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   },
   {
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     image: {
       src: product2,
       alt: "Single Luxury Chair",
@@ -29,6 +31,7 @@ const initialProducts: ProductType[] = [
     status: "For Sale",
   },
   {
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     image: {
       src: product3,
       alt: "Product 3",
@@ -39,6 +42,7 @@ const initialProducts: ProductType[] = [
     status: "For Sale",
   },
   {
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     image: {
       src: product3,
       alt: "Product 3",
@@ -49,6 +53,7 @@ const initialProducts: ProductType[] = [
     status: "For Sale",
   },
   {
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     image: {
       src: product3,
       alt: "Product 3",
@@ -59,6 +64,7 @@ const initialProducts: ProductType[] = [
     status: "For Sale",
   },
   {
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     image: {
       src: product3,
       alt: "Product 3",

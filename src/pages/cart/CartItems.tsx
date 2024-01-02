@@ -5,6 +5,7 @@ import product1 from "../../assets/product_1.png";
 import product4 from "../../assets/product_4.png";
 import product0 from "../../assets/tabpanel.webp.png";
 import HR from "../../components/HR";
+import { CartItemType } from "../../services/cart";
 
 type CartType = {
   quantity: number;
@@ -16,7 +17,11 @@ type CartType = {
   };
 };
 
-const CartItems = () => {
+interface Props {
+  cartItems: CartItemType[];
+}
+
+const CartItems = ({ cartItems: realCartItems }: Props) => {
   const [cartItems, setCartItems] = useState<CartType[]>([
     {
       quantity: 2,
@@ -93,6 +98,31 @@ const CartItems = () => {
     });
   };
 
+  // Real cart Items
+  if (realCartItems) {
+    return (
+      <section>
+        {realCartItems.map(({ quantity, id }, index) => (
+          <section key={index}>
+            <CartItem
+              description={"Replace with real data"}
+              imageURL={cartItems[index].product.image}
+              price={id || 0}
+              title={"Replace with real data"}
+              quantity={quantity}
+              handleOnIcrementQuantity={() => handleOnIcrementQuantity(index)}
+              handleOnDecrementQuantity={() => handleOnDecrementQuantity(index)}
+              onChange={(e) => handleInputChange(e, index)}
+              handleInputChange={handleInputChange}
+            />
+            {realCartItems.length - 1 !== index && <HR styles="my-8" />}
+          </section>
+        ))}
+      </section>
+    );
+  }
+
+  // TODO: Remove after fully utilizing cart service
   return (
     <section>
       {cartItems.map(

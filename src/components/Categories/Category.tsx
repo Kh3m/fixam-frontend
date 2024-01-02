@@ -1,10 +1,30 @@
-import IconPlus from "../IconPlus";
+import { Link } from "react-router-dom";
+import Collapsible from "../Collapsibles/Collapsible";
+import useSubCategories from "../../hooks/category/useSubCategories";
+import { CategoryType } from "../../services/category";
 
-const Category = ({ text }: { text: string }) => {
+interface Props {
+  text: string;
+  mainCategoryId: string;
+}
+const Category = ({ text, mainCategoryId }: Props) => {
+  const { data } = useSubCategories(mainCategoryId);
+
+  const subCategories = data as CategoryType[];
+
   return (
-    <li className="flex justify-between mb-10 text-sm cursor-pointer items-center">
-      <span className="dark:text-white text-fblack ">{text}</span>{" "}
-      <IconPlus name="cat" />
+    <li>
+      <Collapsible headerName={text} to={{ path: `/${text}` }}>
+        <ul className="pb-4">
+          {subCategories.map((category) => (
+            <li className=" text-gray-500 my-1">
+              <Link to={"#"} className="pl-8">
+                {category.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Collapsible>
     </li>
   );
 };

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import useSubCategories from "../../hooks/category/useSubCategories";
 import { FetchResponseType } from "../../services/apiClient";
 import { CategoryType } from "../../services/category";
 import { getMainCategory } from "../../utils/category";
@@ -16,15 +18,15 @@ const Categories = ({ categories }: Props) => {
 
   if (categories && mainCat.length)
     return (
-      <ul className="dark:bg-slate-800 bg-white px-6 py-10 rounded-b-2xl w-full fshadow">
+      <ul className="dark:bg-slate-800 bg-white rounded-b-2xl w-full fshadow">
         {mainCat.map((cat) => (
-          <Category text={cat.name} key={cat.id} />
+          <Category text={cat.name} key={cat.id} mainCategoryId={cat.id} />
         ))}
       </ul>
     );
 
   return (
-    <ul className="dark:bg-slate-800 bg-white px-6 py-10 rounded-b-2xl w-full fshadow"></ul>
+    <ul className="dark:bg-slate-800 bg-white rounded-b-2xl w-full fshadow"></ul>
   );
 };
 
