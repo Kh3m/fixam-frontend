@@ -254,7 +254,7 @@ const Product = ({
 
   if (!isDummy && realProduct) {
     return (
-      <article className={`${isAdProduct && "w-[265px]"} fshadow `}>
+      <article className={`${isAdProduct && "w-[265px]"} fshadow -z-20`}>
         <div className="relative">
           <div className="h-[250px]">
             <img
@@ -337,7 +337,7 @@ const Product = ({
 
   // TODO: Clean Up
   return (
-    <article className={`${isAdProduct && "w-[265px]"} fshadow `}>
+    <article className={`${isAdProduct && "w-[265px]"} fshadow -z-20`}>
       <div className="relative">
         <div className="h-[250px]">
           <img
