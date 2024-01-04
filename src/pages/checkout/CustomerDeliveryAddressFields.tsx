@@ -1,11 +1,10 @@
-import CheckoutFormFieldCard from "./CheckoutFormFieldContainer";
-import Space from "../../components/Space";
-import Input from "../../components/Input";
 import { useFormContext } from "react-hook-form";
+import Input from "../../components/Input";
+import Space from "../../components/Space";
 import CheckoutFormFieldContainer from "./CheckoutFormFieldContainer";
 
 interface Props {
-  handleCancel: () => void;
+  handleCancel?: () => void;
 }
 
 const CustomerDeliveryAddressFields = ({ handleCancel }: Props) => {

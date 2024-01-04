@@ -32,11 +32,11 @@ const content = {
 };
 
 const ProductDetailPage = () => {
-  const {
-    state: { productId },
-  } = useLocation();
+  const { state } = useLocation();
 
   let categoryId = "";
+  let productId = "";
+  if (state && state.productId) productId = state.productId;
 
   const { data: foundProduct, isLoading, isSuccess } = useProduct(productId);
   // Get the categoryId from the category field;

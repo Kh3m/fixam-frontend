@@ -31,7 +31,7 @@ const Header = () => {
             <SearchInput />
           </div>
           <div className="flex items-center space-x-5">
-            <Link to={`/wishlist`} className="text-white text-lg">
+            <Link to={`/users/wishlist`} className="text-white text-lg">
               <IoListSharp />
             </Link>
 
@@ -48,6 +48,15 @@ const Header = () => {
                 />
               </Link>
             )}
+
+            {/* TODO: REMOVE AFTER DEMO */}
+            {/* <Link
+              state={{ userCart: dummyUserCart }}
+              to={`/cart`}
+              className="text-white text-2xl"
+            >
+              <ShoppingCart itemCount={4} />
+            </Link> */}
 
             <Link to={`/auth/login`}>
               <Button variant="text" styles="text-white text-base ">
@@ -70,7 +79,6 @@ const Header = () => {
                 variant="elevated"
                 styles=" bg-white text-fyellow border-2 border-white"
               >
-                {/* TODO: Check to ensure this checks succeeds */}
                 {isAuthenticated() && userStores ? "Store" : "Be a vendor"}
               </Button>
             </Link>

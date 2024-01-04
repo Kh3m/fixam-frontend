@@ -7,6 +7,7 @@ import SettingsSVG from "./SettingsSVG";
 import DashboardSVG from "./DashboardSVG";
 import AccountSVG from "./AccountSVG";
 import WishListSVG from "./WishListSVG";
+import NotificationSVG from "./NotificationSVG";
 
 interface Props {
   type: string;
@@ -24,6 +25,8 @@ const FSVGs = ({ color, type }: Props) => {
       return <LogoutSVG color={color} />;
     case "messages":
       return <MessagesSVG color={color} />;
+    case "notification":
+      return <NotificationSVG color={color} />;
     case "orders":
       return <OrdersSVG color={color} />;
     case "settings":

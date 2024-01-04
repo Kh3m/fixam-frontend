@@ -1,13 +1,10 @@
 import { PropsWithChildren } from "react";
 import Button from "../../components/Button";
 import CheckBox from "../../components/CheckBox";
-import FormFieldCard from "../store/AddProductForm/FormFieldCard";
-import Space from "../../components/Space";
-import { IoCardSharp } from "react-icons/io5";
-import RadioButton from "../../components/RadioButton";
-import VisaSVG from "../../components/SVGs/VisaSVG";
 import MasterCardSVG from "../../components/SVGs/MasterCardSVG";
 import PaypalSVG from "../../components/SVGs/PaypalSVG";
+import VisaSVG from "../../components/SVGs/VisaSVG";
+import Space from "../../components/Space";
 
 interface Props {
   heading: string;
@@ -16,7 +13,7 @@ interface Props {
     boxFor: string;
   };
   isPaymentMethod?: boolean;
-  handleCancel: () => void;
+  handleCancel?: () => void;
 }
 
 const CheckoutFormFieldCard = ({

@@ -130,7 +130,7 @@ const Input = forwardRef(
               ${
                 withIcon ? "px-11" : "px-4"
               } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full
-              text-gray-600 w-full  focus:outline-fyellow`}
+              text-gray-600 w-full focus:outline-fyellow`}
                   {...(props as InputHTMLAttributes<HTMLInputElement>)}
                 />
                 <p

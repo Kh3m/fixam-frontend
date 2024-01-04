@@ -1,7 +1,7 @@
 import { useState } from "react";
-import product1 from "../../assets/product_1.png";
-import product4 from "../../assets/product_4.png";
-import HR from "../../components/HR";
+import product1 from "../../../assets/product_1.png";
+import product4 from "../../../assets/product_4.png";
+import HR from "../../../components/HR";
 import WishListItem from "./WishListItem";
 
 type WishListType = {

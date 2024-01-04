@@ -1,8 +1,8 @@
-import Button from "../../components/Button";
-import Heading from "../../components/Heading";
-import Rating from "../../components/Rating";
-import Space from "../../components/Space";
-import { formatPrice } from "../../utils/number-formatter";
+import Button from "../../../components/Button";
+import Heading from "../../../components/Heading";
+import Rating from "../../../components/Rating";
+import Space from "../../../components/Space";
+import { formatPrice } from "../../../utils/number-formatter";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TbShare2 } from "react-icons/tb";
 
