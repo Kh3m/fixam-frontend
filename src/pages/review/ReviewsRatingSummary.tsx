@@ -1,3 +1,5 @@
+import Space from "../../components/Space";
+import CustomerStarRatings from "./CustomerStarRatings";
 import ReviewProgressLabel from "./ReviewProgressLabel";
 import ReviewsCard from "./ReviewsCard";
 
@@ -19,19 +21,27 @@ const ReviewsRatingSummary = () => {
     return (value / totalRating) * 100;
   };
 
+  const averageRating = totalWeightedRating / totalRating;
+
   return (
-    <div className="flex space-x-2">
-      <ReviewsCard averageRating={totalWeightedRating / totalRating} />
-      <div className="flex flex-col justify-between w-1/3">
-        {starRatings.map(({ label, value }) => (
-          <ReviewProgressLabel
-            label={label}
-            value={value}
-            progress={calculatePercentage(value)}
-          />
-        ))}
+    <section>
+      <div className="flex space-x-2">
+        <ReviewsCard averageRating={averageRating} />
+        <div className="flex flex-col justify-between w-1/3">
+          {starRatings.map(({ label, value }) => (
+            <ReviewProgressLabel
+              label={label}
+              value={value}
+              progress={calculatePercentage(value)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      <Space spacing="my-4" />
+      <div>
+        <CustomerStarRatings rating={averageRating} />
+      </div>
+    </section>
   );
 };
 

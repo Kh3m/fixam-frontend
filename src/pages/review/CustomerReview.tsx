@@ -18,7 +18,7 @@ const CustomerReview = ({ name, rating, review, time }: Props) => {
           {name}
         </Heading>
         <Space spacing="my-4" />
-        <CustomerStarRatings />
+        <CustomerStarRatings rating={rating} />
         <Space spacing="my-4" />
         <p className="font-medium text-gray-500">{review}</p>
       </div>

@@ -5,7 +5,7 @@ import CustomerReview from "./CustomerReview";
 const customerReviews = [
   {
     name: "Abdul Kareem",
-    rating: 5,
+    rating: 1,
     review: "Good product!, serves the right purpose, i love it!!!",
     time: "2 days ago",
   },
@@ -17,13 +17,13 @@ const customerReviews = [
   },
   {
     name: "Abdul Kareem",
-    rating: 5,
+    rating: 3,
     review: "Good product!, serves the right purpose, i love it!!!",
     time: "2 days ago",
   },
   {
     name: "Abdul Kareem",
-    rating: 5,
+    rating: 4,
     review: "Good product!, serves the right purpose, i love it!!!",
     time: "2 days ago",
   },
