@@ -8,6 +8,7 @@ import storeRoutes from "./store-routes";
 import AppLayout from "../pages/AppLayout";
 import StoreCreationProcessPage from "../pages/store/StoreCreationProcessPage";
 import userRoutes from "./user-routes";
+import ReviewsPage from "../pages/review/ReviewsPage";
 
 export default {
   path: "/",
@@ -34,6 +35,10 @@ export default {
     {
       path: ":categoryName/:productName",
       element: <ProductDetailPage />,
+    },
+    {
+      path: "reviews",
+      element: <ReviewsPage />,
     },
     userRoutes,
     storeRoutes,
