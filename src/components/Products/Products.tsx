@@ -1,6 +1,6 @@
 import Grid from "../Grid";
-import Product, { ProductType } from "./Product";
-import { ProductType as RealProductType } from "../../services/product";
+import Product from "./Product";
+import { ProductType } from "../../services/product";
 import product1 from "../../assets/product_1.png";
 import product2 from "../../assets/product_2.png";
 import product3 from "../../assets/product_3.png";
@@ -9,76 +9,50 @@ import Flex from "../Flex";
 
 const initialProducts: ProductType[] = [
   {
-    image: {
-      src: product1,
-      alt: "Product 1",
-    },
-    title: "Leather Sofa Chair",
+    id: "1",
+    images: [product1],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
   {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    image: {
-      src: product2,
-      alt: "Single Luxury Chair",
-    },
-    title: "Amazing Camera",
+    id: "2",
+    images: [product2],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: true,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
   {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    image: {
-      src: product3,
-      alt: "Product 3",
-    },
-    title: "Washing Machine",
+    id: "3",
+    images: [product3],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
   {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    image: {
-      src: product3,
-      alt: "Product 3",
-    },
-    title: "Washing Machine",
+    id: "4",
+    images: [product1],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
-  },
-  {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    image: {
-      src: product3,
-      alt: "Product 3",
-    },
-    title: "Washing Machine",
-    price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
-  },
-  {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    image: {
-      src: product3,
-      alt: "Product 3",
-    },
-    title: "Washing Machine",
-    price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
 ];
 
 interface Props {
   direction?: "vertical" | "horizontal";
-  products?: RealProductType[];
+  products?: ProductType[];
 }
 
 const Products = ({ direction, products }: Props) => {

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Scroll from "../Scroll";
 import Space from "../Space";
-import Product, { ProductType } from "./Product";
-import { ProductType as RealProductType } from "../../services/product";
+import Product from "./Product";
+import { ProductType } from "../../services/product";
 
 import product1 from "../../assets/product_1.png";
 import product2 from "../../assets/product_2.png";
@@ -10,70 +10,50 @@ import product3 from "../../assets/product_3.png";
 
 const similarProducts: ProductType[] = [
   {
-    image: {
-      src: product1,
-      alt: "Product 1",
-    },
-    title: "Leather Sofa Chair",
+    id: "1",
+    images: [product1],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
   {
-    image: {
-      src: product2,
-      alt: "Single Luxury Chair",
-    },
-    title: "Amazing Camera",
+    id: "2",
+    images: [product2],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: true,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
   {
-    image: {
-      src: product1,
-      alt: "Product 1",
-    },
-    title: "Washing Machine",
+    id: "3",
+    images: [product3],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
   {
-    image: {
-      src: product3,
-      alt: "Product 3",
-    },
-    title: "Washing Machine",
+    id: "4",
+    images: [product1],
+    name: "Leather Sofa Chair",
     price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
-  },
-  {
-    image: {
-      src: product2,
-      alt: "Product 2",
-    },
-    title: "Washing Machine",
-    price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
-  },
-  {
-    image: {
-      src: product3,
-      alt: "Product 1",
-    },
-    title: "Washing Machine",
-    price: 34_557.537,
-    favorite: false,
-    status: "For Sale",
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
   },
 ];
 
 interface Props {
   heading: string;
-  products?: RealProductType[];
+  products?: ProductType[];
 }
 
 const SimilarAds = ({ heading, products }: Props) => {

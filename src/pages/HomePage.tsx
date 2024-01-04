@@ -1,7 +1,6 @@
 import Banner from "../components/Banner";
 import Categories from "../components/Categories/Categories";
 import Container from "../components/Container";
-import EmptyState from "../components/EmptyState";
 import FeaturedProducts from "../components/FeaturedProducts";
 import Main from "../components/Main";
 

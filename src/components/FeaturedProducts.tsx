@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import useProducts from "../hooks/products/useProducts";
 import useProductsFromCategory from "../hooks/products/useProductsFromCategory";
 import { FetchResponseType } from "../services/apiClient";
 import { ProductType } from "../services/product";
@@ -7,6 +6,7 @@ import FeaturedBar from "./FeaturedBar";
 import MiniAdBanner from "./MiniAdBanner";
 import Products from "./Products/Products";
 import Space from "./Space";
+import { getRandomUniqueElements } from "../utils/randomValues";
 
 interface Props {
   title: string;
@@ -18,6 +18,12 @@ const FeaturedProducts = ({ title, to, categoryId }: Props) => {
   const { data, isLoading } = useProductsFromCategory(categoryId);
   const products = data as FetchResponseType<ProductType>;
 
+  // Get 6 random products
+  const randomProducts = getRandomUniqueElements<ProductType>(
+    products.results as ProductType[],
+    6
+  );
+
   return (
     <>
       <MiniAdBanner />
@@ -25,7 +31,7 @@ const FeaturedProducts = ({ title, to, categoryId }: Props) => {
       {!isLoading && products.results && (
         <Fragment>
           <FeaturedBar title={title} to={to} />
-          <Products products={products.results as ProductType[]} />
+          <Products products={randomProducts} />
           <Space spacing="my-8" />
         </Fragment>
       )}

@@ -10,6 +10,7 @@ export type ProductType = {
   type: string;
   category: string;
   category_name: string;
+  favorite?: boolean;
 };
 
 const apiClient = new APIClient<ProductType>("/products/");

@@ -14,17 +14,18 @@ import { getCookie, setCookie } from "../../utils/cookies";
 import axios from "axios";
 import { CartItemType, CartType, baseURL } from "../../services/cart";
 
-export type ProductType = {
-  image: ImageType;
-  status: "For Sale" | "Sold" | "New";
-  favorite: boolean;
-  title: string;
-  price: number;
-  id: string;
-};
+// export type ProductType = {
+//   image: ImageType;
+//   status: "For Sale" | "Sold" | "New";
+//   favorite: boolean;
+//   title: string;
+//   price: number;
+//   id: string;
+// };
 
 interface Props {
-  product: ProductType;
+  // product: ProductType;
+  product: RealProductType;
   handleFavStatus: (index: number) => void;
   temId: number;
   isAdProduct?: boolean;
@@ -35,7 +36,7 @@ interface Props {
 }
 
 const Product = ({
-  product: { status, title, favorite, price, image, id },
+  product: { type, name: productName, favorite, price, images, id },
   realProduct,
   isDummy,
   handleFavStatus,
@@ -341,7 +342,8 @@ const Product = ({
       <div className="relative">
         <div className="h-[250px]">
           <img
-            {...image}
+            src={images[0]}
+            alt={productName}
             className={`${
               isAdProduct ? " rounded-t-lg" : ""
             } object-cover h-full w-full`}
@@ -352,7 +354,7 @@ const Product = ({
             className="py-2 px-4 absolute top-10 text-xs font-semibold
             dark:bg-slate-800 bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
           >
-            {status}
+            {type}
           </span>
         )}
         <span
@@ -381,11 +383,11 @@ const Product = ({
       <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
         <Link to="/products/detail">
           <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
-            {title}
+            {productName}
           </p>
         </Link>
         <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
-          <span>{formatPrice(price)}</span>
+          <span>{formatPrice(price as number)}</span>
           <span className="text-fgrey text-[10px] font-semibold">
             (5 items left)
           </span>
