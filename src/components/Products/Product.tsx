@@ -11,7 +11,7 @@ import useCreateCart from "../../hooks/cart/useCreateCart";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
 import { getCookie, setCookie } from "../../utils/cookies";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 import { CartItemType, CartType, baseURL } from "../../services/cart";
 
 export type ProductType = {

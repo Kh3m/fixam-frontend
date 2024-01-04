@@ -6,8 +6,15 @@ import { PropsWithChildren } from "react";
 
 const LogoFormSplitLayout = ({ children }: PropsWithChildren) => {
   return (
-    <section className="">
-      <div className="h-full">
+    <section className="flex">
+      <div className="opacity-80 basis-[40%] flex justify-center items-center">
+        <div className="fixed">
+          <Link to="/">
+            <Logo color="yellow" styles="scale-150 -translate-y-20" />
+          </Link>
+        </div>
+      </div>
+      <div className="h-screen w-[60%]">
         <Card styles="pagination-shadow ">
           <Space spacing="my-14" />
           {/* Form Content */}
@@ -15,13 +22,6 @@ const LogoFormSplitLayout = ({ children }: PropsWithChildren) => {
           <section className="m-auto">{children}</section>
           <Space spacing="my-14" />
         </Card>
-      </div>
-      <div className="opacity-80 ">
-        <div className="">
-          <Link to="/">
-            <Logo color="yellow" styles="" />
-          </Link>
-        </div>
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import Heading from "../../components/Heading";
-import FullStarSVG from "../../components/SVGs/FullStarSVG";
 import Space from "../../components/Space";
 import BorderCard from "../user/BorderCard";
 import CustomerStarRatings from "./CustomerStarRatings";
