@@ -20,7 +20,7 @@ const SideBar = ({ logo, storeName, slug, withLogo, newItems }: Props) => {
         { text: "Products", to: `/stores/${slug}/products` },
         { text: "Orders", to: `/stores/${slug}/orders` },
         { text: "Customers", to: `/stores/${slug}/customers` },
-        { text: "Messages", to: `/stores/${slug}/messages` },
+        { text: "Notification", to: `/stores/${slug}/notifications` },
         { text: "Settings", to: `/stores/${slug}/settings` },
         { text: "Log out", to: "/logout" },
       ];

@@ -3,10 +3,15 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
+type ActionMenuType = {
+  label: string;
+  link?: { to: string };
+};
 interface Props {
-  itemId?: string;
+  actions: ActionMenuType[];
 }
-const ActionMenu = ({ itemId }: Props) => {
+
+const ActionMenu = ({ actions }: Props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const ulMenuRef = useRef<HTMLUListElement>(null);
   const { userStores } = useAuth();
@@ -71,27 +76,17 @@ const ActionMenu = ({ itemId }: Props) => {
           ref={ulMenuRef}
           className="text-left absolute p-1 z-30 bg-white fshadow rounded-md text-sm top-[102%]"
         >
-          <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
-            <Link
-              to={`/stores/${
-                userStores && userStores[userStores?.length - 1].slug
-              }/products/${itemId}`}
-            >
-              View
-            </Link>
-          </li>
-          <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
-            <Link
-              to={`/stores/${
-                userStores && userStores[userStores?.length - 1].slug
-              }/products/${itemId}/edit`}
-            >
-              Edit
-            </Link>
-          </li>
-          <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
-            Delete
-          </li>
+          {actions.map(({ label, link }) => (
+            <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
+              {link ? (
+                <Link to={link.to}>{label}</Link>
+              ) : (
+                <li className="px-2 py-1 hover:text-fyellow underline-offset-2 hover:underline">
+                  {label}
+                </li>
+              )}
+            </li>
+          ))}
         </ul>
       )}
     </span>

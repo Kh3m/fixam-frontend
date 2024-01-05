@@ -72,7 +72,7 @@ const StoreOrders = () => {
               </td>
               <td>{formatPrice(Number.parseFloat(order.amount.toString()))}</td>
               <td className="text-center">
-                <ActionMenu />
+                <ActionMenu actions={[{ label: "View" }]} />
               </td>
             </tr>
           );

@@ -13,6 +13,7 @@ function Layout() {
       {!pathname.includes("stores") && <ScrollRestoration />}
 
       {pathname === "/" && <TopAdBanner />}
+
       <Header />
       <Outlet />
       <NewsLetter />

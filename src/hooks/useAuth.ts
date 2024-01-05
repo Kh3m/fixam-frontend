@@ -49,7 +49,22 @@ const useAuth = () => {
 
       if (res.status === 200) {
         const userData = res.data;
+        // TODO: Check for side effect
         setCookie("userId", userData.id, 7); // Expires in 7 days
+
+        try {
+          // Try to merge cart items
+          const mergeRes = await apiClient.post(
+            `/carts/${getCookie("cartId")}/merge/${userData.id}/`
+          );
+
+          // If successfully merged, remove cartId from cookie
+          console.log("MergeRes", mergeRes);
+          removeCookie("cartId");
+        } catch (err) {
+          console.log("MERGING ERROR", err);
+        }
+
         setUser({ id: userData.id });
       } else {
         // TODO: Handle authentication error
@@ -87,7 +102,7 @@ const useAuth = () => {
     return !!getCookie("userId"); // !!"user" convert to it's boolean equivalent -> true
   };
 
-  const fetchUserDummy = async (userId: string) => {
+  const authUserDummy = async (userId: string) => {
     try {
       // Make API call to backend auth endpoint using axios
       const res = await apiClient.get<UserData>("/users/" + userId + "/");
@@ -97,6 +112,15 @@ const useAuth = () => {
       if (res.status === 200) {
         const foundUserData = res.data;
         setCookie("userId", foundUserData.id, 8); // Expires in 8 days
+        // Try to merge cart items
+        const mergeRes = await apiClient.post(
+          `/carts/${getCookie("cartId")}/merge/${foundUserData.id}/`
+        );
+
+        // If successfully merged, remove cartId from cookie
+        console.log("MergeRes", mergeRes);
+        removeCookie("cartId");
+
         setUser({ id: foundUserData.id });
         console.log("COOKIES SET", document.cookie);
       } else {
@@ -104,7 +128,10 @@ const useAuth = () => {
         console.error("FETCH USER failed");
       }
     } catch (err) {
-      console.error("Something went wrong while FETCHING user", err);
+      console.error(
+        "Something went wrong while FETCHING user or merging cart",
+        err
+      );
     }
   };
 
@@ -115,7 +142,7 @@ const useAuth = () => {
     register,
     isAuthenticated,
     userStores,
-    fetchUserDummy,
+    authUserDummy,
   };
 };
 

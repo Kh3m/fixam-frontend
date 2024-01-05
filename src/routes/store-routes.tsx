@@ -1,10 +1,10 @@
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import AddProductForm from "../pages/store/AddProductForm/AddProductForm";
 import EditProductForm from "../pages/store/AddProductForm/EditProductForm";
-import StoreCustomers from "../pages/store/StoreCustomers";
-import StoreMessages from "../pages/store/StoreMessages";
+import StoreNotifications from "../pages/store/StoreNotifications";
 import StorePage from "../pages/store/StorePage";
 import StoreSettings from "../pages/store/StoreSettings";
+import StoreCustomers from "../pages/store/customers/StoreCustomers";
 import StoreOrders from "../pages/store/orders/StoreOrders";
 import StoreProducts from "../pages/store/products/StoreProducts";
 import ViewProduct from "../pages/store/products/ViewProduct";
@@ -35,8 +35,8 @@ export default {
       element: <StoreCustomers />,
     },
     {
-      path: ":slug/messages",
-      element: <StoreMessages />,
+      path: ":slug/notification",
+      element: <StoreNotifications />,
     },
     {
       path: ":slug/settings",

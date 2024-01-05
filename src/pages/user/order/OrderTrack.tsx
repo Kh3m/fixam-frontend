@@ -1,4 +1,5 @@
 import Space from "../../../components/Space";
+import DeliveryTimeEstimator from "./BottomSpanMessage";
 import OrderProgress from "./OrderProgress";
 
 const OrderTrack = () => {
@@ -11,9 +12,9 @@ const OrderTrack = () => {
       <Space spacing="my-12" />
       <OrderProgress />
       <Space spacing="my-12" />
-      <span className="text-xs font-semibold">
+      <DeliveryTimeEstimator>
         To be delivered between Friday 10th and Tuesday 14th January
-      </span>
+      </DeliveryTimeEstimator>
     </div>
   );
 };

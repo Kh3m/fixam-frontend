@@ -4,6 +4,7 @@ import BorderCard from "../BorderCard";
 
 import product1 from "../../../assets/product_1.png";
 import { Link } from "react-router-dom";
+import DeliveryTimeEstimator from "./BottomSpanMessage";
 
 interface Props {
   hasCancel?: boolean;
@@ -25,9 +26,9 @@ const OrderSummaryCard = ({ hasCancel }: Props) => {
             </Heading>
             <span className="font-medium text-gray-700">QTY: 1</span>
           </div>
-          <span className="text-sm font-medium ">
+          <DeliveryTimeEstimator>
             To be delivered between Friday 10th and Tuesday 14th January
-          </span>
+          </DeliveryTimeEstimator>
         </div>
         <div className="flex items-start justify-end flex-col space-y-2">
           <Link
@@ -50,7 +51,8 @@ const OrderSummaryCard = ({ hasCancel }: Props) => {
             <Link to={`/users/orders/547862FA/confirm-cancel`}>
               <Button
                 variant="outlined"
-                styles="border-fyellow-shades-500 text-fyellow-shades-500 text-[10px] font-semibold w-28 whitespace-nowrap py-[4px]
+                styles="border-fyellow-shades-500 text-fyellow-shades-500 text-[10px] 
+                font-semibold w-28 whitespace-nowrap py-[3px]
                 flex items-center justify-center"
                 noSizingClass
               >

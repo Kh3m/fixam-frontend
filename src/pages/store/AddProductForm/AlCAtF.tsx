@@ -55,7 +55,6 @@ const CategoryFields = ({ defaultCategory }: Props) => {
       const subCategories = subCategoriesResponse.data;
 
       if (subCategories.length > 0) {
-        // TODO: Remove for DEMO session
         setSubCatElements([]);
         selectedCat = (selected as OptionType).label;
 

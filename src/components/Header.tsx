@@ -72,7 +72,7 @@ const Header = () => {
                   ? `/stores/${
                       userStores[userStores.length - 1].slug
                     }/dashboard`
-                  : "/stores/create"
+                  : "/create-store"
               } `}
             >
               <Button

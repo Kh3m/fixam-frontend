@@ -1,11 +1,21 @@
-import Heading from "../../../components/Heading";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import product1 from "../../../assets/product_1.png";
-import BorderCard from "../BorderCard";
 import Button from "../../../components/Button";
+import FixamSelect from "../../../components/FixamSelect";
+import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
-import Select from "react-select";
 import { goBack } from "../../../utils/history";
+import BorderCard from "../BorderCard";
+import { default as BottomSpanMessage } from "./BottomSpanMessage";
+
 const OrderConfirmCancel = () => {
+  const methods = useForm();
+  const { handleSubmit } = methods;
+
+  const onSubmit = (data: FieldValues) => {
+    console.log("cancelationReason", data);
+  };
+
   return (
     <section>
       <BorderCard>
@@ -22,47 +32,48 @@ const OrderConfirmCancel = () => {
               </Heading>
               <span className="font-medium text-gray-700">QTY: 1</span>
             </div>
-            <span className="text-sm font-medium ">
+            <BottomSpanMessage>
               To be delivered between Friday 10th and Tuesday 14th January
-            </span>
+            </BottomSpanMessage>
           </div>
         </section>
         <Space spacing="my-6" />
         <div>
-          <div className="flex space-x-4">
-            <Select
-              options={[
-                {
-                  label: "Give me reason pleas",
-                  value: "Give me reason please",
-                },
-                {
-                  label: "Give me reason pleas",
-                  value: "Give me reason please",
-                },
-                {
-                  label: "Give me reason pleas",
-                  value: "Give me reason please",
-                },
-              ]}
-              className="flex-grow"
-              placeholder="--Select a Reason--"
-            />
-            <Button
-              onClick={goBack}
-              variant="elevated"
-              styles="bg-fyellow-shades-500 text-white text-[10px] font-semibold w-28 whitespace-nowrap py-2
-                  flex items-center justify-center"
-              noSizingClass
-            >
-              Cancel Order
-            </Button>
-          </div>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-4">
+              <FixamSelect
+                name="cancelationReason"
+                options={[
+                  {
+                    label: "Give me reason please",
+                    value: "Give me reason please",
+                  },
+                  {
+                    label: "Give me reason please",
+                    value: "Give me reason please again",
+                  },
+                  {
+                    label: "Give me reason please",
+                    value: "Give me reason please again and again",
+                  },
+                ]}
+                placeholder="--Select a Reason--"
+              />
+              <Button
+                variant="elevated"
+                styles="bg-fyellow-shades-500 text-white text-[10px] font-semibold w-28 whitespace-nowrap py-2
+                    flex items-center justify-center"
+                noSizingClass
+              >
+                Cancel Order
+              </Button>
+            </form>
+          </FormProvider>
           <Space spacing="mt-3 mb-6" />
-          <span className="text-xs font-semibold">
+          <BottomSpanMessage>
             You will receive an email with details of your cancellation after
             you submit
-          </span>
+          </BottomSpanMessage>
         </div>
       </BorderCard>
     </section>

@@ -18,7 +18,7 @@ const FeaturedProducts = ({ title, to, categoryId }: Props) => {
   const { data, isLoading } = useProductsFromCategory(categoryId);
   const products = data as FetchResponseType<ProductType>;
 
-  // Get 6 random products
+  // Get 6 random unique products
   const randomProducts = getRandomUniqueElements<ProductType>(
     products.results as ProductType[],
     6

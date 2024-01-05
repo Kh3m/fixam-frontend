@@ -7,7 +7,7 @@ import Select, {
 } from "react-select";
 
 import { customNoOptionMessage } from "./CustomNoOptionMesaage";
-import { OptionType } from "../../pages/store/AddProductForm/CategoryFields";
+import { OptionType } from "../../utils/types";
 
 type OptionsType = {
   value: string;

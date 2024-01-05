@@ -9,7 +9,7 @@ const ProgressBar = ({ progress }: Props) => {
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${progress}%` }}
-        transition={{ delay: 0.2, duration: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
         className="absolute h-full bg-fyellow-shades-500 rounded-lg"
       ></motion.div>
     </div>

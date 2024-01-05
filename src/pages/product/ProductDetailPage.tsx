@@ -85,7 +85,7 @@ const ProductDetailPage = () => {
       </Main>
     );
 
-  return <p>None</p>;
+  return <p>None From Product</p>;
 };
 
 export default ProductDetailPage;

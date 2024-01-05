@@ -9,7 +9,8 @@ const OrderProgressBar = ({ progress }: Props) => {
   return (
     <div className="relative h-6 bg-gray-300">
       <motion.div
-        initial={{ backgroundColor: "#FF9900" }}
+        initial={{ backgroundColor: "#FF9900", width: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
         animate={{
           width:
             progress === "confirmed"
@@ -23,6 +24,8 @@ const OrderProgressBar = ({ progress }: Props) => {
         className="h-6 bg-fyellow-shades-500 absolute"
       ></motion.div>
       <motion.div
+        initial={{ left: "-1%" }}
+        transition={{ delay: 0.2, duration: 0.5 }}
         animate={{
           left:
             progress === "confirmed"
@@ -30,11 +33,11 @@ const OrderProgressBar = ({ progress }: Props) => {
               : progress === "route"
               ? "60%"
               : progress === "delivered"
-              ? "94%"
+              ? "95%"
               : "-1%",
         }}
-        className=" h-14 w-14 rounded-full flex justify-center
-        items-center absolute left-[27%] top-[50%] -translate-y-[50%]"
+        className=" h-14 rounded-full flex justify-center
+        items-center absolute top-[50%] -translate-y-[50%]"
       >
         <GoodCircle />
       </motion.div>

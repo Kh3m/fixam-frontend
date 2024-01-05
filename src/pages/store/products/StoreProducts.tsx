@@ -14,6 +14,7 @@ import StorePageTitle from "../StorePageTitle";
 import ActionMenu from "../../../components/Menu/ActionMenu";
 import useAuth from "../../../hooks/useAuth";
 import useStoreProducts from "../../../hooks/products/useStoreProducts";
+import { link } from "fs";
 
 const StoreProducts = () => {
   const { userStores, isAuthenticated } = useAuth();
@@ -53,7 +54,27 @@ const StoreProducts = () => {
             <td>{formatPrice(Number.parseFloat(product.price as string))}</td>
             <td className="text-center">8</td>
             <td className="text-center">
-              <ActionMenu itemId={product.id} />
+              <ActionMenu
+                actions={[
+                  {
+                    label: "View",
+                    link: {
+                      to: `/stores/${
+                        userStores && userStores[userStores?.length - 1].slug
+                      }/products/${product.id}`,
+                    },
+                  },
+                  {
+                    label: "Edit",
+                    link: {
+                      to: `/stores/${
+                        userStores && userStores[userStores?.length - 1].slug
+                      }/products/${product.id}/edit`,
+                    },
+                  },
+                  { label: "Delete" },
+                ]}
+              />
             </td>
           </tr>
         ))}

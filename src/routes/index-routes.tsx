@@ -3,7 +3,6 @@ import CartPage from "../pages/cart/CartPage";
 import CheckoutPage from "../pages/checkout/CheckoutPage";
 import ProductDetailPage from "../pages/product/ProductDetailPage";
 import ProductsPage from "../pages/product/ProductsPage";
-import WishListPage from "../pages/user/wishlist/WishListPage";
 import storeRoutes from "./store-routes";
 import AppLayout from "../pages/AppLayout";
 import StoreCreationProcessPage from "../pages/store/StoreCreationProcessPage";
@@ -27,7 +26,7 @@ export default {
       element: <CartPage />,
     },
     { path: "admin", element: <div>Admin</div> },
-    { path: "create-store", element: <StoreCreationProcessPage /> },
+
     {
       path: ":categoryName",
       element: <ProductsPage />,
@@ -41,6 +40,5 @@ export default {
       element: <ReviewsPage />,
     },
     userRoutes,
-    storeRoutes,
   ],
 };
