@@ -1,23 +1,20 @@
 import Card from "../../../components/Card";
 import TopBar from "../TopBar";
 
+import { Fragment, useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import ActionMenu from "../../../components/Menu/ActionMenu";
 import Pagination from "../../../components/Pagination";
 import Table from "../../../components/Table";
-import { Outlet, useLocation } from "react-router-dom";
-import { Fragment, useEffect, useState } from "react";
-import useProducts from "../../../hooks/products/useProducts";
-import { FetchResponseType } from "../../../services/apiClient";
-import { ProductType } from "../../../services/product";
-import { getRandomInt } from "../../../utils/randomValues";
-import { formatPrice } from "../../../utils/number-formatter";
-import StorePageTitle from "../StorePageTitle";
-import ActionMenu from "../../../components/Menu/ActionMenu";
-import useAuth from "../../../hooks/useAuth";
 import useStoreProducts from "../../../hooks/products/useStoreProducts";
-import { link } from "fs";
+import useAuth from "../../../hooks/useAuth";
+import { ProductType } from "../../../services/product";
+import { formatPrice } from "../../../utils/number-formatter";
+import { getRandomInt } from "../../../utils/randomValues";
+import StorePageTitle from "../StorePageTitle";
 
 const StoreProducts = () => {
-  const { userStores, isAuthenticated } = useAuth();
+  const { userStores } = useAuth();
 
   const { pathname } = useLocation();
   // TODO: Use mutation instead when creating a product

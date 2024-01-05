@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from "../Button";
 import Space from "../Space";
-import FilterCard from "./FilterCard";
 import FilterListItem from "./FilterListItem";
 import Collapsible from "../Collapsibles/Collapsible";
 

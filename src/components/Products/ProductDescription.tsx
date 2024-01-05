@@ -1,13 +1,9 @@
-import Button from "../Button";
 import Space from "../Space";
 import ProductSummary from "./ProductSummary";
 import ReviewRating from "../Reviews/ReviewRating";
-import SafetyTips from "./SafetyTips";
-import VendorContact from "./VendorContact";
 import Reviews from "../Reviews/Reviews";
 import { ProductType } from "../../services/product";
 import ProductFeatures from "./ProductFeatures";
-import ProductDescriptionText from "./ProductDescriptionText";
 import ExpandableText from "../ExpandableText";
 
 const labelValues = [

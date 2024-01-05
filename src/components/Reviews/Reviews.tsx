@@ -1,5 +1,4 @@
 import Button from "../Button";
-import Card from "../Card";
 import Heading from "../Heading";
 import Space from "../Space";
 import Review from "./Review";

@@ -1,4 +1,3 @@
-import FilterCard from "./FilterCard";
 import FilterListItem from "./FilterListItem";
 import Space from "../Space";
 import { useState } from "react";

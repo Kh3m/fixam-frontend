@@ -1,9 +1,4 @@
 import Preview from "../../components/Preview";
-
-import product1 from "../../assets/product_1.png";
-import product2 from "../../assets/product_2.png";
-import product3 from "../../assets/product_3.png";
-import tabpanel from "../../assets/tabpanel.webp.png";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import MiniAdBanner from "../../components/MiniAdBanner";
@@ -14,17 +9,9 @@ import ProductDescription from "../../components/Products/ProductDescription";
 import SimilarAds from "../../components/Products/SimilarAds";
 import { useLocation } from "react-router-dom";
 import useProduct from "../../hooks/products/useProduct";
-import { useEffect } from "react";
 import useRandomProductsFromCategory from "../../hooks/products/useRandomProductsFromCategory";
 import { ProductType } from "../../services/product";
 import { getCategoryIdFromURL } from "../../utils/category";
-
-const images = [
-  { src: product1, alt: "Product 1" },
-  { src: tabpanel, alt: "Product tabpanel" },
-  { src: product2, alt: "Product 2" },
-  { src: product3, alt: "Product 3" },
-];
 
 const content = {
   left: ["Promoted", "Posted 3 hours", "Lagos, Ikeja"],

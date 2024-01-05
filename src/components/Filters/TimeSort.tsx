@@ -1,6 +1,4 @@
 import { MdAccessTime } from "react-icons/md";
-import { LiaSortSolid } from "react-icons/lia";
-import { BiSolidSortAlt } from "react-icons/bi";
 
 import Button from "../Button";
 import { useState } from "react";

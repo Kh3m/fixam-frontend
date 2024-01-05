@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Card from "../../components/Card";
 import Container from "../../components/Container";
-import HR from "../../components/HR";
-import Heading from "../../components/Heading";
 import Main from "../../components/Main";
 import SimilarAds from "../../components/Products/SimilarAds";
 import Space from "../../components/Space";

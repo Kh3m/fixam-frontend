@@ -1,4 +1,3 @@
-import { ImageType } from "../../utils/types";
 import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -7,7 +6,7 @@ import useDarkMode from "../../hooks/useDarkMode";
 import { ProductType as RealProductType } from "../../services/product";
 import capitalize from "../../utils/capitalize";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
-import useCreateCart from "../../hooks/cart/useCreateCart";
+// import useCreateCart from "../../hooks/cart/useCreateCart";
 import useAuth from "../../hooks/useAuth";
 import apiClient from "../../services/apiClient";
 import { getCookie, setCookie } from "../../utils/cookies";
@@ -48,7 +47,7 @@ const Product = ({
   // slate-800
   const tempCartColor = isDarkMode ? "#1e293b" : "#FF9900";
 
-  const cartCreateMutation = useCreateCart();
+  // const cartCreateMutation = useCreateCart();
   const { isAuthenticated, user } = useAuth();
 
   const handleAddToCart = async (productId: string) => {

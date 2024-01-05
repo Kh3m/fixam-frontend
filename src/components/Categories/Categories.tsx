@@ -1,5 +1,3 @@
-import { useState } from "react";
-import useSubCategories from "../../hooks/category/useSubCategories";
 import { FetchResponseType } from "../../services/apiClient";
 import { CategoryType } from "../../services/category";
 import { getMainCategory } from "../../utils/category";

@@ -5,7 +5,6 @@ import Select, {
   StylesConfig,
 } from "react-select";
 import { OptionType } from "../utils/types";
-import { ChangeEvent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const customStyles: StylesConfig<OptionType> = {

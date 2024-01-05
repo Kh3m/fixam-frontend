@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 
 type ActionMenuType = {
   label: string;
@@ -14,7 +13,6 @@ interface Props {
 const ActionMenu = ({ actions }: Props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const ulMenuRef = useRef<HTMLUListElement>(null);
-  const { userStores } = useAuth();
 
   // const handleMenuItemClick = (item: string) => {
   //   setOpenMenu(false);

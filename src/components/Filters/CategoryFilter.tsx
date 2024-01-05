@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Button from "../Button";
 import Collapsible from "../Collapsibles/Collapsible";
 import FilterListItem from "./FilterListItem";
@@ -53,7 +53,6 @@ const CategoryFilter = () => {
   ]);
 
   const [sliceLen, setSliceLen] = useState(4);
-  const innerCategoryRef = useRef(null);
   return (
     <div className="relative">
       <Collapsible headerName="Categories" noRightPadding>

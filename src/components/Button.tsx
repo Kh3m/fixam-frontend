@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, type ReactNode } from "react";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -41,17 +40,17 @@ const Button = ({
       );
     case "elevated":
       return (
-        <motion.button
+        <button
           {...props}
-          whileTap={{
-            scale: whileClickScale ? whileClickScale : 1,
-            backgroundColor: "#6c6c6c",
-          }}
+          // whileTap={{
+          //   scale: whileClickScale ? whileClickScale : 1,
+          //   backgroundColor: "#6c6c6c",
+          // }}
           className={` ${baseClass} ${!noSizingClass && sizingClass} ${styles}`}
           disabled={isLoading}
         >
           {children}
-        </motion.button>
+        </button>
       );
     case "text":
       return (

@@ -1,5 +1,3 @@
-import React from "react";
-
 import product1 from "../../../assets/product_1.png";
 import NotificationItem from "./NotificationItem";
 

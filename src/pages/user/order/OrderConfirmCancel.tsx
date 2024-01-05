@@ -4,7 +4,6 @@ import Button from "../../../components/Button";
 import FixamSelect from "../../../components/FixamSelect";
 import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
-import { goBack } from "../../../utils/history";
 import BorderCard from "../BorderCard";
 import { default as BottomSpanMessage } from "./BottomSpanMessage";
 

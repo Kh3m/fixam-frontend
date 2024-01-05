@@ -1,5 +1,4 @@
 import Space from "../../../components/Space";
-import { formatPrice } from "../../../utils/number-formatter";
 import HeadingWithBorderBottom from "./HeadingWithBorderBottom";
 import OrderDetailList from "./OrderDetailList";
 

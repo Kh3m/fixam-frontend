@@ -3,9 +3,7 @@ import CartPage from "../pages/cart/CartPage";
 import CheckoutPage from "../pages/checkout/CheckoutPage";
 import ProductDetailPage from "../pages/product/ProductDetailPage";
 import ProductsPage from "../pages/product/ProductsPage";
-import storeRoutes from "./store-routes";
 import AppLayout from "../pages/AppLayout";
-import StoreCreationProcessPage from "../pages/store/StoreCreationProcessPage";
 import userRoutes from "./user-routes";
 import ReviewsPage from "../pages/review/ReviewsPage";
 

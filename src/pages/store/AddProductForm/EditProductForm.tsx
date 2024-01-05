@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
+import { StoreResponseType } from "../../../entities/store";
+import useProduct from "../../../hooks/products/useProduct";
+import useAuth from "../../../hooks/useAuth";
+import apiClient from "../../../services/apiClient";
+import { getCategoryIdFromURL } from "../../../utils/category";
 import { getCookie } from "../../../utils/cookies";
 import AlCAtF from "./AlCAtF";
 import FeaturesField from "./FeaturesField";
 import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
-import useAuth from "../../../hooks/useAuth";
-import apiClient from "../../../services/apiClient";
-import { StoreResponseType } from "../../../entities/store";
-import { useNavigate, useParams } from "react-router-dom";
-import useProduct from "../../../hooks/products/useProduct";
-import { getCategoryIdFromURL } from "../../../utils/category";
 
 type ProductUploadType = {
   name: string;
@@ -39,13 +39,10 @@ const EditProductForm = () => {
   const params = useParams<ParamsType>();
   const [userId, setUserId] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const {
-    data: product,
-    isLoading: isLoadingProduct,
-    isSuccess,
-  } = useProduct(params.productId || "");
+  const { data: product, isLoading: isLoadingProduct } = useProduct(
+    params.productId || ""
+  );
 
   useEffect(() => {
     setUserId(getCookie("userId"));

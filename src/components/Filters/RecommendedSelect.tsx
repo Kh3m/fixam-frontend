@@ -18,7 +18,7 @@ const customStyles: StylesConfig = {
     },
   }),
 
-  input: (base, props) => ({
+  input: (base) => ({
     ...base,
     padding: 0,
     margin: 0,
@@ -33,7 +33,7 @@ const customStyles: StylesConfig = {
     rotate: props.selectProps.menuIsOpen ? "180deg" : "0",
   }),
 
-  indicatorSeparator: (base, props) => ({ ...base, display: "none" }),
+  indicatorSeparator: (base) => ({ ...base, display: "none" }),
 
   option: (base, props) => ({
     ...base,
