@@ -13,6 +13,20 @@ interface Props {
 }
 
 const WishListItem = ({ title, price, imageURL }: Props) => {
+  const handleShare = async () => {
+    if (navigator.share && navigator.canShare({ url: location.href })) {
+      const shared = await navigator.share({
+        title: "I realy love this product: " + title + ", kindly check it out.",
+        url: location.href,
+        text: "Beautiful Products",
+      });
+
+      console.log("SHARED SUCCESSFUL", shared);
+    } else {
+      alert("Your browser doesn't support native share");
+    }
+  };
+
   return (
     <section className="flex space-x-24 justify-between">
       <div className="flex space-x-6 ">
@@ -49,7 +63,10 @@ const WishListItem = ({ title, price, imageURL }: Props) => {
         </Button>
         <Space spacing="my-1" />
         <div className="flex space-x-4">
-          <span className="text-fyellow border cursor-pointer text-lg border-fyellow rounded-md w-1/2 px-5 py-1">
+          <span
+            onClick={handleShare}
+            className="text-fyellow border cursor-pointer text-lg border-fyellow rounded-md w-1/2 px-5 py-1"
+          >
             <TbShare2 />
           </span>
           <span className="text-fyellow border cursor-pointer text-lg border-fyellow rounded-md w-1/2 px-5 py-1">

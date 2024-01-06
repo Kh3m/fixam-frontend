@@ -3,8 +3,8 @@ import AddProductForm from "../pages/store/AddProductForm/AddProductForm";
 import EditProductForm from "../pages/store/AddProductForm/EditProductForm";
 import StoreNotifications from "../pages/store/StoreNotifications";
 import StorePage from "../pages/store/StorePage";
-import StoreSettings from "../pages/store/StoreSettings";
 import StoreCustomers from "../pages/store/customers/StoreCustomers";
+import StoreMembers from "../pages/store/members/StoreMembers";
 import StoreOrders from "../pages/store/orders/StoreOrders";
 import StoreProducts from "../pages/store/products/StoreProducts";
 import ViewProduct from "../pages/store/products/ViewProduct";
@@ -39,8 +39,8 @@ export default {
       element: <StoreNotifications />,
     },
     {
-      path: ":slug/settings",
-      element: <StoreSettings />,
+      path: ":slug/members",
+      element: <StoreMembers />,
     },
   ],
 };
