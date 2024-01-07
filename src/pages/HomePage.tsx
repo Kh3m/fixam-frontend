@@ -20,6 +20,8 @@ function HomePage() {
     mainCat = getMainCategory(categories as FetchResponseType<CategoryType>);
   }
 
+  console.log("CATEGORIES", categories);
+
   return (
     <Main>
       <Banner
@@ -29,7 +31,7 @@ function HomePage() {
         bannerURL="https://s3-alpha-sig.figma.com/img/8c28/35b0/6ca63cff2ec598ec252fe7cea1c7036a?Expires=1702857600&Signature=PkxkO9yMdC~8E3HuUXsYHQfQCzelDyi5Q4Iosd7CkVAB1NmJWRN7cwArUfo9FhPVqStzxr7tUObSV13Z92cUq3ncAgemOPhpKScF49es7Phyi9v1pNYlwnMRy9f5kBsuq8ksFWWbIdnklmuc~fros~Fou~XBIW2KyfHpljFhdfB5ydYDCqU~85MsitAsQW0G-nyxps1pGeSCcoRdfLkIJqWeoN7T2UqEy1f0qV5liYtaFDvHl3oLmRnD4pyRiOs9Qu4pZxgTM5X5-jlJXyqbFjGOklqhBOP3smxPgD7qjpcBxz9Hxrjbq8wJ1BJ2L6ZgjXKQkuaHhUJNr-stMlWjRg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
       />
       <Space spacing="my-14" />
-      {categories && !isLoading && (
+      {!isLoading && categories && (
         <Container Aside={<Categories categories={categories} />} twoColLayout>
           {categories &&
             mainCat.length &&

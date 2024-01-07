@@ -1,4 +1,5 @@
-import { APIClient, DummyAPIClient } from "./apiClient";
+import { DummyAPIClient } from "./apiClient";
+import { cartBaseURL } from "./baseURLs";
 
 export type CartItemOptionType = {
   id?: number;
@@ -25,21 +26,19 @@ export type CartType = {
   modified_at?: Date;
 };
 
-export const baseURL = "https://cartservice-production.up.railway.app/api/v1";
-
 export const dummyUserCartService = (userId?: string) => {
   console.log(`/carts/user/${userId}/`);
-  return new DummyAPIClient<CartType>(`/carts/user/${userId}/`);
+  return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
 };
 
 // MAIN IMPLEMENTATION STARTS HERE
-const apiClient = new APIClient<CartType>("/carts/");
+const apiClient = new DummyAPIClient<CartType>("/carts/");
 
 const cartService = apiClient;
 
 export const userCartService = (userId?: string) => {
-  console.log(`/carts/user/${userId}/`);
-  return new APIClient<CartType>(`/carts/user/${userId}/`);
+  console.log(`${cartService}/carts/user/${userId}/`);
+  return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
 };
 
 export default cartService;

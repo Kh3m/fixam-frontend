@@ -3,10 +3,11 @@ import SelectOption from "../../../components/Option/SelectOption";
 import Space from "../../../components/Space";
 import FormFieldCard from "./FormFieldCard";
 import { Fragment, useState } from "react";
-import apiClient, { FetchResponseType } from "../../../services/apiClient";
+import { FetchResponseType, dummyApiClient } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
 import { OptionType } from "../../../utils/types";
+import { productBaseURL } from "../../../services/baseURLs";
 
 type CategoryType = {
   id: string;
@@ -48,8 +49,8 @@ const CategoryFields = ({ defaultCategory }: Props) => {
 
     try {
       // TODO: Fix using useSubCategories
-      const subCategoriesResponse = await apiClient.get<CategoryType[]>(
-        `/products/categories/${categoryId}/subcategories/`
+      const subCategoriesResponse = await dummyApiClient.get<CategoryType[]>(
+        `${productBaseURL}/products/categories/${categoryId}/subcategories/`
       );
 
       const subCategories = subCategoriesResponse.data;

@@ -8,10 +8,11 @@ import capitalize from "../../utils/capitalize";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 // import useCreateCart from "../../hooks/cart/useCreateCart";
 import useAuth from "../../hooks/useAuth";
-import apiClient from "../../services/apiClient";
 import { getCookie, setCookie } from "../../utils/cookies";
 import axios from "axios";
-import { CartItemType, CartType, baseURL } from "../../services/cart";
+import { CartItemType, CartType } from "../../services/cart";
+import { dummyApiClient } from "../../services/apiClient";
+import { cartBaseURL } from "../../services/baseURLs";
 
 // export type ProductType = {
 //   image: ImageType;
@@ -59,7 +60,9 @@ const Product = ({
       // Check if the user already has a cart
       // const userCart = await apiClient.get(`/carts/user/${user.id}/`);
       try {
-        const userCart = await apiClient.get(`/carts/user/${1}/`);
+        const userCart = await dummyApiClient.get(
+          `${cartBaseURL}/carts/user/${1}/`
+        );
         console.log("Found User's Cart", userCart);
       } catch (error) {
         console.log("Found User's Cart Error", error);
@@ -75,11 +78,13 @@ const Product = ({
       if (cartIdFromCookie) {
         // Use the cartId in cookie
         // Find cart by cartId
-        const foundCart = await apiClient.get(`/carts/${cartIdFromCookie}`);
+        const foundCart = await dummyApiClient.get(
+          `${cartBaseURL}/carts/${cartIdFromCookie}`
+        );
         if (foundCart.status === 200) {
           // Add Items to cart
-          const addedItem = await apiClient.post(
-            `/carts/${cartIdFromCookie}/items/`,
+          const addedItem = await dummyApiClient.post(
+            `${cartBaseURL}/carts/${cartIdFromCookie}/items/`,
             {
               prod_id: productId,
               item_options: [
@@ -100,9 +105,12 @@ const Product = ({
       } else {
         // Create guest user cart without user_id
         try {
-          const createdCart = await apiClient.post<{ id: string }>("/carts/", {
-            user_id: null,
-          });
+          const createdCart = await dummyApiClient.post<{ id: string }>(
+            `${cartBaseURL}/carts/`,
+            {
+              user_id: null,
+            }
+          );
           if (createdCart.status === 201) {
             setCookie("cartId", createdCart.data.id, 7);
           }
@@ -143,15 +151,15 @@ const Product = ({
 
       try {
         // Find user cart with user id
-        const foundUserCart = await apiClient.get<CartType>(
-          `${baseURL}/carts/user/${user.id}/`
+        const foundUserCart = await dummyApiClient.get<CartType>(
+          `${cartBaseURL}/carts/user/${user.id}/`
         );
         console.log("Found User's Cart user isAuthenticated", foundUserCart);
         // Check if the user already has a cart
         if (foundUserCart.status === 200) {
           // Add item to the cart
-          const addedCartItem = await apiClient.post(
-            `${baseURL}/carts/${foundUserCart.data.id}/items/`,
+          const addedCartItem = await dummyApiClient.post(
+            `${cartBaseURL}/carts/${foundUserCart.data.id}/items/`,
             item
           );
 
@@ -169,12 +177,15 @@ const Product = ({
               error.response
             );
             // Use userId to creat new cart
-            const newCartForUser = await apiClient.post(`${baseURL}/carts/`, {
-              user_id: user.id,
-            });
+            const newCartForUser = await dummyApiClient.post(
+              `${cartBaseURL}/carts/`,
+              {
+                user_id: user.id,
+              }
+            );
             // Add item to newCartForUser
-            const addedCartItem = await apiClient.post(
-              `${baseURL}/carts/${newCartForUser.data.id}/items/`,
+            const addedCartItem = await dummyApiClient.post(
+              `${cartBaseURL}/carts/${newCartForUser.data.id}/items/`,
               item
             );
 
@@ -191,8 +202,8 @@ const Product = ({
       const cartIdFromCookie = getCookie("cartId");
       if (cartIdFromCookie) {
         // Use the cartId in cookie to find a cart by it's cartId
-        const foundCart = await apiClient.get(
-          `${baseURL}/carts/${cartIdFromCookie}/`
+        const foundCart = await dummyApiClient.get(
+          `${cartBaseURL}/carts/${cartIdFromCookie}/`
         );
 
         if (foundCart.status === 200) {
@@ -216,8 +227,8 @@ const Product = ({
           };
 
           // Add Items to cart
-          const addedItem = await apiClient.post(
-            `${baseURL}/carts/${cartIdFromCookie}/items/`,
+          const addedItem = await dummyApiClient.post(
+            `${cartBaseURL}/carts/${cartIdFromCookie}/items/`,
             item
           );
           console.log(
@@ -229,8 +240,8 @@ const Product = ({
         // There is no cartId in cookie and user is not authenticated
         // Create guest user cart without user_id
         try {
-          const createdCart = await apiClient.post<{ id: string }>(
-            `${baseURL}/carts/`,
+          const createdCart = await dummyApiClient.post<{ id: string }>(
+            `${cartBaseURL}/carts/`,
             {
               user_id: null,
             }
@@ -278,8 +289,8 @@ const Product = ({
             className={`${
               favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
             } absolute -bottom-7 right-7 
-        flex justify-center items-center
-        cursor-pointer  h-12 w-12 rounded-full fshadow`}
+            flex justify-center items-center
+            cursor-pointer h-12 w-12 rounded-full fshadow`}
           >
             <AiOutlineHeart
               width="50px"
@@ -337,7 +348,7 @@ const Product = ({
 
   // TODO: Clean Up
   return (
-    <article className={`${isAdProduct && "w-[265px]"} fshadow -z-20`}>
+    <article className={`${isAdProduct && "w-[265px]"} fshadow`}>
       <div className="relative">
         <div className="h-[250px]">
           <img
@@ -380,7 +391,7 @@ const Product = ({
         </span>
       </div>
       <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
-        <Link to="/products/detail">
+        <Link to={`/products/detail`} state={{ categoryId, productId: id }}>
           <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
             {productName}
           </p>

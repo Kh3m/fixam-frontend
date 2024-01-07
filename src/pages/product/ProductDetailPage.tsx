@@ -12,6 +12,7 @@ import useProduct from "../../hooks/products/useProduct";
 import useRandomProductsFromCategory from "../../hooks/products/useRandomProductsFromCategory";
 import { ProductType } from "../../services/product";
 import { getCategoryIdFromURL } from "../../utils/category";
+import Reviews from "../../components/Reviews/Reviews";
 
 const content = {
   left: ["Promoted", "Posted 3 hours", "Lagos, Ikeja"],
@@ -21,12 +22,14 @@ const content = {
 const ProductDetailPage = () => {
   const { state } = useLocation();
 
-  let categoryId = "";
   let productId = "";
   if (state && state.productId) productId = state.productId;
-
   const { data: foundProduct, isLoading, isSuccess } = useProduct(productId);
+
+  console.log("productId", productId, foundProduct);
+
   // Get the categoryId from the category field;
+  let categoryId = "";
   if (foundProduct && foundProduct.category) {
     categoryId = getCategoryIdFromURL(foundProduct.category);
   }
@@ -34,8 +37,7 @@ const ProductDetailPage = () => {
   const { data: foundRandomProduct } =
     useRandomProductsFromCategory(categoryId);
 
-  console.log("foundRandomProduct", foundRandomProduct);
-  if (isSuccess && foundProduct && foundProduct?.images)
+  if (isSuccess && foundProduct && foundProduct?.images) {
     return (
       <Main>
         <Container>
@@ -45,10 +47,11 @@ const ProductDetailPage = () => {
             <section className="flex space-x-8">
               <div className="w-[80%]">
                 <Preview
-                  images={foundProduct?.images.map((imageURl) => ({
-                    alt: "",
-                    src: imageURl,
-                  }))}
+                  images={[{ alt: "", src: "" }]}
+                  // images={foundProduct?.images.map((imageURl) => ({
+                  //   alt: "",
+                  //   src: imageURl,
+                  // }))}
                 />
                 <Space spacing="my-2" />
                 <ProductBottomSummary content={content} />
@@ -58,6 +61,8 @@ const ProductDetailPage = () => {
           )}
           <Space spacing="my-6" />
           <ProductDescription product={foundProduct} />
+          <Space spacing="my-8" />
+          <Reviews />
         </Container>
         <Space spacing="my-12" />
         <MiniAdBanner />
@@ -71,6 +76,7 @@ const ProductDetailPage = () => {
         </Container>
       </Main>
     );
+  }
 
   return <p>None From Product</p>;
 };

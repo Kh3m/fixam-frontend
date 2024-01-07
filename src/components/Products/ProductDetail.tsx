@@ -65,28 +65,31 @@ const ProductDetail = ({
         <Space spacing="my-3" />
         <ProductSummary direction="horizontal" labelValues={labelValuesProd} />
         <Space spacing="my-6" />
-        <div className="flex space-x-2">
-          <VariantOption
-            variant="Color"
-            defaultSelectValue={{ label: "Black", value: "Black" }}
-            options={[
-              { label: "Red", value: "Red" },
-              { label: "Green", value: "Green" },
-              { label: "Black", value: "Black" },
-              { label: "Purple", value: "Purple" },
-              { label: "Cyan", value: "Cyan" },
-            ]}
-          />
-          <VariantOption
-            variant="Size"
-            defaultSelectValue={{ label: "40", value: "40" }}
-            options={[
-              { label: "20", value: "20" },
-              { label: "40", value: "40" },
-              { label: "60", value: "60" },
-            ]}
-          />
-        </div>
+        {/* TODO: Check if the product has variant or not */}
+        {"product.variant" === "no" && (
+          <div className="flex space-x-2">
+            <VariantOption
+              variant="Color"
+              defaultSelectValue={{ label: "Black", value: "Black" }}
+              options={[
+                { label: "Red", value: "Red" },
+                { label: "Green", value: "Green" },
+                { label: "Black", value: "Black" },
+                { label: "Purple", value: "Purple" },
+                { label: "Cyan", value: "Cyan" },
+              ]}
+            />
+            <VariantOption
+              variant="Size"
+              defaultSelectValue={{ label: "40", value: "40" }}
+              options={[
+                { label: "20", value: "20" },
+                { label: "40", value: "40" },
+                { label: "60", value: "60" },
+              ]}
+            />
+          </div>
+        )}
         <Space spacing="my-6" />
         <p className="dark:text-fgrey flex space-x-1 text-xs font-semibold">
           <span>

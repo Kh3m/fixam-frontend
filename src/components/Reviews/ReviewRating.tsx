@@ -3,9 +3,12 @@ import StarRating from "../StarRating/StarRating";
 import Heading from "../Heading";
 import Card from "../Card";
 import Button from "../Button";
-import apiClient from "../../services/apiClient";
 import useAuth from "../../hooks/useAuth";
 import Space from "../Space";
+import { dummyApiClient } from "../../services/apiClient";
+import { reviewBaseURL } from "../../services/baseURLs";
+import { useState } from "react";
+import Spinner from "../Spinner";
 
 type ReviewType = {
   prod_id: string;
@@ -19,24 +22,30 @@ interface Props {
 }
 
 const ReviewRating = ({ productId }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const methods = useForm<ReviewType>();
   const { handleSubmit, control } = methods;
   const { user, isAuthenticated } = useAuth();
 
   const onSubmit = async (data: ReviewType) => {
+    setIsLoading(true);
     if (user && isAuthenticated()) {
       const revievewData = {
-        ...data,
+        review_text: data.review_text,
+        rating: data.rating,
         prod_id: productId,
       };
       console.log("Submitted Review: ", revievewData, "user", user);
       try {
-        const responseReview = await apiClient.post(
-          `/reviews/user/${user.id}/`
+        const responseReview = await dummyApiClient.post(
+          `${reviewBaseURL}/reviews/user/${user.id}/`,
+          revievewData
         );
         console.log("responseReview", responseReview);
+        setIsLoading(false);
       } catch (error) {
         console.log("Review Error", error);
+        setIsLoading(false);
       }
     }
   };
@@ -68,10 +77,12 @@ const ReviewRating = ({ productId }: Props) => {
               )}
             ></Controller>
             <Button
-              styles="w-full bg-fyellow text-white text-sm font-semibold"
+              styles="w-full bg-fyellow text-white text-sm font-semibold
+              flex justify-center items-center space-x-4"
               variant="elevated"
+              disabled={isLoading}
             >
-              Submit Review
+              <span>Submit Review</span> {isLoading && <Spinner />}
             </Button>
             <Space spacing="my-2" />
           </div>

@@ -7,7 +7,6 @@ import Space from "../../../components/Space";
 import { StoreResponseType } from "../../../entities/store";
 import useProduct from "../../../hooks/products/useProduct";
 import useAuth from "../../../hooks/useAuth";
-import apiClient from "../../../services/apiClient";
 import { getCategoryIdFromURL } from "../../../utils/category";
 import { getCookie } from "../../../utils/cookies";
 import AlCAtF from "./AlCAtF";
@@ -15,6 +14,8 @@ import FeaturesField from "./FeaturesField";
 import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
+import { dummyApiClient } from "../../../services/apiClient";
+import { storeBaseURL } from "../../../services/baseURLs";
 
 type ProductUploadType = {
   name: string;
@@ -70,8 +71,8 @@ const EditProductForm = () => {
     const formData = new FormData();
     if (userId && isAuthenticated()) {
       // TODO: Use the custom effect useAuth to retrieve user's store
-      const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
-        `/stores/owner/${userId}/`
+      const getStoreForUserId = await dummyApiClient.get<StoreResponseType[]>(
+        `${storeBaseURL}/stores/owner/${userId}/`
       );
 
       const getLastStoreIndex = getStoreForUserId.data.length - 1;

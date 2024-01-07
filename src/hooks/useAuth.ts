@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import apiClient from "../services/apiClient";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 import { StoreType } from "../entities/store";
+import { cartBaseURL, storeBaseURL, userBaseURL } from "../services/baseURLs";
+import { dummyApiClient } from "../services/apiClient";
 
 interface UserData {
   id: string;
@@ -29,8 +30,8 @@ const useAuth = () => {
     if (isAuthenticated()) {
       const userId = getCookie("userId");
 
-      apiClient
-        .get<StoreType[]>("/stores/owner/" + userId + "/")
+      dummyApiClient
+        .get<StoreType[]>(`${storeBaseURL}/stores/owner/${userId}/`)
         .then((res) => {
           setUserStores(res.data);
         });
@@ -40,8 +41,8 @@ const useAuth = () => {
   const login = async (credentials: UserCredentialType) => {
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClient.post<UserData>(
-        "/users/auth/login/",
+      const res = await dummyApiClient.post<UserData>(
+        `${userBaseURL}/users/auth/login/`,
         credentials
       );
 
@@ -54,8 +55,8 @@ const useAuth = () => {
 
         try {
           // Try to merge cart items
-          const mergeRes = await apiClient.post(
-            `/carts/${getCookie("cartId")}/merge/${userData.id}/`
+          const mergeRes = await dummyApiClient.post(
+            `${cartBaseURL}/carts/${getCookie("cartId")}/merge/${userData.id}/`
           );
 
           // If successfully merged, remove cartId from cookie
@@ -77,8 +78,8 @@ const useAuth = () => {
 
   const register = async (credentials: UserCredentialType) => {
     try {
-      const response = await apiClient.post(
-        "/users/auth/registeration/",
+      const response = await dummyApiClient.post(
+        `${userBaseURL}/users/auth/registeration/`,
         credentials
       );
 
@@ -105,7 +106,9 @@ const useAuth = () => {
   const authUserDummy = async (userId: string) => {
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClient.get<UserData>("/users/" + userId + "/");
+      const res = await dummyApiClient.get<UserData>(
+        `${userBaseURL}/users/` + userId + "/"
+      );
 
       console.log("FoundUser Response", res);
 
@@ -113,8 +116,10 @@ const useAuth = () => {
         const foundUserData = res.data;
         setCookie("userId", foundUserData.id, 8); // Expires in 8 days
         // Try to merge cart items
-        const mergeRes = await apiClient.post(
-          `/carts/${getCookie("cartId")}/merge/${foundUserData.id}/`
+        const mergeRes = await dummyApiClient.post(
+          `${cartBaseURL}/carts/${getCookie("cartId")}/merge/${
+            foundUserData.id
+          }/`
         );
 
         // If successfully merged, remove cartId from cookie

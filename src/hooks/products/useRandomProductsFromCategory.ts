@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { ProductType } from "../../services/product";
-import { APIClient } from "../../services/apiClient";
+import { DummyAPIClient } from "../../services/apiClient";
+import { productBaseURL } from "../../services/baseURLs";
 
 const useRandomProductsFromCategory = (categoryId: string) => {
-  const apiClient = new APIClient<ProductType>(
-    `/products/categories/${categoryId}/random_products/`
+  const apiClient = new DummyAPIClient<ProductType>(
+    `${productBaseURL}/products/categories/${categoryId}/random_products/`
   );
 
   return useQuery({

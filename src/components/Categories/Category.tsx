@@ -12,6 +12,12 @@ const Category = ({ text, mainCategoryId }: Props) => {
 
   const subCategories = data as CategoryType[];
 
+  if (!subCategories)
+    return (
+      <ul>
+        <li>Nothing</li>
+      </ul>
+    );
   return (
     <li>
       <Collapsible headerName={text} to={{ path: `/${text}` }}>

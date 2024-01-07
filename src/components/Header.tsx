@@ -1,13 +1,13 @@
+import { IoListSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import useCartForUser from "../hooks/cart/useCartForUser";
+import useAuth from "../hooks/useAuth";
+import { CartType } from "../services/cart";
 import Button from "./Button";
 import Container from "./Container";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput/SearchInput";
-import { IoListSharp } from "react-icons/io5";
-import useAuth from "../hooks/useAuth";
 import ShoppingCart from "./ShoppingCart";
-import { CartType } from "../services/cart";
-import useCartForUser from "../hooks/cart/useCartForUser";
 
 const Header = () => {
   const { isAuthenticated, userStores, user } = useAuth();
@@ -16,8 +16,8 @@ const Header = () => {
   );
 
   const dummyUserCart = data as CartType;
-
   console.log("Cart Data", dummyUserCart);
+
   return (
     <header className="dark:bg-slate-800 bg-fyellow">
       <Container>

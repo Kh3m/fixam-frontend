@@ -112,8 +112,8 @@ const Products = ({ direction, products }: Props) => {
         {products.map((prod, i) => (
           <Product
             key={i}
-            product={dummyProducts[i]}
-            realProduct={prod}
+            product={prod}
+            // realProduct={prod}
             handleFavStatus={handleFavStatus}
             temId={i}
             categoryId={"categoryId"}

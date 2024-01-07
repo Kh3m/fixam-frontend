@@ -1,5 +1,5 @@
-import {} from "../entities/store";
-import { APIClient } from "./apiClient";
+import { DummyAPIClient } from "./apiClient";
+import { productBaseURL } from "./baseURLs";
 
 export type ProductType = {
   id: string;
@@ -13,6 +13,8 @@ export type ProductType = {
   favorite?: boolean;
 };
 
-const apiClient = new APIClient<ProductType>("/products/");
+const apiClient = new DummyAPIClient<ProductType>(
+  `${productBaseURL}/products/`
+);
 
 export default apiClient;

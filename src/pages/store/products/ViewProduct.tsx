@@ -4,9 +4,10 @@ import Preview from "../../../components/Preview";
 import Space from "../../../components/Space";
 import ProductDetail from "../../../components/Products/ProductDetail";
 import useProduct from "../../../hooks/products/useProduct";
-import apiClient from "../../../services/apiClient";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
+import { dummyApiClient } from "../../../services/apiClient";
+import { productBaseURL } from "../../../services/baseURLs";
 
 type ParamsType = {
   productId: string;
@@ -42,8 +43,8 @@ const ViewProduct = () => {
 
   const handleDelete = () => {
     setIsDeletingProduct(true);
-    apiClient
-      .delete(`/products/${product?.id}/`)
+    dummyApiClient
+      .delete(`${productBaseURL}/products/${product?.id}/`)
       .then((_) => {
         setIsDeletingProduct(false);
         navigate(

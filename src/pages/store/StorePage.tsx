@@ -6,13 +6,14 @@ import AccessibleMenu from "../../components/Menu/AccessibleMenu";
 import Space from "../../components/Space";
 import { StoreResponseType } from "../../entities/store";
 import useAuth from "../../hooks/useAuth";
-import apiClient from "../../services/apiClient";
 import { getCookie } from "../../utils/cookies";
 import SideBar from "./SideBar";
 import UserAccountCard from "./UserAccountCard";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
 import UserAccountCardSkeleton from "./skeletons/UserAccountCardSkeleton";
+import { storeBaseURL } from "../../services/baseURLs";
+import { dummyApiClient } from "../../services/apiClient";
 
 const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
@@ -29,8 +30,8 @@ const StorePage = () => {
     console.log("isAuthenticated", isAuthenticated(), "user", user);
 
     if (isAuthenticated() && user) {
-      apiClient
-        .get<StoreResponseType[]>("/stores/owner/" + user?.id + "/")
+      dummyApiClient
+        .get<StoreResponseType[]>(`${storeBaseURL}/stores/owner/${user?.id}/`)
         .then((res) => {
           // TODO: User's store slug to load user
           const foundUserStores = res.data;

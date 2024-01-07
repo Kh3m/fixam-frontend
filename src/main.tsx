@@ -9,7 +9,6 @@ import router from "./routes/routes.tsx";
 import { StoreProgressContextProvider } from "./contexts/store-progress.tsx";
 
 const queryCient = new QueryClient();
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryCient}>

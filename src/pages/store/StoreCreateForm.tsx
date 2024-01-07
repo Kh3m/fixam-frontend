@@ -3,7 +3,6 @@ import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Space from "../../components/Space";
-import apiClient from "../../services/apiClient";
 import { useStoreProgressContext } from "../../contexts/store-progress";
 import { StoreType } from "../../entities/store";
 import BrandFields from "./BrandField";
@@ -11,6 +10,8 @@ import ContactFields from "./ContactFields";
 import SocialFields from "./SocialFields";
 import { validate } from "./formValidationUtils";
 import useAuth from "../../hooks/useAuth";
+import { dummyApiClient } from "../../services/apiClient";
+import { storeBaseURL } from "../../services/baseURLs";
 
 interface Props {
   stepName: string;
@@ -52,8 +53,8 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
     console.log("formData: ", getValues());
 
     try {
-      const createdStore = await apiClient.post<StoreType>(
-        "/stores/",
+      const createdStore = await dummyApiClient.post<StoreType>(
+        `${storeBaseURL}/stores/`,
         formData,
         {
           headers: {

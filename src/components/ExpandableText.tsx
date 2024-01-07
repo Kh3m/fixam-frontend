@@ -12,7 +12,7 @@ const ExpandableText = ({ children }: Props) => {
   };
 
   return (
-    <p className="text-fgrey">
+    <p className="text-fgrey text-justify">
       {wordCount(children) <= 50
         ? children
         : showMore

@@ -10,9 +10,10 @@ import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
 import useAuth from "../../../hooks/useAuth";
-import apiClient from "../../../services/apiClient";
 import { StoreResponseType } from "../../../entities/store";
 import { useNavigate } from "react-router-dom";
+import { dummyApiClient } from "../../../services/apiClient";
+import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
 
 type ProductUploadType = {
   name: string;
@@ -65,8 +66,8 @@ const AddProductForm = () => {
 
     const formData = new FormData();
     if (userId && isAuthenticated()) {
-      const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
-        `/stores/owner/${userId}/`
+      const getStoreForUserId = await dummyApiClient.get<StoreResponseType[]>(
+        `${storeBaseURL}/stores/owner/${userId}/`
       );
 
       const getLastStoreIndex = getStoreForUserId.data.length - 1;
@@ -95,11 +96,15 @@ const AddProductForm = () => {
 
       // Send data to server
       try {
-        const createdProduct = await apiClient.post("/products/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const createdProduct = await dummyApiClient.post(
+          `${productBaseURL}/products/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         console.log("createdProduct", createdProduct);
 
