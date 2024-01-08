@@ -9,6 +9,8 @@ import { dummyApiClient } from "../../services/apiClient";
 import { reviewBaseURL } from "../../services/baseURLs";
 import { useState } from "react";
 import Spinner from "../Spinner";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ReviewType = {
   prod_id: string;
@@ -27,6 +29,10 @@ const ReviewRating = ({ productId }: Props) => {
   const { handleSubmit, control } = methods;
   const { user, isAuthenticated } = useAuth();
 
+  const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
+
   const onSubmit = async (data: ReviewType) => {
     setIsLoading(true);
     if (user && isAuthenticated()) {
@@ -43,9 +49,18 @@ const ReviewRating = ({ productId }: Props) => {
         );
         console.log("responseReview", responseReview);
         setIsLoading(false);
+
+        // TODO: Remove after DEMO
+        queryClient.invalidateQueries();
+
+        // navigate("/Laptops/product/");
       } catch (error) {
         console.log("Review Error", error);
         setIsLoading(false);
+
+        // TODO: Remove after DEMO
+        queryClient.invalidateQueries();
+        // navigate("/Laptops/product/");
       }
     }
   };

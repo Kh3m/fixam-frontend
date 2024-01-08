@@ -7,7 +7,7 @@ interface Props {
   name: string;
   rating: number;
   review: string;
-  time: string;
+  time?: string;
 }
 const CustomerReview = ({ name, rating, review, time }: Props) => {
   return (

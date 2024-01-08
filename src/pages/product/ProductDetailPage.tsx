@@ -13,6 +13,8 @@ import useRandomProductsFromCategory from "../../hooks/products/useRandomProduct
 import { ProductType } from "../../services/product";
 import { getCategoryIdFromURL } from "../../utils/category";
 import Reviews from "../../components/Reviews/Reviews";
+import MainContent from "../../components/MainContent";
+import Spinner from "../../components/Spinner";
 
 const content = {
   left: ["Promoted", "Posted 3 hours", "Lagos, Ikeja"],
@@ -62,7 +64,7 @@ const ProductDetailPage = () => {
           <Space spacing="my-6" />
           <ProductDescription product={foundProduct} />
           <Space spacing="my-8" />
-          <Reviews />
+          <Reviews productId={productId} />
         </Container>
         <Space spacing="my-12" />
         <MiniAdBanner />
@@ -78,7 +80,13 @@ const ProductDetailPage = () => {
     );
   }
 
-  return <p>None From Product</p>;
+  return (
+    <MainContent>
+      <div className="flex justify-center items-center">
+        <Spinner />
+      </div>
+    </MainContent>
+  );
 };
 
 export default ProductDetailPage;

@@ -34,7 +34,7 @@ export default {
       element: <ProductDetailPage />,
     },
     {
-      path: "reviews",
+      path: ":categoryName/:productName/reviews",
       element: <ReviewsPage />,
     },
     userRoutes,

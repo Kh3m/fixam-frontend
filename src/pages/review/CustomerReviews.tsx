@@ -1,5 +1,6 @@
 import HeaderWithBackArrow from "../../components/HeaderWithBackArrow";
 import Space from "../../components/Space";
+import { ReviewType } from "../../services/review";
 import CustomerReview from "./CustomerReview";
 
 const customerReviews = [
@@ -28,19 +29,32 @@ const customerReviews = [
     time: "2 days ago",
   },
 ];
-const CustomerReviews = () => {
+
+interface Props {
+  reviews: ReviewType[];
+}
+
+const CustomerReviews = ({ reviews }: Props) => {
   return (
     <section>
       <HeaderWithBackArrow heading="Customers Reviews" headerTextSize="lg" />
       <Space spacing="my-4" />
-      {customerReviews.map(({ name, rating, review, time }) => (
+      {reviews.reverse().map(({ rating, review_text }) => (
+        <CustomerReview
+          name="Abdul Kareem"
+          rating={rating}
+          review={review_text}
+          // time={'time'}
+        />
+      ))}
+      {/* {customerReviews.map(({ name, rating, review, time }) => (
         <CustomerReview
           name={name}
           rating={rating}
           review={review}
           time={time}
         />
-      ))}
+      ))} */}
     </section>
   );
 };

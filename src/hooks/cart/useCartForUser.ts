@@ -3,10 +3,23 @@ import { dummyUserCartService } from "../../services/cart";
 
 const useCartForUser = (userId: string) =>
   useQuery({
-    queryKey: userId ? ["categories", userId, "subcategories"] : ["categories"],
+    queryKey: ["carts", "user", userId],
     // TODO: FIX avoid using dummyUserCartService
     queryFn: () => dummyUserCartService(userId).fetchOne(),
-    staleTime: 24 * 60 * 60 * 1000, // 24hrs
   });
 
 export default useCartForUser;
+
+// import { ReviewType, reviewAPIClient } from "../../services/review";
+// import { useQuery } from "@tanstack/react-query";
+
+// const useCartForUser = (userId: string) =>
+//   useQuery({
+//     queryKey: ["carts", "products", productId],
+//     queryFn: () =>
+//       reviewAPIClient
+//         .get<ReviewType[]>(`/products/${productId}/`)
+//         .then((res) => res.data),
+//   });
+
+// export default useCartForUser;

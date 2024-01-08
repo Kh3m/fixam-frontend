@@ -1,18 +1,23 @@
-import { formatPrice } from "../../utils/number-formatter";
-import Button from "../Button";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import useDarkMode from "../../hooks/useDarkMode";
 import { ProductType as RealProductType } from "../../services/product";
-import capitalize from "../../utils/capitalize";
-import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { formatPrice } from "../../utils/number-formatter";
+import Button from "../Button";
 // import useCreateCart from "../../hooks/cart/useCreateCart";
-import useAuth from "../../hooks/useAuth";
-import { getCookie, setCookie } from "../../utils/cookies";
 import axios from "axios";
-import { CartItemType, CartType } from "../../services/cart";
+import { motion } from "framer-motion";
+import { FiShoppingCart } from "react-icons/fi";
+import useAuth from "../../hooks/useAuth";
 import { dummyApiClient } from "../../services/apiClient";
 import { cartBaseURL } from "../../services/baseURLs";
+import { CartItemType, CartType } from "../../services/cart";
+import { getCookie, setCookie } from "../../utils/cookies";
+import Spinner from "../Spinner";
+import TapEffect from "../TapEffect";
+import useCreateCartItem from "../../hooks/cart/useCreateCartItem";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 // export type ProductType = {
 //   image: ImageType;
@@ -36,7 +41,15 @@ interface Props {
 }
 
 const Product = ({
-  product: { type, name: productName, favorite, price, images, id },
+  product: {
+    type,
+    name: productName,
+    favorite,
+    price,
+    images,
+    id,
+    category_name,
+  },
   realProduct,
   isDummy,
   handleFavStatus,
@@ -44,6 +57,9 @@ const Product = ({
   isAdProduct,
   categoryId,
 }: Props) => {
+  const [isLoadingAddToCart, setIsLoadingAddToCart] = useState(false);
+  const queryClient = useQueryClient();
+
   const { isDarkMode } = useDarkMode();
   // slate-800
   const tempCartColor = isDarkMode ? "#1e293b" : "#FF9900";
@@ -51,58 +67,123 @@ const Product = ({
   // const cartCreateMutation = useCreateCart();
   const { isAuthenticated, user } = useAuth();
 
+  const invalidateCartUserQuery = () => {
+    // Invalidate the cache for ["carts", "user", user?.id]
+    queryClient.invalidateQueries({
+      queryKey: ["carts", "user", user?.id],
+    });
+  };
+
   const handleAddToCart = async (productId: string) => {
     console.log("ProductID", productId);
 
-    // Check if user is authenticate
+    setIsLoadingAddToCart(true);
+
+    // Create item
+    const item: CartItemType = {
+      prod_id: productId,
+      // TODO: Check for item variation options
+      // item_options: [
+      // {
+      //   // TODO: Ask is the id field optional?
+      //   attribute: "Color",
+      //   value: "red",
+      // },
+      // {
+      //   // TODO: Ask is the id field optional?
+      //   attribute: "Size",
+      //   value: "2XL",
+      // },
+      // ],
+      quantity: 1,
+      // is_active: true,
+    };
+
+    // Check if user is authenticated
     if (isAuthenticated() && user?.id) {
-      console.log("Add to cart");
-      // Check if the user already has a cart
-      // const userCart = await apiClient.get(`/carts/user/${user.id}/`);
+      console.log("Add to cart user isAuthenticated");
       try {
-        const userCart = await dummyApiClient.get(
-          `${cartBaseURL}/carts/user/${1}/`
+        // Find user cart with user id
+        const foundUserCart = await dummyApiClient.get<CartType>(
+          `${cartBaseURL}/carts/user/${user.id}/`
         );
-        console.log("Found User's Cart", userCart);
+        console.log("Found User's Cart user isAuthenticated", foundUserCart);
+        // Check if the user already has a cart
+        if (foundUserCart.status === 200) {
+          // Add item to the cart
+          const addedCartItem = await dummyApiClient.post(
+            `${cartBaseURL}/carts/${foundUserCart.data.id}/items/`,
+            item
+          );
+
+          invalidateCartUserQuery();
+          setIsLoadingAddToCart(false);
+
+          console.log("addedCartItem user isAuthenticated", addedCartItem);
+        }
       } catch (error) {
-        console.log("Found User's Cart Error", error);
+        if (axios.isAxiosError(error)) {
+          if (
+            error.response?.status === 404 &&
+            error.response.data.detail === "Not found."
+          ) {
+            // No Cart Found - Create a New Cart
+            console.log(
+              "NO CART FOUND!!! user isAuthenticated",
+              error.response
+            );
+            // Use userId to create new cart
+            const newCartForUser = await dummyApiClient.post(
+              `${cartBaseURL}/carts/`,
+              {
+                user_id: user.id,
+              }
+            );
+
+            // Add item to newCartForUser
+            const addedCartItem = await dummyApiClient.post(
+              `${cartBaseURL}/carts/${newCartForUser.data.id}/items/`,
+              item
+            );
+
+            invalidateCartUserQuery();
+            setIsLoadingAddToCart(false);
+
+            console.log(
+              "addedCartItem user isAuthenticated no cart",
+              addedCartItem
+            );
+          }
+        }
       }
-      // If yes add item to cart
-      // If not create a new cart
-      // cartCreateMutation.mutate({ user_id: user.id });
-      // Add items to the cart
     } else {
       // If user is not authenticated
       // Check for cartId in cookie
       const cartIdFromCookie = getCookie("cartId");
+
       if (cartIdFromCookie) {
-        // Use the cartId in cookie
-        // Find cart by cartId
+        // Use the cartId in cookie to find a cart by it's cartId
         const foundCart = await dummyApiClient.get(
-          `${cartBaseURL}/carts/${cartIdFromCookie}`
+          `${cartBaseURL}/carts/${cartIdFromCookie}/`
         );
+
         if (foundCart.status === 200) {
           // Add Items to cart
           const addedItem = await dummyApiClient.post(
             `${cartBaseURL}/carts/${cartIdFromCookie}/items/`,
-            {
-              prod_id: productId,
-              item_options: [
-                {
-                  attribute: "Color",
-                  value: "Black",
-                },
-                {
-                  attribute: "Size",
-                  value: "XL",
-                },
-              ],
-              quantity: 1,
-            }
+            item
           );
-          console.log("AddedItem to CArt", addedItem);
+
+          invalidateCartUserQuery();
+          setIsLoadingAddToCart(false);
+
+          console.log(
+            "AddedItem to Cart from cookie's cartid is not authenticated",
+            addedItem
+          );
         }
       } else {
+        // There is no cartId in cookie and user is not authenticated
         // Create guest user cart without user_id
         try {
           const createdCart = await dummyApiClient.post<{ id: string }>(
@@ -113,18 +194,33 @@ const Product = ({
           );
           if (createdCart.status === 201) {
             setCookie("cartId", createdCart.data.id, 7);
+
+            // Add item to newCartForUser
+            const addedCartItem = await dummyApiClient.post(
+              `${cartBaseURL}/carts/${createdCart.data.id}/items/`,
+              item
+            );
+
+            invalidateCartUserQuery();
+            setIsLoadingAddToCart(false);
+
+            console.log(
+              "no cookie cartId, createdCart user is not authenticated",
+              createdCart.data,
+              addedCartItem
+            );
           }
-          console.log(createdCart.data);
         } catch (err) {
-          console.log("ERROR CAREATTING CART", err);
+          console.log(
+            "ERROR CREATING CART no cookie cartId, user is not authenticated",
+            err
+          );
         }
       }
-
-      // Save cart id to cookie
-      // Add item to cart
     }
   };
 
+  // TODO: Open it if neccessary
   const handleAddDummyDataToCart = async (productId: string) => {
     console.log("ProductID", productId);
     // Check if user is authenticate
@@ -262,91 +358,92 @@ const Product = ({
       }
     }
   };
-
-  if (!isDummy && realProduct) {
-    return (
-      <article className={`${isAdProduct && "w-[265px]"} fshadow -z-20`}>
-        <div className="relative">
-          <div className="h-[250px]">
-            <img
-              alt={realProduct.name + " product"}
-              src={realProduct?.images[0]}
-              className={`${
-                isAdProduct ? " rounded-t-lg" : ""
-              } object-cover h-full w-full`}
-            />
-          </div>
-          {!isAdProduct && (
-            <span
-              className="py-2 absolute top-10 text-xs font-semibold
-            dark:bg-slate-800 bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
-            >
-              {"For " + capitalize(realProduct.type || "")}
-            </span>
-          )}
-          <span
-            onClick={() => handleFavStatus(temId)}
-            className={`${
-              favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
-            } absolute -bottom-7 right-7 
-            flex justify-center items-center
-            cursor-pointer h-12 w-12 rounded-full fshadow`}
-          >
-            <AiOutlineHeart
-              width="50px"
-              size={28}
-              color={`${
-                favorite
-                  ? "#FFF"
-                  : favorite && isDarkMode
-                  ? "#FFF"
-                  : favorite && !isDarkMode
-                  ? "#FF9900"
-                  : tempCartColor
-              }`}
-            />
-          </span>
-        </div>
-        <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
-          <Link
-            state={{ productId: realProduct.id, categoryId }}
-            to={`/${realProduct.category_name}/${realProduct.name}`}
-          >
-            <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
-              {realProduct.name}
-            </p>
-          </Link>
-          <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
-            <span>{formatPrice(realProduct.price as number)}</span>
-            <span className="text-fgrey text-[10px] font-semibold">
-              (5 items left)
-            </span>
-          </p>
-          {!isAdProduct && (
-            <div className="flex justify-end items-center space-x-1 my-3">
-              <Button
-                variant="elevated"
-                styles="text-white text-2xl font-bold bg-fyellow py-1 px-3"
-                whileClickScale={1.2}
-                noSizingClass
-                onClick={() => handleAddToCart(realProduct.id)}
-              >
-                <PiShoppingCartSimpleBold />
-              </Button>
-              <Button
-                variant="elevated"
-                styles="dark:bg-slate-600 bg-fyellow text-white font-bold"
-              >
-                Buy Now
-              </Button>
-            </div>
-          )}
-        </div>
-      </article>
-    );
-  }
+  // TODO: Open it if neccessary
+  // if (!isDummy && realProduct) {
+  //   return (
+  //     <article className={`${isAdProduct && "w-[265px]"} fshadow -z-20`}>
+  //       <div className="relative">
+  //         <div className="h-[250px]">
+  //           <img
+  //             alt={realProduct.name + " product"}
+  //             src={realProduct?.images[0]}
+  //             className={`${
+  //               isAdProduct ? " rounded-t-lg" : ""
+  //             } object-cover h-full w-full`}
+  //           />
+  //         </div>
+  //         {!isAdProduct && (
+  //           <span
+  //             className="py-2 absolute top-10 text-xs font-semibold
+  //           dark:bg-slate-800 bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
+  //           >
+  //             {"For " + capitalize(realProduct.type || "")}
+  //           </span>
+  //         )}
+  //         <span
+  //           onClick={() => handleFavStatus(temId)}
+  //           className={`${
+  //             favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
+  //           } absolute -bottom-7 right-7
+  //           flex justify-center items-center
+  //           cursor-pointer h-12 w-12 rounded-full fshadow`}
+  //         >
+  //           <AiOutlineHeart
+  //             width="50px"
+  //             size={28}
+  //             color={`${
+  //               favorite
+  //                 ? "#FFF"
+  //                 : favorite && isDarkMode
+  //                 ? "#FFF"
+  //                 : favorite && !isDarkMode
+  //                 ? "#FF9900"
+  //                 : tempCartColor
+  //             }`}
+  //           />
+  //         </span>
+  //       </div>
+  //       <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
+  //         <Link
+  //           state={{ productId: realProduct.id, categoryId }}
+  //           to={`/${realProduct.category_name}/${realProduct.name}`}
+  //         >
+  //           <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
+  //             {realProduct.name}
+  //           </p>
+  //         </Link>
+  //         <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
+  //           <span>{formatPrice(realProduct.price as number)}</span>
+  //           <span className="text-fgrey text-[10px] font-semibold">
+  //             (5 items left)
+  //           </span>
+  //         </p>
+  //         {!isAdProduct && (
+  //           <div className="flex justify-end items-center space-x-1 my-3">
+  //             <Button
+  //               variant="elevated"
+  //               styles="text-white text-2xl font-bold bg-fyellow py-1 px-3"
+  //               whileClickScale={1.2}
+  //               noSizingClass
+  //               onClick={() => handleAddToCart(realProduct.id)}
+  //             >
+  //               <PiShoppingCartSimpleBold />
+  //             </Button>
+  //             <Button
+  //               variant="elevated"
+  //               styles="dark:bg-slate-600 bg-fyellow text-white font-bold"
+  //             >
+  //               Buy Now
+  //             </Button>
+  //           </div>
+  //         )}
+  //       </div>
+  //     </article>
+  //   );
+  // }
 
   // TODO: Clean Up
+
   return (
     <article className={`${isAdProduct && "w-[265px]"} fshadow`}>
       <div className="relative">
@@ -391,7 +488,11 @@ const Product = ({
         </span>
       </div>
       <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
-        <Link to={`/products/detail`} state={{ categoryId, productId: id }}>
+        <Link
+          // to={`/products/${productName}`}
+          to={`${category_name}/product`}
+          state={{ categoryId, productId: id }}
+        >
           <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
             {productName}
           </p>
@@ -404,50 +505,17 @@ const Product = ({
         </p>
         {!isAdProduct && (
           <div className="flex justify-end items-center space-x-1 my-3">
-            <Button
-              onClick={() => handleAddDummyDataToCart(id)}
-              variant="elevated"
-              styles="text-white font-bold"
-              noSizingClass
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="55"
-                height="34"
-                viewBox="0 0 55 34"
-                fill="none"
+            <TapEffect>
+              <Button
+                onClick={() => handleAddToCart(id)}
+                variant="elevated"
+                styles="text-white font-bold bg-fyellow-shades-500 py-[6px] px-3 text-[1.3rem] font-bold"
+                noSizingClass
+                disabled={isLoadingAddToCart}
               >
-                <rect
-                  x="0.0637207"
-                  y="0.442871"
-                  width="54.7201"
-                  height="33.3665"
-                  rx="5"
-                  fill={tempCartColor}
-                />
-                <path
-                  d="M24.9366 25.4679C25.486 25.4679 25.9315 25.0944 25.9315 24.6337C25.9315 24.173 25.486 23.7996 24.9366 23.7996C24.3871 23.7996 23.9417 24.173 23.9417 24.6337C23.9417 25.0944 24.3871 25.4679 24.9366 25.4679Z"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M35.8807 25.4679C36.4301 25.4679 36.8756 25.0944 36.8756 24.6337C36.8756 24.173 36.4301 23.7996 35.8807 23.7996C35.3312 23.7996 34.8857 24.173 34.8857 24.6337C34.8857 25.0944 35.3312 25.4679 35.8807 25.4679Z"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M16.9773 7.95044H20.9569L23.6233 19.1199C23.7143 19.5039 23.9635 19.8489 24.3272 20.0944C24.691 20.34 25.1462 20.4704 25.6131 20.4629H35.2837C35.7506 20.4704 36.2058 20.34 36.5695 20.0944C36.9333 19.8489 37.1825 19.5039 37.2735 19.1199L38.8653 12.1213H21.9518"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Button>
+                {isLoadingAddToCart ? <Spinner /> : <FiShoppingCart />}
+              </Button>
+            </TapEffect>
             <Button
               variant="elevated"
               styles="dark:bg-slate-600 bg-fyellow text-white font-bold"

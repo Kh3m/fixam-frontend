@@ -1,11 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import { APIClient } from "../../services/apiClient";
+import { DummyAPIClient } from "../../services/apiClient";
+import { cartBaseURL } from "../../services/baseURLs";
 
 type CartType = {
   user_id: string;
 };
 
-const cartService = new APIClient<CartCreateResponseType, CartType>("/carts/");
+const cartService = new DummyAPIClient<CartCreateResponseType, CartType>(
+  `${cartBaseURL}/carts/`
+);
 
 type CartCreateResponseType = {
   id: string;

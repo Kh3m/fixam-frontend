@@ -8,15 +8,17 @@ import Container from "./Container";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput/SearchInput";
 import ShoppingCart from "./ShoppingCart";
+import { useState } from "react";
 
 const Header = () => {
   const { isAuthenticated, userStores, user } = useAuth();
+
   const { data, isLoading: isLoadingDummyUserCart } = useCartForUser(
     user?.id || ""
   );
 
   const dummyUserCart = data as CartType;
-  console.log("Cart Data", dummyUserCart);
+  console.log("Cart Data", dummyUserCart, "user?.id", user?.id);
 
   return (
     <header className="dark:bg-slate-800 bg-fyellow">
@@ -46,6 +48,16 @@ const Header = () => {
                     dummyUserCart.total_quantity || "0"
                   )}
                 />
+              </Link>
+            )}
+
+            {!isLoadingDummyUserCart && !dummyUserCart && (
+              <Link
+                state={{ userCart: dummyUserCart }}
+                to={`/cart`}
+                className="text-white text-2xl"
+              >
+                <ShoppingCart itemCount={0} />
               </Link>
             )}
 

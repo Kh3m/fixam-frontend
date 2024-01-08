@@ -10,9 +10,9 @@ export type CartItemOptionType = {
 export type CartItemType = {
   id?: number;
   prod_id: string;
-  item_options: CartItemOptionType[];
+  item_options?: CartItemOptionType[];
   quantity: number;
-  is_active: boolean;
+  is_active?: boolean;
   created_at?: Date;
   modified_at?: Date;
 };
@@ -27,18 +27,19 @@ export type CartType = {
 };
 
 export const dummyUserCartService = (userId?: string) => {
-  console.log(`/carts/user/${userId}/`);
   return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
+};
+
+export const userCartService = (userId?: string) => {
+  return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
+};
+
+// Service for /carts/:{cartId}/items/
+export const cartItemService = (cartId: string) => {
+  return new DummyAPIClient<CartItemType, CartItemType>(
+    `${cartBaseURL}/carts/${cartId}/items/`
+  );
 };
 
 // MAIN IMPLEMENTATION STARTS HERE
-const apiClient = new DummyAPIClient<CartType>("/carts/");
-
-const cartService = apiClient;
-
-export const userCartService = (userId?: string) => {
-  console.log(`${cartService}/carts/user/${userId}/`);
-  return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
-};
-
-export default cartService;
+export default new DummyAPIClient<CartType>("/carts/");

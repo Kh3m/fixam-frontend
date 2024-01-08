@@ -6,7 +6,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   styles?: string;
   noSizingClass?: boolean;
-  isLoading?: boolean;
   whileClickScale?: number;
 }
 const Button = ({
@@ -14,7 +13,6 @@ const Button = ({
   variant,
   styles,
   noSizingClass,
-  isLoading,
   whileClickScale,
   ...props
 }: Props) => {
@@ -33,7 +31,6 @@ const Button = ({
           className={` ${baseClass} ${sizingClass} ${
             styles ? `${styles}` : "border-white text-white"
           } border-2`}
-          disabled={isLoading}
         >
           {children}
         </button>
@@ -47,18 +44,13 @@ const Button = ({
           //   backgroundColor: "#6c6c6c",
           // }}
           className={` ${baseClass} ${!noSizingClass && sizingClass} ${styles}`}
-          disabled={isLoading}
         >
           {children}
         </button>
       );
     case "text":
       return (
-        <button
-          {...props}
-          className={`${baseClass}  ${styles} font-semibold`}
-          disabled={isLoading}
-        >
+        <button {...props} className={`${baseClass}  ${styles} font-semibold`}>
           {children}
         </button>
       );
@@ -70,7 +62,6 @@ const Button = ({
           ${styles ? `${styles}` : ""}
           flex space-x-2 justify-center items-center
          `}
-          disabled={isLoading}
         >
           {children}
         </button>
@@ -86,7 +77,7 @@ const Button = ({
       );
     default:
       return (
-        <button {...props} className={`${styles}`} disabled={isLoading}>
+        <button {...props} className={`${baseClass} ${styles}`}>
           {children}
         </button>
       );

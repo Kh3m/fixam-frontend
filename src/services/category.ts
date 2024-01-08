@@ -16,11 +16,8 @@ const apiClient = new DummyAPIClient<CategoryType>(
 const categoryService = apiClient;
 
 export const subCategoryService = (categoryId?: string) => {
-  console.log(
-    `${productBaseURL}/products/categories/${categoryId}/subcategories/`
-  );
   return new DummyAPIClient<CategoryType>(
-    `/products/categories/${categoryId}/subcategories/`
+    `${productBaseURL}/products/categories/${categoryId}/subcategories/`
   );
 };
 

@@ -20,7 +20,7 @@ function HomePage() {
     mainCat = getMainCategory(categories as FetchResponseType<CategoryType>);
   }
 
-  console.log("CATEGORIES", categories);
+  console.log("mainCat ", mainCat);
 
   return (
     <Main>
@@ -32,7 +32,10 @@ function HomePage() {
       />
       <Space spacing="my-14" />
       {!isLoading && categories && (
-        <Container Aside={<Categories categories={categories} />} twoColLayout>
+        <Container
+          Aside={<Categories categories={categories} mainCat={mainCat} />}
+          twoColLayout
+        >
           {categories &&
             mainCat.length &&
             mainCat.map((cat) => (

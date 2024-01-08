@@ -1,9 +1,14 @@
 import Space from "../../components/Space";
+import { ReviewType } from "../../services/review";
 import CustomerStarRatings from "./CustomerStarRatings";
 import ReviewProgressLabel from "./ReviewProgressLabel";
 import ReviewsCard from "./ReviewsCard";
 
-const ReviewsRatingSummary = () => {
+interface Props {
+  reviews: ReviewType[];
+}
+
+const ReviewsRatingSummary = ({ reviews }: Props) => {
   const starRatings = [
     { rating: 5, label: "Excellent", value: 7_003 },
     { rating: 4, label: "Very Good", value: 11_462 },

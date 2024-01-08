@@ -5,14 +5,15 @@ import Category from "./Category";
 
 interface Props {
   categories: FetchResponseType<CategoryType> | CategoryType[];
+  mainCat: CategoryType[];
 }
 
-const Categories = ({ categories }: Props) => {
-  let mainCat: CategoryType[] = [];
+const Categories = ({ categories, mainCat }: Props) => {
+  // let mainCat: CategoryType[] = [];
 
-  if (categories) {
-    mainCat = getMainCategory(categories as FetchResponseType<CategoryType>);
-  }
+  // if (categories) {
+  //   mainCat = getMainCategory(categories as FetchResponseType<CategoryType>);
+  // }
 
   if (categories && mainCat.length)
     return (
