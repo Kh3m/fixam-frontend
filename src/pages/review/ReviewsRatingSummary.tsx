@@ -22,6 +22,7 @@ const ReviewsRatingSummary = ({ reviews }: Props) => {
     (cur, acc) => cur + acc.value * acc.rating,
     0
   );
+
   const calculatePercentage = (value: number): number => {
     return (value / totalRating) * 100;
   };

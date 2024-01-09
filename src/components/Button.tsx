@@ -16,7 +16,7 @@ const Button = ({
   whileClickScale,
   ...props
 }: Props) => {
-  const baseClass = `transition-color duration-500 rounded-[5px] cursor-pointer 
+  const baseClass = `transition-color duration-200 rounded-[5px] cursor-pointer 
     disabled:cursor-not-allowed disabled:opacity-50`;
 
   const sizingClass = "px-[32px] py-[8px] text-[12px]";

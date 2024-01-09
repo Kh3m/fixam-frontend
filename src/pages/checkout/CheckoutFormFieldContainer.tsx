@@ -5,6 +5,7 @@ import MasterCardSVG from "../../components/SVGs/MasterCardSVG";
 import PaypalSVG from "../../components/SVGs/PaypalSVG";
 import VisaSVG from "../../components/SVGs/VisaSVG";
 import Space from "../../components/Space";
+import { Controller, useFormContext } from "react-hook-form";
 
 interface Props {
   heading: string;
@@ -13,6 +14,7 @@ interface Props {
     boxFor: string;
   };
   isPaymentMethod?: boolean;
+  isLoading?: boolean;
   handleCancel?: () => void;
 }
 
@@ -21,17 +23,26 @@ const CheckoutFormFieldCard = ({
   checkbox,
   isPaymentMethod,
   handleCancel,
+  isLoading,
 }: PropsWithChildren<Props>) => {
+  const { control } = useFormContext();
+
   return (
     <section className={`${isPaymentMethod && "flex space-x-24"}`}>
       <div>
         {children}
         <Space spacing="my-4" />
-        <CheckBox {...checkbox} />
+        <Controller
+          name={checkbox.boxFor}
+          control={control}
+          render={({ field }) => <CheckBox field={field} {...checkbox} />}
+        />
+
         <div className="my-4">
           <Button
             variant="elevated"
             styles="font-bold text-white bg-fyellow border border-fyellow mr-6"
+            disabled={isLoading}
           >
             Submit
           </Button>

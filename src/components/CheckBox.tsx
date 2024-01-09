@@ -1,21 +1,27 @@
 import { ForwardedRef, InputHTMLAttributes, forwardRef } from "react";
-import { ControllerFieldState } from "react-hook-form";
+import {
+  ControllerFieldState,
+  ControllerRenderProps,
+  FieldValues,
+} from "react-hook-form";
 import { FaCheck } from "react-icons/fa6";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   text: string;
   boxFor: string;
   fieldState?: ControllerFieldState;
+  field: ControllerRenderProps<FieldValues, string>;
 }
 
 const CheckBox = forwardRef(
   (
-    { text, boxFor, fieldState, ...props }: Props,
+    { text, boxFor, field, fieldState, ...props }: Props,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
       <label className="group inline-flex cursor-pointer text-sm font-medium align-middle relative pl-[30px] items-center">
         <input
+          {...field}
           {...props}
           ref={ref}
           type="checkbox"

@@ -10,27 +10,10 @@ import { CartType } from "../../services/cart";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import CartItems from "./CartItems";
 import OrderSummary from "./OrderSummary";
-import MainContent from "../../components/MainContent";
 
 const CartPage = () => {
   const { state } = useLocation();
   const userCart = state.userCart as CartType;
-
-  if (
-    !userCart ||
-    (userCart && Number.parseInt(userCart.total_quantity as string) === 0)
-  ) {
-    return (
-      <MainContent>
-        <div className="flex justify-center items-center my-8 flex-col space-y-3">
-          <Heading variant="h3">Your Cart is Empty</Heading>
-          <Link to="/" className="text-fyellow-shades-500">
-            Shop Now
-          </Link>
-        </div>
-      </MainContent>
-    );
-  }
 
   return (
     <Main>
@@ -45,7 +28,22 @@ const CartPage = () => {
               <span className="text-lg">{userCart.total_quantity} Items</span>
             </div>
             <HR styles="mt-4 mb-8" />
-            <CartItems cartItems={userCart.cart_items} />
+            {!userCart ||
+            (userCart &&
+              Number.parseInt(userCart.total_quantity as string) === 0) ? (
+              <div className="flex justify-center items-center my-8 flex-col space-y-3">
+                <Heading variant="h3">Your Cart is Empty</Heading>
+                <Link to="/" className="text-fyellow-shades-500">
+                  Shop Now
+                </Link>
+              </div>
+            ) : (
+              <CartItems
+                cartItems={userCart.cart_items}
+                cartId={userCart.id!}
+              />
+            )}
+
             <Space spacing="my-8" />
           </Card>
         </FlexWithOrderSummary>

@@ -1,12 +1,18 @@
 import CheckoutDeliveryForm from "./CheckoutDeliveryForm";
+import { UserAddressType } from "./CheckoutInfoWithState";
 import DeliveryAddressSummary from "./DeliveryAddressSummary";
 
 interface Props {
+  defautlUserAddress: UserAddressType;
   changeDefault: boolean;
   handleCancel: () => void;
 }
 
-const CheckoutDeliveryAddress = ({ changeDefault, handleCancel }: Props) => {
+const CheckoutDeliveryAddress = ({
+  defautlUserAddress,
+  changeDefault,
+  handleCancel,
+}: Props) => {
   return (
     <>
       {!changeDefault && <DeliveryAddressSummary />}

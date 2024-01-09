@@ -8,5 +8,7 @@ export const reviewBaseURL =
   "https://reviewservice-production.up.railway.app/api/v1";
 export const cartBaseURL =
   "https://cartservicenew-production.up.railway.app/api/v1";
+// export const cartBaseURL =
+//   "https://cartservice-production.up.railway.app/api/v1";
 export const productBaseURL =
   "https://productservice-production.up.railway.app/api/v1";
