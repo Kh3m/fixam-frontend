@@ -5,10 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 const useUserAddresses = (userId: string) =>
   useQuery({
     // TODO: Fix Query Key
-    queryKey: ["users", userId, "adresses"],
+    queryKey: ["users", userId, "addresses"],
     queryFn: () =>
       userAPIClient
-        .get<UserAddressType[]>(`${userBaseURL}/users/adresses/`)
+        .get<UserAddressType[]>(`${userBaseURL}/users/${userId}/addresses/`)
         .then((res) => res.data),
   });
 

@@ -1,21 +1,18 @@
-import { FaPlus } from "react-icons/fa6";
-import BorderCard from "../../BorderCard";
-import Space from "../../../../components/Space";
-import { FormProvider, useForm } from "react-hook-form";
-import CustomerDeliveryAddressFields from "../../../checkout/CustomerDeliveryAddressFields";
-import Heading from "../../../../components/Heading";
-import AccountAddressSummary from "../AccountAddressSummary";
-import Spinner from "../../../../components/Spinner";
 import { useState } from "react";
-import useUserAddresses from "../../../../hooks/user/useUserAddresses";
+import { FaPlus } from "react-icons/fa6";
+import Space from "../../../../components/Space";
+import Spinner from "../../../../components/Spinner";
 import useAuth from "../../../../hooks/useAuth";
+import useUserAddresses from "../../../../hooks/user/useUserAddresses";
+import BorderCard from "../../BorderCard";
+import AccountAddressSummary from "../AccountAddressSummary";
 import DeliveryAddressForm from "./DeliveryAddressForm";
 
 const Addresses = () => {
   const { user } = useAuth();
 
   const { data: addresses, isLoading: isLoadingAddresses } = useUserAddresses(
-    user?.id || ""
+    user?.id || "24ac295f-175f-4909-af44-b3d3a2a4e18f"
   );
 
   const [showDeliveryAddressForm, setShowDeliveryAddressForm] = useState(false);
@@ -30,7 +27,7 @@ const Addresses = () => {
         </div>
       ) : (
         <div>
-          {addresses.results.map((address) => (
+          {addresses?.map((address) => (
             <AccountAddressSummary address={address} />
           ))}
         </div>
@@ -42,14 +39,16 @@ const Addresses = () => {
         />
       )}
       <Space spacing="my-6" />
-      <BorderCard
-        handleAddNewAddress={handleAddNewAddress}
-        styles="flex flex-col justify-center items-center 
-    h-28 font-semibold text-gray-400 space-y-4"
-      >
-        <FaPlus />
-        <span>Add a new Address</span>
-      </BorderCard>
+      {addresses?.length !== 3 && (
+        <BorderCard
+          handleAddNewAddress={handleAddNewAddress}
+          styles="flex flex-col justify-center items-center 
+          h-28 font-semibold text-gray-400 space-y-4"
+        >
+          <FaPlus />
+          <span>Add a new Address</span>
+        </BorderCard>
+      )}
     </div>
   );
 };

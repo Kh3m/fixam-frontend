@@ -38,6 +38,7 @@ const CartItem = ({
 }: Props) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const [isHandlingQty, setIsHandlingQty] = useState(false);
 
   const { data: cartProduct } = useProduct(productId);
   const { data: cartProductReviews } = useReviewsForProduct(productId);
@@ -52,7 +53,7 @@ const CartItem = ({
         `${cartBaseURL}/carts/${cartId}/items/${itemId}/`
       );
       console.log("CART ITEM DELETED", deleteCartRes);
-      if (deleteCartRes.status === 204) {
+      if (deleteCartRes.status == 204) {
         // Invalidate the cache for ["carts", "user", user?.id]
         queryClient.invalidateQueries({
           queryKey: ["carts", "user", user?.id],
@@ -60,6 +61,11 @@ const CartItem = ({
 
         setIsDeletingCartItems(false);
       }
+
+      // Invalidate the cache for ["carts", "user", user?.id]
+      queryClient.invalidateQueries({
+        queryKey: ["carts", "user", user?.id],
+      });
     } catch (error) {
       console.log("ERROR DELETING CART ITEM", error);
       setIsDeletingCartItems(false);
@@ -87,11 +93,15 @@ const CartItem = ({
           <Space spacing="my-4" />
           <div className="flex space-x-2 items-center">
             <QuantityField
+              isHandlingQty={isHandlingQty}
               quantity={quantity}
               handleOnIcrementQuantity={async () => {
+                setIsHandlingQty(true);
                 const increaseCartQuantityRes = await dummyApiClient.patch(
-                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`
+                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
+                  { quantity: quantity + 1 }
                 );
+
                 console.log(
                   "CART QUANTITY INCREASED SUCCESSFULLY",
                   increaseCartQuantityRes
@@ -102,9 +112,27 @@ const CartItem = ({
                   queryKey: ["carts", "user", user?.id],
                 });
 
+                setIsHandlingQty(false);
                 // setIsDeletingCartItems(false);
               }}
-              handleOnDecrementQuantity={() => handleOnDecrementQuantity(0)}
+              handleOnDecrementQuantity={async () => {
+                setIsHandlingQty(true);
+                const increaseCartQuantityRes = await dummyApiClient.patch(
+                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
+                  { quantity: quantity - 1 }
+                );
+                console.log(
+                  "CART QUANTITY INCREASED SUCCESSFULLY",
+                  increaseCartQuantityRes
+                );
+
+                // Invalidate the cache for ["carts", "user", user?.id]
+                queryClient.invalidateQueries({
+                  queryKey: ["carts", "user", user?.id],
+                });
+                setIsHandlingQty(false);
+                // setIsDeletingCartItems(false);
+              }}
               onChange={onChange}
             />
             <Space spacing="my-2" />

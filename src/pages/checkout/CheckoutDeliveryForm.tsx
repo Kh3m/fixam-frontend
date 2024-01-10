@@ -4,12 +4,15 @@ import { dummyApiClient } from "../../services/apiClient";
 import { userBaseURL } from "../../services/baseURLs";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
+import { isAxiosError } from "axios";
+import ToastMessage from "../../components/ToastMessage";
 
 interface Props {
   handleCancel: () => void;
 }
 const CheckoutDeliveryForm = ({ handleCancel }: Props) => {
   const { user } = useAuth();
+  const [severErrorMessage, setServerErrorMessage] = useState("");
 
   const [isCreatingUserAddress, setIsCreatingUserAddress] = useState(false);
 
@@ -40,7 +43,11 @@ const CheckoutDeliveryForm = ({ handleCancel }: Props) => {
         // Send request to update user's address
         const createdAddress = await dummyApiClient.post(
           `${userBaseURL}/users/adresses/`,
-          { ...data, user: user.id }
+          {
+            ...data,
+            receiver_phone_two: data.receiver_phone_two || null,
+            user: user.id,
+          }
         );
 
         console.log("createdAddress", createdAddress);
@@ -48,13 +55,26 @@ const CheckoutDeliveryForm = ({ handleCancel }: Props) => {
 
       setIsCreatingUserAddress(false);
     } catch (error) {
-      console.log("creating address error", error);
-      setIsCreatingUserAddress(false);
+      if (isAxiosError(error)) {
+        if (error.response?.data[0] === "Address limit exceeded.") {
+          setServerErrorMessage("Address limit exceeded.");
+        }
+        console.log("creating address error", error);
+        setIsCreatingUserAddress(false);
+      }
     }
   };
 
   return (
     <FormProvider {...methods}>
+      {severErrorMessage && (
+        <ToastMessage
+          type="error"
+          message={severErrorMessage}
+          shoudlShowToast
+        />
+      )}
+
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <CustomerDeliveryAddressFields
           handleCancel={handleCancel}

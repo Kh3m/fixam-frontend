@@ -4,6 +4,11 @@ import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
 import BorderCard from "../BorderCard";
 import { UserAddressType } from "../../../services/user";
+import { dummyApiClient } from "../../../services/apiClient";
+import { userBaseURL } from "../../../services/baseURLs";
+import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import useAuth from "../../../hooks/useAuth";
 
 const VerticalSeperator = () => (
   <div className="h-full w-[2px] rounded-sm bg-fyellow-shades-500"></div>
@@ -14,6 +19,34 @@ interface Props {
 }
 
 const AccountAddressSummary = ({ address }: Props) => {
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const handleDeleteAddress = async (addressId: string) => {
+    setIsDeleting(true);
+
+    try {
+      const deletedAddress = await dummyApiClient.delete(
+        `${userBaseURL}/users/adresses/${addressId}/`
+      );
+
+      console.log("DELETED", deletedAddress);
+      if (deletedAddress.status == 204) setIsDeleted(true);
+
+      queryClient.invalidateQueries({
+        queryKey: ["users", user?.id, "addresses"],
+      });
+
+      setIsDeleting(false);
+    } catch (error) {
+      console.log("DELETING ADDRESS ERROR", error);
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <BorderCard styles="my-2">
       <Heading variant="h4" styles="inline-block font-semibold">
@@ -44,7 +77,11 @@ const AccountAddressSummary = ({ address }: Props) => {
           </Button>
         </Link>
         <VerticalSeperator />
-        <Button styles="text-fyellow-shades-500 font-semibold text-sm">
+        <Button
+          styles="text-fyellow-shades-500 font-semibold text-sm"
+          onClick={() => handleDeleteAddress(address.id!)}
+          disabled={isDeleting}
+        >
           Delete
         </Button>
         <VerticalSeperator />

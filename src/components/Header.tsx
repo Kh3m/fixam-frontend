@@ -8,7 +8,7 @@ import Container from "./Container";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput/SearchInput";
 import ShoppingCart from "./ShoppingCart";
-import { useState } from "react";
+import Spinner from "./Spinner";
 
 const Header = () => {
   const { isAuthenticated, userStores, user } = useAuth();
@@ -36,7 +36,11 @@ const Header = () => {
             <Link to={`/users/wishlist`} className="text-white text-lg">
               <IoListSharp />
             </Link>
-
+            {isLoadingDummyUserCart && (
+              <div>
+                <Spinner />
+              </div>
+            )}
             {!isLoadingDummyUserCart && dummyUserCart && (
               <Link
                 state={{ userCart: dummyUserCart }}
