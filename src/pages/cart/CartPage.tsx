@@ -10,16 +10,41 @@ import { CartType } from "../../services/cart";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import CartItems from "./CartItems";
 import OrderSummary from "./OrderSummary";
+import { useEffect, useState } from "react";
+import { productBaseURL } from "../../services/baseURLs";
 
 const CartPage = () => {
   const { state } = useLocation();
   const userCart = state.userCart as CartType;
+  const [subtotal, setSubtotal] = useState<number | null>(null);
+
+  const fetchProductPrice = async (productId: string): Promise<number> => {
+    const response = await fetch(`${productBaseURL}/products/${productId}`);
+    const data = await response.json();
+    return data.price;
+  };
+  useEffect(() => {
+    const calculateSubtotal = async () => {
+      let total = 0;
+      // Fetch prices for each product in the cart
+      for (const item of userCart.cart_items) {
+        const price = await fetchProductPrice(item.prod_id);
+        total += price * item.quantity;
+      }
+      setSubtotal(total);
+    };
+    if (userCart) {
+      calculateSubtotal();
+    }
+  }, [userCart]);
 
   return (
     <Main>
       <Space spacing="my-14" />
       <Container>
-        <FlexWithOrderSummary OrderSummary={<OrderSummary />}>
+        <FlexWithOrderSummary
+          OrderSummary={<OrderSummary subtotal={subtotal || 0} />}
+        >
           <Card styles="px-12">
             <div className="flex justify-between font-semibold text-2xl">
               <Heading variant="h2" styles="text-2xl">

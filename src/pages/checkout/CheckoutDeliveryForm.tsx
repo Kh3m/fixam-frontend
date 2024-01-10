@@ -1,6 +1,5 @@
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import CustomerDeliveryAddressFields from "./CustomerDeliveryAddressFields";
-import { UserAddressType } from "./CheckoutInfoWithState";
 import { dummyApiClient } from "../../services/apiClient";
 import { userBaseURL } from "../../services/baseURLs";
 import useAuth from "../../hooks/useAuth";

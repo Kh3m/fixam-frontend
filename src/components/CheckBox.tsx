@@ -9,13 +9,14 @@ import { FaCheck } from "react-icons/fa6";
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   text: string;
   boxFor: string;
+  checked?: boolean;
   fieldState?: ControllerFieldState;
   field: ControllerRenderProps<FieldValues, string>;
 }
 
 const CheckBox = forwardRef(
   (
-    { text, boxFor, field, fieldState, ...props }: Props,
+    { text, boxFor, checked, field, fieldState, ...props }: Props,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
@@ -27,6 +28,7 @@ const CheckBox = forwardRef(
           type="checkbox"
           name={boxFor}
           className="hidden peer"
+          checked={checked}
         />
         <span
           className="peer-checked:text-fyellow absolute left-[2px] font-bold 

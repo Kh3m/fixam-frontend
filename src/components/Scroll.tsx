@@ -41,7 +41,7 @@ const Scroll = ({ direction, children }: PropsWithChildren<DirectionType>) => {
         // absolute -left-6 top-[50%] translate-y-[-50%] z-20 text-2xl fshadow cursor-pointer"
       >
         {/* Left Icon */}
-        <FaChevronLeft />
+        {/* <FaChevronLeft /> */}
       </motion.span>
       <motion.span
         initial={{ y: -50, scale: 0.9 }}
@@ -52,7 +52,7 @@ const Scroll = ({ direction, children }: PropsWithChildren<DirectionType>) => {
         // text-2xl fshadow cursor-pointer"
       >
         {/* Right Icon */}
-        <FaChevronRight />
+        {/* <FaChevronRight /> */}
       </motion.span>
 
       <Flex ref={scrollContainerRef}>{children}</Flex>

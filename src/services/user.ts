@@ -1,15 +1,19 @@
 import axios from "axios";
 
-type Address = {
-  url?: string;
+export type UserAddressType = {
   id?: string;
-  street_address?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  zip_code?: string;
-  is_default?: boolean;
-  user?: string;
+  url?: string;
+  street_address: string;
+  city: string;
+  state: string;
+  country: string;
+  zip_code: string;
+  is_default: boolean;
+  receiver_first_name: string;
+  receiver_last_name: string;
+  receiver_phone_one: string;
+  receiver_phone_two: string;
+  user: string;
 };
 
 export type UserType = {
@@ -17,12 +21,11 @@ export type UserType = {
   last_name: string;
   phone: string;
   email: string;
-
   url?: string;
   id?: string;
   profile?: string;
   groups?: string;
-  addresses?: Address[];
+  addresses?: UserAddressType[];
   //   TODO: Backend Fix password?: string;
   last_login?: Date;
   date_joined?: Date;

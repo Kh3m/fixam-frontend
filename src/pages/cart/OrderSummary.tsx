@@ -6,7 +6,11 @@ import Heading from "../../components/Heading";
 import Space from "../../components/Space";
 import { formatPrice } from "../../utils/number-formatter";
 
-const OrderSummary = () => {
+interface Props {
+  subtotal: number;
+}
+
+const OrderSummary = ({ subtotal }: Props) => {
   return (
     <Card>
       <Heading variant="h3" styles="text-2xl font-semibold text-center">
@@ -15,7 +19,7 @@ const OrderSummary = () => {
       <Space spacing="my-8" />
       <div className="flex justify-between">
         <span className="text-base font-semibold">Subtotal</span>
-        <span className="text-base font-semibold">{formatPrice(649_997)}</span>
+        <span className="text-base font-semibold">{formatPrice(subtotal)}</span>
       </div>
 
       <div className="text-xs font-semibold text-fdarkery-grey">

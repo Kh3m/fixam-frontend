@@ -6,15 +6,18 @@ import PaypalSVG from "../../components/SVGs/PaypalSVG";
 import VisaSVG from "../../components/SVGs/VisaSVG";
 import Space from "../../components/Space";
 import { Controller, useFormContext } from "react-hook-form";
+import TapEffect from "../../components/TapEffect";
 
 interface Props {
   heading: string;
   checkbox: {
     text: string;
     boxFor: string;
+    checked?: boolean;
   };
   isPaymentMethod?: boolean;
   isLoading?: boolean;
+  shouldRemoveCancel?: boolean;
   handleCancel?: () => void;
 }
 
@@ -22,6 +25,7 @@ const CheckoutFormFieldCard = ({
   children,
   checkbox,
   isPaymentMethod,
+  shouldRemoveCancel,
   handleCancel,
   isLoading,
 }: PropsWithChildren<Props>) => {
@@ -35,7 +39,9 @@ const CheckoutFormFieldCard = ({
         <Controller
           name={checkbox.boxFor}
           control={control}
-          render={({ field }) => <CheckBox field={field} {...checkbox} />}
+          render={({ field }) => (
+            <CheckBox checked={checkbox.checked} field={field} {...checkbox} />
+          )}
         />
 
         <div className="my-4">
@@ -46,13 +52,15 @@ const CheckoutFormFieldCard = ({
           >
             Submit
           </Button>
-          <Button
-            onClick={handleCancel}
-            variant="outlined"
-            styles="border border-fyellow font-bold"
-          >
-            Cancel
-          </Button>
+          {shouldRemoveCancel ? null : (
+            <Button
+              onClick={handleCancel}
+              variant="outlined"
+              styles="border border-fyellow font-bold"
+            >
+              Cancel
+            </Button>
+          )}
         </div>
       </div>
       {isPaymentMethod && (

@@ -9,7 +9,7 @@ import { Fragment } from "react";
 
 const UserPage = () => {
   const newItems = [
-    { text: "Account", to: `/users/account` },
+    { text: "Account", to: `/users/account/addresses` },
     { text: "Orders", to: `/users/orders` },
     { text: "Wishlist", to: `/users/wishlist` },
     { text: "Notification", to: `/users/notification` },

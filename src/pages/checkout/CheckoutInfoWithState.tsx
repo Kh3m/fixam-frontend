@@ -8,20 +8,7 @@ import { isAxiosError } from "axios";
 import { dummyApiClient } from "../../services/apiClient";
 import { userBaseURL } from "../../services/baseURLs";
 import useAuth from "../../hooks/useAuth";
-
-export type UserAddressType = {
-  street_address: string;
-  city: string;
-  state: string;
-  country: string;
-  zip_code: string;
-  is_default: boolean;
-  receiver_first_name: string;
-  receiver_last_name: string;
-  receiver_phone_one: string;
-  receiver_phone_two: string;
-  user: string;
-};
+import { UserAddressType } from "../../services/user";
 
 interface Props {
   isPaymentMethod?: boolean;
