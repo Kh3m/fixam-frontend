@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import Container from "../../components/Container";
 import HR from "../../components/HR";
@@ -6,21 +7,16 @@ import Heading from "../../components/Heading";
 import Main from "../../components/Main";
 import SimilarAds from "../../components/Products/SimilarAds";
 import Space from "../../components/Space";
-import { CartType } from "../../services/cart";
+import Spinner from "../../components/Spinner";
+import useCartForUser from "../../hooks/cart/useCartForUser";
+import useAuth from "../../hooks/useAuth";
+import { productBaseURL } from "../../services/baseURLs";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import CartItems from "./CartItems";
 import OrderSummary from "./OrderSummary";
-import { useEffect, useState } from "react";
-import { productBaseURL } from "../../services/baseURLs";
-import useCartForUser from "../../hooks/cart/useCartForUser";
-import useAuth from "../../hooks/useAuth";
-import Spinner from "../../components/Spinner";
 
 const CartPage = () => {
   const { user } = useAuth();
-
-  const { state } = useLocation();
-  // const userCart = state.userCart as CartType;
 
   const { data: userCart, isLoading: isLoadingUserCart } = useCartForUser(
     user?.id || ""
@@ -28,7 +24,7 @@ const CartPage = () => {
 
   const [subtotal, setSubtotal] = useState<number | null>(null);
   const fetchProductPrice = async (productId: string): Promise<number> => {
-    const response = await fetch(`${productBaseURL}/products/${productId}`);
+    const response = await fetch(`${productBaseURL}/products/${productId}/`);
     const data = await response.json();
     return data.price;
   };

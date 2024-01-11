@@ -39,7 +39,7 @@ const CheckoutPage = () => {
   const [cartId, setCartId] = useState<string>("");
 
   const fetchProductPrice = async (productId: string): Promise<number> => {
-    const response = await fetch(`${productBaseURL}/products/${productId}`);
+    const response = await fetch(`${productBaseURL}/products/${productId}/`);
     const data = await response.json();
     return data.price;
   };

@@ -16,6 +16,28 @@ const CheckoutSummary = () => {
       </div>
     );
   }
+
+  if (userAddresses && !userAddresses.length) {
+    return (
+      <div className="flex justify-between">
+        <div className="grow">
+          <ul>
+            <li className=" font-medium ">
+              Permit me to say you have no address setup yet!
+            </li>
+            <li className="text-sm text-black/80 font-medium">
+              <span>Change that by clicking on</span>
+              <span className="font-bold ml-1">Change</span>
+            </li>
+          </ul>
+        </div>
+        <div className="basis-1/3 flex justify-end">
+          <BusSVG />
+        </div>
+      </div>
+    );
+  }
+
   if (userAddresses)
     return (
       <div className="flex justify-between">

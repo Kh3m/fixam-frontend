@@ -159,7 +159,7 @@ const EditProductForm = () => {
         <Button
           variant="elevated"
           styles="bg-fyellow text-white font-semibold text-lg pagination-shadow"
-          isLoading={isLoading}
+          disabled={isLoading}
         >
           {isLoading ? "Loading..." : "Submit"}
         </Button>

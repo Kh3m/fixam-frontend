@@ -18,12 +18,14 @@ interface Props {
   isPaymentMethod?: boolean;
   isLoading?: boolean;
   shouldRemoveCancel?: boolean;
+  defaultCheckBoxValue?: boolean;
   handleCancel?: () => void;
 }
 
 const CheckoutFormFieldCard = ({
   children,
   checkbox,
+  defaultCheckBoxValue,
   isPaymentMethod,
   shouldRemoveCancel,
   handleCancel,
@@ -39,6 +41,7 @@ const CheckoutFormFieldCard = ({
         <Controller
           name={checkbox.boxFor}
           control={control}
+          defaultValue={defaultCheckBoxValue}
           render={({ field }) => (
             <CheckBox checked={checkbox.checked} field={field} {...checkbox} />
           )}
@@ -54,6 +57,7 @@ const CheckoutFormFieldCard = ({
           </Button>
           {shouldRemoveCancel ? null : (
             <Button
+              type="button"
               onClick={handleCancel}
               variant="outlined"
               styles="border border-fyellow font-bold"

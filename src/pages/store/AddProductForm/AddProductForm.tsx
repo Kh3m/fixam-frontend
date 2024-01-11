@@ -14,6 +14,7 @@ import { StoreResponseType } from "../../../entities/store";
 import { useNavigate } from "react-router-dom";
 import { dummyApiClient } from "../../../services/apiClient";
 import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
+import VariantFields from "./VariantFields";
 
 type ProductUploadType = {
   name: string;
@@ -139,17 +140,17 @@ const AddProductForm = () => {
         <FeaturesField />
         <Space spacing="my-8" />
         <ProductImageUpload />
+        {/* <Space spacing="my-8" />
+        <VariantFields /> */}
         <Space spacing="my-8" />
         <Button
           variant="elevated"
           styles="bg-fyellow text-white font-semibold text-lg pagination-shadow"
-          isLoading={isLoading}
+          disabled={isLoading}
         >
           {isLoading ? "Loading..." : "Submit"}
         </Button>
       </form>
-      {/* <Space spacing="my-8" />
-          <VariantFields /> */}
     </FormProvider>
   );
 };

@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 
 const useUserAddresses = (userId: string) =>
   useQuery({
-    // TODO: Fix Query Key
     queryKey: ["users", userId, "addresses"],
     queryFn: () =>
       userAPIClient

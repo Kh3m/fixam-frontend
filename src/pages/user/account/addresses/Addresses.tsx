@@ -12,12 +12,14 @@ const Addresses = () => {
   const { user } = useAuth();
 
   const { data: addresses, isLoading: isLoadingAddresses } = useUserAddresses(
-    user?.id || "24ac295f-175f-4909-af44-b3d3a2a4e18f"
+    user?.id || ""
   );
 
   const [showDeliveryAddressForm, setShowDeliveryAddressForm] = useState(false);
 
   const handleAddNewAddress = () => setShowDeliveryAddressForm(true);
+  const handleCloseDeliveryAddressForm = () =>
+    setShowDeliveryAddressForm(false);
 
   return (
     <div>
@@ -35,7 +37,8 @@ const Addresses = () => {
       <Space spacing="my-6" />
       {showDeliveryAddressForm && (
         <DeliveryAddressForm
-          handleShowDeliveryAddressForm={setShowDeliveryAddressForm}
+          handleCancel={() => setShowDeliveryAddressForm(false)}
+          handleCloseDeliveryAddressForm={handleCloseDeliveryAddressForm}
         />
       )}
       <Space spacing="my-6" />

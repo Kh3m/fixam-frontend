@@ -1,5 +1,5 @@
 import { UserAddressType } from "../../services/user";
-import CheckoutDeliveryForm from "./CheckoutDeliveryForm";
+import DeliveryAddressForm from "../user/account/addresses/DeliveryAddressForm";
 import DeliveryAddressSummary from "./DeliveryAddressSummary";
 
 interface Props {
@@ -12,7 +12,7 @@ const CheckoutDeliveryAddress = ({ changeDefault, handleCancel }: Props) => {
   return (
     <>
       {!changeDefault && <DeliveryAddressSummary />}
-      {changeDefault && <CheckoutDeliveryForm handleCancel={handleCancel} />}
+      {changeDefault && <DeliveryAddressForm handleCancel={handleCancel} />}
     </>
   );
 };
