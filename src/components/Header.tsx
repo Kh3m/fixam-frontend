@@ -1,25 +1,10 @@
-import { IoListSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import useCartForUser from "../hooks/cart/useCartForUser";
-import useAuth from "../hooks/useAuth";
-import { CartType } from "../services/cart";
-import Button from "./Button";
 import Container from "./Container";
 import Logo from "./Logo";
+import HeaderNav from "./Navigations/HeaderNav";
 import SearchInput from "./SearchInput/SearchInput";
-import ShoppingCart from "./ShoppingCart";
-import Spinner from "./Spinner";
 
 const Header = () => {
-  const { isAuthenticated, userStores, user } = useAuth();
-
-  const { data, isLoading: isLoadingDummyUserCart } = useCartForUser(
-    user?.id || ""
-  );
-
-  const dummyUserCart = data as CartType;
-  console.log("Cart Data", dummyUserCart, "user?.id", user?.id);
-
   return (
     <header className="dark:bg-slate-800 bg-fyellow">
       <Container>
@@ -32,73 +17,7 @@ const Header = () => {
             </div>
             <SearchInput />
           </div>
-          <div className="flex items-center space-x-5">
-            <Link to={`/users/wishlist`} className="text-white text-lg">
-              <IoListSharp />
-            </Link>
-            {isLoadingDummyUserCart && (
-              <div>
-                <Spinner />
-              </div>
-            )}
-            {!isLoadingDummyUserCart && dummyUserCart && (
-              <Link
-                state={{ userCart: dummyUserCart }}
-                to={`/cart`}
-                className="text-white text-2xl"
-              >
-                <ShoppingCart
-                  itemCount={Number.parseInt(
-                    dummyUserCart.total_quantity || "0"
-                  )}
-                />
-              </Link>
-            )}
-
-            {!isLoadingDummyUserCart && !dummyUserCart && (
-              <Link
-                state={{ userCart: dummyUserCart }}
-                to={`/cart`}
-                className="text-white text-2xl"
-              >
-                <ShoppingCart itemCount={0} />
-              </Link>
-            )}
-
-            {/* TODO: REMOVE AFTER DEMO */}
-            {/* <Link
-              state={{ userCart: dummyUserCart }}
-              to={`/cart`}
-              className="text-white text-2xl"
-            >
-              <ShoppingCart itemCount={4} />
-            </Link> */}
-
-            <Link to={`/auth/login`}>
-              <Button variant="text" styles="text-white text-base ">
-                Login
-              </Button>
-            </Link>
-            <Link to={`/auth/register`}>
-              <Button variant="outlined">Register</Button>
-            </Link>
-            <Link
-              to={`${
-                isAuthenticated() && userStores?.length
-                  ? `/stores/${
-                      userStores[userStores.length - 1].slug
-                    }/dashboard`
-                  : "/create-store"
-              } `}
-            >
-              <Button
-                variant="elevated"
-                styles=" bg-white text-fyellow border-2 border-white"
-              >
-                {isAuthenticated() && userStores ? "Store" : "Be a vendor"}
-              </Button>
-            </Link>
-          </div>
+          <HeaderNav />
         </div>
       </Container>
     </header>

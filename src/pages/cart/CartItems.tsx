@@ -63,8 +63,6 @@ const CartItems = ({ cartItems: realCartItems, cartId }: Props) => {
               productId={prod_id}
               imageURL={cartItems[index].product.image}
               quantity={quantity}
-              handleOnIcrementQuantity={() => handleOnIcrementQuantity(index)}
-              handleOnDecrementQuantity={() => handleOnDecrementQuantity(index)}
               onChange={(e) => handleInputChange(e, index)}
               handleInputChange={handleInputChange}
             />

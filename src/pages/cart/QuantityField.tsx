@@ -18,11 +18,12 @@ const QuantityField = ({
   isHandlingQty,
 }: Props) => {
   return (
-    <div className="flex space-x-1 items-center">
+    <div className="flex space-x-1 flex-col items-center justify-center">
       <TapEffect>
         <span
           onClick={handleOnDecrementQuantity}
-          className="user-select-none text-sm font-bold cursor-pointer"
+          className="user-select-none text-sm font-bold cursor-pointer
+          inline-flex justify-center items-center h-6 w-8 rounded-sm bg-fyellow-shades-500 text-white"
         >
           -
         </span>
@@ -34,14 +35,15 @@ const QuantityField = ({
         <input
           value={quantity}
           onChange={onChange}
-          className="user-select-none border-gray-400 rounded-sm border
-            flex items-center justify-center w-8 h-5 text-xs text-center outline-none p-1 font-semibold"
+          className="user-select-none rounded-sm
+            flex items-center justify-center w-8 h-6 text-xs text-center outline-none p-1 font-semibold"
         />
       )}
       <TapEffect>
         <span
           onClick={handleOnIcrementQuantity}
-          className="user-select-none text-sm font-bold cursor-pointer"
+          className="user-select-none text-sm font-bold cursor-pointer
+          inline-flex justify-center items-center h-6 w-8 rounded-sm bg-fyellow-shades-500 text-white"
         >
           +
         </span>

@@ -19,9 +19,6 @@ interface Props {
   productId: string;
   cartId: string;
   itemId: number;
-
-  handleOnIcrementQuantity: (index: number) => void;
-  handleOnDecrementQuantity: (index: number) => void;
   handleInputChange?: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -31,9 +28,6 @@ const CartItem = ({
   productId,
   itemId,
   cartId,
-
-  handleOnIcrementQuantity,
-  handleOnDecrementQuantity,
   onChange,
 }: Props) => {
   const queryClient = useQueryClient();
@@ -52,7 +46,7 @@ const CartItem = ({
       const deleteCartRes = await dummyApiClient.delete(
         `${cartBaseURL}/carts/${cartId}/items/${itemId}/`
       );
-      console.log("CART ITEM DELETED", deleteCartRes);
+
       if (deleteCartRes.status == 204) {
         // Invalidate the cache for ["carts", "user", user?.id]
         queryClient.invalidateQueries({
@@ -74,85 +68,35 @@ const CartItem = ({
 
   return (
     <section>
-      <div className="flex space-x-6 items-center">
+      <div className="flex space-x-6 items-center w-full">
         <img
           src={imageURL}
           alt={cartProduct?.name}
           className="h-[137px] w-[207px] object-contain overflow-hidden rounded-lg"
         />
-        <div>
+        <div className="flex-grow">
           <Heading variant="h4" styles="font-semibold text-[20px]">
             {cartProduct?.name}
           </Heading>
           <Space spacing="my-1" />
-          <p className=" text-fdarkery-grey font-semibold text-sm">
-            {/* {cartProduct?.description} */}
-          </p>
-          <Space spacing="my-2" />
           <Rating count={5} withViews />
-          <Space spacing="my-4" />
-          <div className="flex space-x-2 items-center">
-            <QuantityField
-              isHandlingQty={isHandlingQty}
-              quantity={quantity}
-              handleOnIcrementQuantity={async () => {
-                setIsHandlingQty(true);
-                const increaseCartQuantityRes = await dummyApiClient.patch(
-                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
-                  { quantity: quantity + 1 }
-                );
+          <Space spacing="my-1" />
 
-                console.log(
-                  "CART QUANTITY INCREASED SUCCESSFULLY",
-                  increaseCartQuantityRes
-                );
-
-                // Invalidate the cache for ["carts", "user", user?.id]
-                queryClient.invalidateQueries({
-                  queryKey: ["carts", "user", user?.id],
-                });
-
-                setIsHandlingQty(false);
-                // setIsDeletingCartItems(false);
-              }}
-              handleOnDecrementQuantity={async () => {
-                setIsHandlingQty(true);
-                const increaseCartQuantityRes = await dummyApiClient.patch(
-                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
-                  { quantity: quantity - 1 }
-                );
-                console.log(
-                  "CART QUANTITY INCREASED SUCCESSFULLY",
-                  increaseCartQuantityRes
-                );
-
-                // Invalidate the cache for ["carts", "user", user?.id]
-                queryClient.invalidateQueries({
-                  queryKey: ["carts", "user", user?.id],
-                });
-                setIsHandlingQty(false);
-                // setIsDeletingCartItems(false);
-              }}
-              onChange={onChange}
-            />
-            <Space spacing="my-2" />
-            <VariantOption
-              variant="Color"
-              defaultSelectValue={{ label: "Black", value: "Black" }}
-              options={[
-                { label: "Red", value: "Red" },
-                { label: "Green", value: "Green" },
-                { label: "Black", value: "Black" },
-                { label: "Purple", value: "Purple" },
-                { label: "Cyan", value: "Cyan" },
-              ]}
-            />
-          </div>
-          <Space spacing="my-2" />
           <div className="text-base font-semibold">
             {formatPrice(cartProduct?.price as number)}
           </div>
-          <Space spacing="my-2" />
+          <VariantOption
+            variant="Color"
+            defaultSelectValue={{ label: "Black", value: "Black" }}
+            options={[
+              { label: "Red", value: "Red" },
+              { label: "Green", value: "Green" },
+              { label: "Black", value: "Black" },
+              { label: "Purple", value: "Purple" },
+              { label: "Cyan", value: "Cyan" },
+            ]}
+          />
+          <Space spacing="my-6" />
           <div className="flex space-x-4 text-xs">
             <Button
               styles="hover:text-fyellow-shades-500 hover:font-semibold"
@@ -162,6 +106,40 @@ const CartItem = ({
               Delete
             </Button>
           </div>
+        </div>
+
+        <div className="flex space-x-2 items-center">
+          <QuantityField
+            isHandlingQty={isHandlingQty}
+            quantity={quantity}
+            handleOnIcrementQuantity={async () => {
+              setIsHandlingQty(true);
+              await dummyApiClient.patch(
+                `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
+                { quantity: quantity + 1 }
+              );
+              // Invalidate the cache for ["carts", "user", user?.id]
+              queryClient.invalidateQueries({
+                queryKey: ["carts", "user", user?.id],
+              });
+              setIsHandlingQty(false);
+              // setIsDeletingCartItems(false);
+            }}
+            handleOnDecrementQuantity={async () => {
+              setIsHandlingQty(true);
+              await dummyApiClient.patch(
+                `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
+                { quantity: quantity - 1 }
+              );
+              // Invalidate the cache for ["carts", "user", user?.id]
+              queryClient.invalidateQueries({
+                queryKey: ["carts", "user", user?.id],
+              });
+              setIsHandlingQty(false);
+              // setIsDeletingCartItems(false);
+            }}
+            onChange={onChange}
+          />
         </div>
       </div>
     </section>

@@ -2,11 +2,12 @@ import { userAPIClient } from "../../services/user";
 import { useQuery } from "@tanstack/react-query";
 import { UserType } from "../../services/user";
 
-const useUser = (userId: string) =>
-  useQuery({
+const useUser = (userId: string) => {
+  return useQuery({
     queryKey: ["users", userId],
     queryFn: () =>
-      userAPIClient.get<UserType[]>(`/${userId}/`).then((res) => res.data),
+      userAPIClient.get<UserType>(`/${userId}/`).then((res) => res.data),
   });
+};
 
 export default useUser;
