@@ -12,6 +12,7 @@ import { dummyApiClient } from "../../services/apiClient";
 import { cartBaseURL } from "../../services/baseURLs";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import CustomerStarRatings from "../review/CustomerStarRatings";
 
 interface Props {
   quantity: number;
@@ -79,7 +80,8 @@ const CartItem = ({
             {cartProduct?.name}
           </Heading>
           <Space spacing="my-1" />
-          <Rating count={5} withViews />
+          {/* <Rating count={5} withViews /> */}
+          {/* <CustomerStarRatings rating={2} size={16} /> */}
           <Space spacing="my-1" />
 
           <div className="text-base font-semibold">

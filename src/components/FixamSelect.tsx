@@ -6,11 +6,13 @@ import Select, {
 } from "react-select";
 import { OptionType } from "../utils/types";
 import { Controller, useFormContext } from "react-hook-form";
+import CreatableSelect from "react-select/creatable";
 
 interface Props {
   options: OptionType[];
   placeholder?: string;
   shouldRemoveShadow?: boolean;
+  type?: "creatable";
   name: string;
 }
 
@@ -19,6 +21,7 @@ const FixamSelect = ({
   name,
   placeholder,
   shouldRemoveShadow,
+  type,
 }: Props) => {
   const customStyles: StylesConfig<OptionType> = {
     control: (base, props) => ({
@@ -80,6 +83,29 @@ const FixamSelect = ({
   ) => {
     setValue(name, (selected as OptionType).value);
   };
+
+  if (type === "creatable") {
+    return (
+      <Controller
+        name={name}
+        render={() => (
+          <CreatableSelect
+            styles={customStyles}
+            options={options}
+            className="w-full"
+            placeholder={placeholder}
+            name={name}
+            onChange={(
+              newValue: SingleValue<OptionType> | MultiValue<OptionType>,
+              _: ActionMeta<OptionType>
+            ) => {
+              handleOptionSelect(newValue);
+            }}
+          />
+        )}
+      />
+    );
+  }
 
   return (
     <Controller

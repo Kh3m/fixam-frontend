@@ -44,6 +44,7 @@ const Product = ({
     name: productName,
     favorite,
     price,
+    selling_price,
     images,
     id,
     category_name,
@@ -275,7 +276,7 @@ const Product = ({
           </p>
         </Link>
         <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
-          <span>{formatPrice(price as number)}</span>
+          <span>{formatPrice(Number.parseFloat(selling_price))}</span>
           <span className="text-fgrey text-[10px] font-semibold">
             (5 items left)
           </span>

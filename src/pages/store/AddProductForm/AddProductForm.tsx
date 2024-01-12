@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FieldValues, FormProvider, useForm, useWatch } from "react-hook-form";
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
@@ -12,11 +12,13 @@ import TypeFields from "./TypeFields";
 import useAuth from "../../../hooks/useAuth";
 import { StoreResponseType } from "../../../entities/store";
 import { useNavigate } from "react-router-dom";
-import { dummyApiClient } from "../../../services/apiClient";
+import { FetchResponseType, dummyApiClient } from "../../../services/apiClient";
 import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
 import VariantFields from "./VariantFields";
 import Spinner from "../../../components/Spinner";
-import { ProductType } from "../../../services/product";
+import { ProductType, ProductVariantType } from "../../../services/product";
+import FormFieldCard from "./FormFieldCard";
+import useProductVariants from "../../../hooks/products/useProductVariants";
 
 type VariantOptionType = {
   image: string[];
@@ -52,52 +54,40 @@ type VarianType = {
 };
 
 const AddProductForm = () => {
+  const navigate = useNavigate();
+  const [variantFields, setVariantFields] = useState<number>(1);
+
   const [userId, setUserId] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+
+  const { data: productV, isLoading: isLoadingProductVariants } =
+    useProductVariants();
+
+  const productVariants = productV as FetchResponseType<ProductVariantType>;
 
   useEffect(() => {
     setUserId(getCookie("userId"));
   }, [userId]);
 
-  const methods = useForm<ProductUploadType>({
-    defaultValues: {
-      description:
-        "Introducing the LuminaX Pro, an innovative smart flashlight designed to redefine portable illumination. This cutting-edge device boasts a sleek aluminum alloy body, combining durability with a modern aesthetic. LuminaX Pro features advanced LED technology, delivering a powerful beam with adjustable intensity for various scenarios. Its rechargeable lithium-ion battery ensures long-lasting performance, while a built-in USB port facilitates convenient charging on the go. With a compact and lightweight design, LuminaX Pro is an ideal companion for outdoor adventures, emergency situations, and everyday tasks. Elevate your lighting experience with LuminaX Pro — where functionality meets sophistication.",
-      name: "",
-      price: "",
-      user_id: "",
-      store_id: "",
-      type: "",
-      category: "",
-      selectimage1: null,
-      selectimage2: null,
-      selectimage3: null,
-      selectimage4: null,
-      variant: "",
-      option_value: "",
-      option_price: "",
-      option_image: null,
-    },
-  });
+  const methods = useForm({});
   // const productImageMethods = useForm();
-  const { handleSubmit, control } = methods;
-  const variantValue = useWatch({ control, name: "variant" });
+  const { handleSubmit, trigger, getValues } = methods;
 
-  const validateOptions = (value: string, message: string) => {
-    // Validate options field only if variant field is entered
-    if (variantValue) {
-      return value ? true : message;
+  const onSubmit = async (newProductData: FieldValues) => {
+    if (productVariants) {
+      //TODO: remove below line
+      console.log("Entered Product Data", newProductData);
+      for (let i = 0; i < variantFields; i = i + 1) {
+        console.log(
+          'newProductData["variant_" + i] != productVariants.results[i]',
+          newProductData["variant_" + i] == productVariants.results[i].id
+        );
+        console.log(`${["variant_" + i]}`, newProductData["variant_" + i]);
+      }
     }
 
-    // No variant entered, no need to validate options
-    return true;
-  };
-
-  const onSubmit = async (newProductData: ProductUploadType) => {
-    //TODO: remove below line
-    console.log("Entered Product Data", newProductData);
+    // return;
 
     setIsLoading(true);
 
@@ -206,6 +196,17 @@ const AddProductForm = () => {
     }
   };
 
+  const handleAddMoreVariant = async (cb: () => string[]) => {
+    const isOptionValueValid = await trigger("option_value");
+    const isOptionPriceValid = await trigger("option_price");
+
+    console.log(cb());
+    // Check if validation passed before adding a new variant
+    if (isOptionValueValid && isOptionPriceValid) {
+      // Add logic to add a new variant field
+    }
+  };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -222,7 +223,20 @@ const AddProductForm = () => {
         <Space spacing="my-8" />
         <ProductImageUpload />
         <Space spacing="my-8" />
-        <VariantFields validateOptions={validateOptions} />
+        <FormFieldCard title="Product Variant (optional)">
+          {Array.from({ length: variantFields }, (_, index) => (
+            <VariantFields index={index} />
+          ))}
+          <Button
+            variant="text"
+            styles="text-fyellow"
+            type="button"
+            onClick={() => setVariantFields(variantFields + 1)}
+          >
+            Add More Variant
+          </Button>
+        </FormFieldCard>
+        {/* <VariantFields validateOptions={validateOptions} /> */}
         <Space spacing="my-8" />
         <Button
           variant="elevated"

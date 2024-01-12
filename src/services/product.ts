@@ -10,11 +10,23 @@ export type ProductType = {
   type: string;
   category: string;
   category_name: string;
+  selling_price: string;
   favorite?: boolean;
+};
+
+export type ProductVariantType = {
+  url: string;
+  id: string;
+  name: string;
+  description: string;
 };
 
 const apiClient = new DummyAPIClient<ProductType>(
   `${productBaseURL}/products/`
+);
+
+export const productVariantsService = new DummyAPIClient<ProductVariantType>(
+  `${productBaseURL}/products/variants/`
 );
 
 export default apiClient;

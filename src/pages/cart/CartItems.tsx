@@ -38,14 +38,6 @@ const CartItems = ({ cartItems: realCartItems, cartId }: Props) => {
     },
   ]);
 
-  // const [quantity, setQuantity] = useState(defaultQty);
-
-  const handleOnIcrementQuantity = (index: number) => {
-    // /carts/{cart_id}/items/{item_id}
-  };
-
-  const handleOnDecrementQuantity = (index: number) => {};
-
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
     index: number

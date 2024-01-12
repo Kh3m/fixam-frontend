@@ -4,6 +4,10 @@ import { UserAddressType } from "../../../../services/user";
 import DeliveryAddressForm from "./DeliveryAddressForm";
 import { MdEdit } from "react-icons/md";
 import Space from "../../../../components/Space";
+import { dummyApiClient } from "../../../../services/apiClient";
+import { userBaseURL } from "../../../../services/baseURLs";
+import { useQueryClient } from "@tanstack/react-query";
+import useAuth from "../../../../hooks/useAuth";
 
 interface Props {
   userAddress: UserAddressType;
@@ -11,6 +15,10 @@ interface Props {
 }
 
 const UserAddressCard = ({ userAddress }: Props) => {
+  const queryClient = useQueryClient();
+
+  const { user } = useAuth();
+
   const [openAddAddressForEdit, setOpenAddAddressForEdit] = useState(false);
   return (
     <div>
@@ -37,7 +45,20 @@ const UserAddressCard = ({ userAddress }: Props) => {
           )}
           <div className="flex items-center space-x-2">
             {!userAddress.is_default && (
-              <Button variant="text" styles="text-gray-400">
+              <Button
+                variant="text"
+                styles="text-gray-400"
+                onClick={async () => {
+                  await dummyApiClient.patch(
+                    `${userBaseURL}/users/adresses/${userAddress.id}/`,
+                    { is_default: true }
+                  );
+
+                  queryClient.invalidateQueries({
+                    queryKey: ["users", user?.id, "addresses"],
+                  });
+                }}
+              >
                 <span>Use Address</span>
               </Button>
             )}
