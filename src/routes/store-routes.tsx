@@ -2,7 +2,7 @@ import DashboardPage from "../pages/dashboard/DashboardPage";
 import AddProductForm from "../pages/store/AddProductForm/AddProductForm";
 import EditProductForm from "../pages/store/AddProductForm/EditProductForm";
 import StoreNotifications from "../pages/store/StoreNotifications";
-import StorePage from "../pages/store/StorePage";
+import { StorePage } from "../pages/store/StorePage";
 import StoreCustomers from "../pages/store/customers/StoreCustomers";
 import StoreMembers from "../pages/store/members/StoreMembers";
 import StoreOrders from "../pages/store/orders/StoreOrders";

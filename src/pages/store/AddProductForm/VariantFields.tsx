@@ -1,57 +1,72 @@
-import { useFormContext, Controller } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
-import FormFieldCard from "./FormFieldCard";
-import Button from "../../../components/Button";
-import Space from "../../../components/Space";
+import { Controller, useFormContext } from "react-hook-form";
+import FixamSelect from "../../../components/FixamSelect";
 import Input from "../../../components/Input";
+import Space from "../../../components/Space";
+import FormFieldCard from "./FormFieldCard";
 
-const VariantFields = () => {
+interface Props {
+  validateOptions: (value: string, message: string) => void;
+}
+
+const VariantFields = ({ validateOptions }: Props) => {
   const { control } = useFormContext();
 
   return (
     <FormFieldCard title="Product Variant (optional)">
       <Space spacing="my-4" />
-      <div>A variant...</div>
+      <FixamSelect
+        name="variant"
+        options={[
+          { value: "", label: "None" },
+          { value: "Size", label: "Size" },
+          { value: "Color", label: "Color" },
+          { value: "Material", label: "Material" },
+        ]}
+        placeholder="Select a Variant"
+        shouldRemoveShadow
+      />
       <Space spacing="my-4" />
-      <Space spacing="my-4" />
-      <section>
-        <Controller
-          name="variant"
-          control={control}
-          render={({}) => (
-            <Input
-              name=""
-              rules={{}}
-              control={control}
-              placeholder="Name of Variant"
-            />
-          )}
-        />
-
-        <Space spacing="my-4" />
-        <Controller
-          name="options"
-          control={control}
-          render={({ field }) => (
-            <CreatableSelect
-              isMulti
-              {...field}
-              name="variants"
-              options={[
-                { value: "Khem", label: "Khem" },
-                { value: "Love's", label: "Love's" },
-                { value: "To", label: "To" },
-                { value: "Code", label: "Code" },
-              ]}
-              placeholder="Add Options for Variant"
-            />
-          )}
-        />
+      <section className="flex justify-between">
+        <span className="w-1/3">
+          <Input
+            name="option_value"
+            rules={{
+              validate: (value: string) =>
+                validateOptions(
+                  value,
+                  "Value is required when a variant is selected"
+                ),
+            }}
+            control={control}
+            placeholder="Enter Value"
+          />
+        </span>
+        <span className="w-1/3 ml-4">
+          <Input
+            name="option_price"
+            rules={{
+              validate: (value: string) =>
+                validateOptions(
+                  value,
+                  "Price is required when a variant is selected"
+                ),
+            }}
+            control={control}
+            placeholder="Enter Price"
+          />
+        </span>
+        <span className="w-1/3 ml-4">
+          <Controller
+            name="option_image"
+            control={control}
+            render={({}) => <input type="file" placeholder="Name of Variant" />}
+          />
+        </span>
       </section>
       <Space spacing="my-4" />
-      <Button variant="text" styles="text-fyellow">
+      {/* <Button variant="text" styles="text-fyellow">
         Add Variant
-      </Button>
+      </Button> */}
     </FormFieldCard>
   );
 };

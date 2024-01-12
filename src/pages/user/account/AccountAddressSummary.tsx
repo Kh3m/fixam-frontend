@@ -85,7 +85,20 @@ const AccountAddressSummary = ({ address }: Props) => {
           Delete
         </Button>
         <VerticalSeperator />
-        <Button styles="text-fyellow-shades-500 font-semibold text-sm">
+        <Button
+          disabled={address.is_default}
+          styles="text-fyellow-shades-500 font-semibold text-sm"
+          onClick={async () => {
+            await dummyApiClient.patch(
+              `${userBaseURL}/users/adresses/${address.id}/`,
+              { is_default: true }
+            );
+
+            queryClient.invalidateQueries({
+              queryKey: ["users", user?.id, "addresses"],
+            });
+          }}
+        >
           Set as Default
         </Button>
       </div>

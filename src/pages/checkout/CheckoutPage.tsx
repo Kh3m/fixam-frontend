@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import Space from "../../components/Space";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import OrderSummary from "../cart/OrderSummary";
-import CheckoutInfoWithState from "./CheckoutInfoWithState";
+import CheckoutInfoWithState from "./CheckoutDeliveryAddress";
 import {
   cartBaseURL,
   orderBaseURL,
@@ -17,6 +17,9 @@ import useUserAddresses from "../../hooks/user/useUserAddresses";
 import useAuth from "../../hooks/useAuth";
 import OrderSuccessful from "./OrderSuccessful";
 import { useQueryClient } from "@tanstack/react-query";
+import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
+import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
+import { useCheckoutContext } from "../../contexts/checkout-context";
 
 type OrderType = {
   id: string;
@@ -30,13 +33,17 @@ type OrderType = {
 
 const CheckoutPage = () => {
   const queryClient = useQueryClient();
-
   const { state } = useLocation();
-  const { user } = useAuth();
-
   const [subtotal, setSubtotal] = useState<number | null>(null);
   const [cartItems, setCartItems] = useState<CartItemType[] | null>(null);
   const [cartId, setCartId] = useState<string>("");
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+  const [orderSuccessful, setOrderSuccessful] = useState(false);
+
+  const { user } = useAuth();
+  const { data: userAddresses } = useUserAddresses(user?.id || "");
+  const { checkoutState, setAddressId, setPaymentMethod } =
+    useCheckoutContext();
 
   const fetchProductPrice = async (productId: string): Promise<number> => {
     const response = await fetch(`${productBaseURL}/products/${productId}/`);
@@ -47,6 +54,14 @@ const CheckoutPage = () => {
   console.log("State Cart Data", state.cartData);
 
   useEffect(() => {
+    // Set checkout addressId to default user's address
+    const defautlUserAddressId = userAddresses?.find(
+      (address) => address.is_default
+    )?.id;
+    // Set checkout context user address id
+    if (defautlUserAddressId) setAddressId(defautlUserAddressId);
+    setPaymentMethod("pay with card");
+
     const calculateSubtotal = async () => {
       if (user) {
         // Get Cart for user
@@ -72,12 +87,10 @@ const CheckoutPage = () => {
     calculateSubtotal();
   }, [cartId]);
 
-  const { data: userAddresses } = useUserAddresses(user?.id || "");
-
-  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
-  const [orderSuccessful, setOrderSuccessful] = useState(false);
-
   const handleCheckout = async () => {
+    console.log("checkoutState", checkoutState);
+
+    return;
     setIsCreatingOrder(true);
     try {
       console.log("userAddresses", userAddresses);
@@ -164,12 +177,11 @@ const CheckoutPage = () => {
           }
         >
           <section className="grow">
-            <CheckoutInfoWithState heading="DELIVERY ADDRESS" />
+            <CheckoutDeliveryAddress />
             <Space spacing="my-14" />
-            <CheckoutInfoWithState heading="PAYMENT METHOD" isPaymentMethod />
+            <CheckoutPaymentInfo />
           </section>
         </FlexWithOrderSummary>
-
         <Space spacing="my-14" />
       </Container>
       <Space spacing="my-14" />

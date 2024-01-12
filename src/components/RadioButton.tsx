@@ -1,14 +1,33 @@
+import { ChangeEvent, PropsWithChildren } from "react";
+
 interface Props {
-  text: string;
+  text?: string;
+  checked?: boolean;
+  value?: string;
   radioFor: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RadioButton = ({ text, radioFor }: Props) => {
+const RadioButton = ({
+  text,
+  radioFor,
+  value,
+  checked,
+  onChange,
+  children,
+}: PropsWithChildren<Props>) => {
   return (
     <label className="group inline-flex cursor-pointer text-sm font-medium align-middle relative pl-[30px] items-center">
-      <input type="radio" name={radioFor} className="hidden peer/radio" />
+      <input
+        type="radio"
+        checked={checked}
+        name={radioFor}
+        value={value}
+        onChange={onChange}
+        className="hidden peer/radio"
+      />
       <span className="dark:text-white text-gray-800 peer-checked/radio:text-fyellow user-select-none">
-        {text}
+        {text ? text : children}
       </span>
       <span
         className="w-4 h-4 rounded-full border-2 border-fgrey absolute left-0

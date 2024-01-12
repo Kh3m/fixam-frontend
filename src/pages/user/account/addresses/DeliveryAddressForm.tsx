@@ -15,10 +15,13 @@ interface Props {
   handleCancel?: () => void;
   handleCloseDeliveryAddressForm?: () => void;
   address?: UserAddressType;
+  inSamePage?: boolean;
 }
+
 const DeliveryAddressForm = ({
   handleCancel,
   address,
+  inSamePage,
   handleCloseDeliveryAddressForm,
 }: Props) => {
   const queryClient = useQueryClient();
@@ -77,7 +80,7 @@ const DeliveryAddressForm = ({
 
         if (createdAddress.status == 200) {
           // Naviagate back
-          navigate("/users/account/addresses");
+          if (!inSamePage) navigate("/users/account/addresses");
         }
       }
 

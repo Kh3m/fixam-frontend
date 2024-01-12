@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
@@ -15,6 +15,16 @@ import { useNavigate } from "react-router-dom";
 import { dummyApiClient } from "../../../services/apiClient";
 import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
 import VariantFields from "./VariantFields";
+import Spinner from "../../../components/Spinner";
+import { ProductType } from "../../../services/product";
+
+type VariantOptionType = {
+  image: string[];
+  value: string;
+  price: string;
+  variant: string;
+  product: string;
+};
 
 type ProductUploadType = {
   name: string;
@@ -28,6 +38,17 @@ type ProductUploadType = {
   selectimage2: File | null;
   selectimage3: File | null;
   selectimage4: File | null;
+  variant: string;
+  option_value: string;
+  option_price: string;
+  option_image: File | null;
+};
+
+type VarianType = {
+  url: string;
+  id: string;
+  name: string;
+  description: string;
 };
 
 const AddProductForm = () => {
@@ -54,10 +75,25 @@ const AddProductForm = () => {
       selectimage2: null,
       selectimage3: null,
       selectimage4: null,
+      variant: "",
+      option_value: "",
+      option_price: "",
+      option_image: null,
     },
   });
   // const productImageMethods = useForm();
-  const { handleSubmit } = methods;
+  const { handleSubmit, control } = methods;
+  const variantValue = useWatch({ control, name: "variant" });
+
+  const validateOptions = (value: string, message: string) => {
+    // Validate options field only if variant field is entered
+    if (variantValue) {
+      return value ? true : message;
+    }
+
+    // No variant entered, no need to validate options
+    return true;
+  };
 
   const onSubmit = async (newProductData: ProductUploadType) => {
     //TODO: remove below line
@@ -66,6 +102,7 @@ const AddProductForm = () => {
     setIsLoading(true);
 
     const formData = new FormData();
+
     if (userId && isAuthenticated()) {
       const getStoreForUserId = await dummyApiClient.get<StoreResponseType[]>(
         `${storeBaseURL}/stores/owner/${userId}/`
@@ -97,7 +134,7 @@ const AddProductForm = () => {
 
       // Send data to server
       try {
-        const createdProduct = await dummyApiClient.post(
+        const createdProduct = await dummyApiClient.post<ProductType>(
           `${productBaseURL}/products/`,
           formData,
           {
@@ -106,18 +143,62 @@ const AddProductForm = () => {
             },
           }
         );
-
         console.log("createdProduct", createdProduct);
+
+        // Check if Variant is selected
+        if (newProductData.variant) {
+          try {
+            const createdVariant = await dummyApiClient.post<VarianType>(
+              `${productBaseURL}/products/variants/`,
+              {
+                name: newProductData.variant,
+                description: " Variant for " + newProductData.variant,
+              }
+            );
+
+            if (createdVariant.status == 201) {
+              // Variant is successfully created.
+              console.log("Variant is successfully created.", createdVariant);
+              // Create options for variant
+              const variantVariables = {
+                value: newProductData.option_value,
+                price: newProductData.option_price,
+                variant: createdVariant.data.id,
+                product: createdProduct.data.id,
+              };
+
+              const createdOption = await dummyApiClient.post<VarianType>(
+                `${productBaseURL}/products/variants/`,
+                {
+                  name: newProductData.variant,
+                  description: " Variant for " + newProductData.variant,
+                }
+              );
+
+              try {
+              } catch (error) {
+                // Delete the created product if there was an error creating a option for variant
+                await dummyApiClient.delete(
+                  `${productBaseURL}/products/${createdProduct.data.id}`
+                );
+              }
+            }
+          } catch (error) {
+            // Delete the created product if there was an error creating a variant
+            await dummyApiClient.delete(
+              `${productBaseURL}/products/${createdProduct.data.id}`
+            );
+          }
+        }
 
         // Find store and use slug to navigate
         navigate(
           `/stores/${getStoreForUserId.data[getLastStoreIndex].slug}/products`
         );
-
         setIsLoading(false);
       } catch (error) {
-        console.log(`Error - Failed to create product ${error}`);
-        console.log(error);
+        //   console.log(`Error - Failed to create product ${error}`);
+        //   console.log(error);
         setIsLoading(false);
       }
     } else {
@@ -136,19 +217,19 @@ const AddProductForm = () => {
         <AlCAtF />
         <Space spacing="my-8" />
         <ProductInfoFields />
-        <Space spacing="my-8" />
-        <FeaturesField />
+        {/* <Space spacing="my-8" />
+        <FeaturesField /> */}
         <Space spacing="my-8" />
         <ProductImageUpload />
-        {/* <Space spacing="my-8" />
-        <VariantFields /> */}
+        <Space spacing="my-8" />
+        <VariantFields validateOptions={validateOptions} />
         <Space spacing="my-8" />
         <Button
           variant="elevated"
-          styles="bg-fyellow text-white font-semibold text-lg pagination-shadow"
+          styles="bg-fyellow text-white font-semibold text-lg pagination-shadow flex items-center justify-center"
           disabled={isLoading}
         >
-          {isLoading ? "Loading..." : "Submit"}
+          {isLoading ? <Spinner /> : <span>Submit</span>}
         </Button>
       </form>
     </FormProvider>

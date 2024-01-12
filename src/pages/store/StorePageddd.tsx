@@ -20,7 +20,7 @@ import Footer from "../../components/Footer/Footer";
 
 const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
-export const StorePage = () => {
+const StorePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [storeData, setStoreData] = useState<StoreResponseType[]>([]);
   const { isAuthenticated } = useAuth();
@@ -108,3 +108,5 @@ export const StorePage = () => {
     </Main>
   );
 };
+
+export default StorePage;

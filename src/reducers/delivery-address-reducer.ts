@@ -1,4 +1,4 @@
-import { UserAddressType } from "../pages/checkout/CheckoutInfoWithState";
+import { UserAddressType } from "../services/user";
 
 export type DeliveryAddressReducerType = {
   deliveryAddresses?: UserAddressType[];
