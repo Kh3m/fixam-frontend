@@ -11,7 +11,7 @@ import {
   productBaseURL,
 } from "../../services/baseURLs";
 import { CartItemType, CartType } from "../../services/cart";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { dummyApiClient } from "../../services/apiClient";
 import useUserAddresses from "../../hooks/user/useUserAddresses";
 import useAuth from "../../hooks/useAuth";
@@ -20,6 +20,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
 import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
 import { useCheckoutContext } from "../../contexts/checkout-context";
+import useCartForUser from "../../hooks/cart/useCartForUser";
+import ToastMessage from "../../components/ToastMessage";
 
 type OrderType = {
   id: string;
@@ -33,25 +35,25 @@ type OrderType = {
 
 const CheckoutPage = () => {
   const queryClient = useQueryClient();
-  const { state } = useLocation();
-  const [subtotal, setSubtotal] = useState<number | null>(null);
-  const [cartItems, setCartItems] = useState<CartItemType[] | null>(null);
-  const [cartId, setCartId] = useState<string>("");
+  const {
+    state: { subtotal },
+  } = useLocation();
+
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const [orderSuccessful, setOrderSuccessful] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const { user } = useAuth();
   const { data: userAddresses } = useUserAddresses(user?.id || "");
+  const { data: cartForUser } = useCartForUser(user?.id || "");
   const { checkoutState, setAddressId, setPaymentMethod } =
     useCheckoutContext();
 
   const fetchProductPrice = async (productId: string): Promise<number> => {
     const response = await fetch(`${productBaseURL}/products/${productId}/`);
     const data = await response.json();
-    return data.price;
+    return data.selling_price;
   };
-
-  console.log("State Cart Data", state.cartData);
 
   useEffect(() => {
     // Set checkout addressId to default user's address
@@ -61,37 +63,13 @@ const CheckoutPage = () => {
     // Set checkout context user address id
     if (defautlUserAddressId) setAddressId(defautlUserAddressId);
     setPaymentMethod("pay with card");
-
-    const calculateSubtotal = async () => {
-      if (user) {
-        // Get Cart for user
-        const userCart = await dummyApiClient.get<CartType>(
-          `${cartBaseURL}/carts/user/${user.id}/`
-        );
-
-        console.log("UserCart", userCart);
-        console.log("CARTTTT", cartId);
-        setCartItems(userCart.data.cart_items);
-        setCartId(state.cartData);
-
-        let total = 0;
-        // Fetch prices for each product in the cart
-        for (const item of userCart.data.cart_items) {
-          const price = await fetchProductPrice(item.prod_id);
-          total += price * item.quantity;
-        }
-        setSubtotal(total);
-      }
-    };
-
-    calculateSubtotal();
-  }, [cartId]);
+  }, []);
 
   const handleCheckout = async () => {
-    console.log("checkoutState", checkoutState);
-
-    return;
     setIsCreatingOrder(true);
+    const cartData = cartForUser as CartType;
+
+    // if (checkoutState.paymentMethod && checkoutState.addressId) {
     try {
       console.log("userAddresses", userAddresses);
       if (userAddresses && user) {
@@ -105,13 +83,6 @@ const CheckoutPage = () => {
           order_payment_status: "Pending",
         };
 
-        console.log(
-          "<><><><><> CART ITEMS <><><><><>",
-          state.cartData,
-          state.cartData.cart_items,
-          subtotal
-        );
-
         const createdOrder = await dummyApiClient.post<OrderType>(
           `${orderBaseURL}/orders/`,
           orderData
@@ -120,8 +91,9 @@ const CheckoutPage = () => {
         console.log("Created Order", createdOrder);
 
         // if (cartItems) {
-        console.log("WE ENTERED THIS PART", state.cartData.cart_items);
-        for (const item of state.cartData.cart_items) {
+        console.log("WE ENTERED THIS PART", cartData.cart_items);
+        for (const item of cartData.cart_items) {
+          console.log("ITEM", item);
           const price = await fetchProductPrice(item.prod_id);
 
           const orderItem = {
@@ -130,17 +102,18 @@ const CheckoutPage = () => {
             quantity: item.quantity,
           };
 
+          console.log("OrderItem", orderItem);
+
           const createOrderItem = await dummyApiClient.post(
             `${orderBaseURL}/orders/${createdOrder.data.id}/orderitems/create`,
             orderItem
           );
 
           console.log("createOrderItem", createOrderItem);
-          console.log("cart", cartId);
         }
 
         const deleteCart = await dummyApiClient.delete(
-          `${cartBaseURL}/carts/${state.cartData.id}/`
+          `${cartBaseURL}/carts/${cartData.id}/`
         );
         console.log("deleteCart", deleteCart);
         // }
@@ -157,9 +130,10 @@ const CheckoutPage = () => {
       console.log("Error Creating Order", error);
       setIsCreatingOrder(false);
     }
-
-    // console.log("userAddresses", userAddresses[0]);
-    // const userDefaultAddressId = await dummyApiClient.get(``);
+    // } else {
+    //   setToastMessage("Please ensure you select address and payment method");
+    //   setIsCreatingOrder(false);
+    // }
   };
 
   return (
@@ -167,10 +141,17 @@ const CheckoutPage = () => {
       {orderSuccessful && <OrderSuccessful />}
       <Space spacing="my-14" />
       <Container>
+        {toastMessage && (
+          <div>
+            <ToastMessage message={toastMessage} type="error" />
+            <Space spacing="my-6" />
+          </div>
+        )}
+
         <FlexWithOrderSummary
           OrderSummary={
             <OrderSummary
-              subtotal={state.subtotal}
+              subtotal={subtotal}
               handleCheckout={handleCheckout}
               isCreatingOrder={isCreatingOrder}
             />

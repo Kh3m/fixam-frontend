@@ -28,28 +28,23 @@ const WishListItem = ({ title, price, imageURL }: Props) => {
   };
 
   return (
-    <section className="flex space-x-24 justify-between">
-      <div className="flex space-x-6 ">
+    <section className="flex space-x-4">
+      <div className="flex space-x-4 grow">
         <div>
           <img
             src={imageURL}
             alt={title}
-            className="h-[137px] w-[207px] object-cover overflow-hidden rounded-lg"
+            className="h-24 object-cover overflow-hidden rounded-lg"
           />
-          <div className="text-fgrey text-xs py-1">
+          {/* <p className="text-fgrey text-xs py-1">
             Item added 21st december, 2023
-          </div>
+          </p> */}
         </div>
 
         <div>
           <Heading variant="h4" styles="font-semibold text-[20px]">
             {title}
           </Heading>
-          <Space spacing="my-1" />
-
-          <Space spacing="my-1" />
-          <Rating count={5} withViews />
-          <Space spacing="my-1" />
 
           <Space spacing="my-1" />
           <div className="text-base font-semibold">{formatPrice(price)}</div>

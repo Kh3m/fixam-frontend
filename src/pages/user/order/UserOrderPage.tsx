@@ -6,25 +6,12 @@ import { orderBaseURL } from "../../../services/baseURLs";
 import useAuth from "../../../hooks/useAuth";
 import useOrders from "../../../hooks/order/useOrders";
 import Spinner from "../../../components/Spinner";
+import EmptyStateUser from "../../../components/EmptyStateUser";
 
 const UserOrderPage = () => {
   const { user } = useAuth();
-  const [orders, setOrders] = useState();
 
   const { data: userOrders, isLoading } = useOrders(user?.id || "");
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const orders = await dummyApiClient.get(
-        `${orderBaseURL}/orders/user/${user?.id}/`
-      );
-      setOrders(orders.data);
-    };
-
-    if (user) {
-      fetchOrders();
-    }
-  }, []);
 
   if (isLoading)
     return (
@@ -32,22 +19,24 @@ const UserOrderPage = () => {
         <Spinner />
       </div>
     );
+
   console.log("userOrders?.results", userOrders?.results);
 
-  return (
-    <>
-      {userOrders?.results.map((order) => (
-        <>
-          <OrderSummaryCard />
-          <Space spacing="my-6" />
-          <OrderSummaryCard />
-        </>
-      ))}
-      {/* <OrderSummaryCard />
-      <Space spacing="my-6" />
-      <OrderSummaryCard /> */}
-    </>
-  );
+  if (userOrders && !userOrders.results.length)
+    return <EmptyStateUser heading="No Order Placed" />;
+  if (userOrders)
+    return (
+      <>
+        {userOrders?.results.map((order) => (
+          <>
+            {order.order_items.map((orderitem) => (
+              <OrderSummaryCard orderitem={orderitem} />
+            ))}
+            <Space spacing="my-6" />
+          </>
+        ))}
+      </>
+    );
 };
 
 export default UserOrderPage;

@@ -21,7 +21,7 @@ const UserOrderLayoutPage = () => {
           ? "Cancel Order"
           : "Order Details"
       }
-      itemsCount={orderId ? `#${orderId}` : ""}
+      itemsCount={orderId ? `#${orderId.split("-")[0]}` : ""}
       hasBackArrow={orderId ? true : false}
     >
       <Outlet />

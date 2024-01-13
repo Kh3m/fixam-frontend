@@ -129,6 +129,7 @@ const AccountNav = ({ userData }: Props) => {
       >
         {linkItems.map(({ to, img, text }) => (
           <LinkItem
+            key={to}
             onClick={() => setIsOpen(false)}
             linkItem={{
               to: to,

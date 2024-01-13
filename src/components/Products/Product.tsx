@@ -222,6 +222,8 @@ const Product = ({
     }
   };
 
+  const handleAddToWishList = () => {};
+
   return (
     <article className={`${isAdProduct && "w-[265px]"} fshadow`}>
       <div className="relative">
@@ -250,19 +252,24 @@ const Product = ({
         flex justify-center items-center
         cursor-pointer  h-12 w-12 rounded-full fshadow`}
         >
-          <AiOutlineHeart
-            width="50px"
-            size={28}
-            color={`${
-              favorite
-                ? "#FFF"
-                : favorite && isDarkMode
-                ? "#FFF"
-                : favorite && !isDarkMode
-                ? "#FF9900"
-                : tempCartColor
-            }`}
-          />
+          <Button onClick={handleAddToWishList}>
+            <TapEffect>
+              <AiOutlineHeart
+                width="50px"
+                size={28}
+                color={`${
+                  favorite
+                    ? "#FFF"
+                    : favorite && isDarkMode
+                    ? "#FFF"
+                    : favorite && !isDarkMode
+                    ? "#FF9900"
+                    : tempCartColor
+                }`}
+                // color="#FF9900"
+              />
+            </TapEffect>
+          </Button>
         </span>
       </div>
       <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
@@ -276,7 +283,7 @@ const Product = ({
           </p>
         </Link>
         <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
-          <span>{formatPrice(Number.parseFloat(selling_price))}</span>
+          <span>{formatPrice(selling_price as number)}</span>
           <span className="text-fgrey text-[10px] font-semibold">
             (5 items left)
           </span>

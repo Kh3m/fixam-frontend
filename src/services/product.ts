@@ -10,7 +10,7 @@ export type ProductType = {
   type: string;
   category: string;
   category_name: string;
-  selling_price: string;
+  selling_price: number | string;
   favorite?: boolean;
 };
 

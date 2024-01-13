@@ -53,10 +53,7 @@ const OrderSummary = ({
           {isCreatingOrder && <Spinner />}
         </Button>
       ) : (
-        <Link
-          to={`/checkout`}
-          state={{ cartData: cartData, subtotal: subtotal }}
-        >
+        <Link to={`/checkout`} state={{ subtotal }}>
           <Button
             variant="elevated"
             styles="bg-fyellow text-white font-bold w-full mb-8"

@@ -19,8 +19,6 @@ const CheckoutSummary = ({ userAddresses, changeDefault }: Props) => {
     (address) => address.is_default
   );
 
-  console.log("DEFAULT ADDRESS", defautlUserAddress);
-
   // const defautlUserAddress = userAddresses[0];
 
   if (userAddresses && !userAddresses.length) {
