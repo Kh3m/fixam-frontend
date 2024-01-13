@@ -11,12 +11,11 @@ import { ProductVariantType } from "../../../services/product";
 
 interface Props {
   // validateOptions: (value: string, message: string, index: number) => void;
-  index: number;
 }
 
-const VariantFields = ({ index }: Props) => {
+const VariantFields = ({}: Props) => {
   const { control } = useFormContext();
-  const variantValue = useWatch({ control, name: "variant_" + index });
+  const variantValue = useWatch({ control, name: "variant" });
 
   const { data: productVariants, isLoading: isLoadingProductVariants } =
     useProductVariants();
@@ -42,7 +41,7 @@ const VariantFields = ({ index }: Props) => {
         <Space spacing="my-4" />
         <FixamSelect
           type="creatable"
-          name={"variant_" + index}
+          name={"variant"}
           options={[
             { label: "None", value: "" },
             ...(
@@ -59,7 +58,7 @@ const VariantFields = ({ index }: Props) => {
         <section className="flex justify-between">
           <span className="w-1/2">
             <Input
-              name={"option_value_" + index}
+              name={"option_value"}
               rules={{
                 validate: (value: string) =>
                   validateOptions(
@@ -73,7 +72,7 @@ const VariantFields = ({ index }: Props) => {
           </span>
           <span className="w-1/2 ml-4">
             <Input
-              name={"option_price_" + index}
+              name={"option_price"}
               rules={{
                 validate: (value: string) =>
                   validateOptions(

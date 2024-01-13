@@ -12,7 +12,7 @@ const UserPage = () => {
     { text: "Account", to: `/users/account/addresses` },
     { text: "Orders", to: `/users/orders` },
     { text: "Wishlist", to: `/users/wishlist` },
-    { text: "Notification", to: `/users/notification` },
+    // { text: "Notification", to: `/users/notification` },
     { text: "Log out", to: "/auth/logout" },
   ];
 

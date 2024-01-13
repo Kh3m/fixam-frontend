@@ -16,6 +16,7 @@ import { CartItemType, CartType } from "../../services/cart";
 import { getCookie, setCookie } from "../../utils/cookies";
 import Spinner from "../Spinner";
 import TapEffect from "../TapEffect";
+import { WishlistType } from "../../services/wishlist";
 
 // export type ProductType = {
 //   image: ImageType;
@@ -222,7 +223,24 @@ const Product = ({
     }
   };
 
-  const handleAddToWishList = () => {};
+  const handleAddToWishList = async (productId: string) => {
+    // queryKey: ["carts", "wishlist", userId],
+    if (user) {
+      try {
+        const createdWishList = await dummyApiClient.post<WishlistType>(
+          `${cartBaseURL}/carts/wishlist/`,
+          {
+            user_id: user.id,
+            product_id: productId,
+          }
+        );
+
+        console.log("Adding to wishlist successfully", createdWishList);
+      } catch (error) {
+        console.log("Something went wrong creating Wishlist", error);
+      }
+    }
+  };
 
   return (
     <article className={`${isAdProduct && "w-[265px]"} fshadow`}>
@@ -249,27 +267,29 @@ const Product = ({
           className={`${
             favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
           } absolute -bottom-7 right-7 
-        flex justify-center items-center
-        cursor-pointer  h-12 w-12 rounded-full fshadow`}
+          flex justify-center items-center
+          cursor-pointer  h-12 w-12 rounded-full fshadow`}
         >
-          <Button onClick={handleAddToWishList}>
-            <TapEffect>
-              <AiOutlineHeart
-                width="50px"
-                size={28}
-                color={`${
-                  favorite
-                    ? "#FFF"
-                    : favorite && isDarkMode
-                    ? "#FFF"
-                    : favorite && !isDarkMode
-                    ? "#FF9900"
-                    : tempCartColor
-                }`}
-                // color="#FF9900"
-              />
-            </TapEffect>
-          </Button>
+          {isAuthenticated() && user && (
+            <Button onClick={() => handleAddToWishList(id)}>
+              <TapEffect>
+                <AiOutlineHeart
+                  width="50px"
+                  size={28}
+                  color={`${
+                    favorite
+                      ? "#FFF"
+                      : favorite && isDarkMode
+                      ? "#FFF"
+                      : favorite && !isDarkMode
+                      ? "#FF9900"
+                      : tempCartColor
+                  }`}
+                  // color="#FF9900"
+                />
+              </TapEffect>
+            </Button>
+          )}
         </span>
       </div>
       <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">

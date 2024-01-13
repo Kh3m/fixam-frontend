@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface Props {
-  TableData: JSX.Element;
+  TableData: ReactNode;
   tableHeadings: string[];
 }
 const Table = ({ tableHeadings, TableData }: Props) => {

@@ -15,7 +15,7 @@ const OrderProgressBar = ({ progress }: Props) => {
           width:
             progress === "confirmed"
               ? "30%"
-              : progress === "route"
+              : progress === "shipped"
               ? "62%"
               : progress === "delivered"
               ? "100%"
@@ -30,7 +30,7 @@ const OrderProgressBar = ({ progress }: Props) => {
           left:
             progress === "confirmed"
               ? "28%"
-              : progress === "route"
+              : progress === "shipped"
               ? "60%"
               : progress === "delivered"
               ? "95%"

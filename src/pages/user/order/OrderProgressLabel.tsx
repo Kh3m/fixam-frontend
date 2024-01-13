@@ -12,7 +12,7 @@ interface Props {
 const OrderProgressLabel = ({ label, currentState }: Props) => {
   const isPlacedActive = currentState === "placed";
   const isConfirmedActive = currentState === "confirmed";
-  const isRouteActive = currentState === "route";
+  const isRouteActive = currentState === "shipped";
   const isDeliveredActive = currentState === "delivered";
 
   return (
@@ -36,7 +36,7 @@ const OrderProgressLabel = ({ label, currentState }: Props) => {
               : "#d1d5db"
           }
         />
-      ) : label.toLocaleLowerCase() === "route" ? (
+      ) : label.toLocaleLowerCase() === "shipped" ? (
         <BusSVG
           color={isRouteActive || isDeliveredActive ? "#FF9900" : "#d1d5db"}
         />

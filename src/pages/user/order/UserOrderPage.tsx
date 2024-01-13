@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import Space from "../../../components/Space";
-import OrderSummaryCard from "./OrderSummaryCard";
-import { dummyApiClient } from "../../../services/apiClient";
-import { orderBaseURL } from "../../../services/baseURLs";
-import useAuth from "../../../hooks/useAuth";
-import useOrders from "../../../hooks/order/useOrders";
-import Spinner from "../../../components/Spinner";
 import EmptyStateUser from "../../../components/EmptyStateUser";
+import Space from "../../../components/Space";
+import Spinner from "../../../components/Spinner";
+import useOrders from "../../../hooks/order/useOrders";
+import useAuth from "../../../hooks/useAuth";
+import OrderSummaryCard from "./OrderSummaryCard";
 
 const UserOrderPage = () => {
   const { user } = useAuth();

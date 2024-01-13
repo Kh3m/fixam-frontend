@@ -8,6 +8,7 @@ import OrderPaymentDetail from "./OrderPaymentDetail";
 import OrderSummaryCard from "./OrderSummaryCard";
 import Center from "../../../components/Center";
 import Spinner from "../../../components/Spinner";
+import { formatDateString } from "../../../utils/date-formatter";
 
 const OrderDetail = () => {
   const { orderId } = useParams<{ orderId: string }>();
@@ -27,10 +28,15 @@ const OrderDetail = () => {
         <OrderDetailList
           items={[
             { label: "Order ID: ", value: "#" + order.id.split("-")[0] },
-            { label: "Order Date: ", value: order.created_at },
+            {
+              label: "Order Date: ",
+              value: formatDateString(order.created_at),
+            },
             {
               label: "Total Amount: ",
-              value: formatPrice(order.order_total_price),
+              value: formatPrice(
+                order.order_total_price + order.delivery_charge
+              ),
             },
             {
               label: "Estimated Delivery Date: ",
@@ -44,7 +50,10 @@ const OrderDetail = () => {
         ))}
 
         <OrderPaymentDetail />
-        <OderShippingDetail />
+        <OderShippingDetail
+          userId={order.user_id}
+          deliveryAddressId={order.delivery_address_id}
+        />
       </section>
     );
 };
