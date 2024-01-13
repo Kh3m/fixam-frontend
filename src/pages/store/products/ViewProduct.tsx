@@ -60,30 +60,32 @@ const ViewProduct = () => {
   };
 
   if (isLoading) return <p>Loading...</p>;
-  return (
-    <div className="">
-      <h2 className="dark:text-white text-3xl">{product?.name}</h2>
-      <Space spacing="my-12" />
-      <section>
-        <div>
-          <Preview images={images} />
-          <Space spacing="my-2" />
-          <ProductBottomSummary content={content} />
-          <Space spacing="my-4" />
-          <p className="text-fgrey text-justify">{product?.description}</p>
-        </div>
-        {/* TODO: fix */}
-        <ProductDetail
-          isStore
-          product={product}
-          onDeleteProduct={handleDelete}
-          isDeletingProduct={isDeletingProduct}
-        />
-      </section>
-      <Space spacing="my-12" />
-      {/* <ProductDescription /> */}
-    </div>
-  );
+
+  if (product)
+    return (
+      <div className="">
+        <h2 className="dark:text-white text-3xl">{product.name}</h2>
+        <Space spacing="my-12" />
+        <section>
+          <div>
+            <Preview images={images} />
+            <Space spacing="my-2" />
+            <ProductBottomSummary content={content} />
+            <Space spacing="my-4" />
+            <p className="text-fgrey text-justify">{product.description}</p>
+          </div>
+          {/* TODO: fix */}
+          <ProductDetail
+            isStore
+            product={product}
+            onDeleteProduct={handleDelete}
+            isDeletingProduct={isDeletingProduct}
+          />
+        </section>
+        <Space spacing="my-12" />
+        {/* <ProductDescription /> */}
+      </div>
+    );
 };
 
 export default ViewProduct;

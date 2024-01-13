@@ -1,11 +1,8 @@
-import khemReviewImg from "../../assets/khem/khem-review.jpg";
 import useUser from "../../hooks/user/useUser";
 import CustomerStarRatings from "../../pages/review/CustomerStarRatings";
 import BorderCard from "../../pages/user/BorderCard";
 import { ReviewType } from "../../services/review";
-import Card from "../Card";
 import Heading from "../Heading";
-import Rating from "../Rating";
 import Space from "../Space";
 
 interface Props {

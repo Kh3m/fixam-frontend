@@ -3,9 +3,9 @@ import { userWishlistService } from "../../services/wishlist";
 
 const useWishlistForUser = (userId: string) =>
   useQuery({
-    queryKey: ["carts", "wishlist", userId],
+    queryKey: ["carts", "wishlist", "user", userId],
     // TODO: FIX avoid using dummyUserCartService
-    queryFn: () => userWishlistService(userId).fetchOne(),
+    queryFn: () => userWishlistService(userId).fetchAll(),
   });
 
 export default useWishlistForUser;

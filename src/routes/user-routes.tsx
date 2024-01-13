@@ -1,7 +1,6 @@
 import UserPage from "../pages/user/UserPage";
 import AccountPage from "../pages/user/account/AccountPage";
 import Addresses from "../pages/user/account/addresses/Addresses";
-import DeliveryAddressForm from "../pages/user/account/addresses/DeliveryAddressForm";
 import EditAddresses from "../pages/user/account/addresses/EditAddresses";
 import UserNotificationPage from "../pages/user/notification/UserNotificationPage";
 import OrderConfirmCancel from "../pages/user/order/OrderConfirmCancel";

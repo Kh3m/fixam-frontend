@@ -36,6 +36,7 @@ const ReviewsRatingSummary = ({ reviews }: Props) => {
         <div className="flex flex-col justify-between w-1/3">
           {starRatings.map(({ label, value }) => (
             <ReviewProgressLabel
+              key={label}
               label={label}
               value={value}
               progress={calculatePercentage(value)}

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import HeaderWithBackArrow from "../../components/HeaderWithBackArrow";
 import MainContent from "../../components/MainContent";
 import Space from "../../components/Space";
@@ -9,9 +9,10 @@ import useReviewsForProduct from "../../hooks/review/useReviewsForProduct";
 import Spinner from "../../components/Spinner";
 
 const ReviewsPage = () => {
-  const { state } = useLocation();
+  const { productId } = useParams();
+
   const { data: reviews, isLoading: isLoading } = useReviewsForProduct(
-    state.productId
+    productId!
   );
 
   if (isLoading)

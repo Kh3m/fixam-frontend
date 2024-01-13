@@ -6,10 +6,12 @@ import ProductsPage from "../pages/product/ProductsPage";
 import AppLayout from "../pages/AppLayout";
 import userRoutes from "./user-routes";
 import ReviewsPage from "../pages/review/ReviewsPage";
+import ErrorPage from "../pages/error/ErrorPage";
 
 export default {
   path: "/",
   element: <AppLayout />,
+  errorElement: <ErrorPage />,
   children: [
     {
       index: true,
@@ -30,11 +32,11 @@ export default {
       element: <ProductsPage />,
     },
     {
-      path: ":categoryName/:productName",
+      path: ":categoryName/:productId",
       element: <ProductDetailPage />,
     },
     {
-      path: ":categoryName/:productName/reviews",
+      path: ":categoryName/:productId/reviews",
       element: <ReviewsPage />,
     },
     userRoutes,

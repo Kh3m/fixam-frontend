@@ -7,7 +7,9 @@ interface Props {
 const EmptyStateUser = ({ heading }: Props) => {
   return (
     <div className="flex justify-center items-center my-8 flex-col space-y-3">
-      <Heading variant="h3">{heading}</Heading>
+      <Heading variant="h3" styles="text-center text-lg">
+        {heading}
+      </Heading>
       <Link to="/" className="text-fyellow-shades-500">
         Shop Now
       </Link>

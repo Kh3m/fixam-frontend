@@ -54,7 +54,11 @@ const StoreProducts = () => {
                 <span>{product.name}</span>
               </td>
               <td>{product.category_name}</td>
-              <td>{formatPrice(Number.parseFloat(product.price as string))}</td>
+              <td>
+                {formatPrice(
+                  Number.parseFloat(product.selling_price as string)
+                )}
+              </td>
               <td className="text-center">8</td>
               <td className="text-center">
                 <ActionMenu

@@ -7,7 +7,7 @@ import Space from "../../components/Space";
 import ProductBottomSummary from "../../components/Products/ProductBottomSummary";
 import ProductDescription from "../../components/Products/ProductDescription";
 import SimilarAds from "../../components/Products/SimilarAds";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useProduct from "../../hooks/products/useProduct";
 import useRandomProductsFromCategory from "../../hooks/products/useRandomProductsFromCategory";
 import { ProductType } from "../../services/product";
@@ -22,11 +22,10 @@ const content = {
 };
 
 const ProductDetailPage = () => {
-  const { state } = useLocation();
+  // const { state } = useLocation();
+  const { productId } = useParams<{ productId: string }>();
 
-  let productId = "";
-  if (state && state.productId) productId = state.productId;
-  const { data: foundProduct, isLoading, isSuccess } = useProduct(productId);
+  const { data: foundProduct, isLoading, isSuccess } = useProduct(productId!);
 
   console.log("productId", productId, foundProduct);
 
@@ -49,11 +48,11 @@ const ProductDetailPage = () => {
             <section className="flex space-x-8">
               <div className="w-[80%]">
                 <Preview
-                  images={[{ alt: "", src: "" }]}
-                  // images={foundProduct?.images.map((imageURl) => ({
-                  //   alt: "",
-                  //   src: imageURl,
-                  // }))}
+                  // images={[{ alt: "", src: "" }]}
+                  images={foundProduct?.images.map((imageURl) => ({
+                    alt: foundProduct.name + " Image",
+                    src: imageURl,
+                  }))}
                 />
                 <Space spacing="my-2" />
                 <ProductBottomSummary content={content} />
@@ -64,7 +63,7 @@ const ProductDetailPage = () => {
           <Space spacing="my-6" />
           <ProductDescription product={foundProduct} />
           <Space spacing="my-8" />
-          <Reviews productId={productId} />
+          <Reviews productId={productId!} />
         </Container>
         <Space spacing="my-12" />
         <MiniAdBanner />

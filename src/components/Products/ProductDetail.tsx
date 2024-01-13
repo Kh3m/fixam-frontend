@@ -31,7 +31,7 @@ const TempLocationSVG = () => (
 
 interface Props {
   isStore?: boolean;
-  product?: ProductType;
+  product: ProductType;
   onDeleteProduct?: () => void;
   isDeletingProduct?: boolean;
 }
@@ -43,7 +43,7 @@ const ProductDetail = ({
   onDeleteProduct,
 }: Props) => {
   const labelValuesProd = [
-    { label: "Type", value: capitalize(product?.type || "") },
+    { label: "Type", value: capitalize(product.type || "") },
     { label: "Condition", value: "Brand New" },
     { label: "Place of Use", value: "Indoor" },
     { label: "Warranty", value: "Yes" },
@@ -58,7 +58,7 @@ const ProductDetail = ({
         <Space spacing="my-3" />
         <h3 className="text-sm text-fgrey">{product.category_name}</h3>
         <span className="text-2xl font-bold dark:text-fgrey">
-          {formatPrice(product.price as number)}
+          {formatPrice(product.selling_price as number)}
         </span>
         <Space spacing="my-3" />
         <Rating count={5} withViews />
@@ -119,46 +119,46 @@ const ProductDetail = ({
       </div>
     );
 
-  return (
-    <div className={`${isStore ? "" : "w-[40%]"}`}>
-      {!isStore && (
-        <h2 className="dark:text-white text-3xl">Turkish Royal Fabric Sofa</h2>
-      )}
-      <Space spacing="my-3" />
-      <h3 className="text-sm text-fgrey">Leather Sofa Chair</h3>
-      <span className="text-2xl font-bold dark:text-fgrey">
-        {formatPrice(549_999)}
-      </span>
-      <Space spacing="my-3" />
-      <Rating count={5} withViews />
-      <Space spacing="my-3" />
-      <ProductSummary direction="horizontal" labelValues={labelValues} />
-      <Space spacing="my-3" />
-      <p className="dark:text-fgrey flex space-x-1 text-xs font-semibold">
-        <span>
-          <TempLocationSVG />
-        </span>
-        <span>
-          Luxurious 7 seater turkish fabric sofa, assembled in Nigeria by
-          Nigerians.
-        </span>
-      </p>
-      <Space spacing="my-3" />
-      <Button
-        variant="elevated"
-        styles="w-full bg-fyellow text-white font-semibold text-xs"
-      >
-        {isStore ? "Edit" : "Buy Now"}
-      </Button>
-      <Space spacing="my-3" />
-      <Button
-        variant="outlined"
-        styles="w-full border-2 border-fyellow text-fyellow "
-      >
-        {isStore ? "Delete" : "Add to Cart"}
-      </Button>
-    </div>
-  );
+  // return (
+  //   <div className={`${isStore ? "" : "w-[40%]"}`}>
+  //     {!isStore && (
+  //       <h2 className="dark:text-white text-3xl">Turkish Royal Fabric Sofa</h2>
+  //     )}
+  //     <Space spacing="my-3" />
+  //     <h3 className="text-sm text-fgrey">Leather Sofa Chair</h3>
+  //     <span className="text-2xl font-bold dark:text-fgrey">
+  //       {formatPrice(549_999)}
+  //     </span>
+  //     <Space spacing="my-3" />
+  //     <Rating count={5} withViews />
+  //     <Space spacing="my-3" />
+  //     <ProductSummary direction="horizontal" labelValues={labelValues} />
+  //     <Space spacing="my-3" />
+  //     <p className="dark:text-fgrey flex space-x-1 text-xs font-semibold">
+  //       <span>
+  //         <TempLocationSVG />
+  //       </span>
+  //       <span>
+  //         Luxurious 7 seater turkish fabric sofa, assembled in Nigeria by
+  //         Nigerians.
+  //       </span>
+  //     </p>
+  //     <Space spacing="my-3" />
+  //     <Button
+  //       variant="elevated"
+  //       styles="w-full bg-fyellow text-white font-semibold text-xs"
+  //     >
+  //       {isStore ? "Edit" : "Buy Now"}
+  //     </Button>
+  //     <Space spacing="my-3" />
+  //     <Button
+  //       variant="outlined"
+  //       styles="w-full border-2 border-fyellow text-fyellow "
+  //     >
+  //       {isStore ? "Delete" : "Add to Cart"}
+  //     </Button>
+  //   </div>
+  // );
 };
 
 export default ProductDetail;

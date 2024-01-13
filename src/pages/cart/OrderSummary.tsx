@@ -55,6 +55,7 @@ const OrderSummary = ({
       ) : (
         <Link to={`/checkout`} state={{ subtotal }}>
           <Button
+            disabled={subtotal <= 0}
             variant="elevated"
             styles="bg-fyellow text-white font-bold w-full mb-8"
           >
