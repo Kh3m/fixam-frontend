@@ -8,7 +8,8 @@ const TopBar = () => {
 
   return (
     <div className="flex space-x-4 items-center">
-      <div
+      <div className=" flex-grow flex items-center space-x-4"></div>
+      {/* <div
         className="dark:bg-slate-700 dark:text-slate-200 bg-white px-5 
         py-3 pagination-shadow rounded-md flex-grow flex items-center space-x-4"
       >
@@ -22,10 +23,10 @@ const TopBar = () => {
           Status
         </AccessibleMenu> */}
 
-        <AccessibleMenu menuItems={["Price 1", "Price 2", "Price 3"]}>
+      {/* <AccessibleMenu menuItems={["Price 1", "Price 2", "Price 3"]}>
           Price
-        </AccessibleMenu>
-      </div>
+        </AccessibleMenu> */}
+      {/* </div>  */}
       <Link to={`${pathname}/add-product`}>
         <Button
           noSizingClass

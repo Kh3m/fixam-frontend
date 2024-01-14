@@ -88,14 +88,15 @@ export const StorePage = () => {
         twoColLayout
       >
         <div className="flex justify-end">
-          {isLoading && <UserAccountCardSkeleton />}
+          {/* {isLoading && <UserAccountCardSkeleton />} */}
           {!isLoading && (
-            <AccessibleMenu
-              stylesForDropdown="top-[94px]"
-              menuItems={menuItems}
-            >
-              <UserAccountCard />
-            </AccessibleMenu>
+            <></>
+            // <AccessibleMenu
+            //   stylesForDropdown="top-[94px]"
+            //   menuItems={menuItems}
+            // >
+            //   <UserAccountCard />
+            // </AccessibleMenu>
           )}
         </div>
         <Space spacing="my-2" />
