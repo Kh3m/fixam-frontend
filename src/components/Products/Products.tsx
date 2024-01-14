@@ -66,46 +66,6 @@ const Products = ({ direction, products }: Props) => {
     });
   };
 
-  if (direction === "horizontal") {
-    if (products) {
-      return (
-        <Flex>
-          {products.map((prod, i) => (
-            <div key={i} className="w-[665px]">
-              <Product
-                // TODO: FIX this. Make it the Real Product
-                product={dummyProducts[i]}
-                // TODO: Remove this
-                realProduct={prod}
-                handleFavStatus={handleFavStatus}
-                temId={i}
-                isAdProduct
-                categoryId={"prod.category"}
-              />
-            </div>
-          ))}
-        </Flex>
-      );
-    }
-
-    return (
-      <Flex>
-        {dummyProducts.map((prod, i) => (
-          <div key={i} className="w-[665px]">
-            <Product
-              product={prod}
-              handleFavStatus={handleFavStatus}
-              temId={i}
-              isAdProduct
-              // TODO: Remove
-              isDummy
-            />
-          </div>
-        ))}
-      </Flex>
-    );
-  }
-
   if (products) {
     return (
       <Grid cols={3}>
@@ -114,7 +74,6 @@ const Products = ({ direction, products }: Props) => {
             key={i}
             product={prod}
             // realProduct={prod}
-            handleFavStatus={handleFavStatus}
             temId={i}
             categoryId={"categoryId"}
           />
@@ -123,20 +82,59 @@ const Products = ({ direction, products }: Props) => {
     );
   }
 
-  return (
-    <Grid cols={3}>
-      {dummyProducts.map((prod, i) => (
-        <Product
-          key={i}
-          product={prod}
-          handleFavStatus={handleFavStatus}
-          temId={i}
-          // TODO: Remove
-          isDummy
-        />
-      ))}
-    </Grid>
-  );
+  // if (direction === "horizontal") {
+  //   if (products) {
+  //     return (
+  //       <Flex>
+  //         {products.map((prod, i) => (
+  //           <div key={i} className="w-[665px]">
+  //             <Product
+  //               // TODO: FIX this. Make it the Real Product
+  //               product={dummyProducts[i]}
+  //               // TODO: Remove this
+  //               realProduct={prod}
+  //               temId={i}
+  //               isAdProduct
+  //               categoryId={"prod.category"}
+  //             />
+  //           </div>
+  //         ))}
+  //       </Flex>
+  //     );
+  //   }
+
+  //   return (
+  //     <Flex>
+  //       {dummyProducts.map((prod, i) => (
+  //         <div key={i} className="w-[665px]">
+  //           <Product
+  //             product={prod}
+  //             handleFavStatus={handleFavStatus}
+  //             temId={i}
+  //             isAdProduct
+  //             // TODO: Remove
+  //             isDummy
+  //           />
+  //         </div>
+  //       ))}
+  //     </Flex>
+  //   );
+  // }
+
+  // return (
+  //   <Grid cols={3}>
+  //     {dummyProducts.map((prod, i) => (
+  //       <Product
+  //         key={i}
+  //         product={prod}
+  //         handleFavStatus={handleFavStatus}
+  //         temId={i}
+  //         // TODO: Remove
+  //         isDummy
+  //       />
+  //     ))}
+  //   </Grid>
+  // );
 };
 
 export default Products;

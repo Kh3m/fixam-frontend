@@ -12,8 +12,8 @@ const Container = ({
   if (twoColLayout) {
     return (
       <div className="max-w-[1220px] m-auto flex space-x-8">
-        <div className="w-[300px] grow-0">{Aside}</div>
-        <div className="flex-grow">{children}</div>
+        <div className="w-[25%] grow-0">{Aside}</div>
+        <div className="w-[75%]">{children}</div>
       </div>
     );
   }

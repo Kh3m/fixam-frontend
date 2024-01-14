@@ -1,15 +1,13 @@
 import {
-  Dispatch,
   PropsWithChildren,
   createContext,
   useContext,
   useEffect,
   useReducer,
 } from "react";
-import { CheckoutReducerType } from "../reducers/checkout-reducer";
-import checkoutReducer from "../reducers/checkout-reducer";
-import useUserAddresses from "../hooks/user/useUserAddresses";
-import useAuth from "../hooks/useAuth";
+import checkoutReducer, {
+  CheckoutReducerType,
+} from "../reducers/checkout-reducer";
 
 interface CheckoutContextProps {
   checkoutState: CheckoutReducerType;

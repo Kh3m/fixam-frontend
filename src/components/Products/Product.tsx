@@ -37,7 +37,6 @@ import {
 interface Props {
   // product: ProductType;
   product: RealProductType;
-  handleFavStatus: (index: number) => void;
   temId: number;
   isAdProduct?: boolean;
   // TODO: Remove
@@ -55,8 +54,6 @@ const Product = ({
     id,
     category_name,
   },
-  handleFavStatus,
-  temId,
   isAdProduct,
   categoryId,
 }: Props) => {
@@ -134,7 +131,6 @@ const Product = ({
             </span>
           )}
           <span
-            onClick={() => handleFavStatus(temId)}
             className={`${
               favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
             } absolute -bottom-7 right-7 

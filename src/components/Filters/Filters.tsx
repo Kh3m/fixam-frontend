@@ -21,7 +21,7 @@ const Filters = () => (
     <Space spacing="my-4" />
     <TypeFilter />
     <Space spacing="my-4" />
-    <ConditionFilter />
+    {/* <ConditionFilter />
     <Space spacing="my-4" />
     <RoomFilter />
     <Space spacing="my-4" />
@@ -32,7 +32,7 @@ const Filters = () => (
     <ColorFilter />
     <Space spacing="my-4" />
     <BulkPriceFilter />
-    <Space spacing="my-4" />
+    <Space spacing="my-4" /> */}
     <MiniAdBanner shouldRotate />
     <Space spacing="my-4" />
   </>

@@ -1,10 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import productService from "../../services/product";
 
-const useProducts = () =>
+type ProductQueryType = {
+  categoryId?: string;
+};
+
+const useProducts = (productQuery: ProductQueryType) =>
   useQuery({
-    queryKey: ["products"],
-    queryFn: productService.fetchAll,
+    queryKey: ["products", productQuery],
+    queryFn: () =>
+      productService.fetchAll({
+        params: { category_id: productQuery.categoryId },
+      }),
   });
 
 export default useProducts;
