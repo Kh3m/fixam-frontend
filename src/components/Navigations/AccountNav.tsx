@@ -88,9 +88,12 @@ const AccountNav = ({ userData }: Props) => {
           <RiAccountCircleLine />
         </CircledLink>
 
-        {userData ? userData.first_name : <Spinner />}
+        <span className="hidden md:inline-block">
+          {userData ? userData.first_name : <Spinner />}
+        </span>
 
         <motion.div
+          className="hidden md:block"
           variants={{
             open: { rotate: 180 },
             closed: { rotate: 0 },

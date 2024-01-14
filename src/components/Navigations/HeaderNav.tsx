@@ -1,16 +1,14 @@
+import { MdHelpCenter } from "react-icons/md";
 import { Link } from "react-router-dom";
-import Button from "../Button";
-import useAuth from "../../hooks/useAuth";
 import useCartForUser from "../../hooks/cart/useCartForUser";
+import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/user/useUser";
 import { CartType } from "../../services/cart";
-import CircledLink from "./CircledLink";
-import { MdHelpCenter } from "react-icons/md";
-import Spinner from "../Spinner";
+import Button from "../Button";
 import ShoppingCart from "../ShoppingCart";
-import { RiAccountCircleLine } from "react-icons/ri";
-import { FaChevronDown } from "react-icons/fa6";
+import Spinner from "../Spinner";
 import AccountNav from "./AccountNav";
+import CircledLink from "./CircledLink";
 
 const HeaderNav = () => {
   const { isAuthenticated, userStores, user } = useAuth();
@@ -24,8 +22,11 @@ const HeaderNav = () => {
   const dummyUserCart = data as CartType;
 
   return (
-    <nav className="flex items-center space-x-8">
-      <CircledLink to="" styles="text-lg">
+    <nav
+      className="flex items-center
+    md:space-x-8"
+    >
+      <CircledLink to="" styles="text-lg mr-3">
         <MdHelpCenter />
       </CircledLink>
       {isLoadingDummyUserCart && (
@@ -37,7 +38,7 @@ const HeaderNav = () => {
         <Link
           state={{ userCart: dummyUserCart }}
           to={`/cart`}
-          className="text-white text-2xl"
+          className="text-white text-2xl mr-5"
         >
           <ShoppingCart
             itemCount={Number.parseInt(dummyUserCart.total_quantity || "0")}
@@ -76,7 +77,7 @@ const HeaderNav = () => {
       >
         <Button
           variant="elevated"
-          styles=" bg-white text-fyellow border-2 border-white"
+          styles="hidden md:block bg-white text-fyellow border-2 border-white"
         >
           {isAuthenticated() ? "Store" : "Be a vendor"}
         </Button>

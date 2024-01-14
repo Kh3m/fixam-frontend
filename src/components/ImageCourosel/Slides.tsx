@@ -15,7 +15,11 @@ const Slides = ({
   images,
 }: Props) => {
   return (
-    <section className={`${direction === "vertical" ? "flex-col" : ""} flex `}>
+    <section
+      className={`${
+        direction === "vertical" ? "flex-row md:flex-col" : ""
+      } flex `}
+    >
       {images.map((image, index) => (
         <ImageSlide
           key={index}

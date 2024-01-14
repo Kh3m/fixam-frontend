@@ -15,8 +15,8 @@ const Review = ({ review }: Props) => {
   console.log("Review userData", userData);
 
   return (
-    <BorderCard styles="w-[400px] min-h-[150px]">
-      <div className="flex space-x-2 items-center">
+    <BorderCard styles="md:w-[400px] md:min-h-[150px]">
+      <div className="flex flex-col md:items-center md:space-x-2 md:flex-row">
         {/* <img
           src={khemReviewImg}
           alt="Reviewer"

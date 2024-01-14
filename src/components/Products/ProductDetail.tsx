@@ -51,13 +51,15 @@ const ProductDetail = ({
 
   if (product)
     return (
-      <div className={`${isStore ? "" : "w-[40%]"}`}>
+      <div className={`${isStore ? "" : "md:w-[40%]"}`}>
         {!isStore && (
-          <h2 className="dark:text-white text-3xl">{product.name}</h2>
+          <h2 className="dark:text-white text-2xl md:text-3xl">
+            {product.name}
+          </h2>
         )}
         <Space spacing="my-3" />
         <h3 className="text-sm text-fgrey">{product.category_name}</h3>
-        <span className="text-2xl font-bold dark:text-fgrey">
+        <span className="md:text-2xl font-bold dark:text-fgrey">
           {formatPrice(product.selling_price as number)}
         </span>
         <Space spacing="my-3" />

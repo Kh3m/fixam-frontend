@@ -11,13 +11,23 @@ const Container = ({
 }: PropsWithChildren<Props>) => {
   if (twoColLayout) {
     return (
-      <div className="max-w-[1220px] m-auto flex space-x-8">
-        <div className="w-[25%] grow-0">{Aside}</div>
-        <div className="w-[75%]">{children}</div>
+      <div
+        className="w-[95%] md:space-x-8  m-auto md:flex 
+        md:max-w-[1220px]"
+      >
+        <div className="md:w-[25%] md:grow-0">{Aside}</div>
+        <div className="md:w-[75%]">{children}</div>
       </div>
     );
   }
-  return <div className="md:w-[1220px] m-auto">{children}</div>;
+  return (
+    <div
+      className="w-[95%] m-auto 
+  md:w-[1220px] "
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Container;

@@ -15,6 +15,7 @@ import { getCategoryIdFromURL } from "../../utils/category";
 import Reviews from "../../components/Reviews/Reviews";
 import MainContent from "../../components/MainContent";
 import Spinner from "../../components/Spinner";
+import ReviewRating from "../../components/Reviews/ReviewRating";
 
 const content = {
   left: ["Promoted", "Posted 3 hours", "Lagos, Ikeja"],
@@ -45,8 +46,11 @@ const ProductDetailPage = () => {
           <Space spacing="my-12" />
           {isLoading && <p>Loading...</p>}
           {!isLoading && foundProduct && (
-            <section className="flex space-x-8">
-              <div className="w-[80%]">
+            <section
+              className="flex flex-col
+              md:space-x-8 md:flex-row md:px-0"
+            >
+              <div className="md:w-[80%]">
                 <Preview
                   // images={[{ alt: "", src: "" }]}
                   images={foundProduct?.images.map((imageURl) => ({
@@ -63,7 +67,10 @@ const ProductDetailPage = () => {
           <Space spacing="my-6" />
           <ProductDescription product={foundProduct} />
           <Space spacing="my-8" />
-          <Reviews productId={productId!} />
+          <Reviews />
+          <div className="md:hidden">
+            <ReviewRating productId={""} />
+          </div>
         </Container>
         <Space spacing="my-12" />
         <MiniAdBanner />

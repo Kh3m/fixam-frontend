@@ -36,7 +36,10 @@ const resources: LinkType[] = [
 
 const Footer = () => {
   return (
-    <footer className=" bg-gray-700 py-16 flex justify-around">
+    <footer
+      className="text-center bg-gray-700 py-16 flex flex-col justify-around
+    md:flex-row"
+    >
       <FixamBrief />
       <QuickLinks title="Tips for Quick Sales" links={tips} />
       <QuickLinks title="Information" links={info} />

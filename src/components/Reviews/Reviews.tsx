@@ -16,12 +16,12 @@ const Reviews = () => {
   );
 
   return (
-    <section>
+    <section className=" m-auto">
       <Heading variant="h3" styles="text-[24px] font-semibold">
         Reviews
       </Heading>
-      <Space spacing="my-12" />
-      <div className="flex space-x-8">
+      <Space spacing="my-4" />
+      <div className="md:flex md:space-x-8">
         {isLoadingReviews ? (
           <Spinner />
         ) : (

@@ -6,7 +6,10 @@ import GooglePlayAppStoreSVG from "../SVGs/GooglePlayAppStoreSVG";
 
 const FixamBrief = () => {
   return (
-    <article className=" w-72">
+    <article
+      className="md:w-72 justify-center items-center
+    flex flex-col md:justify-start md:items-start"
+    >
       <Link to="/">
         <Logo color="yellow" styles="w-[140px]" />
       </Link>

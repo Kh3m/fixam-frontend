@@ -22,7 +22,7 @@ const ExpandableText = ({ children }: Props) => {
         {!showMore && <span>...</span>}
         <span
           onClick={handleExpandText}
-          className="text-fyellow-shades-300 font-bold italic cursor-pointer mx-1"
+          className="text-sm md:text-base text-fyellow-shades-300 font-bold italic cursor-pointer mx-1"
         >
           {showMore ? "Read Less" : "Read More"}
         </span>

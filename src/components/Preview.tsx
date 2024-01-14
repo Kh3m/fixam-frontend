@@ -15,8 +15,10 @@ const Preview = ({ images, styles }: Props) => {
   };
 
   return (
-    <div className={`${styles} flex  space-x-3 `}>
-      <div className=" max-w-[15%] h-[490px]">
+    <div
+      className={`${styles} flex flex-col-reverse md:flex-row md:space-x-3 `}
+    >
+      <div className="md:max-w-[15%] md:h-[490px]">
         <VerticalSlides
           images={images}
           activeIndex={activeIndex}

@@ -1,10 +1,8 @@
-import Space from "../Space";
-import ProductSummary from "./ProductSummary";
-import ReviewRating from "../Reviews/ReviewRating";
-import Reviews from "../Reviews/Reviews";
 import { ProductType } from "../../services/product";
-import ProductFeatures from "./ProductFeatures";
 import ExpandableText from "../ExpandableText";
+import Heading from "../Heading";
+import ReviewRating from "../Reviews/ReviewRating";
+import Space from "../Space";
 
 const labelValues = [
   { label: "Brand", value: "Royal" },
@@ -23,40 +21,17 @@ interface Props {
 
 const ProductDescription = ({ product }: Props) => {
   return (
-    <div>
-      <div className="flex space-x-10">
-        <div className="w-[70%]">
+    <div className=" m-auto md:w-auto">
+      <div className="flex flex-col md:flex-row md:space-x-10">
+        <div className="md:w-[70%]">
+          <Heading variant="h4">Description</Heading>
           <ExpandableText>{product?.description || ""}</ExpandableText>
         </div>
-        <div className="w-[30%]">
+        <div className="hidden md:block md:w-[30%]">
           <ReviewRating productId={product?.id || ""} />
         </div>
       </div>
       <Space spacing="my-8" />
-      {/* <h3 className="dark:text-white ">Description</h3>
-      <Space spacing="my-2" />
-      <div className="flex justify-between items-start">
-        <div className="w-[40%]">
-          <ProductSummary labelValues={labelValues} direction="vertical" />
-        </div>
-        <div className="w-[38%] px-8">
-          <ProductFeatures
-            features={[
-              "Love me please",
-              "Again and Again",
-              "This Product is way xyz  than abc",
-              "This Product is way xyz  than abc",
-              "This Product is way xyz  than abc",
-              "This Product is way xyz  than abc This Product is way xyz  than abc",
-              "This Product is way xyz  than abc This Product is way xyz  than abc",
-              "This Product is way xyz  than abc This Product is way xyz  than abc",
-              "This Product is way xyz  than abc This Product is way xyz  than abc",
-              "This Product is way xyz  than abc This Product is way xyz  than abc",
-              "This Product is way xyz  than abc This Product is way xyz  than abc",
-            ]}
-          />
-        </div>
-      </div> */}
     </div>
   );
 };

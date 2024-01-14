@@ -16,14 +16,18 @@ const SearchInput = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex items-center space-x-3 ">
-      <div className="relative w-[500px]">
+      <div
+        className="relative w-full 
+      md:w-[500px]"
+      >
         {/* <InputIcon image={searchSvg} side="left" /> */}
         <input
           value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
           ref={searchRef}
           placeholder="Search products, materials, and professionals"
-          className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none placeholder:dark:text-fgrey text-fgrey"
+          className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none 
+          placeholder:dark:text-fgrey text-fgrey"
         />
         <span className="dark:bg-fdark-100 dark:text-slate-500 text-fyellow bg-white">
           <InputIcon side="right" image={<FaSearch />} />
