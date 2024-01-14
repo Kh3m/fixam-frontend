@@ -8,7 +8,7 @@ import product1 from "../../assets/product_1.png";
 import product2 from "../../assets/product_2.png";
 import product3 from "../../assets/product_3.png";
 
-const similarProducts: ProductType[] = [
+const similarProducts = [
   {
     id: "1",
     images: [product1],
@@ -18,6 +18,7 @@ const similarProducts: ProductType[] = [
     category_name: "Buildings",
     type: " Sale",
     description: "Love To Code",
+    selling_price: 4566.87,
   },
   {
     id: "2",
@@ -28,6 +29,7 @@ const similarProducts: ProductType[] = [
     category_name: "Buildings",
     type: " Sale",
     description: "Love To Code",
+    selling_price: 4566.87,
   },
   {
     id: "3",
@@ -38,6 +40,7 @@ const similarProducts: ProductType[] = [
     category_name: "Buildings",
     type: " Sale",
     description: "Love To Code",
+    selling_price: 4566.87,
   },
   {
     id: "4",
@@ -48,6 +51,7 @@ const similarProducts: ProductType[] = [
     category_name: "Buildings",
     type: " Sale",
     description: "Love To Code",
+    selling_price: 4566.87,
   },
 ];
 
@@ -57,15 +61,7 @@ interface Props {
 }
 
 const SimilarAds = ({ heading, products }: Props) => {
-  const [dummyProducts, setProducts] = useState(similarProducts);
-
-  const handleFavStatus = (id: number) => {
-    setProducts((prevProds) => {
-      return prevProds.map((prod, indx) =>
-        indx === id ? { ...prod, favorite: !prod.favorite } : prod
-      );
-    });
-  };
+  const [dummyProducts] = useState(similarProducts);
 
   if (products)
     return (
@@ -81,7 +77,6 @@ const SimilarAds = ({ heading, products }: Props) => {
                 product={dummyProducts[i]}
                 // TODO: Remove this
                 realProduct={prod}
-                handleFavStatus={handleFavStatus}
                 temId={i}
                 isAdProduct
               />
@@ -98,13 +93,7 @@ const SimilarAds = ({ heading, products }: Props) => {
       <Scroll direction="horizontal">
         {dummyProducts.map((prod, i) => (
           <div key={i} className="w-[665px]">
-            <Product
-              product={prod}
-              handleFavStatus={handleFavStatus}
-              temId={i}
-              isAdProduct
-              isDummy
-            />
+            <Product product={prod} temId={i} isAdProduct isDummy />
           </div>
         ))}
       </Scroll>

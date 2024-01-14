@@ -1,12 +1,11 @@
 import { PropsWithChildren } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import Button from "../../components/Button";
 import CheckBox from "../../components/CheckBox";
 import MasterCardSVG from "../../components/SVGs/MasterCardSVG";
 import PaypalSVG from "../../components/SVGs/PaypalSVG";
 import VisaSVG from "../../components/SVGs/VisaSVG";
 import Space from "../../components/Space";
-import { Controller, useFormContext } from "react-hook-form";
-import TapEffect from "../../components/TapEffect";
 
 interface Props {
   heading: string;

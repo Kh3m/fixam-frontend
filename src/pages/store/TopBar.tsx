@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import Button from "../../components/Button";
 import IconPlus from "../../components/IconPlus";
-import AccessibleMenu from "../../components/Menu/AccessibleMenu";
 
 const TopBar = () => {
   const { pathname } = useLocation();

@@ -14,7 +14,7 @@ const FixamBrief = () => {
         <Logo color="yellow" styles="w-[140px]" />
       </Link>
       <div className="my-2">
-        <p className=" text-justify text-white text-xs font-normal">
+        <p className=" text-center md:text-justify text-white text-xs font-normal">
           4, Kolo S Close, Kado Estate, 900108, Ahmadu Bello Way, Jabi Beside
           Market Square , Abuja, Federal Capital Territory
         </p>

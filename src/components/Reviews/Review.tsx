@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Review = ({ review }: Props) => {
-  const { data: userData, isLoading: isLoadingUser } = useUser(review.user_id);
+  const { data: userData } = useUser(review.user_id);
 
   console.log("Review userData", userData);
 

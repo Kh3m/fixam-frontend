@@ -4,17 +4,17 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const rooms = [
   {
-    category: "Show all",
+    text: "Show all",
     count: "",
     selected: true,
   },
   {
-    category: "Yes",
+    text: "Yes",
     count: "• 471 ads",
     selected: true,
   },
   {
-    category: "No",
+    text: "No",
     count: "• 167 561 ads",
     selected: true,
   },

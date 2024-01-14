@@ -4,32 +4,32 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const colors = [
   {
-    category: "Black",
+    text: "Black",
     count: "• 24 445 ads",
     selected: true,
   },
   {
-    category: "Blue",
+    text: "Blue",
     count: "• 4 035 ads",
     selected: true,
   },
   {
-    category: "Brown",
+    text: "Brown",
     count: "• 13 356 ads",
     selected: true,
   },
   {
-    category: "Gold",
+    text: "Gold",
     count: "• 8 411 ads",
     selected: true,
   },
   {
-    category: "Gray",
+    text: "Gray",
     count: "• 6 431 ads",
     selected: true,
   },
   {
-    category: "Green",
+    text: "Green",
     count: "• 1 823 ads",
     selected: true,
   },

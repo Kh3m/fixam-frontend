@@ -1,12 +1,12 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import HeaderWithBackArrow from "../../components/HeaderWithBackArrow";
 import MainContent from "../../components/MainContent";
 import Space from "../../components/Space";
+import Spinner from "../../components/Spinner";
+import useReviewsForProduct from "../../hooks/review/useReviewsForProduct";
 import BorderCard from "../user/BorderCard";
 import CustomerReviews from "./CustomerReviews";
 import ReviewsRatingSummary from "./ReviewsRatingSummary";
-import useReviewsForProduct from "../../hooks/review/useReviewsForProduct";
-import Spinner from "../../components/Spinner";
 
 const ReviewsPage = () => {
   const { productId } = useParams();

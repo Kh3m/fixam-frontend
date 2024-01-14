@@ -4,17 +4,6 @@ import Heading from "../Heading";
 import ReviewRating from "../Reviews/ReviewRating";
 import Space from "../Space";
 
-const labelValues = [
-  { label: "Brand", value: "Royal" },
-  { label: "Type", value: "Sofas" },
-  { label: "PLACE TO USE", value: "Indoor" },
-  { label: "Condition", value: "Brand New" },
-  { label: "SEATING CAPACITY", value: "7" },
-  { label: "Material", value: "Wood, Fabric, Leather" },
-  { label: "Shape", value: "Square" },
-  { label: "WARRANTY", value: "Yes" },
-];
-
 interface Props {
   product?: ProductType;
 }

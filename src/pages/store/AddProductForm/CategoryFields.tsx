@@ -26,7 +26,7 @@ const CategoryFields = () => {
   const [categoryId, setcategoryId] = useState<string | undefined>();
   const { data: categories } = useCategories();
   const { data: subCategories, isLoading: isLoadingSubCategories } =
-    useSubCategories(categoryId);
+    useSubCategories(categoryId || "");
 
   const [subCatElements, setSubCatElements] = useState<JSX.Element[]>([]);
 

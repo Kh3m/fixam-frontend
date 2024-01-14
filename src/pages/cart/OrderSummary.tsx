@@ -15,12 +15,7 @@ interface Props {
   handleCheckout?: () => void;
 }
 
-const OrderSummary = ({
-  subtotal,
-  isCreatingOrder,
-  cartData,
-  handleCheckout,
-}: Props) => {
+const OrderSummary = ({ subtotal, isCreatingOrder, handleCheckout }: Props) => {
   const { pathname } = useLocation();
   return (
     <Card>

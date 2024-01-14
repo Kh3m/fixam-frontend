@@ -5,7 +5,7 @@ interface Props {
   type: "green" | "error";
   shoudlShowToast?: boolean;
 }
-const ToastMessage = ({ message, type, shoudlShowToast }: Props) => {
+const ToastMessage = ({ message, type }: Props) => {
   const [showToast, setShowToast] = useState(true);
 
   const handleCloseToast = () => {

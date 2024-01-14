@@ -1,12 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
-import useProductsFromCategory from "../hooks/products/useProductsFromCategory";
 import { FetchResponseType, dummyApiClient } from "../services/apiClient";
 import { ProductType } from "../services/product";
 import FeaturedBar from "./FeaturedBar";
 import MiniAdBanner from "./MiniAdBanner";
 import Products from "./Products/Products";
 import Space from "./Space";
-import { getRandomUniqueElements } from "../utils/randomValues";
 import { productBaseURL } from "../services/baseURLs";
 
 interface Props {

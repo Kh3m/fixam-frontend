@@ -1,13 +1,9 @@
 import { useState } from "react";
+import { MdEdit } from "react-icons/md";
 import Button from "../../../../components/Button";
+import Space from "../../../../components/Space";
 import { UserAddressType } from "../../../../services/user";
 import DeliveryAddressForm from "./DeliveryAddressForm";
-import { MdEdit } from "react-icons/md";
-import Space from "../../../../components/Space";
-import { dummyApiClient } from "../../../../services/apiClient";
-import { userBaseURL } from "../../../../services/baseURLs";
-import { useQueryClient } from "@tanstack/react-query";
-import useAuth from "../../../../hooks/useAuth";
 
 interface Props {
   userAddress: UserAddressType;
@@ -16,10 +12,6 @@ interface Props {
 }
 
 const UserAddressCard = ({ userAddress, handleUseAddress }: Props) => {
-  const queryClient = useQueryClient();
-
-  const { user } = useAuth();
-
   const [openAddAddressForEdit, setOpenAddAddressForEdit] = useState(false);
 
   return (

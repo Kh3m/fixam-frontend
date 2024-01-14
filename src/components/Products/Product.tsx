@@ -6,19 +6,15 @@ import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 // import useCreateCart from "../../hooks/cart/useCreateCart";
 import { useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import useAuth from "../../hooks/useAuth";
-import { FetchResponseType, dummyApiClient } from "../../services/apiClient";
-import { cartBaseURL } from "../../services/baseURLs";
-import { CartItemType, CartType } from "../../services/cart";
-import { getCookie, setCookie } from "../../utils/cookies";
+import useWishlistForUser from "../../hooks/wishlist/useWishlistForUser";
+import { FetchResponseType } from "../../services/apiClient";
+import { WishlistType } from "../../services/wishlist";
+import Center from "../Center";
 import Spinner from "../Spinner";
 import TapEffect from "../TapEffect";
-import { WishlistType } from "../../services/wishlist";
-import useWishlistForUser from "../../hooks/wishlist/useWishlistForUser";
-import Center from "../Center";
 import {
   addItemToCart,
   addItemToWishlist,

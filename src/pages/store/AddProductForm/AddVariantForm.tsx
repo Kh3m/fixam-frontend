@@ -1,19 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Button from "../../../components/Button";
+import Heading from "../../../components/Heading";
+import Space from "../../../components/Space";
+import Spinner from "../../../components/Spinner";
+import useProductVariants from "../../../hooks/products/useProductVariants";
+import useVariantsForProduct from "../../../hooks/products/useVariantsForProduct";
+import { dummyApiClient } from "../../../services/apiClient";
+import { productBaseURL } from "../../../services/baseURLs";
 import FormFieldCard from "./FormFieldCard";
 import VariantFields from "./VariantFields";
-import Button from "../../../components/Button";
-import { useState } from "react";
-import useProductVariants from "../../../hooks/products/useProductVariants";
-import { FetchResponseType, dummyApiClient } from "../../../services/apiClient";
-import { ProductVariantType } from "../../../services/product";
-import { productBaseURL } from "../../../services/baseURLs";
-import { useLocation, useNavigate } from "react-router-dom";
-import useVariantsForProduct from "../../../hooks/products/useVariantsForProduct";
-import Heading from "../../../components/Heading";
-import { formatPrice } from "../../../utils/number-formatter";
-import Spinner from "../../../components/Spinner";
-import Space from "../../../components/Space";
-import { useQueryClient } from "@tanstack/react-query";
 
 type VariantOptionType = {
   image: string[];
@@ -23,12 +21,12 @@ type VariantOptionType = {
   product: string;
 };
 
-type VarianType = {
-  url: string;
-  id: string;
-  name: string;
-  description: string;
-};
+// type VarianType = {
+//   url: string;
+//   id: string;
+//   name: string;
+//   description: string;
+// };
 
 interface Props {
   defaultStoreSlug: string;
@@ -47,12 +45,12 @@ const AddVariantForm = ({
   const methods = useForm({});
   const [variantFields, setVariantFields] = useState<number>(1);
 
-  const { data: productV, isLoading: isLoadingProductVariants } =
-    useProductVariants();
-  const { data: variantsForProduct, isLoading: isLoadingVariantsForProduct } =
+  // const { data: productV, isLoading: isLoadingProductVariants } =
+  useProductVariants();
+  const { data: _, isLoading: isLoadingVariantsForProduct } =
     useVariantsForProduct(productId);
 
-  const productVariants = productV as FetchResponseType<ProductVariantType>;
+  // const productVariants = productV as FetchResponseType<ProductVariantType>;
 
   const queryClient = useQueryClient();
 

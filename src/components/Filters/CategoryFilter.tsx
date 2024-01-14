@@ -1,14 +1,11 @@
 import { useState } from "react";
-import Button from "../Button";
-import Collapsible from "../Collapsibles/Collapsible";
-import FilterListItem from "./FilterListItem";
-import { useProductFilteringContext } from "../../contexts/product-filtering-context";
 import useCategories from "../../hooks/category/useCategories";
-import { CategoryType } from "../../services/category";
 import { FetchResponseType } from "../../services/apiClient";
+import { CategoryType } from "../../services/category";
 import { getMainCategory } from "../../utils/category";
-import Spinner from "../Spinner";
 import Center from "../Center";
+import Collapsible from "../Collapsibles/Collapsible";
+import Spinner from "../Spinner";
 import SubCategoryFilter from "./SubCategoryFilter";
 
 const CategoryFilter = () => {
@@ -60,7 +57,7 @@ const CategoryFilter = () => {
   //   },
   // ]);
 
-  const [sliceLen, setSliceLen] = useState(4);
+  const [sliceLen] = useState(4);
   const { data: categories, isLoading } = useCategories();
 
   let mainCat: CategoryType[] = [];

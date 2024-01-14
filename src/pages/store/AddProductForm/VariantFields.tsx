@@ -1,11 +1,10 @@
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
+import Center from "../../../components/Center";
 import FixamSelect from "../../../components/FixamSelect";
 import Input from "../../../components/Input";
 import Space from "../../../components/Space";
-import FormFieldCard from "./FormFieldCard";
-import useProductVariants from "../../../hooks/products/useProductVariants";
 import Spinner from "../../../components/Spinner";
-import Center from "../../../components/Center";
+import useProductVariants from "../../../hooks/products/useProductVariants";
 import { FetchResponseType } from "../../../services/apiClient";
 import { ProductVariantType } from "../../../services/product";
 

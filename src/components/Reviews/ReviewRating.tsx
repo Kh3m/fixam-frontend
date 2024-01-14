@@ -9,7 +9,6 @@ import { dummyApiClient } from "../../services/apiClient";
 import { reviewBaseURL } from "../../services/baseURLs";
 import { useState } from "react";
 import Spinner from "../Spinner";
-import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
 type ReviewType = {
@@ -30,8 +29,6 @@ const ReviewRating = ({ productId }: Props) => {
   const { user, isAuthenticated } = useAuth();
 
   const queryClient = useQueryClient();
-
-  const navigate = useNavigate();
 
   const onSubmit = async (data: ReviewType) => {
     setIsLoading(true);

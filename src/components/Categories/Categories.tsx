@@ -1,6 +1,5 @@
 import { FetchResponseType } from "../../services/apiClient";
 import { CategoryType } from "../../services/category";
-import { getMainCategory } from "../../utils/category";
 import Category from "./Category";
 
 interface Props {

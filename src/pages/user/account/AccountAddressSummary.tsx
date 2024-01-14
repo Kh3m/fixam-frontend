@@ -23,7 +23,7 @@ const AccountAddressSummary = ({ address }: Props) => {
   const { user } = useAuth();
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [_, setIsDeleted] = useState(false);
 
   const handleDeleteAddress = async (addressId: string) => {
     setIsDeleting(true);

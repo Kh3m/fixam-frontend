@@ -4,15 +4,7 @@ import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import Rating from "../Rating";
 import Space from "../Space";
-import VariantOption from "../VariantOption";
 import ProductSummary from "./ProductSummary";
-
-const labelValues = [
-  { label: "Type", value: "Sofas" },
-  { label: "Condition", value: "Brand New" },
-  { label: "Place of Use", value: "Indoor" },
-  { label: "Warranty", value: "Yes" },
-];
 
 const TempLocationSVG = () => (
   <svg
@@ -68,7 +60,7 @@ const ProductDetail = ({
         <ProductSummary direction="horizontal" labelValues={labelValuesProd} />
         <Space spacing="my-6" />
         {/* TODO: Check if the product has variant or not */}
-        {"product.variant" === "no" && (
+        {/* {"product.variant" === "no" && (
           <div className="flex space-x-2">
             <VariantOption
               variant="Color"
@@ -91,7 +83,7 @@ const ProductDetail = ({
               ]}
             />
           </div>
-        )}
+        )} */}
         <Space spacing="my-6" />
         <p className="dark:text-fgrey flex space-x-1 text-xs font-semibold">
           <span>

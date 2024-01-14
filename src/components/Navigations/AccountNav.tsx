@@ -5,7 +5,6 @@ import { FaChevronDown } from "react-icons/fa6";
 import Spinner from "../Spinner";
 import accountSVG from "../../assets/svgs/account.svg";
 import ordersSVG from "../../assets/svgs/orders.svg";
-import notificationSVG from "../../assets/svgs/notification.svg";
 import wishlistSVG from "../../assets/svgs/wishlist.svg";
 import logoutSVG from "../../assets/svgs/logout.svg";
 import { Variants, motion } from "framer-motion";

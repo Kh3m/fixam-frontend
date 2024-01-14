@@ -1,12 +1,10 @@
 import CartItem from "./CartItem";
 
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import product1 from "../../assets/product_1.png";
 import product4 from "../../assets/product_4.png";
 import product0 from "../../assets/tabpanel.webp.png";
-import HR from "../../components/HR";
 import { CartItemType } from "../../services/cart";
-import useProduct from "../../hooks/products/useProduct";
 
 type CartType = {
   product: {
@@ -20,7 +18,7 @@ interface Props {
 }
 
 const CartItems = ({ cartItems: realCartItems, cartId }: Props) => {
-  const [cartItems, setCartItems] = useState<CartType[]>([
+  const [cartItems, _] = useState<CartType[]>([
     {
       product: {
         image: product1,
@@ -38,10 +36,10 @@ const CartItems = ({ cartItems: realCartItems, cartId }: Props) => {
     },
   ]);
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {};
+  // const handleInputChange = (
+  //   e: ChangeEvent<HTMLInputElement>,
+  //   index: number
+  // ) => {};
 
   // Real cart Items
   if (realCartItems) {
@@ -55,8 +53,8 @@ const CartItems = ({ cartItems: realCartItems, cartId }: Props) => {
               productId={prod_id}
               imageURL={cartItems[index].product.image}
               quantity={quantity}
-              onChange={(e) => handleInputChange(e, index)}
-              handleInputChange={handleInputChange}
+              // onChange={(e) => handleInputChange(e, index)}
+              // handleInputChange={handleInputChange}
             />
             {/* {realCartItems.length - 1 !== index && <HR styles="my-8" />} */}
           </section>

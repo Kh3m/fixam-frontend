@@ -1,11 +1,7 @@
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import UserPageContainer from "../UserPageContainer";
-import useAuth from "../../../hooks/useAuth";
-import useOrders from "../../../hooks/order/useOrders";
 
 const UserOrderLayoutPage = () => {
-  const { user } = useAuth();
-
   // const { data, isLoa } = useOrders(user?.id || "");
 
   const { orderId } = useParams();

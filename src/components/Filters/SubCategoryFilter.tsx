@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Heading from "../Heading";
 import useSubCategories from "../../hooks/category/useSubCategories";
 import { CategoryType } from "../../services/category";

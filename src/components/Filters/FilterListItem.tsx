@@ -8,7 +8,7 @@ interface Props {
   selected?: boolean;
   isFor: string;
 }
-const FilterListItem = ({ variant, text, count, selected, isFor }: Props) => {
+const FilterListItem = ({ variant, text, count, isFor }: Props) => {
   switch (variant) {
     case "radio":
       return (

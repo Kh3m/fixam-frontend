@@ -1,6 +1,6 @@
 import { PropsWithChildren, useRef } from "react";
 import { DirectionType } from "../utils/types";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+// import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import Flex from "./Flex";
 import { motion } from "framer-motion";
 

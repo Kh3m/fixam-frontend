@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import Container from "../../components/Container";
-import MiniAdBanner from "../../components/MiniAdBanner";
-import Space from "../../components/Space";
 import BreadcrumbTrail from "../../components/BreadcrumbTrail";
+import Center from "../../components/Center";
+import Container from "../../components/Container";
 import EmptyState from "../../components/EmptyState";
 import Filters from "../../components/Filters/Filters";
-import Main from "../../components/Main";
-import Products from "../../components/Products/Products";
 import SortFilter from "../../components/Filters/SortFilter";
-import Center from "../../components/Center";
+import Main from "../../components/Main";
+import MiniAdBanner from "../../components/MiniAdBanner";
+import Products from "../../components/Products/Products";
+import Space from "../../components/Space";
 import Spinner from "../../components/Spinner";
+import { useProductFilteringContext } from "../../contexts/product-filtering-context";
+import useProducts from "../../hooks/products/useProducts";
 import { FetchResponseType } from "../../services/apiClient";
 import { ProductType } from "../../services/product";
-import useProducts from "../../hooks/products/useProducts";
-import { useProductFilteringContext } from "../../contexts/product-filtering-context";
 
 const ProductsFiltering = () => {
   // Filtering states

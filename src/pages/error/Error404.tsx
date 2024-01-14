@@ -1,8 +1,7 @@
-import { FaChevronCircleLeft } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import errorMessageSVG from "../../assets/svgs/error-message.svg";
 import Heading from "../../components/Heading";
-import { FaChevronLeft } from "react-icons/fa6";
 import Space from "../../components/Space";
 
 const Error404 = () => {

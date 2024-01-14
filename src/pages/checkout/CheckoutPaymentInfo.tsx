@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import Card from "../../components/Card";
 import Space from "../../components/Space";
 import CheckoutHeader from "./CheckoutHeader";

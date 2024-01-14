@@ -1,10 +1,16 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import Space from "../../components/Space";
-import FlexWithOrderSummary from "../FlexWithOrderSummary";
-import OrderSummary from "../cart/OrderSummary";
-import CheckoutInfoWithState from "./CheckoutDeliveryAddress";
+import ToastMessage from "../../components/ToastMessage";
+import { useCheckoutContext } from "../../contexts/checkout-context";
+import useCartForUser from "../../hooks/cart/useCartForUser";
+import useAuth from "../../hooks/useAuth";
+import useUserAddresses from "../../hooks/user/useUserAddresses";
+import { dummyApiClient } from "../../services/apiClient";
 import {
   cartBaseURL,
   orderBaseURL,
@@ -12,20 +18,13 @@ import {
   productBaseURL,
   userBaseURL,
 } from "../../services/baseURLs";
-import { CartItemType, CartType } from "../../services/cart";
-import { redirect, useLocation, useHref } from "react-router-dom";
-import { dummyApiClient } from "../../services/apiClient";
-import useUserAddresses from "../../hooks/user/useUserAddresses";
-import useAuth from "../../hooks/useAuth";
-import OrderSuccessful from "./OrderSuccessful";
-import { useQueryClient } from "@tanstack/react-query";
-import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
-import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
-import { useCheckoutContext } from "../../contexts/checkout-context";
-import useCartForUser from "../../hooks/cart/useCartForUser";
-import ToastMessage from "../../components/ToastMessage";
+import { CartType } from "../../services/cart";
 import { UserType } from "../../services/user";
-import { AxiosError, isAxiosError } from "axios";
+import FlexWithOrderSummary from "../FlexWithOrderSummary";
+import OrderSummary from "../cart/OrderSummary";
+import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
+import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
+import OrderSuccessful from "./OrderSuccessful";
 
 type OrderType = {
   id: string;
@@ -37,17 +36,17 @@ type OrderType = {
   order_payment_status: string;
 };
 
-type PaymentType = {
-  id: string;
-  tx_ref: string;
-  amount: number;
-  customer_email: string;
-  order_id: string;
-  user_id: string;
-  payment_method: string;
-  payment_status: string;
-  currency: string;
-};
+// type PaymentType = {
+//   id: string;
+//   tx_ref: string;
+//   amount: number;
+//   customer_email: string;
+//   order_id: string;
+//   user_id: string;
+//   payment_method: string;
+//   payment_status: string;
+//   currency: string;
+// };
 
 type AuthorizationURLType = {
   status: boolean;
@@ -72,8 +71,7 @@ const CheckoutPage = () => {
   const { user } = useAuth();
   const { data: userAddresses } = useUserAddresses(user?.id || "");
   const { data: cartForUser } = useCartForUser(user?.id || "");
-  const { checkoutState, setAddressId, setPaymentMethod } =
-    useCheckoutContext();
+  const { checkoutState } = useCheckoutContext();
 
   const fetchProductPrice = async (productId: string): Promise<number> => {
     const response = await fetch(`${productBaseURL}/products/${productId}/`);

@@ -1,10 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
+import { useProductFilteringContext } from "../../contexts/product-filtering-context";
 import Button from "../Button";
-import Space from "../Space";
-import FilterListItem from "./FilterListItem";
 import Collapsible from "../Collapsibles/Collapsible";
 import RadioButton from "../RadioButton";
-import { useProductFilteringContext } from "../../contexts/product-filtering-context";
+import Space from "../Space";
 
 type PriceFilteringType = {
   text: string;
@@ -69,7 +68,7 @@ const PriceFilter = () => {
   const {
     setMaxPrice,
     setMinPrice,
-    filteringState: { priceRange, minPrice, maxPrice },
+    filteringState: { minPrice, maxPrice },
   } = useProductFilteringContext();
 
   const handleRadioPriceChange = (e: ChangeEvent<HTMLInputElement>) => {

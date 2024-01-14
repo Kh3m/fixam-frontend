@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Space from "../../../components/Space";
 import OrderProgressBar from "./OrderProgressBar";
 import OrderProgressLabel from "./OrderProgressLabel";

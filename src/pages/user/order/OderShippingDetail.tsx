@@ -1,7 +1,6 @@
 import Space from "../../../components/Space";
 import Spinner from "../../../components/Spinner";
 import useAddress from "../../../hooks/user/useAddress";
-import useUser from "../../../hooks/user/useUser";
 import HeadingWithBorderBottom from "./HeadingWithBorderBottom";
 import OrderDetailList from "./OrderDetailList";
 

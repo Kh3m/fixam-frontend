@@ -4,12 +4,12 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const conditions = [
   {
-    category: "Brand New",
+    text: "Brand New",
     count: "• 157 905 ads",
     selected: true,
   },
   {
-    category: "Used",
+    text: "Used",
     count: "• 8 858 ads",
     selected: true,
   },

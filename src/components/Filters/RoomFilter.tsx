@@ -4,32 +4,32 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const rooms = [
   {
-    category: "Bedroom",
+    text: "Bedroom",
     count: "• 18 018 ads",
     selected: true,
   },
   {
-    category: "Dining Room",
+    text: "Dining Room",
     count: "• 11 891 ads",
     selected: true,
   },
   {
-    category: "Home Office / Study",
+    text: "Home Office / Study",
     count: "• 24 205 ads",
     selected: true,
   },
   {
-    category: "Kitchen",
+    text: "Kitchen",
     count: "• 1 775 ads",
     selected: true,
   },
   {
-    category: "Living Room",
+    text: "Living Room",
     count: "• 39 697 ads",
     selected: true,
   },
   {
-    category: "Attic",
+    text: "Attic",
     count: "• 80 ads",
     selected: true,
   },

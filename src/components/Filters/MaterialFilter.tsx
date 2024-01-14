@@ -4,32 +4,32 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const materials = [
   {
-    category: "Fabric",
+    text: "Fabric",
     count: "• 18 880 ads",
     selected: true,
   },
   {
-    category: "Leather",
+    text: "Leather",
     count: "• 15 379 ads",
     selected: true,
   },
   {
-    category: "Marble",
+    text: "Marble",
     count: "• 8 896 ads",
     selected: true,
   },
   {
-    category: "MDF",
+    text: "MDF",
     count: "• 7 413 ads",
     selected: true,
   },
   {
-    category: "Wood",
+    text: "Wood",
     count: "• 25 894 ads",
     selected: true,
   },
   {
-    category: "ABS",
+    text: "ABS",
     count: "• 256 ads",
     selected: true,
   },

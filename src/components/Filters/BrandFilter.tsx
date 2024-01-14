@@ -4,32 +4,32 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const brands = [
   {
-    category: "Standard",
+    text: "Standard",
     count: "• 31 185 ads",
     selected: true,
   },
   {
-    category: "Royal",
+    text: "Royal",
     count: "• 606 ads",
     selected: true,
   },
   {
-    category: "Home Interiors",
+    text: "Home Interiors",
     count: "• 65 724 ads",
     selected: true,
   },
   {
-    category: "General",
+    text: "General",
     count: "• 18 983 ads",
     selected: true,
   },
   {
-    category: "Boss Office Products",
+    text: "Boss Office Products",
     count: "• 11 376 ads",
     selected: true,
   },
   {
-    category: "Zuo Modern",
+    text: "Zuo Modern",
     count: "• 87 ads",
     selected: true,
   },
