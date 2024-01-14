@@ -12,14 +12,16 @@ import useAuth from "../../../../hooks/useAuth";
 interface Props {
   userAddress: UserAddressType;
   index: number;
+  handleUseAddress: (addressId: string) => void;
 }
 
-const UserAddressCard = ({ userAddress }: Props) => {
+const UserAddressCard = ({ userAddress, handleUseAddress }: Props) => {
   const queryClient = useQueryClient();
 
   const { user } = useAuth();
 
   const [openAddAddressForEdit, setOpenAddAddressForEdit] = useState(false);
+
   return (
     <div>
       <div className="flex border-b border-gray-300 py-4">
@@ -44,20 +46,23 @@ const UserAddressCard = ({ userAddress }: Props) => {
             </div>
           )}
           <div className="flex items-center space-x-2">
-            {!userAddress.is_default && (
+            {!userAddress.isUse && (
               <Button
                 variant="text"
                 styles="text-gray-400"
-                onClick={async () => {
-                  await dummyApiClient.patch(
-                    `${userBaseURL}/users/adresses/${userAddress.id}/`,
-                    { is_default: true }
-                  );
+                onClick={
+                  () => handleUseAddress(userAddress.id!)
+                  //   async () => {
+                  //   await dummyApiClient.patch(
+                  //     `${userBaseURL}/users/adresses/${userAddress.id}/`,
+                  //     { is_default: true }
+                  //   );
 
-                  queryClient.invalidateQueries({
-                    queryKey: ["users", user?.id, "addresses"],
-                  });
-                }}
+                  //   queryClient.invalidateQueries({
+                  //     queryKey: ["users", user?.id, "addresses"],
+                  //   });
+                  // }
+                }
               >
                 <span>Use Address</span>
               </Button>

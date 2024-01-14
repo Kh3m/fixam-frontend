@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
@@ -9,7 +9,6 @@ import useAuth from "../../../hooks/useAuth";
 import { dummyApiClient } from "../../../services/apiClient";
 import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
 import { ProductType } from "../../../services/product";
-import { getCookie } from "../../../utils/cookies";
 import AddVariantForm from "./AddVariantForm";
 import AlCAtF from "./AlCAtF";
 import ProductImageUpload from "./ProductImageUpload";

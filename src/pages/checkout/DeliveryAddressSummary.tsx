@@ -1,27 +1,58 @@
 import BusSVG from "../../components/SVGs/BusSVG";
 import { UserAddressType } from "../../services/user";
 import Button from "../../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import Space from "../../components/Space";
 import DeliveryAddressForm from "../user/account/addresses/DeliveryAddressForm";
 import UserAddressCard from "../user/account/addresses/UserAddressCard";
+import { useCheckoutContext } from "../../contexts/checkout-context";
 
 interface Props {
   userAddresses: UserAddressType[];
   changeDefault?: boolean;
+  setChangeDefault: (defaultAddr: boolean) => void;
 }
 
-const CheckoutSummary = ({ userAddresses, changeDefault }: Props) => {
+const CheckoutSummary = ({
+  userAddresses,
+  changeDefault,
+  setChangeDefault,
+}: Props) => {
   const [openAddAddress, setOpenAddAddress] = useState(false);
+  const [addresses, setAddresses] = useState<UserAddressType[]>(userAddresses);
 
-  const defautlUserAddress = userAddresses.find(
-    (address) => address.is_default
-  );
+  const { setAddressId } = useCheckoutContext();
 
-  // const defautlUserAddress = userAddresses[0];
+  const handleUseAddress = (addressId: string) => {
+    setAddressId(addressId);
+    setAddresses((prevAddresses) =>
+      prevAddresses.map((address) => ({
+        ...address,
+        // is_default: address.id === addressId ? true : false,
+        isUse: address.id === addressId ? true : false,
+      }))
+    );
+    setChangeDefault(false);
+  };
 
-  if (userAddresses && !userAddresses.length) {
+  // Get the ID of the address the user wants to use
+  const useAddressId = addresses.find((address) => address.isUse)?.id;
+
+  useEffect(() => {
+    // Set the use address to the default address when component mounts
+    setAddresses(
+      userAddresses.map((address) => ({
+        ...address,
+        isUse: address.is_default,
+      }))
+    );
+    if (useAddressId) setAddressId(useAddressId);
+  }, [userAddresses]);
+
+  const defautlUserAddress = addresses.find((address) => address.isUse);
+
+  if (addresses && !addresses.length) {
     return (
       <div className="flex justify-between">
         <div className="grow">
@@ -42,6 +73,7 @@ const CheckoutSummary = ({ userAddresses, changeDefault }: Props) => {
     );
   }
 
+  // Address to show on the summary when it's closed
   if (defautlUserAddress && !changeDefault)
     return (
       <div className="flex justify-between">
@@ -67,8 +99,9 @@ const CheckoutSummary = ({ userAddresses, changeDefault }: Props) => {
   if (changeDefault) {
     return (
       <>
-        {userAddresses.map((address, index) => (
+        {addresses.map((address, index) => (
           <UserAddressCard
+            handleUseAddress={handleUseAddress}
             key={address.id}
             userAddress={address}
             index={index}
@@ -76,7 +109,7 @@ const CheckoutSummary = ({ userAddresses, changeDefault }: Props) => {
         ))}
 
         <Space spacing="my-6" />
-        {userAddresses.length < 3 && (
+        {addresses.length < 3 && (
           <Button
             onClick={() => setOpenAddAddress(true)}
             variant="text"
@@ -88,7 +121,7 @@ const CheckoutSummary = ({ userAddresses, changeDefault }: Props) => {
         )}
         <Space spacing="my-6" />
 
-        {openAddAddress && userAddresses.length < 3 && (
+        {openAddAddress && addresses.length < 3 && (
           <DeliveryAddressForm handleCancel={() => setOpenAddAddress(false)} />
         )}
       </>

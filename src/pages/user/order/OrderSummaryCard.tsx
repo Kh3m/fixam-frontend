@@ -9,6 +9,7 @@ import useProduct from "../../../hooks/products/useProduct";
 import Center from "../../../components/Center";
 import Spinner from "../../../components/Spinner";
 import { OrderItemType } from "../../../services/order";
+import { formatPrice } from "../../../utils/number-formatter";
 
 interface Props {
   hasCancel?: boolean;
@@ -39,12 +40,15 @@ const OrderSummaryCard = ({ hasCancel, orderitem }: Props) => {
             className="w-24 rounded-md"
           />
           <div className="flex flex-col h-24 justify-between flex-grow">
-            <div>
+            <div className="flex flex-col">
               <Heading variant="h4" styles="font-semibold">
                 {orderProduct.name}
               </Heading>
               <span className="font-medium text-gray-700">
                 QTY: {orderitem?.quantity}
+              </span>
+              <span className="font-medium text-gray-700">
+                Cost: {formatPrice(orderitem.item_price)}{" "}
               </span>
             </div>
             <DeliveryTimeEstimator>

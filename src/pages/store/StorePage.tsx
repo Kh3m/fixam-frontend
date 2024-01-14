@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Container from "../../components/Container";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header";
 import Main from "../../components/Main";
-import AccessibleMenu from "../../components/Menu/AccessibleMenu";
+import NewsLetter from "../../components/NewsLetter";
 import Space from "../../components/Space";
 import { StoreResponseType } from "../../entities/store";
 import useAuth from "../../hooks/useAuth";
+import { dummyApiClient } from "../../services/apiClient";
+import { storeBaseURL } from "../../services/baseURLs";
 import { getCookie } from "../../utils/cookies";
 import SideBar from "./SideBar";
-import UserAccountCard from "./UserAccountCard";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
-import UserAccountCardSkeleton from "./skeletons/UserAccountCardSkeleton";
-import { storeBaseURL } from "../../services/baseURLs";
-import { dummyApiClient } from "../../services/apiClient";
-import Header from "../../components/Header";
-import NewsLetter from "../../components/NewsLetter";
-import Footer from "../../components/Footer/Footer";
 
-const menuItems = ["Switch account", "Change profile picture", "Log out"];
+// const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
 export const StorePage = () => {
   const [isLoading, setIsLoading] = useState(true);

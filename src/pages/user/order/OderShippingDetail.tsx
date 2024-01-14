@@ -6,16 +6,14 @@ import HeadingWithBorderBottom from "./HeadingWithBorderBottom";
 import OrderDetailList from "./OrderDetailList";
 
 interface Props {
-  userId: string;
   deliveryAddressId: string;
 }
-const OderShippingDetail = ({ userId, deliveryAddressId }: Props) => {
-  const { data: userData, isLoading: isLoadingUser } = useUser(userId);
+const OderShippingDetail = ({ deliveryAddressId }: Props) => {
   const { data: address, isLoading: isLoadingAddress } =
     useAddress(deliveryAddressId);
 
-  if (isLoadingAddress || isLoadingUser) return <Spinner />;
-  if (userData && address)
+  if (isLoadingAddress) return <Spinner />;
+  if (address)
     return (
       <section>
         <Space spacing="my-6" />
@@ -28,7 +26,11 @@ const OderShippingDetail = ({ userId, deliveryAddressId }: Props) => {
 
         <OrderDetailList
           items={[
-            { label: "", value: userData.first_name },
+            {
+              label: "",
+              value:
+                address.receiver_first_name + " " + address.receiver_last_name,
+            },
             { label: "", value: address.street_address },
             { label: "", value: address.state },
             { label: "", value: address.country + ", " + address.zip_code },

@@ -1,16 +1,12 @@
-import { isAxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Card from "../../components/Card";
 import Space from "../../components/Space";
+import Spinner from "../../components/Spinner";
 import useAuth from "../../hooks/useAuth";
-import { dummyApiClient } from "../../services/apiClient";
-import { userBaseURL } from "../../services/baseURLs";
-import { UserAddressType } from "../../services/user";
+import useUserAddresses from "../../hooks/user/useUserAddresses";
 import DeliveryAddressForm from "../user/account/addresses/DeliveryAddressForm";
 import CheckoutHeader from "./CheckoutHeader";
 import DeliveryAddressSummary from "./DeliveryAddressSummary";
-import useUserAddresses from "../../hooks/user/useUserAddresses";
-import Spinner from "../../components/Spinner";
 
 interface Props {}
 
@@ -25,6 +21,9 @@ const CheckoutInformWithState = ({}: Props) => {
     setChangeDefault(false);
   };
 
+  const handleCloseDeliveryAddressForm = () => {
+    setChangeDefault(false);
+  };
   const { user } = useAuth();
 
   const { data: userAddresses, isLoading: isLoadingUserAddresses } =
@@ -51,9 +50,13 @@ const CheckoutInformWithState = ({}: Props) => {
           <Space spacing="my-6" />
 
           {changeDefault && userAddresses.length === 0 ? (
-            <DeliveryAddressForm handleCancel={handleCancel} />
+            <DeliveryAddressForm
+              handleCancel={handleCancel}
+              handleCloseDeliveryAddressForm={handleCloseDeliveryAddressForm}
+            />
           ) : (
             <DeliveryAddressSummary
+              setChangeDefault={setChangeDefault}
               userAddresses={userAddresses}
               changeDefault={changeDefault}
             />

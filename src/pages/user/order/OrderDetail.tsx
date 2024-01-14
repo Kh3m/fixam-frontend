@@ -27,16 +27,17 @@ const OrderDetail = () => {
       <section>
         <OrderDetailList
           items={[
-            { label: "Order ID: ", value: "#" + order.id.split("-")[0] },
+            {
+              label: "Order ID: ",
+              value: "#" + order.id.split("-")[0].toUpperCase(),
+            },
             {
               label: "Order Date: ",
               value: formatDateString(order.created_at),
             },
             {
               label: "Total Amount: ",
-              value: formatPrice(
-                order.order_total_price + order.delivery_charge
-              ),
+              value: formatPrice(order.order_total_price),
             },
             {
               label: "Estimated Delivery Date: ",
@@ -49,11 +50,8 @@ const OrderDetail = () => {
           <OrderSummaryCard orderitem={orderItem} hasCancel />
         ))}
 
-        <OrderPaymentDetail />
-        <OderShippingDetail
-          userId={order.user_id}
-          deliveryAddressId={order.delivery_address_id}
-        />
+        <OrderPaymentDetail order={order} />
+        <OderShippingDetail deliveryAddressId={order.delivery_address_id} />
       </section>
     );
 };

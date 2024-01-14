@@ -65,11 +65,11 @@ const AccountNav = ({ userData }: Props) => {
       img: { src: wishlistSVG, alt: "Wishlist" },
       text: "Wishlist",
     },
-    {
-      to: "/users/notification",
-      img: { src: notificationSVG, alt: "Account" },
-      text: "Notification",
-    },
+    // {
+    //   to: "/users/notification",
+    //   img: { src: notificationSVG, alt: "Account" },
+    //   text: "Notification",
+    // },
     { to: "", img: { src: logoutSVG, alt: "Logout" }, text: "Logout" },
   ];
 

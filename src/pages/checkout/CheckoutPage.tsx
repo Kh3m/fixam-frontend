@@ -81,28 +81,19 @@ const CheckoutPage = () => {
     return data.selling_price;
   };
 
-  useEffect(() => {
-    // Set checkout addressId to default user's address
-    const defautlUserAddressId = userAddresses?.find(
-      (address) => address.is_default
-    )?.id;
-    // Set checkout context user address id
-    if (defautlUserAddressId) setAddressId(defautlUserAddressId);
-    setPaymentMethod("CardPayment");
-  }, []);
+  // Set checkout addressId to default user's address
+  const defautlUserAddressId = userAddresses?.find(
+    (address) => address.is_default
+  )?.id;
 
   const handleCheckout = async () => {
-    setIsCreatingOrder(true);
-
-    console.log(
-      "Payment and Address",
-      checkoutState.paymentMethod,
-      checkoutState.addressId
-    );
-
+    // setIsCreatingOrder(true);
     const cartData = cartForUser as CartType;
 
-    if (checkoutState.paymentMethod && checkoutState.addressId) {
+    if (
+      checkoutState.paymentMethod &&
+      (checkoutState.addressId || defautlUserAddressId)
+    ) {
       try {
         console.log("userAddresses", userAddresses);
         if (userAddresses && user) {
@@ -110,7 +101,8 @@ const CheckoutPage = () => {
 
           const orderData = {
             user_id: user.id,
-            delivery_address_id: checkoutState.addressId,
+            delivery_address_id:
+              checkoutState.addressId || defautlUserAddressId,
             order_delivery_status: "Placed",
             delivery_charge: 11.43,
             order_payment_status: "Pending",
@@ -198,33 +190,37 @@ const CheckoutPage = () => {
   return (
     <Main>
       {orderSuccessful && <OrderSuccessful />}
-      <Space spacing="my-14" />
-      <Container>
-        {toastMessage && (
-          <div>
-            <ToastMessage message={toastMessage} type="error" />
-            <Space spacing="my-6" />
-          </div>
-        )}
+      {!orderSuccessful && (
+        <>
+          <Space spacing="my-14" />
+          <Container>
+            {toastMessage && (
+              <div>
+                <ToastMessage message={toastMessage} type="error" />
+                <Space spacing="my-6" />
+              </div>
+            )}
 
-        <FlexWithOrderSummary
-          OrderSummary={
-            <OrderSummary
-              subtotal={subtotal}
-              handleCheckout={handleCheckout}
-              isCreatingOrder={isCreatingOrder}
-            />
-          }
-        >
-          <section className="grow">
-            <CheckoutDeliveryAddress />
+            <FlexWithOrderSummary
+              OrderSummary={
+                <OrderSummary
+                  subtotal={subtotal}
+                  handleCheckout={handleCheckout}
+                  isCreatingOrder={isCreatingOrder}
+                />
+              }
+            >
+              <section className="grow">
+                <CheckoutDeliveryAddress />
+                <Space spacing="my-14" />
+                <CheckoutPaymentInfo />
+              </section>
+            </FlexWithOrderSummary>
             <Space spacing="my-14" />
-            <CheckoutPaymentInfo />
-          </section>
-        </FlexWithOrderSummary>
-        <Space spacing="my-14" />
-      </Container>
-      <Space spacing="my-14" />
+          </Container>
+          <Space spacing="my-14" />
+        </>
+      )}
     </Main>
   );
 };

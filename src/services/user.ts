@@ -3,6 +3,7 @@ import axios from "axios";
 export type UserAddressType = {
   id?: string;
   url?: string;
+  isUse?: boolean;
   street_address: string;
   city: string;
   state: string;
