@@ -24,6 +24,8 @@ const ProductsFiltering = () => {
   const { data, isLoading } = useProducts({
     // categoryId: "bbb7b075-1dab-4276-abfb-a03166b561b2",
     categoryId: filteringState.categoryId,
+    minPrice: filteringState.minPrice,
+    maxPrice: filteringState.maxPrice,
   });
 
   const products = data as FetchResponseType<ProductType>;

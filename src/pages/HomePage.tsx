@@ -20,8 +20,6 @@ function HomePage() {
     mainCat = getMainCategory(categories as FetchResponseType<CategoryType>);
   }
 
-  console.log("mainCat ", mainCat);
-
   return (
     <Main>
       <Banner

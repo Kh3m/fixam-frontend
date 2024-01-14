@@ -11,7 +11,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   boxFor: string;
   checked?: boolean;
   fieldState?: ControllerFieldState;
-  field: ControllerRenderProps<FieldValues, string>;
+  field?: ControllerRenderProps<FieldValues, string>;
 }
 
 const CheckBox = forwardRef(

@@ -3,7 +3,7 @@ import Space from "../Space";
 import { useState } from "react";
 
 type FilterType = {
-  category: string;
+  text: string;
   count: string | number;
   selected: boolean;
 };
@@ -61,10 +61,10 @@ const FiltersWithInputField = ({
       {Input}
       <Space spacing="my-4" />
       <ul>
-        {filters.map(({ category, count }) => (
+        {filters.map(({ text, count }) => (
           <FilterListItem
             isFor={filterTitle}
-            text={category}
+            text={text}
             count={count}
             variant={variant}
           />

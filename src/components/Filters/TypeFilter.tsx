@@ -4,33 +4,18 @@ import FiltersWithInputField from "./FiltersWithInputField";
 
 const types = [
   {
-    category: "Show all",
+    text: "Show all",
     count: "",
     selected: true,
   },
   {
-    category: "Chairs",
+    text: "Sale",
     count: "• 42 813 ads",
     selected: true,
   },
   {
-    category: "Tables",
+    text: "Rent",
     count: "• 34 219 ads",
-    selected: true,
-  },
-  {
-    category: "Sofas ",
-    count: "• 18 257 ads",
-    selected: true,
-  },
-  {
-    category: "Beds & Bed Frames",
-    count: "• 12 515 ads",
-    selected: true,
-  },
-  {
-    category: "TV Stands & Mounts",
-    count: "• 7 505 ads",
     selected: true,
   },
 ];

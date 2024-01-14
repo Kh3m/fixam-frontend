@@ -11,6 +11,8 @@ import productFilteringReducer, {
 interface ProductFilteringContextProps {
   filteringState: ProductFilteringReducerType;
   setCategoryId: (categoryId: string) => void;
+  setMinPrice: (minPrice: number) => void;
+  setMaxPrice: (maxPrice: number) => void;
   clearFiltering: () => void;
 }
 
@@ -32,6 +34,10 @@ export const ProductFilteringContextProvider = ({
     filteringState: { ...filteringState },
     setCategoryId: (categoryId: string) =>
       dispatch({ type: "SET_CATEGORY_ID", categoryId }),
+    setMinPrice: (minPrice: number) =>
+      dispatch({ type: "SET_MIN_PRICE", minPrice }),
+    setMaxPrice: (maxPrice: number) =>
+      dispatch({ type: "SET_MAX_PRICE", maxPrice }),
     clearFiltering,
   };
 

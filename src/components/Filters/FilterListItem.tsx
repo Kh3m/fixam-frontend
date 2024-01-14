@@ -1,8 +1,5 @@
-import { Link } from "react-router-dom";
 import CheckBox from "../CheckBox";
-import Heading from "../Heading";
 import RadioButton from "../RadioButton";
-import SubCategoryFilter from "./SubCategoryFilter";
 
 interface Props {
   variant?: "checkbox" | "radio";
