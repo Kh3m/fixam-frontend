@@ -8,10 +8,12 @@ import CheckoutInfoWithState from "./CheckoutDeliveryAddress";
 import {
   cartBaseURL,
   orderBaseURL,
+  paymentBaseURL,
   productBaseURL,
+  userBaseURL,
 } from "../../services/baseURLs";
 import { CartItemType, CartType } from "../../services/cart";
-import { useLocation, useParams } from "react-router-dom";
+import { redirect, useLocation, useHref } from "react-router-dom";
 import { dummyApiClient } from "../../services/apiClient";
 import useUserAddresses from "../../hooks/user/useUserAddresses";
 import useAuth from "../../hooks/useAuth";
@@ -22,6 +24,8 @@ import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
 import { useCheckoutContext } from "../../contexts/checkout-context";
 import useCartForUser from "../../hooks/cart/useCartForUser";
 import ToastMessage from "../../components/ToastMessage";
+import { UserType } from "../../services/user";
+import { AxiosError, isAxiosError } from "axios";
 
 type OrderType = {
   id: string;
@@ -33,8 +37,30 @@ type OrderType = {
   order_payment_status: string;
 };
 
+type PaymentType = {
+  id: string;
+  tx_ref: string;
+  amount: number;
+  customer_email: string;
+  order_id: string;
+  user_id: string;
+  payment_method: string;
+  payment_status: string;
+  currency: string;
+};
+
+type AuthorizationURLType = {
+  status: boolean;
+  message: string;
+  data: {
+    authorization_url: string;
+    access_code: string;
+    reference: string;
+  };
+};
 const CheckoutPage = () => {
   const queryClient = useQueryClient();
+
   const {
     state: { subtotal },
   } = useLocation();
@@ -62,78 +88,111 @@ const CheckoutPage = () => {
     )?.id;
     // Set checkout context user address id
     if (defautlUserAddressId) setAddressId(defautlUserAddressId);
-    setPaymentMethod("pay with card");
+    setPaymentMethod("CardPayment");
   }, []);
 
   const handleCheckout = async () => {
     setIsCreatingOrder(true);
+
+    console.log(
+      "Payment and Address",
+      checkoutState.paymentMethod,
+      checkoutState.addressId
+    );
+
     const cartData = cartForUser as CartType;
 
-    // if (checkoutState.paymentMethod && checkoutState.addressId) {
-    try {
-      console.log("userAddresses", userAddresses);
-      if (userAddresses && user) {
-        const userDefaultAddressId = userAddresses[0].id;
+    if (checkoutState.paymentMethod && checkoutState.addressId) {
+      try {
+        console.log("userAddresses", userAddresses);
+        if (userAddresses && user) {
+          // const userDefaultAddressId = userAddresses[0].id;
 
-        const orderData = {
-          user_id: user.id,
-          delivery_address_id: userDefaultAddressId,
-          order_delivery_status: "Placed",
-          delivery_charge: 11.43,
-          order_payment_status: "Pending",
-        };
-
-        const createdOrder = await dummyApiClient.post<OrderType>(
-          `${orderBaseURL}/orders/`,
-          orderData
-        );
-
-        console.log("Created Order", createdOrder);
-
-        // if (cartItems) {
-        console.log("WE ENTERED THIS PART", cartData.cart_items);
-        for (const item of cartData.cart_items) {
-          console.log("ITEM", item);
-          const price = await fetchProductPrice(item.prod_id);
-
-          const orderItem = {
-            product_id: item.prod_id,
-            item_price: price,
-            quantity: item.quantity,
+          const orderData = {
+            user_id: user.id,
+            delivery_address_id: checkoutState.addressId,
+            order_delivery_status: "Placed",
+            delivery_charge: 11.43,
+            order_payment_status: "Pending",
           };
 
-          console.log("OrderItem", orderItem);
-
-          const createOrderItem = await dummyApiClient.post(
-            `${orderBaseURL}/orders/${createdOrder.data.id}/orderitems/create`,
-            orderItem
+          const createdOrder = await dummyApiClient.post<OrderType>(
+            `${orderBaseURL}/orders/`,
+            orderData
           );
 
-          console.log("createOrderItem", createOrderItem);
+          console.log("Created Order", createdOrder);
+
+          // if (cartItems) {
+          console.log("WE ENTERED THIS PART", cartData.cart_items);
+          for (const item of cartData.cart_items) {
+            console.log("ITEM", item);
+            const price = await fetchProductPrice(item.prod_id);
+
+            const orderItem = {
+              product_id: item.prod_id,
+              item_price: price,
+              quantity: item.quantity,
+            };
+
+            console.log("OrderItem", orderItem);
+
+            const createOrderItem = await dummyApiClient.post(
+              `${orderBaseURL}/orders/${createdOrder.data.id}/orderitems/create/`,
+              orderItem
+            );
+
+            console.log("createOrderItem", createOrderItem);
+          }
+
+          const deleteCart = await dummyApiClient.delete(
+            `${cartBaseURL}/carts/${cartData.id}/`
+          );
+          console.log("deleteCart", deleteCart);
+          // }
+
+          // Invalidate the cache for ["carts", "user", user?.id]
+          queryClient.invalidateQueries({
+            queryKey: ["carts", "user", user?.id],
+          });
+
+          if (checkoutState.paymentMethod === "CardPayment") {
+            const userData = await dummyApiClient.get<UserType>(
+              `${userBaseURL}/users/${user.id}/`
+            );
+            const newPayment = {
+              amount: subtotal * 100,
+              customer_email: userData.data.email,
+              order_id: createdOrder.data.id,
+              user_id: user.id,
+              payment_method: "CardPayment",
+              payment_status: "Pending",
+              currency: "NGN",
+            };
+
+            const createdPayment =
+              await dummyApiClient.post<AuthorizationURLType>(
+                `${paymentBaseURL}/payments/paystack/make/`,
+                newPayment
+              );
+
+            return (location.href = createdPayment.data.data.authorization_url);
+          }
         }
 
-        const deleteCart = await dummyApiClient.delete(
-          `${cartBaseURL}/carts/${cartData.id}/`
-        );
-        console.log("deleteCart", deleteCart);
-        // }
-
-        // Invalidate the cache for ["carts", "user", user?.id]
-        queryClient.invalidateQueries({
-          queryKey: ["carts", "user", user?.id],
-        });
+        setIsCreatingOrder(false);
+        setOrderSuccessful(true);
+      } catch (error) {
+        if (isAxiosError(error)) {
+          console.log("Error Creating Order", error);
+          setToastMessage(error.message);
+        }
+        setIsCreatingOrder(false);
       }
-
-      setIsCreatingOrder(false);
-      setOrderSuccessful(true);
-    } catch (error) {
-      console.log("Error Creating Order", error);
+    } else {
+      setToastMessage("Please ensure you select address and payment method");
       setIsCreatingOrder(false);
     }
-    // } else {
-    //   setToastMessage("Please ensure you select address and payment method");
-    //   setIsCreatingOrder(false);
-    // }
   };
 
   return (

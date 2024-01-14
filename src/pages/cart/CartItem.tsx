@@ -65,12 +65,12 @@ const CartItem = ({
 
   if (cartProduct)
     return (
-      <section>
+      <section className="last-of-type:border-b border-gray-300 py-6">
         <div className="flex space-x-6 items-center w-full">
           <img
             src={imageURL}
             alt={cartProduct.name}
-            className="h-24 object-contain overflow-hidden rounded-lg"
+            className="w-24 object-contain overflow-hidden rounded-lg"
           />
           <div className="flex-grow">
             <Heading variant="h4" styles="font-semibold text-[20px]">

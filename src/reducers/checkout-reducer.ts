@@ -1,3 +1,5 @@
+// export type PaymentMethodType = "CardPayment" | "PayOnDelivery";
+
 export type CheckoutReducerType = {
   addressId: string | null;
   paymentMethod: string | null;
@@ -6,7 +8,7 @@ export type CheckoutReducerType = {
 // Define the initial state
 const initialState = {
   addressId: null,
-  paymentMethod: null,
+  paymentMethod: "CardPayment",
 };
 
 export type CheckoutActionType =

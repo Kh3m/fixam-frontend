@@ -12,3 +12,5 @@ export const cartBaseURL =
 //   "https://cartservice-production.up.railway.app/api/v1";
 export const productBaseURL =
   "https://productservice-production.up.railway.app/api/v1";
+export const paymentBaseURL =
+  "https://paymentservice-production-782a.up.railway.app/api/v1";

@@ -9,6 +9,7 @@ interface Props {
 }
 
 const ReviewsRatingSummary = ({ reviews }: Props) => {
+  console.log("REVIEWSSSSSSSSS", reviews);
   const starRatings = [
     { rating: 5, label: "Excellent", value: 7_003 },
     { rating: 4, label: "Very Good", value: 11_462 },

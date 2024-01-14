@@ -36,7 +36,7 @@ const OrderSummaryCard = ({ hasCancel, orderitem }: Props) => {
           <img
             src={product1}
             alt="Order Product Image"
-            className="h-24 rounded-md"
+            className="w-24 rounded-md"
           />
           <div className="flex flex-col h-24 justify-between flex-grow">
             <div>

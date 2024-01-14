@@ -23,7 +23,7 @@ const CheckoutContext = createContext<CheckoutContextProps | undefined>(
 export const CheckoutContextProvider = ({ children }: PropsWithChildren) => {
   const [checkoutState, dispatch] = useReducer(checkoutReducer, {
     addressId: null,
-    paymentMethod: null,
+    paymentMethod: "CardPayment",
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const CheckoutContextProvider = ({ children }: PropsWithChildren) => {
       });
       dispatch({
         type: "SET_PAYMENT_METHOD",
-        payload: JSON.parse(storedCheckoutData).paymentMethod,
+        payload: JSON.parse(storedCheckoutData).paymentMethod as string,
       });
     }
   }, []);

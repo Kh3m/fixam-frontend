@@ -78,7 +78,7 @@ const HeaderNav = () => {
           variant="elevated"
           styles=" bg-white text-fyellow border-2 border-white"
         >
-          {isAuthenticated() && userStores ? "Store" : "Be a vendor"}
+          {isAuthenticated() ? "Store" : "Be a vendor"}
         </Button>
       </Link>
     </nav>

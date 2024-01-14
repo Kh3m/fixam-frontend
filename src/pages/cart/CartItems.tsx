@@ -58,7 +58,7 @@ const CartItems = ({ cartItems: realCartItems, cartId }: Props) => {
               onChange={(e) => handleInputChange(e, index)}
               handleInputChange={handleInputChange}
             />
-            {realCartItems.length - 1 !== index && <HR styles="my-8" />}
+            {/* {realCartItems.length - 1 !== index && <HR styles="my-8" />} */}
           </section>
         ))}
       </section>

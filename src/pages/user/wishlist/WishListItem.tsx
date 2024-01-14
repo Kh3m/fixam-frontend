@@ -66,7 +66,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
             <img
               src={imageURL}
               alt={title}
-              className="h-24 object-cover overflow-hidden rounded-lg"
+              className="w-24 object-cover overflow-hidden rounded-lg"
             />
             {/* <p className="text-fgrey text-xs py-1">
             Item added 21st december, 2023

@@ -14,8 +14,8 @@ const PaymentSummary = () => {
     <div className="flex flex-col justify-center space-y-4 mb-4">
       <RadioButton
         onChange={(e) => setPaymentMethod(e.target.value)}
-        checked={paymentMethod === "pay with card"}
-        value="pay with card"
+        checked={paymentMethod === "CardPayment"}
+        value="CardPayment"
         radioFor={"payment_method"}
       >
         <div className="flex space-x-2">
@@ -26,8 +26,8 @@ const PaymentSummary = () => {
 
       <RadioButton
         onChange={(e) => setPaymentMethod(e.target.value)}
-        checked={paymentMethod === "pay on delivery"}
-        value="pay on delivery"
+        checked={paymentMethod === "PayOnDelivery"}
+        value="PayOnDelivery"
         radioFor={"payment_method"}
       >
         <div className="flex space-x-2">
