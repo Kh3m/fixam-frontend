@@ -20,7 +20,10 @@ const CheckBox = forwardRef(
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
-      <label className="group inline-flex cursor-pointer text-sm font-medium align-middle relative pl-[30px] items-center">
+      <label
+        className="group inline-flex cursor-pointer text-xs
+        md:text-sm font-medium relative pl-[30px] items-center"
+      >
         <input
           {...field}
           {...props}

@@ -61,7 +61,7 @@ const StoreCreationProcessPage = () => {
   return (
     <MainContent>
       <LogoFormSplitLayout>
-        <div className="w-[80%] m-auto">
+        <div className="w-[80%] m-auto my-8 md:my-0">
           <ProcessBar stepName={stepName} handleStepClick={handleStepClick} />
         </div>
         <Space spacing="my-14" />

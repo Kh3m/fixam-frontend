@@ -11,7 +11,7 @@ const Card = ({ children, styles, notFullWidth }: PropsWithChildren<Props>) => {
       <div
         className={`${styles} ${
           notFullWidth || "w-full"
-        } rounded-md dark:bg-slate-800 dark:text-white bg-white px-5 py-3 fshadow`}
+        } rounded-md dark:bg-slate-800 dark:text-white bg-white px-5 py-3 md:fshadow`}
       >
         {children}
       </div>

@@ -16,35 +16,42 @@ const AuthPage = () => {
   return (
     <MainContent>
       <LogoFormSplitLayout>
-        <div className="text-center">
-          <div className="w-[50%] m-auto">
-            <Heading variant="h1">Welcome!</Heading>
-            <p>
-              Please enter your email and password to login or create an account
-            </p>
+        <div className="text-center md:px-28">
+          <div className="md:w-[50%] m-auto">
+            <Heading
+              variant="h1"
+              styles="text-xl md:text-5xl text-fyellow-shades-500 font-bold 
+              md:font-normal md:text-black"
+            >
+              Welcome!
+            </Heading>
+            {/* <p>
+                Please enter your email and password to login or create an account
+              </p> */}
           </div>
+          <Space spacing="my-4" />
+          <Button
+            variant="text"
+            styles="w-full font-bold text-lg pagination-shadow flex justify-center
+              items-center p-2 space-x-4"
+          >
+            <GoogleSVG />
+            <span>
+              {isLogin ? "Sign in with Google" : "Sign up with Google"}
+            </span>
+          </Button>
           <Space spacing="my-8" />
           <FormProvider {...methods}>
             <Outlet />
           </FormProvider>
-
           <Space spacing="my-8" />
         </div>
-        <div className="w-[80%] m-auto">
+        <div className="w-[80%] m-auto md:px-28">
           <Button
             variant="elevated"
             styles="w-full bg-fyellow text-white font-bold text-lg fshadow"
           >
             {isLogin ? "Login" : "Create Account"}
-          </Button>
-          <Space spacing="my-4" />
-          <Button
-            variant="text"
-            styles="w-full font-bold text-lg fshadow flex justify-center 
-            items-center p-2 space-x-4"
-          >
-            <GoogleSVG />
-            <span>Sign in with Google</span>
           </Button>
           <Space spacing="my-4" />
           <div className="text-center">

@@ -191,14 +191,14 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
           </p>
           {!isAdProduct && (
             <div
-              className="flex items-center justify-end text-fyellow-shades-500 space-x-1 my-3
-              md:text-white"
+              className="flex items-center justify-end text-fyellow-shades-500 
+              space-x-1 my-3 md:text-white"
             >
               <TapEffect>
                 <Button
                   onClick={() => handleAddToCart(id)}
                   variant="elevated"
-                  styles="mr-2 font-bold md:bg-fyellow-shades-500 py-[6px] text-[1.3rem] font-bold
+                  styles="mr-2 font-bold md:bg-fyellow-shades-500 md:py-[6px] text-[1.3rem] font-bold
                   md:px-3 md:mr-0"
                   noSizingClass
                   disabled={isLoadingAddToCart}
@@ -208,8 +208,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
               </TapEffect>
               <Button
                 variant="elevated"
-                styles="dark:bg-slate-600 font-bold
-                md:bg-fyellow-shades-500"
+                styles="dark:bg-slate-600 px-2 font-bold text-white bg-fyellow-shades-500"
               >
                 Buy Now
               </Button>
