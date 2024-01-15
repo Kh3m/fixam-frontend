@@ -116,8 +116,10 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
           </div>
           {!isAdProduct && (
             <span
-              className="py-2 px-4 absolute top-10 text-xs font-semibold
-            dark:bg-slate-800 bg-fyellow text-white rounded-e-full w-28 inline-flex justify-center items-center"
+              className="py-2 absolute w-16 top-10 text-xs font-semibold
+            dark:bg-slate-800 bg-fyellow text-white 
+            rounded-e-full inline-flex justify-center items-center
+            md:px-4 md:w-28 "
             >
               {type}
             </span>
@@ -169,23 +171,35 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
             to={`${category_name}/${id}`}
             state={{ categoryId }}
           >
-            <p className="dark:text-white text-fblack my-2 text-lg font-bold hover:underline hover:underline-offset-4">
+            <p
+              className="text-sm dark:text-white text-fblack my-2 font-bold 
+            hover:underline hover:underline-offset-4
+            md:text-lg"
+            >
               {productName}
             </p>
           </Link>
-          <p className="dark:text-white text-fyellow text-xl font-bold my-2 flex items-center space-x-3">
+          <p
+            className="dark:text-white text-fyellow text-sm md:text-xl 
+          font-bold my-2 flex md:items-center md:space-x-3
+          flex-col md:flex-row"
+          >
             <span>{formatPrice(selling_price as number)}</span>
-            <span className="text-fgrey text-[10px] font-semibold">
+            {/* <span className="text-fgrey text-[10px] font-semibold">
               (5 items left)
-            </span>
+            </span> */}
           </p>
           {!isAdProduct && (
-            <div className="flex justify-end items-center space-x-1 my-3">
+            <div
+              className="flex items-center justify-end text-fyellow-shades-500 space-x-1 my-3
+              md:text-white"
+            >
               <TapEffect>
                 <Button
                   onClick={() => handleAddToCart(id)}
                   variant="elevated"
-                  styles="text-white font-bold bg-fyellow-shades-500 py-[6px] px-3 text-[1.3rem] font-bold"
+                  styles="mr-2 font-bold md:bg-fyellow-shades-500 py-[6px] text-[1.3rem] font-bold
+                  md:px-3 md:mr-0"
                   noSizingClass
                   disabled={isLoadingAddToCart}
                 >
@@ -194,7 +208,8 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
               </TapEffect>
               <Button
                 variant="elevated"
-                styles="dark:bg-slate-600 bg-fyellow text-white font-bold"
+                styles="dark:bg-slate-600 font-bold
+                md:bg-fyellow-shades-500"
               >
                 Buy Now
               </Button>
