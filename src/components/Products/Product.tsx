@@ -33,7 +33,6 @@ import {
 interface Props {
   // product: ProductType;
   product: RealProductType;
-  temId: number;
   isAdProduct?: boolean;
   // TODO: Remove
   isDummy?: boolean;
@@ -41,20 +40,17 @@ interface Props {
   categoryId?: string;
 }
 
-const Product = ({
-  product: {
+const Product = ({ product, isAdProduct, categoryId }: Props) => {
+  const [isLoadingAddToCart, setIsLoadingAddToCart] = useState(false);
+  const [isFavoritingWishlists, setIsFavoritingWishlists] = useState(false);
+  const {
     type,
     name: productName,
     selling_price,
     images,
     id,
     category_name,
-  },
-  isAdProduct,
-  categoryId,
-}: Props) => {
-  const [isLoadingAddToCart, setIsLoadingAddToCart] = useState(false);
-  const [isFavoritingWishlists, setIsFavoritingWishlists] = useState(false);
+  } = product;
 
   const queryClient = useQueryClient();
 
@@ -100,11 +96,11 @@ const Product = ({
       </Center>
     );
 
-  if (wishlists) {
+  if (wishlists || product) {
     const userWishedLists = wishlists as FetchResponseType<WishlistType>;
-    const favorite = userWishedLists.results.some(
-      (item) => item.product_id === id
-    );
+    const favorite = wishlists
+      ? userWishedLists.results.some((item) => item.product_id === id)
+      : false;
 
     return (
       <article className={`${isAdProduct && "w-[265px]"} fshadow`}>
@@ -126,14 +122,14 @@ const Product = ({
               {type}
             </span>
           )}
-          <span
-            className={`${
-              favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
-            } absolute -bottom-7 right-7 
+          {isAuthenticated() && user && (
+            <span
+              className={`${
+                favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
+              } absolute -bottom-7 right-7 
           flex justify-center items-center
           cursor-pointer  h-12 w-12 rounded-full fshadow`}
-          >
-            {isAuthenticated() && user && (
+            >
               <Button
                 onClick={() =>
                   handleAddToWishList(
@@ -164,8 +160,8 @@ const Product = ({
                   </TapEffect>
                 )}
               </Button>
-            )}
-          </span>
+            </span>
+          )}
         </div>
         <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
           <Link

@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
-import { FetchResponseType, dummyApiClient } from "../services/apiClient";
+import { Fragment } from "react";
+import useProductsFromCategory from "../hooks/products/useProductsFromCategory";
+import { FetchResponseType } from "../services/apiClient";
 import { ProductType } from "../services/product";
 import FeaturedBar from "./FeaturedBar";
 import MiniAdBanner from "./MiniAdBanner";
 import Products from "./Products/Products";
 import Space from "./Space";
-import { productBaseURL } from "../services/baseURLs";
 
 interface Props {
   title: string;
@@ -14,10 +14,11 @@ interface Props {
 }
 
 const FeaturedProducts = ({ title, to, categoryId }: Props) => {
-  // const { data, isLoading } = useProductsFromCategory(categoryId);
-  // const products = data as FetchResponseType<ProductType>;
-  const [products, setProducts] = useState<FetchResponseType<ProductType>>();
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isLoading: isLoadingProductsFromCategory } =
+    useProductsFromCategory(categoryId);
+  const products = data as FetchResponseType<ProductType>;
+  // const [products, setProducts] = useState<FetchResponseType<ProductType>>();
+  // const [isLoading, setIsLoading] = useState(false);
 
   // Get 6 random unique products
   // const randomProducts = getRandomUniqueElements<ProductType>(
@@ -25,36 +26,36 @@ const FeaturedProducts = ({ title, to, categoryId }: Props) => {
   //   6
   // );
 
-  useEffect(() => {
-    setIsLoading(true);
-    dummyApiClient
-      .get(
-        `${productBaseURL}/products/categories/${categoryId}/products/?levels_deep=all`
-      )
-      .then((res) => {
-        console.log("PRODUCTS<===>", res.data);
-        setIsLoading(false);
-        setProducts(res.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log("ERROR<===>", error);
-      });
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   dummyApiClient
+  //     .get(
+  //       `${productBaseURL}/products/categories/${categoryId}/products/?levels_deep=all`
+  //     )
+  //     .then((res) => {
+  //       console.log("PRODUCTS<===>", res.data);
+  //       setIsLoading(false);
+  //       setProducts(res.data);
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       console.log("ERROR<===>", error);
+  //     });
 
-    console.log(
-      "FeaturedProducts",
-      "products",
-      products,
-      "categoryId",
-      categoryId
-    );
-  }, []);
+  //   console.log(
+  //     "FeaturedProducts",
+  //     "products",
+  //     products,
+  //     "categoryId",
+  //     categoryId
+  //   );
+  // }, []);
 
   return (
     <>
       <MiniAdBanner />
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && products && products.results && (
+      {isLoadingProductsFromCategory && <p>Loading...</p>}
+      {!isLoadingProductsFromCategory && products && products.results && (
         <Fragment>
           <FeaturedBar title={title} to={to} />
           <Products products={products.results} />

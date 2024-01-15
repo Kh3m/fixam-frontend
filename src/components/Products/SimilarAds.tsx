@@ -77,7 +77,6 @@ const SimilarAds = ({ heading, products }: Props) => {
                 product={dummyProducts[i]}
                 // TODO: Remove this
                 realProduct={prod}
-                temId={i}
                 isAdProduct
               />
             </div>
@@ -93,7 +92,7 @@ const SimilarAds = ({ heading, products }: Props) => {
       <Scroll direction="horizontal">
         {dummyProducts.map((prod, i) => (
           <div key={i} className="w-[665px]">
-            <Product product={prod} temId={i} isAdProduct isDummy />
+            <Product product={prod} isAdProduct isDummy />
           </div>
         ))}
       </Scroll>

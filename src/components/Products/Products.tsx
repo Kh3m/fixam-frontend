@@ -1,4 +1,5 @@
 import { ProductType } from "../../services/product";
+import { getCategoryIdFromURL } from "../../utils/category";
 import Grid from "../Grid";
 import Product from "./Product";
 
@@ -15,9 +16,7 @@ const Products = ({ products }: Props) => {
           <Product
             key={i}
             product={prod}
-            // realProduct={prod}
-            temId={i}
-            categoryId={"categoryId"}
+            categoryId={getCategoryIdFromURL(prod.category)}
           />
         ))}
       </Grid>

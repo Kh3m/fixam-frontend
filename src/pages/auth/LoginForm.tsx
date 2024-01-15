@@ -15,7 +15,7 @@ const LoginForm = () => {
     // Set login to true or false to perform dummy auth or not
     const login = false;
     if (login) {
-      authUserDummy("545801ff-ad84-4928-87da-3368ebc79016");
+      authUserDummy("24ac295f-175f-4909-af44-b3d3a2a4e18f");
       navigate("/");
     }
   }, []);

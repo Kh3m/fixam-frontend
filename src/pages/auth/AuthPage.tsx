@@ -9,7 +9,6 @@ import { FormProvider, useForm } from "react-hook-form";
 
 const AuthPage = () => {
   const methods = useForm();
-
   const { pathname } = useLocation();
 
   const isLogin = pathname.includes("login");
