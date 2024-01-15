@@ -103,7 +103,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
       : false;
 
     return (
-      <article className={`${isAdProduct && "w-[265px]"} fshadow`}>
+      <article className={`${isAdProduct && " w-52 md:w-[265px]"} fshadow`}>
         <div className="relative">
           <div className="h-[250px]">
             <img

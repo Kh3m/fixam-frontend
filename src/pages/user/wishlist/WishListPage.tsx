@@ -29,10 +29,10 @@ const WishListPage = () => {
     return (
       <Card styles="px-12">
         <div className="flex justify-between font-semibold text-2xl">
-          <Heading variant="h2" styles="text-2xl">
+          <Heading variant="h2" styles="text-lg md:text-2xl">
             Wishlist
           </Heading>
-          <span className="text-lg">
+          <span className="text-sm md:text-lg">
             {wishlistsForUser.results.length
               ? wishlistsForUser.results.length + " Items"
               : ""}

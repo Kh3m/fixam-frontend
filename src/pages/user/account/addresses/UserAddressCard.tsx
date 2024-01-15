@@ -19,13 +19,15 @@ const UserAddressCard = ({ userAddress, handleUseAddress }: Props) => {
       <div className="flex border-b border-gray-300 py-4">
         <ul className="basis-1/2 flex-grow">
           <li className=" font-medium">{userAddress.receiver_first_name}</li>
-          <li className="text-black/80 font-medium">
+          <li className="dark:text-gray-300 text-black/80 font-medium">
             {userAddress.receiver_phone_one}
           </li>
-          <li className="text-black/80 font-medium">
+          <li className="dark:text-gray-300 text-black/80 font-medium">
             {userAddress.street_address}
           </li>
-          <li className="text-black/80 font-medium">{userAddress.zip_code}</li>
+          <li className="dark:text-gray-300 text-black/80 font-medium">
+            {userAddress.zip_code}
+          </li>
         </ul>
         <div
           className={`${

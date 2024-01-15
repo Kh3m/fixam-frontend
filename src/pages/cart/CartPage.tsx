@@ -14,6 +14,8 @@ import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import CartItems from "./CartItems";
 import OrderSummary from "./OrderSummary";
 import apiClient from "../../services/apiClient";
+import Button from "../../components/Button";
+import { formatPrice } from "../../utils/number-formatter";
 
 const CartPage = () => {
   const { user } = useAuth();
@@ -58,10 +60,10 @@ const CartPage = () => {
           <FlexWithOrderSummary OrderSummary={<OrderSummary subtotal={0} />}>
             <Card styles="px-12">
               <div className="flex justify-between font-semibold text-2xl">
-                <Heading variant="h2" styles="text-2xl">
+                <Heading variant="h2" styles="text-lg md:text-2xl">
                   Shopping Cart
                 </Heading>
-                <span className="text-lg">0 Items</span>
+                <span className="text-sm md:text-lg">0 Items</span>
               </div>
               <HR styles="mt-4 mb-8" />
 
@@ -90,6 +92,16 @@ const CartPage = () => {
       <Main>
         <Space spacing="my-14" />
         <Container>
+          <Link to={"/checkout"} state={{ userCart, subtotal }}>
+            <Button
+              styles="text-center w-full mb-4 dark:text-gray-200
+             dark:bg-slate-500 bg-fyellow-shades-500 py-2
+            text-white font-semibold pagination-shadow md:hidden"
+              disabled={!subtotal}
+            >
+              Proceed to checkout ({formatPrice(subtotal as number)})
+            </Button>
+          </Link>
           <FlexWithOrderSummary
             OrderSummary={
               <OrderSummary cartData={userCart} subtotal={subtotal || 0} />
@@ -97,12 +109,14 @@ const CartPage = () => {
           >
             <Card styles="px-12">
               <div className="flex justify-between font-semibold text-2xl">
-                <Heading variant="h2" styles="text-2xl">
+                <Heading variant="h2" styles="text-lg md:text-2xl">
                   Shopping Cart
                 </Heading>
-                <span className="text-lg">{userCart.total_quantity} Items</span>
+                <span className="text-sm md:text-lg">
+                  {userCart.total_quantity} Items
+                </span>
               </div>
-              <HR styles="mt-4 mb-8" />
+              <HR styles="mt-4 mb-4" />
               {!userCart ||
               (userCart &&
                 Number.parseInt(userCart.total_quantity as string) == 0) ? (

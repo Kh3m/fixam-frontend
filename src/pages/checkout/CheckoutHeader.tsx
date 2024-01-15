@@ -19,7 +19,7 @@ const CheckoutHeader = ({
       <Button
         onClick={handleChangeDefault}
         variant="text"
-        styles="font-semibold text-slate-600 text-base"
+        styles="font-semibold text-slate-600 text-base dark:text-gray-400"
       >
         {!heading.includes("PAYMENT") ? (
           changeDefault ? (

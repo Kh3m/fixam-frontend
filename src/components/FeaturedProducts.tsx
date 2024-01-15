@@ -6,6 +6,8 @@ import FeaturedBar from "./FeaturedBar";
 import MiniAdBanner from "./MiniAdBanner";
 import Products from "./Products/Products";
 import Space from "./Space";
+import Center from "./Center";
+import Spinner from "./Spinner";
 
 interface Props {
   title: string;
@@ -54,7 +56,11 @@ const FeaturedProducts = ({ title, to, categoryId }: Props) => {
   return (
     <>
       <MiniAdBanner />
-      {isLoadingProductsFromCategory && <p>Loading...</p>}
+      {isLoadingProductsFromCategory && (
+        <Center>
+          <Spinner />
+        </Center>
+      )}
       {!isLoadingProductsFromCategory && products && products.results && (
         <Fragment>
           <FeaturedBar title={title} to={to} />

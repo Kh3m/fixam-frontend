@@ -76,18 +76,18 @@ const CheckoutSummary = ({
   // Address to show on the summary when it's closed
   if (defautlUserAddress && !changeDefault)
     return (
-      <div className="flex justify-between">
-        <ul className="basis-1/2 flex-grow">
+      <div className="flex justify-between ">
+        <ul className="basis-1/2 flex-grow ">
           <li className=" font-medium">
             {defautlUserAddress.receiver_first_name}
           </li>
-          <li className="text-black/80 font-medium">
+          <li className="dark:text-gray-300 text-black/80 font-medium">
             {defautlUserAddress.receiver_phone_one}
           </li>
-          <li className="text-black/80 font-medium">
+          <li className="dark:text-gray-300 text-black/80 font-medium">
             {defautlUserAddress.street_address}
           </li>
-          <li className="text-black/80 font-medium">
+          <li className="dark:text-gray-300 text-black/80 font-medium">
             {defautlUserAddress.zip_code}
           </li>
         </ul>

@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import Space from "../../components/Space";
@@ -18,6 +18,8 @@ import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
 import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
 import OrderSuccessful from "./OrderSuccessful";
 import apiClient from "../../services/apiClient";
+import Button from "../../components/Button";
+import useResponsive from "../../hooks/useResponsive";
 
 type OrderType = {
   id: string;
@@ -61,6 +63,7 @@ const CheckoutPage = () => {
   const [orderSuccessful, setOrderSuccessful] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
+  const isMd = useResponsive("md");
   const { user } = useAuth();
   const { data: userAddresses } = useUserAddresses(user?.id || "");
   const { data: cartForUser } = useCartForUser(user?.id || "");
@@ -107,7 +110,6 @@ const CheckoutPage = () => {
           console.log("Created Order", createdOrder);
 
           // if (cartItems) {
-          console.log("WE ENTERED THIS PART", cartData.cart_items);
           for (const item of cartData.cart_items) {
             console.log("ITEM", item);
             const price = await fetchProductPrice(item.prod_id);
@@ -182,6 +184,13 @@ const CheckoutPage = () => {
         <>
           <Space spacing="my-14" />
           <Container>
+            <div
+              className="text-center w-full mb-4 dark:text-gray-200
+             dark:bg-slate-500 bg-fyellow-shades-500 py-2
+            text-white font-semibold pagination-shadow md:hidden"
+            >
+              Order Confirmation{" "}
+            </div>
             {toastMessage && (
               <div>
                 <ToastMessage message={toastMessage} type="error" />
@@ -205,6 +214,23 @@ const CheckoutPage = () => {
               </section>
             </FlexWithOrderSummary>
             <Space spacing="my-14" />
+            {!isMd && (
+              <OrderSummary
+                subtotal={subtotal}
+                handleCheckout={handleCheckout}
+                isCreatingOrder={isCreatingOrder}
+              />
+            )}
+            <Space spacing="my-8" />
+            {/* <Link to={"/checkout"}>
+              <Button
+                styles="text-center w-full mb-4 dark:text-gray-200
+             dark:bg-slate-500 bg-fyellow-shades-500 py-2
+            text-white font-semibold pagination-shadow md:hidden"
+              >
+                Place order
+              </Button>
+            </Link> */}
           </Container>
           <Space spacing="my-14" />
         </>

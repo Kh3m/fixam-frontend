@@ -11,7 +11,7 @@ export const removeFromWishlist = async (
   queryClient: QueryClient
 ) => {
   const deletedWishList = await apiClient.delete<WishlistType>(
-    `/carts/wishlist/${wishlistId}/`
+    `/carts/carts/wishlist/${wishlistId}/`
   );
   console.log("Deleting from wishlist successfully", deletedWishList);
   queryClient.invalidateQueries({
@@ -25,7 +25,7 @@ export const addItemToWishlist = async (
   queryClient: QueryClient
 ) => {
   const createdWishList = await apiClient.post<WishlistType>(
-    `/carts/wishlist/`,
+    `/carts/carts/wishlist/`,
     {
       user_id: userId,
       product_id: productId,

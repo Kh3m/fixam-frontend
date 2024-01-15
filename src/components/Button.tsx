@@ -7,6 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   styles?: string;
   noSizingClass?: boolean;
   whileClickScale?: number;
+  noRounded?: boolean;
 }
 const Button = ({
   children,
@@ -14,9 +15,12 @@ const Button = ({
   styles,
   noSizingClass,
   whileClickScale,
+  noRounded,
   ...props
 }: Props) => {
-  const baseClass = `transition-color duration-200 rounded-[5px] cursor-pointer 
+  const baseClass = `${
+    !noRounded && " rounded-[5px]"
+  } transition-color duration-200 cursor-pointer 
     disabled:cursor-not-allowed disabled:opacity-50`;
 
   const sizingClass = "px-2 md:px-[32px] py-[8px] text-[12px]";

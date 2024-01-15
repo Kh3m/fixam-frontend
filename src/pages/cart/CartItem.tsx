@@ -18,17 +18,9 @@ interface Props {
   handleInputChange?: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-const CartItem = ({
-  quantity,
-  imageURL,
-  productId,
-  itemId,
-  cartId,
-  onChange,
-}: Props) => {
+const CartItem = ({ quantity, imageURL, productId, itemId, cartId }: Props) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
-  const [isHandlingQty, setIsHandlingQty] = useState(false);
 
   const { data: cartProduct } = useProduct(productId);
 
@@ -111,33 +103,10 @@ const CartItem = ({
 
           <div className="flex space-x-2 items-center">
             <QuantityField
-              isHandlingQty={isHandlingQty}
+              cartId={cartId}
+              itemId={itemId}
+              userId={user?.id || ""}
               quantity={quantity}
-              handleOnIcrementQuantity={async () => {
-                setIsHandlingQty(true);
-                await apiClient.patch(`/carts/${cartId}/items/${itemId}/`, {
-                  quantity: quantity + 1,
-                });
-                // Invalidate the cache for ["carts", "user", user?.id]
-                queryClient.invalidateQueries({
-                  queryKey: ["carts", "user", user?.id],
-                });
-                setIsHandlingQty(false);
-                // setIsDeletingCartItems(false);
-              }}
-              handleOnDecrementQuantity={async () => {
-                setIsHandlingQty(true);
-                await apiClient.patch(`/carts/${cartId}/items/${itemId}/`, {
-                  quantity: quantity - 1,
-                });
-                // Invalidate the cache for ["carts", "user", user?.id]
-                queryClient.invalidateQueries({
-                  queryKey: ["carts", "user", user?.id],
-                });
-                setIsHandlingQty(false);
-                // setIsDeletingCartItems(false);
-              }}
-              onChange={onChange}
             />
           </div>
         </div>
