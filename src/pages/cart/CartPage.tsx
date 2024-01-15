@@ -10,10 +10,10 @@ import Space from "../../components/Space";
 import Spinner from "../../components/Spinner";
 import useCartForUser from "../../hooks/cart/useCartForUser";
 import useAuth from "../../hooks/useAuth";
-import { productBaseURL } from "../../services/baseURLs";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
 import CartItems from "./CartItems";
 import OrderSummary from "./OrderSummary";
+import apiClient from "../../services/apiClient";
 
 const CartPage = () => {
   const { user } = useAuth();
@@ -24,9 +24,8 @@ const CartPage = () => {
 
   const [subtotal, setSubtotal] = useState<number | null>(null);
   const fetchProductPrice = async (productId: string): Promise<number> => {
-    const response = await fetch(`${productBaseURL}/products/${productId}/`);
-    const data = await response.json();
-    return data.selling_price;
+    const response = await apiClient.get(`/products/${productId}/`);
+    return response.data.selling_price;
   };
 
   useEffect(() => {
@@ -50,6 +49,42 @@ const CartPage = () => {
         <Spinner />
       </div>
     );
+
+  if (!userCart)
+    return (
+      <Main>
+        <Space spacing="my-14" />
+        <Container>
+          <FlexWithOrderSummary OrderSummary={<OrderSummary subtotal={0} />}>
+            <Card styles="px-12">
+              <div className="flex justify-between font-semibold text-2xl">
+                <Heading variant="h2" styles="text-2xl">
+                  Shopping Cart
+                </Heading>
+                <span className="text-lg">0 Items</span>
+              </div>
+              <HR styles="mt-4 mb-8" />
+
+              <div className="flex justify-center items-center my-8 flex-col space-y-3">
+                <Heading variant="h3">Your Cart is Empty</Heading>
+                <Link to="/" className="text-fyellow-shades-500">
+                  Shop Now
+                </Link>
+              </div>
+
+              <Space spacing="my-8" />
+            </Card>
+          </FlexWithOrderSummary>
+          <Space spacing="my-14" />
+          <SimilarAds heading="Wishlists" />
+
+          <Space spacing="my-14" />
+          <SimilarAds heading="Recommended" />
+        </Container>
+        <Space spacing="my-14" />
+      </Main>
+    );
+
   if (userCart)
     return (
       <Main>

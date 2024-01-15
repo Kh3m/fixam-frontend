@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 import { StoreType } from "../entities/store";
-import { cartBaseURL, storeBaseURL, userBaseURL } from "../services/baseURLs";
 import apiClient from "../services/apiClient";
 
 interface UserData {
@@ -30,11 +29,9 @@ const useAuth = () => {
     if (isAuthenticated()) {
       const userId = getCookie("userId");
 
-      apiClient
-        .get<StoreType[]>(`${storeBaseURL}/stores/owner/${userId}/`)
-        .then((res) => {
-          setUserStores(res.data);
-        });
+      apiClient.get<StoreType[]>(`/stores/owner/${userId}/`).then((res) => {
+        setUserStores(res.data);
+      });
     }
   }, []);
 
@@ -42,30 +39,29 @@ const useAuth = () => {
     try {
       // Make API call to backend auth endpoint using axios
       const res = await apiClient.post<UserData>(
-        `${userBaseURL}/users/auth/login/`,
+        `/users/auth/login/`,
         credentials
       );
-
-      console.log("Login Response", res.data);
 
       if (res.status === 200) {
         const userData = res.data;
         // TODO: Check for side effect
         setCookie("userId", userData.id, 7); // Expires in 7 days
 
-        try {
-          // Try to merge cart items
-          const mergeRes = await apiClient.post(
-            `${cartBaseURL}/carts/${getCookie("cartId")}/merge/${userData.id}/`
-          );
+        if (!!getCookie("cartId")) {
+          try {
+            // Try to merge cart items
+            const mergeRes = await apiClient.post(
+              `/carts/${getCookie("cartId")}/merge/${userData.id}/`
+            );
 
-          // If successfully merged, remove cartId from cookie
-          console.log("MergeRes", mergeRes);
-          removeCookie("cartId");
-        } catch (err) {
-          console.log("MERGING ERROR", err);
+            // If successfully merged, remove cartId from cookie
+            console.log("MergeRes", mergeRes);
+            removeCookie("cartId");
+          } catch (err) {
+            console.log("MERGING ERROR", err);
+          }
         }
-
         setUser({ id: userData.id });
       } else {
         // TODO: Handle authentication error
@@ -79,7 +75,7 @@ const useAuth = () => {
   const register = async (credentials: UserCredentialType) => {
     try {
       const response = await apiClient.post(
-        `${userBaseURL}/users/auth/registeration/`,
+        `/users/auth/registeration/`,
         credentials
       );
 
@@ -106,28 +102,24 @@ const useAuth = () => {
   const authUserDummy = async (userId: string) => {
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClient.get<UserData>(
-        `${userBaseURL}/users/` + userId + "/"
-      );
+      const res = await apiClient.get<UserData>(`/users/` + userId + "/");
 
       console.log("FoundUser Response", res);
 
       if (res.status === 200) {
         const foundUserData = res.data;
         setCookie("userId", foundUserData.id, 8); // Expires in 8 days
-        // Try to merge cart items
-        const mergeRes = await apiClient.post(
-          `${cartBaseURL}/carts/${getCookie("cartId")}/merge/${
-            foundUserData.id
-          }/`
-        );
+        if (!!getCookie("cartId")) {
+          // Try to merge cart items
+          const mergeRes = await apiClient.post(
+            `/carts/${getCookie("cartId")}/merge/${foundUserData.id}/`
+          );
 
-        // If successfully merged, remove cartId from cookie
-        console.log("MergeRes", mergeRes);
-        removeCookie("cartId");
-
+          // If successfully merged, remove cartId from cookie
+          console.log("MergeRes", mergeRes);
+          removeCookie("cartId");
+        }
         setUser({ id: foundUserData.id });
-        console.log("COOKIES SET", document.cookie);
       } else {
         // TODO: Handle authentication error
         console.error("FETCH USER failed");

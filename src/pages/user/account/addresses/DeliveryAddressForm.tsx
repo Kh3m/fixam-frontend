@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
 import useAuth from "../../../../hooks/useAuth";
-import { userBaseURL } from "../../../../services/baseURLs";
 import { isAxiosError } from "axios";
 import ToastMessage from "../../../../components/ToastMessage";
 import CustomerDeliveryAddressFields from "./DeliveryAddressFields";
@@ -55,19 +54,16 @@ const DeliveryAddressForm = ({
       if (user) {
         // Send request to update user's address
         const createdAddress = !address
-          ? await apiClient.post(`${userBaseURL}/users/adresses/`, {
+          ? await apiClient.post(`/users/adresses/`, {
               ...data,
               receiver_phone_two: data.receiver_phone_two || null,
               user: user.id,
             })
-          : await apiClient.put(
-              `${userBaseURL}/users/adresses/${address.id}/`,
-              {
-                ...data,
-                receiver_phone_two: data.receiver_phone_two || null,
-                user: user.id,
-              }
-            );
+          : await apiClient.put(`/users/adresses/${address.id}/`, {
+              ...data,
+              receiver_phone_two: data.receiver_phone_two || null,
+              user: user.id,
+            });
 
         // If the address is created successful, reset the form
         if (createdAddress.status == 201 || createdAddress.status == 200) {

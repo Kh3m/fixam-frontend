@@ -30,7 +30,7 @@ const Addresses = () => {
       ) : (
         <div>
           {addresses?.map((address) => (
-            <AccountAddressSummary address={address} />
+            <AccountAddressSummary key={address.id} address={address} />
           ))}
         </div>
       )}

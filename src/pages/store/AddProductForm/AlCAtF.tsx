@@ -7,7 +7,6 @@ import apiClient, { FetchResponseType } from "../../../services/apiClient";
 import { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useCategories from "../../../hooks/category/useCategories";
 import { OptionType } from "../../../utils/types";
-import { productBaseURL } from "../../../services/baseURLs";
 
 type CategoryType = {
   id: string;
@@ -50,7 +49,7 @@ const CategoryFields = ({ defaultCategory }: Props) => {
     try {
       // TODO: Fix using useSubCategories
       const subCategoriesResponse = await apiClient.get<CategoryType[]>(
-        `${productBaseURL}/products/categories/${categoryId}/subcategories/`
+        `/products/categories/${categoryId}/subcategories/`
       );
 
       const subCategories = subCategoriesResponse.data;

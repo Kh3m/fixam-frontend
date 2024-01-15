@@ -10,8 +10,9 @@ import ContactFields from "./ContactFields";
 import SocialFields from "./SocialFields";
 import { validate } from "./formValidationUtils";
 import useAuth from "../../hooks/useAuth";
-import { storeBaseURL } from "../../services/baseURLs";
 import apiClient from "../../services/apiClient";
+import Spinner from "../../components/Spinner";
+import Center from "../../components/Center";
 
 interface Props {
   stepName: string;
@@ -54,7 +55,7 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
 
     try {
       const createdStore = await apiClient.post<StoreType>(
-        `${storeBaseURL}/stores/`,
+        `/stores/`,
         formData,
         {
           headers: {
@@ -105,9 +106,16 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
               type="submit"
               variant="elevated"
               styles="w-full text-center text-white font-semibold bg-fyellow py-4"
+              disabled={isCreatingStore}
               noSizingClass
             >
-              {isCreatingStore ? "Loading..." : "Become a Vendor"}
+              {isCreatingStore ? (
+                <Center>
+                  <Spinner />
+                </Center>
+              ) : (
+                "Become a Vendor"
+              )}
             </Button>
           ) : (
             <Button

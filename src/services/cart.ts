@@ -1,5 +1,4 @@
 import { APIClient } from "./apiClient";
-import { cartBaseURL } from "./baseURLs";
 
 export type CartItemOptionType = {
   id?: number;
@@ -27,7 +26,7 @@ export type CartType = {
 };
 
 export const userCartService = (userId?: string) => {
-  return new APIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
+  return new APIClient<CartType>(`/carts/user/${userId}/`);
 };
 
 // Service for /carts/:{cartId}/items/

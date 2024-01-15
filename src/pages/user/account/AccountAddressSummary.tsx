@@ -4,7 +4,6 @@ import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
 import BorderCard from "../BorderCard";
 import { UserAddressType } from "../../../services/user";
-import { userBaseURL } from "../../../services/baseURLs";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
@@ -30,7 +29,7 @@ const AccountAddressSummary = ({ address }: Props) => {
 
     try {
       const deletedAddress = await apiClient.delete(
-        `${userBaseURL}/users/adresses/${addressId}/`
+        `/users/adresses/${addressId}/`
       );
 
       console.log("DELETED", deletedAddress);
@@ -89,10 +88,9 @@ const AccountAddressSummary = ({ address }: Props) => {
           disabled={address.is_default}
           styles="text-fyellow-shades-500 font-semibold text-sm"
           onClick={async () => {
-            await apiClient.patch(
-              `${userBaseURL}/users/adresses/${address.id}/`,
-              { is_default: true }
-            );
+            await apiClient.patch(`/users/adresses/${address.id}/`, {
+              is_default: true,
+            });
 
             queryClient.invalidateQueries({
               queryKey: ["users", user?.id, "addresses"],

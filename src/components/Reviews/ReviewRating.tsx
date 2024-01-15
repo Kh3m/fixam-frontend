@@ -5,7 +5,6 @@ import Card from "../Card";
 import Button from "../Button";
 import useAuth from "../../hooks/useAuth";
 import Space from "../Space";
-import { reviewBaseURL } from "../../services/baseURLs";
 import { useState } from "react";
 import Spinner from "../Spinner";
 import { useQueryClient } from "@tanstack/react-query";
@@ -41,7 +40,7 @@ const ReviewRating = ({ productId }: Props) => {
       console.log("Submitted Review: ", revievewData, "user", user);
       try {
         const responseReview = await apiClient.post(
-          `${reviewBaseURL}/reviews/user/${user.id}/`,
+          `/reviews/user/${user.id}/`,
           revievewData
         );
         console.log("responseReview", responseReview);

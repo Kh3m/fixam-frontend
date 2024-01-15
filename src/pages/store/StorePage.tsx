@@ -2,18 +2,16 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Container from "../../components/Container";
 import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header";
 import Main from "../../components/Main";
 import NewsLetter from "../../components/NewsLetter";
 import Space from "../../components/Space";
 import { StoreResponseType } from "../../entities/store";
 import useAuth from "../../hooks/useAuth";
-import { storeBaseURL } from "../../services/baseURLs";
+import apiClient from "../../services/apiClient";
 import { getCookie } from "../../utils/cookies";
 import SideBar from "./SideBar";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
-import apiClient from "../../services/apiClient";
 
 // const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
@@ -31,7 +29,7 @@ export const StorePage = () => {
 
     if (isAuthenticated() && user) {
       apiClient
-        .get<StoreResponseType[]>(`${storeBaseURL}/stores/owner/${user?.id}/`)
+        .get<StoreResponseType[]>(`/stores/owner/${user?.id}/`)
         .then((res) => {
           // TODO: User's store slug to load user
           const foundUserStores = res.data;
@@ -58,7 +56,7 @@ export const StorePage = () => {
 
   return (
     <Main>
-      <Header />
+      {/* <Header /> */}
 
       <Space spacing="my-14" />
       <Container

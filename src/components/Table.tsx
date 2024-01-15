@@ -13,7 +13,9 @@ const Table = ({ tableHeadings, TableData }: Props) => {
       >
         <tr>
           {tableHeadings.map((heading, index) => (
-            <th className={`${index === 0 ? "p-4" : "py-4"}`}>{heading}</th>
+            <th key={index} className={`${index === 0 ? "p-4" : "py-4"}`}>
+              {heading}
+            </th>
           ))}
           <th>Actions</th>
         </tr>

@@ -5,7 +5,6 @@ import Heading from "../../components/Heading";
 import Space from "../../components/Space";
 import useProduct from "../../hooks/products/useProduct";
 import useAuth from "../../hooks/useAuth";
-import { cartBaseURL } from "../../services/baseURLs";
 import { formatPrice } from "../../utils/number-formatter";
 import QuantityField from "./QuantityField";
 import apiClient from "../../services/apiClient";
@@ -40,7 +39,7 @@ const CartItem = ({
 
     try {
       const deleteCartRes = await apiClient.delete(
-        `${cartBaseURL}/carts/${cartId}/items/${itemId}/`
+        `/carts/${cartId}/items/${itemId}/`
       );
 
       if (deleteCartRes.status == 204) {
@@ -116,10 +115,9 @@ const CartItem = ({
               quantity={quantity}
               handleOnIcrementQuantity={async () => {
                 setIsHandlingQty(true);
-                await apiClient.patch(
-                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
-                  { quantity: quantity + 1 }
-                );
+                await apiClient.patch(`/carts/${cartId}/items/${itemId}/`, {
+                  quantity: quantity + 1,
+                });
                 // Invalidate the cache for ["carts", "user", user?.id]
                 queryClient.invalidateQueries({
                   queryKey: ["carts", "user", user?.id],
@@ -129,10 +127,9 @@ const CartItem = ({
               }}
               handleOnDecrementQuantity={async () => {
                 setIsHandlingQty(true);
-                await apiClient.patch(
-                  `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
-                  { quantity: quantity - 1 }
-                );
+                await apiClient.patch(`/carts/${cartId}/items/${itemId}/`, {
+                  quantity: quantity - 1,
+                });
                 // Invalidate the cache for ["carts", "user", user?.id]
                 queryClient.invalidateQueries({
                   queryKey: ["carts", "user", user?.id],

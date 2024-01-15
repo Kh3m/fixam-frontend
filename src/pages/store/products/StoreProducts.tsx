@@ -3,8 +3,12 @@ import TopBar from "../TopBar";
 
 import { Fragment, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import Center from "../../../components/Center";
+import EmptyStateUser from "../../../components/EmptyStateUser";
+import Heading from "../../../components/Heading";
 import ActionMenu from "../../../components/Menu/ActionMenu";
 import Pagination from "../../../components/Pagination";
+import Spinner from "../../../components/Spinner";
 import Table from "../../../components/Table";
 import useStoreProducts from "../../../hooks/products/useStoreProducts";
 import useAuth from "../../../hooks/useAuth";
@@ -34,7 +38,38 @@ const StoreProducts = () => {
   });
 
   const generateTableProductData = () => {
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading)
+      return (
+        <tr>
+          <td colSpan={5} className="py-2 pt-4">
+            <Center>
+              <Spinner />
+            </Center>
+          </td>
+        </tr>
+      );
+    if (!isLoading && products && !products.length)
+      return (
+        <tr>
+          <td colSpan={5}>
+            <Center>
+              <EmptyStateUser
+                heading={
+                  <div>
+                    <Heading variant="h4">Ready to get started?</Heading>
+                    <p className="text-sm">
+                      Add your products now and enhance your customer
+                      experience.
+                    </p>
+                  </div>
+                }
+                callToActionText="Add Product"
+                to={`${location.pathname}/add-product`}
+              />
+            </Center>
+          </td>
+        </tr>
+      );
     if (products)
       return (
         <>
@@ -102,7 +137,7 @@ const StoreProducts = () => {
               tableHeadings={["Product Name", "Category", "Price", "Stock"]}
               TableData={generateTableProductData()}
             />
-            <Pagination toEnd />
+            {products && products.length >= 10 && <Pagination toEnd />}
           </Fragment>
         </section>
       )}

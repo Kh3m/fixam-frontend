@@ -13,13 +13,13 @@ import CircledLink from "./CircledLink";
 const HeaderNav = () => {
   const { isAuthenticated, userStores, user } = useAuth();
 
-  const { data, isLoading: isLoadingDummyUserCart } = useCartForUser(
-    user?.id || ""
-  );
+  const { data, isLoading: isLoadingUserCart } = useCartForUser(user?.id || "");
 
   const userData = useUser(user?.id || "");
 
-  const dummyUserCart = data as CartType;
+  const userCartData = data as CartType;
+
+  console.log("UserCart", userCartData);
 
   return (
     <nav
@@ -29,26 +29,26 @@ const HeaderNav = () => {
       <CircledLink to="" styles="text-lg mr-3">
         <MdHelpCenter />
       </CircledLink>
-      {isLoadingDummyUserCart && (
+      {isLoadingUserCart && (
         <div className="mr-5">
           <Spinner />
         </div>
       )}
-      {!isLoadingDummyUserCart && dummyUserCart && (
+      {!isLoadingUserCart && userCartData && (
         <Link
-          state={{ userCart: dummyUserCart }}
+          state={{ userCart: userCartData }}
           to={`/cart`}
           className="text-white text-2xl mr-5"
         >
           <ShoppingCart
-            itemCount={Number.parseInt(dummyUserCart.total_quantity || "0")}
+            itemCount={Number.parseInt(userCartData.total_quantity || "0")}
           />
         </Link>
       )}
 
-      {!isLoadingDummyUserCart && !dummyUserCart && (
+      {!isLoadingUserCart && !userCartData && (
         <Link
-          state={{ userCart: dummyUserCart }}
+          state={{ userCart: userCartData }}
           to={`/cart`}
           className="text-white text-2xl mr-5"
         >
@@ -79,7 +79,11 @@ const HeaderNav = () => {
           variant="elevated"
           styles="hidden md:block bg-white text-fyellow border-2 border-white"
         >
-          {isAuthenticated() ? "Store" : "Be a vendor"}
+          {isAuthenticated() && userStores?.length
+            ? "Store"
+            : isAuthenticated()
+            ? "Own a Store"
+            : "Be a vendor"}
         </Button>
       </Link>
     </nav>

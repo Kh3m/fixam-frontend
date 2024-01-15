@@ -10,7 +10,6 @@ import { useLocation, useParams } from "react-router-dom";
 import useProduct from "../../../hooks/products/useProduct";
 import Spinner from "../../../components/Spinner";
 import Center from "../../../components/Center";
-import { orderBaseURL } from "../../../services/baseURLs";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { goBack } from "../../../utils/history";
@@ -33,10 +32,7 @@ const OrderConfirmCancel = () => {
   const onSubmit = async (data: FieldValues) => {
     setIsLoading(true);
     try {
-      await apiClient.post(
-        `${orderBaseURL}/orders/${itemId}/orderitem/cancel`,
-        data
-      );
+      await apiClient.post(`/orders/${itemId}/orderitem/cancel`, data);
 
       queryClient.invalidateQueries({ queryKey: ["products", productId] });
       goBack();

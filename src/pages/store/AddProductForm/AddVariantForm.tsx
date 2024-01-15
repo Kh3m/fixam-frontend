@@ -8,7 +8,6 @@ import Space from "../../../components/Space";
 import Spinner from "../../../components/Spinner";
 import useProductVariants from "../../../hooks/products/useProductVariants";
 import useVariantsForProduct from "../../../hooks/products/useVariantsForProduct";
-import { productBaseURL } from "../../../services/baseURLs";
 import FormFieldCard from "./FormFieldCard";
 import VariantFields from "./VariantFields";
 import apiClient from "../../../services/apiClient";
@@ -100,7 +99,7 @@ const AddVariantForm = ({
         };
 
         const createdOption = await apiClient.post<VariantOptionType>(
-          `${productBaseURL}/products/options/`,
+          `/products/options/`,
           optionVariables
         );
 

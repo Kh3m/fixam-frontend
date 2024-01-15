@@ -10,13 +10,6 @@ import { useCheckoutContext } from "../../contexts/checkout-context";
 import useCartForUser from "../../hooks/cart/useCartForUser";
 import useAuth from "../../hooks/useAuth";
 import useUserAddresses from "../../hooks/user/useUserAddresses";
-import {
-  cartBaseURL,
-  orderBaseURL,
-  paymentBaseURL,
-  productBaseURL,
-  userBaseURL,
-} from "../../services/baseURLs";
 import { CartType } from "../../services/cart";
 import { UserType } from "../../services/user";
 import FlexWithOrderSummary from "../FlexWithOrderSummary";
@@ -74,7 +67,7 @@ const CheckoutPage = () => {
   const { checkoutState } = useCheckoutContext();
 
   const fetchProductPrice = async (productId: string): Promise<number> => {
-    const response = await fetch(`${productBaseURL}/products/${productId}/`);
+    const response = await fetch(`/products/${productId}/`);
     const data = await response.json();
     return data.selling_price;
   };
@@ -107,7 +100,7 @@ const CheckoutPage = () => {
           };
 
           const createdOrder = await apiClient.post<OrderType>(
-            `${orderBaseURL}/orders/`,
+            `/orders/`,
             orderData
           );
 
@@ -128,16 +121,14 @@ const CheckoutPage = () => {
             console.log("OrderItem", orderItem);
 
             const createOrderItem = await apiClient.post(
-              `${orderBaseURL}/orders/${createdOrder.data.id}/orderitems/create/`,
+              `/orders/${createdOrder.data.id}/orderitems/create/`,
               orderItem
             );
 
             console.log("createOrderItem", createOrderItem);
           }
 
-          const deleteCart = await apiClient.delete(
-            `${cartBaseURL}/carts/${cartData.id}/`
-          );
+          const deleteCart = await apiClient.delete(`/carts/${cartData.id}/`);
           console.log("deleteCart", deleteCart);
           // }
 
@@ -148,7 +139,7 @@ const CheckoutPage = () => {
 
           if (checkoutState.paymentMethod === "CardPayment") {
             const userData = await apiClient.get<UserType>(
-              `${userBaseURL}/users/${user.id}/`
+              `/users/${user.id}/`
             );
             const newPayment = {
               amount: subtotal * 100,
@@ -161,7 +152,7 @@ const CheckoutPage = () => {
             };
 
             const createdPayment = await apiClient.post<AuthorizationURLType>(
-              `${paymentBaseURL}/payments/paystack/make/`,
+              `/payments/paystack/make/`,
               newPayment
             );
 

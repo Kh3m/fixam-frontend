@@ -6,7 +6,6 @@ import Space from "../../../components/Space";
 import Spinner from "../../../components/Spinner";
 import { StoreResponseType } from "../../../entities/store";
 import useAuth from "../../../hooks/useAuth";
-import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
 import { ProductType } from "../../../services/product";
 import AddVariantForm from "./AddVariantForm";
 import AlCAtF from "./AlCAtF";
@@ -56,7 +55,7 @@ const AddProductForm = () => {
 
     if (user?.id && isAuthenticated()) {
       const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
-        `${storeBaseURL}/stores/owner/${user.id}/`
+        `/stores/owner/${user.id}/`
       );
 
       const getLastStoreIndex = getStoreForUserId.data.length - 1;
@@ -89,7 +88,7 @@ const AddProductForm = () => {
       // Send data to server
       try {
         const createdProduct = await apiClient.post<ProductType>(
-          `${productBaseURL}/products/`,
+          `/products/`,
           formData,
           {
             headers: {

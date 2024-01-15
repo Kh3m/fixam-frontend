@@ -6,7 +6,6 @@ import ProductDetail from "../../../components/Products/ProductDetail";
 import useProduct from "../../../hooks/products/useProduct";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
-import { productBaseURL } from "../../../services/baseURLs";
 import apiClient from "../../../services/apiClient";
 
 type ParamsType = {
@@ -44,7 +43,7 @@ const ViewProduct = () => {
   const handleDelete = () => {
     setIsDeletingProduct(true);
     apiClient
-      .delete(`${productBaseURL}/products/${product?.id}/`)
+      .delete(`/products/${product?.id}/`)
       .then((_) => {
         setIsDeletingProduct(false);
         navigate(

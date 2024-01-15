@@ -49,11 +49,11 @@ const StoreOrders = () => {
     // if (isLoading) return <p>Loading...</p>;
     return (
       <>
-        {orders.map((order) => {
+        {orders.map((order, index) => {
           const lowerStatus = removeSpacing(order.status);
 
           return (
-            <tr key={order.id} className="rounded-lg dark:bg-slate-700 fshadow">
+            <tr key={index} className="rounded-lg dark:bg-slate-700 fshadow">
               <td className="p-4 font-semibold">#{order.id}</td>
               <td>{order.customer}</td>
               <td>{order.payment}</td>
