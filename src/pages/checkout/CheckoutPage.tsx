@@ -10,7 +10,6 @@ import { useCheckoutContext } from "../../contexts/checkout-context";
 import useCartForUser from "../../hooks/cart/useCartForUser";
 import useAuth from "../../hooks/useAuth";
 import useUserAddresses from "../../hooks/user/useUserAddresses";
-import { dummyApiClient } from "../../services/apiClient";
 import {
   cartBaseURL,
   orderBaseURL,
@@ -25,6 +24,7 @@ import OrderSummary from "../cart/OrderSummary";
 import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
 import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
 import OrderSuccessful from "./OrderSuccessful";
+import apiClient from "../../services/apiClient";
 
 type OrderType = {
   id: string;
@@ -106,7 +106,7 @@ const CheckoutPage = () => {
             order_payment_status: "Pending",
           };
 
-          const createdOrder = await dummyApiClient.post<OrderType>(
+          const createdOrder = await apiClient.post<OrderType>(
             `${orderBaseURL}/orders/`,
             orderData
           );
@@ -127,7 +127,7 @@ const CheckoutPage = () => {
 
             console.log("OrderItem", orderItem);
 
-            const createOrderItem = await dummyApiClient.post(
+            const createOrderItem = await apiClient.post(
               `${orderBaseURL}/orders/${createdOrder.data.id}/orderitems/create/`,
               orderItem
             );
@@ -135,7 +135,7 @@ const CheckoutPage = () => {
             console.log("createOrderItem", createOrderItem);
           }
 
-          const deleteCart = await dummyApiClient.delete(
+          const deleteCart = await apiClient.delete(
             `${cartBaseURL}/carts/${cartData.id}/`
           );
           console.log("deleteCart", deleteCart);
@@ -147,7 +147,7 @@ const CheckoutPage = () => {
           });
 
           if (checkoutState.paymentMethod === "CardPayment") {
-            const userData = await dummyApiClient.get<UserType>(
+            const userData = await apiClient.get<UserType>(
               `${userBaseURL}/users/${user.id}/`
             );
             const newPayment = {
@@ -160,11 +160,10 @@ const CheckoutPage = () => {
               currency: "NGN",
             };
 
-            const createdPayment =
-              await dummyApiClient.post<AuthorizationURLType>(
-                `${paymentBaseURL}/payments/paystack/make/`,
-                newPayment
-              );
+            const createdPayment = await apiClient.post<AuthorizationURLType>(
+              `${paymentBaseURL}/payments/paystack/make/`,
+              newPayment
+            );
 
             return (location.href = createdPayment.data.data.authorization_url);
           }

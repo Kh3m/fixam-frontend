@@ -1,5 +1,4 @@
-import { DummyAPIClient } from "./apiClient";
-import { cartBaseURL } from "./baseURLs";
+import { APIClient } from "./apiClient";
 
 export type WishlistType = {
   id: string;
@@ -8,7 +7,5 @@ export type WishlistType = {
 };
 
 export const userWishlistService = (userId?: string) => {
-  return new DummyAPIClient<WishlistType>(
-    `${cartBaseURL}/carts/wishlist/user/${userId}/`
-  );
+  return new APIClient<WishlistType>(`/carts/wishlist/user/${userId}/`);
 };

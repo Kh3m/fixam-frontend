@@ -1,4 +1,4 @@
-import { DummyAPIClient } from "./apiClient";
+import { APIClient } from "./apiClient";
 import { cartBaseURL } from "./baseURLs";
 
 export type CartItemOptionType = {
@@ -26,20 +26,14 @@ export type CartType = {
   modified_at?: Date;
 };
 
-export const dummyUserCartService = (userId?: string) => {
-  return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
-};
-
 export const userCartService = (userId?: string) => {
-  return new DummyAPIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
+  return new APIClient<CartType>(`${cartBaseURL}/carts/user/${userId}/`);
 };
 
 // Service for /carts/:{cartId}/items/
 export const cartItemService = (cartId: string) => {
-  return new DummyAPIClient<CartItemType, CartItemType>(
-    `${cartBaseURL}/carts/${cartId}/items/`
-  );
+  return new APIClient<CartItemType, CartItemType>(`/carts/${cartId}/items/`);
 };
 
 // MAIN IMPLEMENTATION STARTS HERE
-export default new DummyAPIClient<CartType>("/carts/");
+export default new APIClient<CartType>("/carts/");

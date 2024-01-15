@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { dummyUserCartService } from "../../services/cart";
+import { userCartService } from "../../services/cart";
 
 const useCartForUser = (userId: string) =>
   useQuery({
     queryKey: ["carts", "user", userId],
     // TODO: FIX avoid using dummyUserCartService
-    queryFn: () => dummyUserCartService(userId).fetchOne(),
+    queryFn: () => userCartService(userId).fetchOne(),
   });
 
 export default useCartForUser;

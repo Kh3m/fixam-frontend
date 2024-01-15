@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { APIClient } from "../../services/apiClient";
 import { ProductType } from "../../services/product";
-import { productBaseURL } from "../../services/baseURLs";
-import { DummyAPIClient } from "../../services/apiClient";
 
 const useProductsFromCategory = (categoryId: string) => {
-  const apiClient = new DummyAPIClient<ProductType>(
-    `${productBaseURL}/products/categories/${categoryId}/products/?levels_deep=all`
+  const apiClient = new APIClient<ProductType>(
+    `/products/categories/${categoryId}/products/?levels_deep=all`
   );
 
   return useQuery({

@@ -14,8 +14,8 @@ import FeaturesField from "./FeaturesField";
 import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
-import { dummyApiClient } from "../../../services/apiClient";
 import { storeBaseURL } from "../../../services/baseURLs";
+import apiClient from "../../../services/apiClient";
 
 type ProductUploadType = {
   name: string;
@@ -71,7 +71,7 @@ const EditProductForm = () => {
     const formData = new FormData();
     if (userId && isAuthenticated()) {
       // TODO: Use the custom effect useAuth to retrieve user's store
-      const getStoreForUserId = await dummyApiClient.get<StoreResponseType[]>(
+      const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
         `${storeBaseURL}/stores/owner/${userId}/`
       );
 

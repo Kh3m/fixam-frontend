@@ -1,17 +1,17 @@
 import { QueryClient } from "@tanstack/react-query";
-import { dummyApiClient } from "../../services/apiClient";
 import { cartBaseURL } from "../../services/baseURLs";
 import { WishlistType } from "../../services/wishlist";
 import { CartItemType, CartType } from "../../services/cart";
 import { getCookie, setCookie } from "../../utils/cookies";
 import axios from "axios";
+import apiClient from "../../services/apiClient";
 
 export const removeFromWishlist = async (
   wishlistId: string,
   userId: string,
   queryClient: QueryClient
 ) => {
-  const deletedWishList = await dummyApiClient.delete<WishlistType>(
+  const deletedWishList = await apiClient.delete<WishlistType>(
     `${cartBaseURL}/carts/wishlist/${wishlistId}/`
   );
   console.log("Deleting from wishlist successfully", deletedWishList);
@@ -25,7 +25,7 @@ export const addItemToWishlist = async (
   userId: string,
   queryClient: QueryClient
 ) => {
-  const createdWishList = await dummyApiClient.post<WishlistType>(
+  const createdWishList = await apiClient.post<WishlistType>(
     `${cartBaseURL}/carts/wishlist/`,
     {
       user_id: userId,
@@ -77,14 +77,14 @@ export const addItemToCart = async (
   if (isAuthenticated && userId) {
     try {
       // Find user cart with user id
-      const foundUserCart = await dummyApiClient.get<CartType>(
+      const foundUserCart = await apiClient.get<CartType>(
         `${cartBaseURL}/carts/user/${userId}/`
       );
       console.log("Found User's Cart user isAuthenticated", foundUserCart);
       // Check if the user already has a cart
       if (foundUserCart.status === 200) {
         // Add item to the cart
-        const addedCartItem = await dummyApiClient.post(
+        const addedCartItem = await apiClient.post(
           `${cartBaseURL}/carts/${foundUserCart.data.id}/items/`,
           item
         );
@@ -103,15 +103,12 @@ export const addItemToCart = async (
           // No Cart Found - Create a New Cart
           console.log("NO CART FOUND!!! user isAuthenticated", error.response);
           // Use userId to create new cart
-          const newCartForUser = await dummyApiClient.post(
-            `${cartBaseURL}/carts/`,
-            {
-              user_id: userId,
-            }
-          );
+          const newCartForUser = await apiClient.post(`${cartBaseURL}/carts/`, {
+            user_id: userId,
+          });
 
           // Add item to newCartForUser
-          const addedCartItem = await dummyApiClient.post(
+          const addedCartItem = await apiClient.post(
             `${cartBaseURL}/carts/${newCartForUser.data.id}/items/`,
             item
           );
@@ -133,13 +130,13 @@ export const addItemToCart = async (
 
     if (cartIdFromCookie) {
       // Use the cartId in cookie to find a cart by it's cartId
-      const foundCart = await dummyApiClient.get(
+      const foundCart = await apiClient.get(
         `${cartBaseURL}/carts/${cartIdFromCookie}/`
       );
 
       if (foundCart.status === 200) {
         // Add Items to cart
-        const addedItem = await dummyApiClient.post(
+        const addedItem = await apiClient.post(
           `${cartBaseURL}/carts/${cartIdFromCookie}/items/`,
           item
         );
@@ -156,7 +153,7 @@ export const addItemToCart = async (
       // There is no cartId in cookie and user is not authenticated
       // Create guest user cart without user_id
       try {
-        const createdCart = await dummyApiClient.post<{ id: string }>(
+        const createdCart = await apiClient.post<{ id: string }>(
           `${cartBaseURL}/carts/`,
           {
             user_id: null,
@@ -166,7 +163,7 @@ export const addItemToCart = async (
           setCookie("cartId", createdCart.data.id, 7);
 
           // Add item to newCartForUser
-          const addedCartItem = await dummyApiClient.post(
+          const addedCartItem = await apiClient.post(
             `${cartBaseURL}/carts/${createdCart.data.id}/items/`,
             item
           );

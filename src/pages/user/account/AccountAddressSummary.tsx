@@ -4,11 +4,11 @@ import Heading from "../../../components/Heading";
 import Space from "../../../components/Space";
 import BorderCard from "../BorderCard";
 import { UserAddressType } from "../../../services/user";
-import { dummyApiClient } from "../../../services/apiClient";
 import { userBaseURL } from "../../../services/baseURLs";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
+import apiClient from "../../../services/apiClient";
 
 const VerticalSeperator = () => (
   <div className="h-full w-[2px] rounded-sm bg-fyellow-shades-500"></div>
@@ -29,7 +29,7 @@ const AccountAddressSummary = ({ address }: Props) => {
     setIsDeleting(true);
 
     try {
-      const deletedAddress = await dummyApiClient.delete(
+      const deletedAddress = await apiClient.delete(
         `${userBaseURL}/users/adresses/${addressId}/`
       );
 
@@ -89,7 +89,7 @@ const AccountAddressSummary = ({ address }: Props) => {
           disabled={address.is_default}
           styles="text-fyellow-shades-500 font-semibold text-sm"
           onClick={async () => {
-            await dummyApiClient.patch(
+            await apiClient.patch(
               `${userBaseURL}/users/adresses/${address.id}/`,
               { is_default: true }
             );

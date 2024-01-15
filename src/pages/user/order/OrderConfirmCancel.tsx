@@ -10,11 +10,11 @@ import { useLocation, useParams } from "react-router-dom";
 import useProduct from "../../../hooks/products/useProduct";
 import Spinner from "../../../components/Spinner";
 import Center from "../../../components/Center";
-import { dummyApiClient } from "../../../services/apiClient";
 import { orderBaseURL } from "../../../services/baseURLs";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { goBack } from "../../../utils/history";
+import apiClient from "../../../services/apiClient";
 
 const OrderConfirmCancel = () => {
   const {
@@ -33,7 +33,7 @@ const OrderConfirmCancel = () => {
   const onSubmit = async (data: FieldValues) => {
     setIsLoading(true);
     try {
-      await dummyApiClient.post(
+      await apiClient.post(
         `${orderBaseURL}/orders/${itemId}/orderitem/cancel`,
         data
       );

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
 import useAuth from "../../../../hooks/useAuth";
-import { dummyApiClient } from "../../../../services/apiClient";
 import { userBaseURL } from "../../../../services/baseURLs";
 import { isAxiosError } from "axios";
 import ToastMessage from "../../../../components/ToastMessage";
@@ -10,6 +9,7 @@ import CustomerDeliveryAddressFields from "./DeliveryAddressFields";
 import { useQueryClient } from "@tanstack/react-query";
 import { UserAddressType } from "../../../../services/user";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../../../../services/apiClient";
 
 interface Props {
   handleCancel?: () => void;
@@ -55,12 +55,12 @@ const DeliveryAddressForm = ({
       if (user) {
         // Send request to update user's address
         const createdAddress = !address
-          ? await dummyApiClient.post(`${userBaseURL}/users/adresses/`, {
+          ? await apiClient.post(`${userBaseURL}/users/adresses/`, {
               ...data,
               receiver_phone_two: data.receiver_phone_two || null,
               user: user.id,
             })
-          : await dummyApiClient.put(
+          : await apiClient.put(
               `${userBaseURL}/users/adresses/${address.id}/`,
               {
                 ...data,

@@ -10,8 +10,8 @@ import ContactFields from "./ContactFields";
 import SocialFields from "./SocialFields";
 import { validate } from "./formValidationUtils";
 import useAuth from "../../hooks/useAuth";
-import { dummyApiClient } from "../../services/apiClient";
 import { storeBaseURL } from "../../services/baseURLs";
+import apiClient from "../../services/apiClient";
 
 interface Props {
   stepName: string;
@@ -53,7 +53,7 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
     console.log("formData: ", getValues());
 
     try {
-      const createdStore = await dummyApiClient.post<StoreType>(
+      const createdStore = await apiClient.post<StoreType>(
         `${storeBaseURL}/stores/`,
         formData,
         {

@@ -1,5 +1,4 @@
-import { DummyAPIClient } from "./apiClient";
-import { productBaseURL } from "./baseURLs";
+import { APIClient } from "./apiClient";
 
 export type CategoryType = {
   id: string;
@@ -9,15 +8,13 @@ export type CategoryType = {
   parent: string | null;
 };
 
-const apiClient = new DummyAPIClient<CategoryType>(
-  `${productBaseURL}/products/categories/`
-);
+const apiClient = new APIClient<CategoryType>(`/products/categories/`);
 
 const categoryService = apiClient;
 
 export const subCategoryService = (categoryId?: string) => {
-  return new DummyAPIClient<CategoryType>(
-    `${productBaseURL}/products/categories/${categoryId}/subcategories/`
+  return new APIClient<CategoryType>(
+    `/products/categories/${categoryId}/subcategories/`
   );
 };
 

@@ -8,12 +8,12 @@ import NewsLetter from "../../components/NewsLetter";
 import Space from "../../components/Space";
 import { StoreResponseType } from "../../entities/store";
 import useAuth from "../../hooks/useAuth";
-import { dummyApiClient } from "../../services/apiClient";
 import { storeBaseURL } from "../../services/baseURLs";
 import { getCookie } from "../../utils/cookies";
 import SideBar from "./SideBar";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
+import apiClient from "../../services/apiClient";
 
 // const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
@@ -30,7 +30,7 @@ export const StorePage = () => {
     console.log("isAuthenticated", isAuthenticated(), "user", user);
 
     if (isAuthenticated() && user) {
-      dummyApiClient
+      apiClient
         .get<StoreResponseType[]>(`${storeBaseURL}/stores/owner/${user?.id}/`)
         .then((res) => {
           // TODO: User's store slug to load user

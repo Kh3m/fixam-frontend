@@ -5,11 +5,11 @@ import Card from "../Card";
 import Button from "../Button";
 import useAuth from "../../hooks/useAuth";
 import Space from "../Space";
-import { dummyApiClient } from "../../services/apiClient";
 import { reviewBaseURL } from "../../services/baseURLs";
 import { useState } from "react";
 import Spinner from "../Spinner";
 import { useQueryClient } from "@tanstack/react-query";
+import apiClient from "../../services/apiClient";
 
 type ReviewType = {
   prod_id: string;
@@ -40,7 +40,7 @@ const ReviewRating = ({ productId }: Props) => {
       };
       console.log("Submitted Review: ", revievewData, "user", user);
       try {
-        const responseReview = await dummyApiClient.post(
+        const responseReview = await apiClient.post(
           `${reviewBaseURL}/reviews/user/${user.id}/`,
           revievewData
         );

@@ -3,8 +3,8 @@ import Banner from "../../components/Banner";
 import { getCookie } from "../../utils/cookies";
 import { StoreResponseType } from "../../entities/store";
 import useAuth from "../../hooks/useAuth";
-import { dummyApiClient } from "../../services/apiClient";
 import { storeBaseURL } from "../../services/baseURLs";
+import apiClient from "../../services/apiClient";
 
 const DashboardPage = () => {
   const [_, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ const DashboardPage = () => {
     console.log("isAuthenticated", isAuthenticated(), "user", user);
 
     if (isAuthenticated() && user) {
-      dummyApiClient
+      apiClient
         .get<StoreResponseType[]>(`${storeBaseURL}/stores/owner/${user?.id}/`)
         .then((res) => {
           // TODO: User's store slug to load user

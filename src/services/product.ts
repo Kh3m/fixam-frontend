@@ -1,4 +1,4 @@
-import { DummyAPIClient } from "./apiClient";
+import { APIClient } from "./apiClient";
 import { productBaseURL } from "./baseURLs";
 
 export type ProductType = {
@@ -21,12 +21,10 @@ export type ProductVariantType = {
   description: string;
 };
 
-const apiClient = new DummyAPIClient<ProductType>(
-  `${productBaseURL}/products/`
+const productService = new APIClient<ProductType>(`/products/`);
+
+export const productVariantsService = new APIClient<ProductVariantType>(
+  `/products/variants/`
 );
 
-export const productVariantsService = new DummyAPIClient<ProductVariantType>(
-  `${productBaseURL}/products/variants/`
-);
-
-export default apiClient;
+export default productService;

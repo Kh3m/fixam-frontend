@@ -1,4 +1,4 @@
-import axios from "axios";
+import { APIClient } from "./apiClient";
 
 export type ReviewType = {
   id: number;
@@ -11,9 +11,11 @@ export type ReviewType = {
   modified_at?: Date;
 };
 
-export const reviewAPIClient = axios.create({
-  baseURL: "https://reviewservice-production.up.railway.app/api/v1/reviews",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+export const reviewService = new APIClient<ReviewType>(`/reviews/`);
+
+export const reviewServiceForUser = new APIClient<ReviewType>(
+  `/reviews/products/`
+);
+
+export const reviewServiceForProduct = (productId: string) =>
+  new APIClient<ReviewType>(`/reviews/products/${productId}/`);

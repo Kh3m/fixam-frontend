@@ -1,13 +1,10 @@
-import { ReviewType, reviewAPIClient } from "../../services/review";
 import { useQuery } from "@tanstack/react-query";
+import { reviewServiceForUser } from "../../services/review";
 
 const useReviewOfUser = (userId: string) =>
   useQuery({
     queryKey: ["reviews", "products", userId],
-    queryFn: () =>
-      reviewAPIClient
-        .get<ReviewType[]>(`/products/${userId}/`)
-        .then((res) => res.data),
+    queryFn: () => reviewServiceForUser.fetch(userId),
   });
 
 export default useReviewOfUser;

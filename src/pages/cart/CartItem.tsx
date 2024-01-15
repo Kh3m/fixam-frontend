@@ -5,10 +5,10 @@ import Heading from "../../components/Heading";
 import Space from "../../components/Space";
 import useProduct from "../../hooks/products/useProduct";
 import useAuth from "../../hooks/useAuth";
-import { dummyApiClient } from "../../services/apiClient";
 import { cartBaseURL } from "../../services/baseURLs";
 import { formatPrice } from "../../utils/number-formatter";
 import QuantityField from "./QuantityField";
+import apiClient from "../../services/apiClient";
 
 interface Props {
   quantity: number;
@@ -39,7 +39,7 @@ const CartItem = ({
     setIsDeletingCartItems(true);
 
     try {
-      const deleteCartRes = await dummyApiClient.delete(
+      const deleteCartRes = await apiClient.delete(
         `${cartBaseURL}/carts/${cartId}/items/${itemId}/`
       );
 
@@ -116,7 +116,7 @@ const CartItem = ({
               quantity={quantity}
               handleOnIcrementQuantity={async () => {
                 setIsHandlingQty(true);
-                await dummyApiClient.patch(
+                await apiClient.patch(
                   `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
                   { quantity: quantity + 1 }
                 );
@@ -129,7 +129,7 @@ const CartItem = ({
               }}
               handleOnDecrementQuantity={async () => {
                 setIsHandlingQty(true);
-                await dummyApiClient.patch(
+                await apiClient.patch(
                   `${cartBaseURL}/carts/${cartId}/items/${itemId}/`,
                   { quantity: quantity - 1 }
                 );

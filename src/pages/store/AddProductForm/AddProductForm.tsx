@@ -6,7 +6,6 @@ import Space from "../../../components/Space";
 import Spinner from "../../../components/Spinner";
 import { StoreResponseType } from "../../../entities/store";
 import useAuth from "../../../hooks/useAuth";
-import { dummyApiClient } from "../../../services/apiClient";
 import { productBaseURL, storeBaseURL } from "../../../services/baseURLs";
 import { ProductType } from "../../../services/product";
 import AddVariantForm from "./AddVariantForm";
@@ -14,6 +13,7 @@ import AlCAtF from "./AlCAtF";
 import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
+import apiClient from "../../../services/apiClient";
 
 // type ProductUploadType = {
 //   name: string;
@@ -55,7 +55,7 @@ const AddProductForm = () => {
     const formData = new FormData();
 
     if (user?.id && isAuthenticated()) {
-      const getStoreForUserId = await dummyApiClient.get<StoreResponseType[]>(
+      const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
         `${storeBaseURL}/stores/owner/${user.id}/`
       );
 
@@ -88,7 +88,7 @@ const AddProductForm = () => {
 
       // Send data to server
       try {
-        const createdProduct = await dummyApiClient.post<ProductType>(
+        const createdProduct = await apiClient.post<ProductType>(
           `${productBaseURL}/products/`,
           formData,
           {

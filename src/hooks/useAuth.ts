@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 import { StoreType } from "../entities/store";
 import { cartBaseURL, storeBaseURL, userBaseURL } from "../services/baseURLs";
-import { dummyApiClient } from "../services/apiClient";
+import apiClient from "../services/apiClient";
 
 interface UserData {
   id: string;
@@ -30,7 +30,7 @@ const useAuth = () => {
     if (isAuthenticated()) {
       const userId = getCookie("userId");
 
-      dummyApiClient
+      apiClient
         .get<StoreType[]>(`${storeBaseURL}/stores/owner/${userId}/`)
         .then((res) => {
           setUserStores(res.data);
@@ -41,7 +41,7 @@ const useAuth = () => {
   const login = async (credentials: UserCredentialType) => {
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await dummyApiClient.post<UserData>(
+      const res = await apiClient.post<UserData>(
         `${userBaseURL}/users/auth/login/`,
         credentials
       );
@@ -55,7 +55,7 @@ const useAuth = () => {
 
         try {
           // Try to merge cart items
-          const mergeRes = await dummyApiClient.post(
+          const mergeRes = await apiClient.post(
             `${cartBaseURL}/carts/${getCookie("cartId")}/merge/${userData.id}/`
           );
 
@@ -78,7 +78,7 @@ const useAuth = () => {
 
   const register = async (credentials: UserCredentialType) => {
     try {
-      const response = await dummyApiClient.post(
+      const response = await apiClient.post(
         `${userBaseURL}/users/auth/registeration/`,
         credentials
       );
@@ -106,7 +106,7 @@ const useAuth = () => {
   const authUserDummy = async (userId: string) => {
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await dummyApiClient.get<UserData>(
+      const res = await apiClient.get<UserData>(
         `${userBaseURL}/users/` + userId + "/"
       );
 
@@ -116,7 +116,7 @@ const useAuth = () => {
         const foundUserData = res.data;
         setCookie("userId", foundUserData.id, 8); // Expires in 8 days
         // Try to merge cart items
-        const mergeRes = await dummyApiClient.post(
+        const mergeRes = await apiClient.post(
           `${cartBaseURL}/carts/${getCookie("cartId")}/merge/${
             foundUserData.id
           }/`

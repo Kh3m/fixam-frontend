@@ -1,4 +1,4 @@
-import axios from "axios";
+import { APIClient } from "./apiClient";
 
 export type UserAddressType = {
   id?: string;
@@ -35,9 +35,5 @@ export type UserType = {
   is_vendor?: false;
 };
 
-export const userAPIClient = axios.create({
-  baseURL: "https://userservice-production-39b1.up.railway.app/api/v1/users",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+export const userService = new APIClient<UserType>(`/users/`);
+export const userAddressService = new APIClient<UserType>(`/users/adresses/`);
