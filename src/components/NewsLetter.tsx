@@ -11,9 +11,9 @@ const NewsLetter = () => {
   return (
     <section
       color="black"
-      className="flex flex-col text-center text-white bg-fblack h-72 items-center justify-center"
+      className="flex flex-col items-center justify-center text-center text-white bg-fblack h-72 "
     >
-      <div className="w-1/2">
+      <div className="w-[95%] md:w-1/2">
         <div className="my-2">
           <p className="text-2xl my-1 font-semibold leading-normal">
             Hello there, new to <span className="text-pri-default">Fixam?</span>

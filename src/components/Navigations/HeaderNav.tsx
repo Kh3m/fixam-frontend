@@ -56,7 +56,7 @@ const HeaderNav = () => {
         </Link>
       )}
 
-      <AccountNav userData={userData.data} />
+      {isAuthenticated() && <AccountNav userData={userData.data} />}
 
       {!isAuthenticated() && (
         <Link to={`/auth/login`}>

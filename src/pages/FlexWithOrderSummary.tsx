@@ -8,10 +8,10 @@ const FlexWithOrderSummary = ({
   OrderSummary,
 }: PropsWithChildren<Props>) => {
   return (
-    <div className="flex space-x-24 items-start justify-between">
+    <div className="md:flex md:space-x-24 items-start justify-between">
       <div className="flex-grow">{children}</div>
 
-      <div className="flex-grow-0 flex-shrink-0 basis-[300px]">
+      <div className="hidden md:block flex-grow-0 flex-shrink-0 basis-[300px]">
         {OrderSummary}
       </div>
     </div>

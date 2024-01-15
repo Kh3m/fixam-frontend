@@ -35,7 +35,7 @@ const Banner = ({
           <Heading variant="h1" styles="text-[36px] font-bold">
             {heading}
           </Heading>
-          <p className="w-[532px] text-sm font-normal">{description}</p>
+          <p className="md:w-[532px] text-sm font-normal">{description}</p>
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@ import Container from "./Container";
 import Logo from "./Logo";
 import HeaderNav from "./Navigations/HeaderNav";
 import SearchInput from "./SearchInput/SearchInput";
+import Hamburger from "./Hamburger";
 
 const Header = () => {
   return (
@@ -26,10 +27,11 @@ const Header = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className="w-16 md:hidden -ml-4
+              className="w-16 md:hidden flex-grow flex items-center
               md:w-[95px] md:h-[78px] cursor-pointer"
             >
-              <Link to={"/"}>
+              <Hamburger />
+              <Link to={"/"} className="w-16">
                 <Logo color="white" />
               </Link>
             </div>

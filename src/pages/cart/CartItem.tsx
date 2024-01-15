@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from "react";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import Space from "../../components/Space";
-import VariantOption from "../../components/VariantOption";
 import useProduct from "../../hooks/products/useProduct";
 import useAuth from "../../hooks/useAuth";
 import { dummyApiClient } from "../../services/apiClient";
@@ -66,36 +65,40 @@ const CartItem = ({
   if (cartProduct)
     return (
       <section className="last-of-type:border-b border-gray-300 py-6">
-        <div className="flex space-x-6 items-center w-full">
+        <div className="flex space-x-5 w-full">
           <img
             src={imageURL}
             alt={cartProduct.name}
             className="w-24 object-contain overflow-hidden rounded-lg"
           />
-          <div className="flex-grow">
-            <Heading variant="h4" styles="font-semibold text-[20px]">
-              {cartProduct.name}
-            </Heading>
-            <Space spacing="my-1" />
-            {/* <Rating count={5} withViews /> */}
-            {/* <CustomerStarRatings rating={2} size={16} /> */}
-            <Space spacing="my-1" />
-
-            <div className="text-base font-semibold">
-              {formatPrice(cartProduct.selling_price as number)}
+          <div className="flex-grow flex flex-col justify-between">
+            <div>
+              <Heading
+                variant="h4"
+                styles="font-semibold text-sm md:text-[20px]"
+              >
+                {cartProduct.name}
+              </Heading>
+              <Space spacing="my-1" />
+              {/* <Rating count={5} withViews /> */}
+              {/* <CustomerStarRatings rating={2} size={16} /> */}
+              <Space spacing="my-1" />
+              <div className="text-base font-semibold">
+                {formatPrice(cartProduct.selling_price as number)}
+              </div>
+              {/* <VariantOption
+                variant="Color"
+                defaultSelectValue={{ label: "Black", value: "Black" }}
+                options={[
+                  { label: "Red", value: "Red" },
+                  { label: "Green", value: "Green" },
+                  { label: "Black", value: "Black" },
+                  { label: "Purple", value: "Purple" },
+                  { label: "Cyan", value: "Cyan" },
+                ]}
+              /> */}
+              <Space spacing="my-2" />
             </div>
-            <VariantOption
-              variant="Color"
-              defaultSelectValue={{ label: "Black", value: "Black" }}
-              options={[
-                { label: "Red", value: "Red" },
-                { label: "Green", value: "Green" },
-                { label: "Black", value: "Black" },
-                { label: "Purple", value: "Purple" },
-                { label: "Cyan", value: "Cyan" },
-              ]}
-            />
-            <Space spacing="my-2" />
             <div className="flex space-x-4 text-xs">
               <Button
                 styles="hover:text-fyellow-shades-500 hover:font-semibold"

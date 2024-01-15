@@ -10,7 +10,7 @@ interface Props {
 const Products = ({ products }: Props) => {
   if (products) {
     return (
-      <Grid cols={2}>
+      <Grid cols={3}>
         {products.map((prod, i) => (
           <Product
             key={i}

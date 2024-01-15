@@ -60,7 +60,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
 
   if (product)
     return (
-      <section className="flex space-x-4">
+      <section className="flex flex-col md:flex-row space-x-4">
         <div className="flex space-x-4 grow">
           <div>
             <img
@@ -68,13 +68,10 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
               alt={title}
               className="w-24 object-cover overflow-hidden rounded-lg"
             />
-            {/* <p className="text-fgrey text-xs py-1">
-            Item added 21st december, 2023
-          </p> */}
           </div>
 
           <div>
-            <Heading variant="h4" styles="font-semibold text-[20px]">
+            <Heading variant="h4" styles="font-semibold text-sm md:text-[20px]">
               {product.name}
             </Heading>
 
@@ -86,7 +83,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
           </div>
         </div>
 
-        <div className="flex-grow-0 basis-[200px] flex flex-col items-center">
+        <div className="flex-grow-0 md:basis-[200px] flex md:flex-col items-center">
           <Button
             onClick={async () => {
               if (user) {
@@ -103,23 +100,26 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
             }}
             disabled={isMovingItemToCart}
             variant="elevated"
-            styles="hover:bg-fyellow-shades-600 bg-fyellow font-bold text-white"
+            styles="order-2 md:order-none hover:bg-fyellow-shades-600 bg-fyellow font-bold text-white"
           >
             Move to Cart
           </Button>
           <Space spacing="my-1" />
-          <div className="flex space-x-4">
+          <div className=" justify-center flex md:space-x-4 flex-grow md:flex-grow-0">
+            {/* <p className="text-fgrey text-xs py-1 md:hidden">
+              Item added 21st december, 2023
+            </p> */}
             <TapEffect
-              styles="text-fyellow border flex items-center justifify-center cursor-pointer text-lg 
-            border-fyellow rounded-md w-1/2 px-5 py-1"
+              styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-lg 
+            border-fyellow rounded-md md:w-1/2 md:px-5 py-1 mr-2 md:mr-0"
             >
               <Button onClick={handleShare}>
                 <TbShare2 />
               </Button>
             </TapEffect>
             <TapEffect
-              styles="text-fyellow border flex items-center justifify-center cursor-pointer text-lg 
-            border-fyellow rounded-md w-1/2 px-5 py-1"
+              styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-lg 
+            border-fyellow rounded-md md:w-1/2 md:px-5 py-1"
             >
               <Button
                 disabled={isDeletingWishlist}
