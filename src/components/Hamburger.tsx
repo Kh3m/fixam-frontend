@@ -6,8 +6,9 @@ const Hamburger = () => {
   const navigate = useNavigate();
 
   const handleTestAuth = () => {
+    console.log("handleTestAuth");
     // Set login to true or false to perform dummy auth or not
-    const login = false;
+    const login = true;
     if (login) {
       authUserDummy("24ac295f-175f-4909-af44-b3d3a2a4e18f");
       navigate("/");
