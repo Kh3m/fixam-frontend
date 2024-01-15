@@ -5,6 +5,7 @@ const useReviewsForProduct = (productId: string) =>
   useQuery({
     queryKey: ["reviews", "products", productId],
     queryFn: () => reviewServiceForProduct(productId).fetchAll,
+    enabled: !!productId,
   });
 
 export default useReviewsForProduct;

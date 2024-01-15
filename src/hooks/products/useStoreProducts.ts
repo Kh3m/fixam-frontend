@@ -8,6 +8,7 @@ const useStoreProducts = (storeId: string) => {
   return useQuery({
     queryKey: ["products", "store", storeId],
     queryFn: apiClient.fetchAll,
+    enabled: !!storeId,
   });
 };
 

@@ -5,6 +5,7 @@ const useProduct = (productId: string) =>
   useQuery({
     queryKey: ["products", productId],
     queryFn: () => productService.fetch(productId),
+    enabled: !!productId,
   });
 
 export default useProduct;

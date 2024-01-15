@@ -5,6 +5,7 @@ const useSubCategories = (categoryId: string) =>
   useQuery({
     queryKey: ["categories", categoryId, "subcategories"],
     queryFn: () => subCategoryService(categoryId).fetchAll(),
+    enabled: !!categoryId,
   });
 
 export default useSubCategories;

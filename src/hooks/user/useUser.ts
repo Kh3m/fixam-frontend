@@ -5,6 +5,7 @@ const useUser = (userId: string) => {
   return useQuery({
     queryKey: ["users", userId],
     queryFn: () => userService.fetch(userId),
+    enabled: !!userId,
   });
 };
 

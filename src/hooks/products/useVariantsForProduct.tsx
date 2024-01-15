@@ -5,6 +5,7 @@ const useVariantsForProduct = (productId: string) =>
   useQuery({
     queryKey: ["products", productId, "variants"],
     queryFn: productVariantsService.fetchAll,
+    enabled: !!productId,
   });
 
 export default useVariantsForProduct;

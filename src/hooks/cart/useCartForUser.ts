@@ -6,6 +6,7 @@ const useCartForUser = (userId: string) =>
     queryKey: ["carts", "user", userId],
     // TODO: FIX avoid using dummyUserCartService
     queryFn: () => userCartService(userId).fetchOne(),
+    enabled: !!userId,
   });
 
 export default useCartForUser;

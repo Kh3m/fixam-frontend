@@ -9,6 +9,7 @@ const useOrders = (userId: string) =>
       apiClient
         .get<FetchResponseType<OrderType>>(`/orders/user/${userId}`)
         .then((res) => res.data),
+    enabled: !!userId,
   });
 
 export default useOrders;

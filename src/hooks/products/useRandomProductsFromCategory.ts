@@ -10,6 +10,7 @@ const useRandomProductsFromCategory = (categoryId: string) => {
   return useQuery({
     queryKey: ["products", "categories", categoryId, "random_products"],
     queryFn: apiClient.fetchAll,
+    enabled: !!categoryId,
   });
 };
 

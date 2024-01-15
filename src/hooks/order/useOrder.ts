@@ -7,6 +7,7 @@ const useOrder = (orderId: string) =>
     queryKey: ["orders", orderId],
     queryFn: () =>
       apiClient.get<OrderType>(`/orders/${orderId}/`).then((res) => res.data),
+    enabled: !!orderId,
   });
 
 export default useOrder;

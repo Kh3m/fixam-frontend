@@ -5,6 +5,7 @@ const useAddress = (addressId: string) =>
   useQuery({
     queryKey: ["users", "adresses", addressId],
     queryFn: () => userAddressService.fetch(addressId),
+    enabled: !!addressId,
   });
 
 export default useAddress;

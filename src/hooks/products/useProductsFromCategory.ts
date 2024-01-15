@@ -10,6 +10,7 @@ const useProductsFromCategory = (categoryId: string) => {
   return useQuery({
     queryKey: ["products", "categories", categoryId],
     queryFn: apiClient.fetchAll,
+    enabled: !!categoryId,
   });
 };
 

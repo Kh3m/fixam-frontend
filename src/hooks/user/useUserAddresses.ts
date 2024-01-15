@@ -10,6 +10,7 @@ const useUserAddresses = (userId: string) =>
       apiClient
         .get<UserAddressType[]>(`${userBaseURL}/users/${userId}/addresses/`)
         .then((res) => res.data),
+    enabled: !!userId,
   });
 
 export default useUserAddresses;
