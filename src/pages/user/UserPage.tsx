@@ -27,7 +27,7 @@ const UserPage = () => {
           </Card>
         }
       >
-        <div className="pl-12">
+        <div className="md:pl-12">
           <Outlet />
         </div>
       </Container>

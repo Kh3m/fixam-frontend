@@ -110,7 +110,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
               Item added 21st december, 2023
             </p> */}
             <TapEffect
-              styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-lg 
+              styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-2xl 
             border-fyellow rounded-md md:w-1/2 md:px-5 py-1 mr-2 md:mr-0"
             >
               <Button onClick={handleShare}>
@@ -118,7 +118,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
               </Button>
             </TapEffect>
             <TapEffect
-              styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-lg 
+              styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-2xl 
             border-fyellow rounded-md md:w-1/2 md:px-5 py-1"
             >
               <Button

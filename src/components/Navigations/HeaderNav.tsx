@@ -30,7 +30,7 @@ const HeaderNav = () => {
         <MdHelpCenter />
       </CircledLink>
       {isLoadingDummyUserCart && (
-        <div>
+        <div className="mr-5">
           <Spinner />
         </div>
       )}
@@ -50,7 +50,7 @@ const HeaderNav = () => {
         <Link
           state={{ userCart: dummyUserCart }}
           to={`/cart`}
-          className="text-white text-2xl"
+          className="text-white text-2xl mr-5"
         >
           <ShoppingCart itemCount={0} />
         </Link>

@@ -26,7 +26,7 @@ const SideBar = ({ logo, storeName, slug, withLogo, newItems }: Props) => {
       ];
 
   return (
-    <div>
+    <div className="hidden md:block">
       {withLogo && (
         <img
           src={logo}
