@@ -94,8 +94,7 @@ const CartPage = () => {
         <Container>
           <Link to={"/checkout"} state={{ userCart, subtotal }}>
             <Button
-              styles="text-center w-full mb-4 dark:text-gray-200
-             dark:bg-slate-500 bg-fyellow-shades-500 py-2
+              styles="text-center w-full mb-4 bg-fyellow-shades-500 py-2
             text-white font-semibold pagination-shadow md:hidden"
               disabled={!subtotal}
             >

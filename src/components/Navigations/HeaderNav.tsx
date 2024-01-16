@@ -26,11 +26,11 @@ const HeaderNav = () => {
       className="flex items-center
     md:space-x-8"
     >
-      <CircledLink to="" styles="text-lg mr-3">
+      <CircledLink to="" styles="text-lg mr-6">
         <MdHelpCenter />
       </CircledLink>
       {isLoadingUserCart && (
-        <div className="mr-5">
+        <div className="mr-8">
           <Spinner />
         </div>
       )}
@@ -38,7 +38,7 @@ const HeaderNav = () => {
         <Link
           state={{ userCart: userCartData }}
           to={`/cart`}
-          className="text-white text-2xl mr-5"
+          className="text-white text-2xl mr-8"
         >
           <ShoppingCart
             itemCount={Number.parseInt(userCartData.total_quantity || "0")}
@@ -50,7 +50,7 @@ const HeaderNav = () => {
         <Link
           state={{ userCart: userCartData }}
           to={`/cart`}
-          className="text-white text-2xl mr-5"
+          className="text-white text-2xl mr-8"
         >
           <ShoppingCart itemCount={0} />
         </Link>

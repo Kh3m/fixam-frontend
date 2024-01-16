@@ -195,7 +195,7 @@ const CheckoutPage = () => {
              dark:bg-slate-500 bg-fyellow-shades-500 py-2
             text-white font-semibold pagination-shadow md:hidden"
             >
-              Order Confirmation{" "}
+              Order Confirmation
             </div>
             {toastMessage && (
               <div>
