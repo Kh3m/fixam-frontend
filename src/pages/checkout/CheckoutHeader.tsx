@@ -13,7 +13,7 @@ const CheckoutHeader = ({
 }: Props) => {
   return (
     <div className="flex justify-between">
-      <Heading variant="h4" styles="font-semibold text-[24px]">
+      <Heading variant="h4" styles="font-semibold text-lg md:text-2xl">
         {heading}
       </Heading>
       <Button

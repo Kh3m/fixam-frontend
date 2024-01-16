@@ -54,7 +54,9 @@ const OrderSummary = ({ subtotal, isCreatingOrder, handleCheckout }: Props) => {
             variant="elevated"
             styles="bg-fyellow text-white font-bold w-full mb-8"
           >
-            Checkout
+            {pathname.endsWith("checkout") || handleCheckout
+              ? "Checkout"
+              : "Proceed to checkout"}
           </Button>
         </Link>
       )}

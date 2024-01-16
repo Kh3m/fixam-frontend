@@ -19,6 +19,11 @@ import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
 import OrderSuccessful from "./OrderSuccessful";
 import apiClient from "../../services/apiClient";
 import useResponsive from "../../hooks/useResponsive";
+import CartItem from "../cart/CartItem";
+import Center from "../../components/Center";
+import Spinner from "../../components/Spinner";
+
+import product1 from "../../assets/product_1.png";
 
 type OrderType = {
   id: string;
@@ -65,7 +70,9 @@ const CheckoutPage = () => {
   const isMd = useResponsive("md");
   const { user } = useAuth();
   const { data: userAddresses } = useUserAddresses(user?.id || "");
-  const { data: cartForUser } = useCartForUser(user?.id || "");
+  const { data: cartForUser, isLoading: isLoadingUserCart } = useCartForUser(
+    user?.id || ""
+  );
   const { checkoutState } = useCheckoutContext();
 
   const fetchProductPrice = async (productId: string): Promise<number> => {
@@ -208,11 +215,30 @@ const CheckoutPage = () => {
             >
               <section className="grow">
                 <CheckoutDeliveryAddress />
-                <Space spacing="my-14" />
+                <Space spacing="my-6" />
                 <CheckoutPaymentInfo />
               </section>
             </FlexWithOrderSummary>
-            <Space spacing="my-14" />
+            <Space spacing="my-6" />
+            <section>
+              {isLoadingUserCart ? (
+                <Center>
+                  <Spinner />
+                </Center>
+              ) : cartForUser ? (
+                cartForUser.cart_items.map((cartItem) => (
+                  <CartItem
+                    quantity={cartItem.quantity}
+                    imageURL={product1}
+                    productId={cartItem.prod_id}
+                    cartId={cartForUser.id!}
+                    itemId={cartItem.id!}
+                    isCheckingOut
+                  />
+                ))
+              ) : null}
+            </section>
+            <Space spacing="my-6" />
             {!isMd && (
               <OrderSummary
                 subtotal={subtotal}

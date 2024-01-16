@@ -15,10 +15,18 @@ interface Props {
   productId: string;
   cartId: string;
   itemId: number;
+  isCheckingOut?: boolean;
   handleInputChange?: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-const CartItem = ({ quantity, imageURL, productId, itemId, cartId }: Props) => {
+const CartItem = ({
+  quantity,
+  imageURL,
+  productId,
+  itemId,
+  cartId,
+  isCheckingOut,
+}: Props) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
@@ -55,7 +63,7 @@ const CartItem = ({ quantity, imageURL, productId, itemId, cartId }: Props) => {
 
   if (cartProduct)
     return (
-      <section className="last-of-type:border-b border-gray-300 py-6">
+      <section className="last-of-type:border-b-0:border-b border-gray-300 py-6">
         <div className="flex space-x-5 w-full">
           <img
             src={imageURL}
@@ -74,8 +82,12 @@ const CartItem = ({ quantity, imageURL, productId, itemId, cartId }: Props) => {
               {/* <Rating count={5} withViews /> */}
               {/* <CustomerStarRatings rating={2} size={16} /> */}
               <Space spacing="my-1" />
-              <div className="text-base font-semibold">
+              <div className="text-xs md:text-base font-semibold dark:text-gray-300">
                 {formatPrice(cartProduct.selling_price as number)}
+              </div>
+              <Space spacing="my-1" />
+              <div className="text-xs md:text-base font-semibold dark:text-gray-300">
+                QTY: {quantity}
               </div>
               {/* <VariantOption
                 variant="Color"
@@ -90,25 +102,29 @@ const CartItem = ({ quantity, imageURL, productId, itemId, cartId }: Props) => {
               /> */}
               <Space spacing="my-2" />
             </div>
-            <div className="flex space-x-4 text-xs">
-              <Button
-                styles="hover:text-fyellow-shades-500 hover:font-semibold"
-                onClick={handleRemoveItemFromCart}
-                disabled={isDeletingCartitems}
-              >
-                Delete
-              </Button>
-            </div>
+            {!isCheckingOut && (
+              <div className="flex space-x-4 text-xs">
+                <Button
+                  styles="hover:text-fyellow-shades-500 hover:font-semibold"
+                  onClick={handleRemoveItemFromCart}
+                  disabled={isDeletingCartitems}
+                >
+                  Delete
+                </Button>
+              </div>
+            )}
           </div>
 
-          <div className="flex space-x-2 items-center">
-            <QuantityField
-              cartId={cartId}
-              itemId={itemId}
-              userId={user?.id || ""}
-              quantity={quantity}
-            />
-          </div>
+          {!isCheckingOut && (
+            <div className="flex space-x-2 items-center">
+              <QuantityField
+                cartId={cartId}
+                itemId={itemId}
+                userId={user?.id || ""}
+                quantity={quantity}
+              />
+            </div>
+          )}
         </div>
       </section>
     );
