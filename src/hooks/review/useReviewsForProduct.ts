@@ -4,7 +4,7 @@ import { reviewServiceForProduct } from "../../services/review";
 const useReviewsForProduct = (productId: string) =>
   useQuery({
     queryKey: ["reviews", "products", productId],
-    queryFn: () => reviewServiceForProduct(productId).fetchAll,
+    queryFn: () => reviewServiceForProduct(productId).fetchAll(),
     enabled: !!productId,
   });
 

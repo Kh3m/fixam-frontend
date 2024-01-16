@@ -7,14 +7,14 @@ import useReviewsForProduct from "../../hooks/review/useReviewsForProduct";
 import BorderCard from "../user/BorderCard";
 import CustomerReviews from "./CustomerReviews";
 import ReviewsRatingSummary from "./ReviewsRatingSummary";
+import { ReviewType } from "../../services/review";
 
 const ReviewsPage = () => {
   const { productId } = useParams();
 
-  const { data: reviews, isLoading: isLoading } = useReviewsForProduct(
-    productId!
-  );
+  const { data, isLoading: isLoading } = useReviewsForProduct(productId!);
 
+  const reviews = data as ReviewType[];
   if (isLoading)
     return (
       <MainContent>

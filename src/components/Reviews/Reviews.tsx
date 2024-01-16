@@ -6,14 +6,17 @@ import Heading from "../Heading";
 import Space from "../Space";
 import Spinner from "../Spinner";
 import Review from "./Review";
+import { ReviewType } from "../../services/review";
 
 const Reviews = () => {
   const { pathname } = useLocation();
   const { productId } = useParams();
 
-  const { data: reviews, isLoading: isLoadingReviews } = useReviewsForProduct(
+  const { data, isLoading: isLoadingReviews } = useReviewsForProduct(
     productId!
   );
+
+  const reviews = data as ReviewType[];
 
   return (
     <section className=" m-auto">

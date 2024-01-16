@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Container from "../../components/Container";
 import Main from "../../components/Main";
 import Space from "../../components/Space";
@@ -18,7 +18,6 @@ import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
 import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
 import OrderSuccessful from "./OrderSuccessful";
 import apiClient from "../../services/apiClient";
-import Button from "../../components/Button";
 import useResponsive from "../../hooks/useResponsive";
 
 type OrderType = {

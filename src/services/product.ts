@@ -1,5 +1,4 @@
 import { APIClient } from "./apiClient";
-import { productBaseURL } from "./baseURLs";
 
 export type ProductType = {
   id: string;

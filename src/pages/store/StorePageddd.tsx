@@ -12,11 +12,10 @@ import UserAccountCard from "./UserAccountCard";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
 import UserAccountCardSkeleton from "./skeletons/UserAccountCardSkeleton";
-import { storeBaseURL } from "../../services/baseURLs";
-import { dummyApiClient } from "../../services/apiClient";
 import Header from "../../components/Header";
 import NewsLetter from "../../components/NewsLetter";
 import Footer from "../../components/Footer/Footer";
+import apiClient from "../../services/apiClient";
 
 const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
@@ -33,8 +32,8 @@ const StorePage = () => {
     console.log("isAuthenticated", isAuthenticated(), "user", user);
 
     if (isAuthenticated() && user) {
-      dummyApiClient
-        .get<StoreResponseType[]>(`${storeBaseURL}/stores/owner/${user?.id}/`)
+      apiClient
+        .get<StoreResponseType[]>(`/stores/owner/${user?.id}/`)
         .then((res) => {
           // TODO: User's store slug to load user
           const foundUserStores = res.data;

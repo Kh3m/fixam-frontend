@@ -36,4 +36,6 @@ export type UserType = {
 };
 
 export const userService = new APIClient<UserType>(`/users/`);
-export const userAddressService = new APIClient<UserType>(`/users/adresses/`);
+export const userAddressService = new APIClient<UserAddressType>(
+  `/users/adresses/`
+);
