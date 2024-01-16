@@ -38,10 +38,10 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
     if (product) {
       if (navigator.share && navigator.canShare({ url: location.href })) {
         const shared = await navigator.share({
-          title:
+          title: "Beautiful Products",
+          url: `/${product.category_name}/${product.id}`,
+          text:
             "I realy love this product: " + title + ", kindly check it out.",
-          url: `http://localhost:5173/${product.category_name}/${product.id}`,
-          text: "Beautiful Products",
         });
 
         console.log("SHARED SUCCESSFUL", shared);
