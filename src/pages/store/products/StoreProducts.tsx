@@ -16,6 +16,7 @@ import { ProductType } from "../../../services/product";
 import { formatPrice } from "../../../utils/number-formatter";
 import { getRandomInt } from "../../../utils/randomValues";
 import StorePageTitle from "../StorePageTitle";
+import EmptyStateStore from "../../../components/EmptyStateStore";
 
 const StoreProducts = () => {
   const { userStores } = useAuth();
@@ -34,7 +35,9 @@ const StoreProducts = () => {
 
   useEffect(() => {
     setDefaultStoreId(userStores ? userStores[userStores?.length - 1].id : "");
-    if (location.pathname.endsWith("/products")) refetch();
+    if (location.pathname.endsWith("/products")) {
+      refetch();
+    }
   });
 
   const generateTableProductData = () => {
@@ -48,6 +51,18 @@ const StoreProducts = () => {
           </td>
         </tr>
       );
+
+    if (products && !products.length)
+      return (
+        <tr>
+          <td className="p-4" colSpan={6}>
+            <Center>
+              <EmptyStateStore heading="No Product" />
+            </Center>
+          </td>
+        </tr>
+      );
+
     if (!isLoading && products && !products.length)
       return (
         <tr>
@@ -112,6 +127,14 @@ const StoreProducts = () => {
                         to: `/stores/${
                           userStores && userStores[userStores?.length - 1].slug
                         }/products/${product.id}/edit`,
+                      },
+                    },
+                    {
+                      label: "Add Variant",
+                      link: {
+                        to: `/stores/${
+                          userStores && userStores[userStores?.length - 1].slug
+                        }/products/${product.id}/add-variant`,
                       },
                     },
                     { label: "Delete" },

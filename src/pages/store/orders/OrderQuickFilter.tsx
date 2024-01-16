@@ -1,4 +1,3 @@
-import DatePicker from "../../../components/DatePicker";
 import FilterButton from "./FilterButton";
 
 const OrderQuickFilter = () => {
@@ -10,11 +9,11 @@ const OrderQuickFilter = () => {
         <FilterButton>Cancelled</FilterButton>
       </div>
 
-      <div className="flex items-center space-x-2">
+      {/* <div className="flex items-center space-x-2">
         <DatePicker />
         <span className="mx-2">To</span>
         <DatePicker />
-      </div>
+      </div> */}
     </div>
   );
 };

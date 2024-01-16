@@ -8,17 +8,20 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import router from "./routes/routes.tsx";
 import { StoreProgressContextProvider } from "./contexts/store-progress.tsx";
 import { CheckoutContextProvider } from "./contexts/checkout-context.tsx";
+import { ProductFilteringContextProvider } from "./contexts/product-filtering-context.tsx";
 
 const queryCient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryCient}>
-      <CheckoutContextProvider>
-        <StoreProgressContextProvider>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools />
-        </StoreProgressContextProvider>
-      </CheckoutContextProvider>
+      <ProductFilteringContextProvider>
+        <CheckoutContextProvider>
+          <StoreProgressContextProvider>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools />
+          </StoreProgressContextProvider>
+        </CheckoutContextProvider>
+      </ProductFilteringContextProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

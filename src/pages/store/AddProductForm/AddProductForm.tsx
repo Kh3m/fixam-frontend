@@ -13,6 +13,7 @@ import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
 import apiClient from "../../../services/apiClient";
+import { useNavigate } from "react-router-dom";
 
 // type ProductUploadType = {
 //   name: string;
@@ -32,21 +33,14 @@ import apiClient from "../../../services/apiClient";
 //   option_image: File | null;
 // };
 
-type ProductCreationStepType = "add-product" | "add-variant";
-
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated, user } = useAuth();
-  const [step, setStep] = useState<ProductCreationStepType>("add-product");
-  const [defaultStoreSlug, setDefaultStoreSlug] = useState("");
-  const [productId, setProductId] = useState("");
-  const [storeId, setStoreId] = useState("");
+  const navigate = useNavigate();
 
   const methods = useForm({});
   // const productImageMethods = useForm();
   const { handleSubmit } = methods;
-
-  let productName = "";
 
   const onSubmit = async (newProductData: FieldValues) => {
     setIsLoading(true);
@@ -59,11 +53,10 @@ const AddProductForm = () => {
       );
 
       const getLastStoreIndex = getStoreForUserId.data.length - 1;
+      const defaultStoreSlug = getStoreForUserId.data[getLastStoreIndex].slug;
+
       // Use the id of last created store of user
       formData.append("store_id", getStoreForUserId.data[getLastStoreIndex].id);
-      setDefaultStoreSlug(getStoreForUserId.data[getLastStoreIndex].slug);
-      setStoreId(getStoreForUserId.data[getLastStoreIndex].id);
-
       const images = [
         newProductData.selectimage1,
         newProductData.selectimage2,
@@ -80,7 +73,6 @@ const AddProductForm = () => {
       formData.append("type", newProductData.type);
       formData.append("category", newProductData.category);
       formData.append("name", newProductData.name);
-      productName = newProductData.name;
       formData.append("description", newProductData.description);
 
       // formData.forEach((v, k) => console.log(`${k}: ${v}`));
@@ -97,9 +89,10 @@ const AddProductForm = () => {
           }
         );
         console.log("createdProduct", createdProduct);
-        setProductId(createdProduct.data.id);
-        setStep("add-variant");
         setIsLoading(false);
+        navigate(
+          `/stores/${defaultStoreSlug}/products/${createdProduct.data.id}/add-variant`
+        );
       } catch (error) {
         //   console.log(`Error - Failed to create product ${error}`);
         //   console.log(error);
@@ -112,39 +105,30 @@ const AddProductForm = () => {
 
   return (
     <>
-      {step === "add-product" ? (
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Heading variant="h3">Add a product</Heading>
-            <Space spacing="my-8" />
-            <TypeFields />
-            <Space spacing="my-8" />
-            {/* <CategoryFields /> */}
-            <AlCAtF />
-            <Space spacing="my-8" />
-            <ProductInfoFields />
-            <Space spacing="my-8" />
-            <ProductImageUpload />
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Heading variant="h3">Add a product</Heading>
+          <Space spacing="my-8" />
+          <TypeFields />
+          <Space spacing="my-8" />
+          {/* <CategoryFields /> */}
+          <AlCAtF />
+          <Space spacing="my-8" />
+          <ProductInfoFields />
+          <Space spacing="my-8" />
+          <ProductImageUpload />
 
-            {/* <VariantFields validateOptions={validateOptions} /> */}
-            <Space spacing="my-8" />
-            <Button
-              variant="elevated"
-              styles="bg-fyellow text-white font-semibold text-lg pagination-shadow flex items-center justify-center"
-              disabled={isLoading}
-            >
-              {isLoading ? <Spinner /> : <span>Submit</span>}
-            </Button>
-          </form>
-        </FormProvider>
-      ) : (
-        <AddVariantForm
-          defaultStoreSlug={defaultStoreSlug}
-          productId={productId}
-          productName={productName}
-          storeId={storeId}
-        />
-      )}
+          {/* <VariantFields validateOptions={validateOptions} /> */}
+          <Space spacing="my-8" />
+          <Button
+            variant="elevated"
+            styles="bg-fyellow text-white font-semibold text-lg pagination-shadow flex items-center justify-center"
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner /> : <span>Submit</span>}
+          </Button>
+        </form>
+      </FormProvider>
     </>
   );
 };

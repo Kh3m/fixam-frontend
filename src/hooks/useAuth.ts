@@ -14,10 +14,12 @@ type UserCredentialType = {
 };
 
 const useAuth = () => {
+  const [isLoadingUserStore, setIsLoadingUserStore] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [userStores, setUserStores] = useState<StoreType[] | null>(null);
 
   useEffect(() => {
+    setIsLoadingUserStore(true);
     // Check for an existing user cookie when the component mount
     const userIdFromCookie = getCookie("userId");
     if (userIdFromCookie) {
@@ -31,6 +33,7 @@ const useAuth = () => {
 
       apiClient.get<StoreType[]>(`/stores/owner/${userId}/`).then((res) => {
         setUserStores(res.data);
+        setIsLoadingUserStore(false);
       });
     }
   }, []);
@@ -140,6 +143,7 @@ const useAuth = () => {
     isAuthenticated,
     userStores,
     authUserDummy,
+    isLoadingUserStore,
   };
 };
 

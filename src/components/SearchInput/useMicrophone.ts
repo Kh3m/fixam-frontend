@@ -1,11 +1,15 @@
 import { RefObject, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const useMicrophone = (
   micRef: RefObject<HTMLSpanElement>,
   searchRef: RefObject<HTMLInputElement>
 ) => {
+  const navigate = useNavigate();
+
   const [isListening, setIsListening] = useState(false);
   const [searchText, setSearchText] = useState("");
+
   useEffect(() => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -17,7 +21,6 @@ const useMicrophone = (
 
       if (micRef && micRef.current)
         micRef.current.addEventListener("click", () => {
-      console.log("LIstening...")
           recognition.start();
         });
 
@@ -30,6 +33,7 @@ const useMicrophone = (
         setIsListening(false);
         searchRef.current?.focus();
         console.log(`END and isListening: ${isListening}`);
+        navigate(`/products/?search=${searchText?.toLowerCase()}`);
       };
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {

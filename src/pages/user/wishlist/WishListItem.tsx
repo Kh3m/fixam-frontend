@@ -43,7 +43,6 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
           text:
             "I realy love this product: " + title + ", kindly check it out.",
         });
-
         console.log("SHARED SUCCESSFUL", shared);
       } else {
         alert("Your browser doesn't support native share");
@@ -111,7 +110,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
             </p> */}
             <TapEffect
               styles="text-fyellow md:border flex items-center justifify-center cursor-pointer text-2xl 
-            border-fyellow rounded-md md:w-1/2 md:px-5 py-1 mr-2 md:mr-0"
+            border-fyellow rounded-md md:w-1/2 md:px-5 py-1 mr-4 md:mr-0"
             >
               <Button onClick={handleShare}>
                 <TbShare2 />

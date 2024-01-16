@@ -15,8 +15,6 @@ const TypeFields = ({ defaultTypeValue }: Props) => {
   const options = [
     { value: "sale", label: "Sale" },
     { value: "rent", label: "Rent" },
-    { value: "Hire", label: "Hire" },
-    { value: "Job", label: "Job" },
   ];
 
   if (defaultTypeValue) {

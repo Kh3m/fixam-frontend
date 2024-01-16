@@ -13,7 +13,7 @@ const BorderCard = ({
   return (
     <div
       onClick={handleAddNewAddress}
-      className={`${styles} rounded-md p-4 border border-gray-200`}
+      className={`${styles} dark:border-0 rounded-md p-4 border border-gray-200`}
     >
       {children}
     </div>

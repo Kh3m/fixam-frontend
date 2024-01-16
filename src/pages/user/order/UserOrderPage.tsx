@@ -29,7 +29,6 @@ const UserOrderPage = () => {
       <>
         {userOrders?.results.map((order) => (
           <>
-            Orders
             {order.order_items.map((orderitem) => (
               <OrderSummaryCard orderitem={orderitem} />
             ))}

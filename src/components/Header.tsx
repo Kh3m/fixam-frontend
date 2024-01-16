@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "./Container";
+import Hamburger from "./Hamburger";
 import Logo from "./Logo";
 import HeaderNav from "./Navigations/HeaderNav";
 import SearchInput from "./SearchInput/SearchInput";
-import Hamburger from "./Hamburger";
-import { ProductFilteringContextProvider } from "../contexts/product-filtering-context";
 
 const Header = () => {
+  const { pathname } = useLocation();
+  const pathHasStores = pathname.includes("stores");
+
   return (
     <header className="dark:bg-slate-800 bg-fyellow-shades-500 py-2 md:py-0">
       <Container>
@@ -24,9 +26,7 @@ const Header = () => {
                 <Logo color="white" />
               </Link>
             </div>
-            <ProductFilteringContextProvider>
-              <SearchInput />
-            </ProductFilteringContextProvider>
+            {!pathHasStores && <SearchInput />}
           </div>
           <div className="flex justify-between">
             <div

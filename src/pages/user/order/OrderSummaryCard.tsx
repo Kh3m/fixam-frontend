@@ -44,16 +44,16 @@ const OrderSummaryCard = ({ hasCancel, orderitem }: Props) => {
               <Heading variant="h4" styles="font-semibold">
                 {orderProduct.name}
               </Heading>
-              <span className="font-medium text-gray-700">
+              <span className="dark:text-gray-300 text-sm md:text-base font-medium text-gray-700">
                 QTY: {orderitem?.quantity}
               </span>
-              <span className="font-medium text-gray-700">
-                Cost: {formatPrice(orderitem.item_price)}{" "}
+              <span className="dark:text-gray-300 text-sm md:text-base font-medium text-gray-700">
+                Cost: {formatPrice(orderitem.item_price)}
               </span>
             </div>
-            <DeliveryTimeEstimator>
+            {/* <DeliveryTimeEstimator>
               To be delivered between Friday 10th and Tuesday 14th January
-            </DeliveryTimeEstimator>
+            </DeliveryTimeEstimator> */}
           </div>
           <div className="flex items-start justify-end flex-col space-y-2">
             <Link

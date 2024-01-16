@@ -1,5 +1,5 @@
 import { MdHelpCenter } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useCartForUser from "../../hooks/cart/useCartForUser";
 import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/user/useUser";
@@ -11,8 +11,10 @@ import AccountNav from "./AccountNav";
 import CircledLink from "./CircledLink";
 
 const HeaderNav = () => {
-  const { isAuthenticated, userStores, user } = useAuth();
+  const { pathname } = useLocation();
+  const pathHasStores = pathname.includes("stores");
 
+  const { isAuthenticated, userStores, isLoadingUserStore, user } = useAuth();
   const { data, isLoading: isLoadingUserCart } = useCartForUser(user?.id || "");
 
   const userData = useUser(user?.id || "");
@@ -68,24 +70,29 @@ const HeaderNav = () => {
       {/* <Link to={`/auth/register`}>
               <Button variant="outlined">Register</Button>
             </Link> */}
-      <Link
-        to={`${
-          isAuthenticated() && userStores?.length
-            ? `/stores/${userStores[userStores.length - 1].slug}/dashboard`
-            : "/create-store"
-        } `}
-      >
-        <Button
-          variant="elevated"
-          styles="hidden md:block bg-white text-fyellow border-2 border-white"
+      {isAuthenticated() && isLoadingUserStore ? (
+        <div
+          className="hidden md:block bg-gray-50/50 text-fyellow 
+         h-10 w-28 rounded-md animate-pulse"
+        ></div>
+      ) : (
+        <Link
+          to={`${
+            isAuthenticated() && userStores?.length
+              ? `/stores/${userStores[userStores.length - 1].slug}/dashboard`
+              : "/create-store"
+          } `}
         >
-          {isAuthenticated() && userStores?.length
-            ? "Store"
-            : isAuthenticated()
-            ? "Own a Store"
-            : "Be a vendor"}
-        </Button>
-      </Link>
+          <Button
+            variant="elevated"
+            styles="hidden md:block bg-white text-fyellow border-2 border-white"
+          >
+            {isAuthenticated() && userStores?.length && "Store"}
+            {isAuthenticated() && !userStores?.length && "Own a Store"}
+            {!isAuthenticated() && "Be a vendor"}
+          </Button>
+        </Link>
+      )}
     </nav>
   );
 };

@@ -5,7 +5,7 @@ const OrderSuccessful = () => {
   return (
     <section
       className="flex items-center 
-    justify-center bg-white z-50"
+    justify-center z-50"
     >
       <div className="text-center w-1/2">
         <div className="flex justify-center">

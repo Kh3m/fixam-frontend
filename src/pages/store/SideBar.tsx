@@ -18,10 +18,10 @@ const SideBar = ({ logo, storeName, slug, withLogo, newItems }: Props) => {
     : [
         { text: "Dashboard", to: `/stores/${slug}/dashboard` },
         { text: "Products", to: `/stores/${slug}/products` },
-        { text: "Orders", to: `/stores/${slug}/orders` },
+        { text: "Orders", to: `/stores/${slug}/orders/history` },
         // { text: "Customers", to: `/stores/${slug}/customers` },
         // { text: "Notification", to: `/stores/${slug}/notifications` },
-        { text: "Members", to: `/stores/${slug}/members` },
+        // { text: "Members", to: `/stores/${slug}/members` },
         { text: "Log out", to: "/logout" },
       ];
 

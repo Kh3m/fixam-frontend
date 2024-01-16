@@ -12,6 +12,7 @@ import { getCookie } from "../../utils/cookies";
 import SideBar from "./SideBar";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
+import Header from "../../components/Header";
 
 // const menuItems = ["Switch account", "Change profile picture", "Log out"];
 
@@ -56,7 +57,7 @@ export const StorePage = () => {
 
   return (
     <Main>
-      {/* <Header /> */}
+      <Header />
 
       <Space spacing="my-14" />
       <Container
