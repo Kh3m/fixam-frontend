@@ -95,8 +95,12 @@ export const placeOrder = async (
       console.log("invalidateQueries CreateOrderItem", paymentMethod);
 
       if (paymentMethod === "CardPayment") {
-        console.log("Inside PaymentMethod", paymentMethod);
         const userData = await apiClient.get<UserType>(`/users/${userId}/`);
+        console.log(
+          "Inside CardPayment PaymentMethod userData",
+          paymentMethod,
+          userData
+        );
         const newPayment = {
           amount: subtotal * 100,
           customer_email: userData.data.email,
