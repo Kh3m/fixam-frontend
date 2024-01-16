@@ -7,11 +7,6 @@ import Space from "../Space";
 
 type PriceFilteringType = {
   text: string;
-  // | "Under 24 K"
-  // | "24 - 80 K"
-  // | "80 - 270 K"
-  // | "270 - 950 K"
-  // | "More than 950 K";
   selected: boolean;
 };
 

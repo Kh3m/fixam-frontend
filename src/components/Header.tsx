@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import HeaderNav from "./Navigations/HeaderNav";
 import SearchInput from "./SearchInput/SearchInput";
 import Hamburger from "./Hamburger";
+import { ProductFilteringContextProvider } from "../contexts/product-filtering-context";
 
 const Header = () => {
   return (
@@ -23,7 +24,9 @@ const Header = () => {
                 <Logo color="white" />
               </Link>
             </div>
-            <SearchInput />
+            <ProductFilteringContextProvider>
+              <SearchInput />
+            </ProductFilteringContextProvider>
           </div>
           <div className="flex justify-between">
             <div

@@ -4,7 +4,7 @@ import { FcApproval } from "react-icons/fc";
 const OrderSuccessful = () => {
   return (
     <section
-      className="fixed top-0 left-0 bottom-0 right-0 flex items-center 
+      className="flex items-center 
     justify-center bg-white z-50"
     >
       <div className="text-center w-1/2">

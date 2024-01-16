@@ -5,6 +5,7 @@ type ProductQueryType = {
   categoryId?: string;
   minPrice?: number;
   maxPrice?: number;
+  searchTerm?: string;
 };
 
 const useProducts = (productQuery: ProductQueryType) =>
@@ -14,6 +15,7 @@ const useProducts = (productQuery: ProductQueryType) =>
       productService.fetchAll({
         params: {
           category_id: productQuery.categoryId,
+          search: productQuery.searchTerm,
           price__lt:
             productQuery.maxPrice != undefined &&
             productQuery.maxPrice > 950_000

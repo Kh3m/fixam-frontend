@@ -4,9 +4,9 @@ import Card from "../../components/Card";
 import HR from "../../components/HR";
 import Heading from "../../components/Heading";
 import Space from "../../components/Space";
-import { formatPrice } from "../../utils/number-formatter";
 import Spinner from "../../components/Spinner";
 import { CartType } from "../../services/cart";
+import { formatPrice } from "../../utils/number-formatter";
 
 interface Props {
   subtotal: number;
@@ -37,7 +37,7 @@ const OrderSummary = ({ subtotal, isCreatingOrder, handleCheckout }: Props) => {
       </div>
       <Space spacing="my-8" />
       {/* TODO: CHECK */}
-      {pathname.endsWith("checkout") || handleCheckout ? (
+      {pathname.endsWith("payment") || handleCheckout ? (
         <Button
           disabled={isCreatingOrder === true ? true : false}
           onClick={handleCheckout}
@@ -48,13 +48,13 @@ const OrderSummary = ({ subtotal, isCreatingOrder, handleCheckout }: Props) => {
           {isCreatingOrder && <Spinner />}
         </Button>
       ) : (
-        <Link to={`/checkout`} state={{ subtotal }}>
+        <Link to={`/checkout/payment`} state={{ subtotal }}>
           <Button
             disabled={subtotal <= 0}
             variant="elevated"
             styles="bg-fyellow text-white font-bold w-full mb-8"
           >
-            {pathname.endsWith("checkout") || handleCheckout
+            {pathname.endsWith("payment") || handleCheckout
               ? "Checkout"
               : "Proceed to checkout"}
           </Button>

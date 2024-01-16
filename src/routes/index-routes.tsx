@@ -7,6 +7,8 @@ import AppLayout from "../pages/AppLayout";
 import userRoutes from "./user-routes";
 import ReviewsPage from "../pages/review/ReviewsPage";
 import ErrorPage from "../pages/error/ErrorPage";
+import Payment from "../pages/checkout/Payment";
+import PaymentSuccess from "../pages/checkout/PaymentSuccess";
 
 export default {
   path: "/",
@@ -20,6 +22,10 @@ export default {
     {
       path: "checkout",
       element: <CheckoutPage />,
+      children: [
+        { path: "payment", element: <Payment /> },
+        { path: "payment/success", element: <PaymentSuccess /> },
+      ],
     },
     {
       path: "cart",

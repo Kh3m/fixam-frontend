@@ -1,6 +1,6 @@
 import FilterListItem from "./FilterListItem";
 import Space from "../Space";
-import { useState } from "react";
+import { ChangeEvent } from "react";
 
 type FilterType = {
   text: string;
@@ -14,8 +14,10 @@ interface Props {
   label?: string;
   defaultValue?: string;
   placeholder?: string;
+  onRadioChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   inputType?: "number" | "text";
   variant?: "radio" | "checkbox";
+  readOnly?: boolean;
 }
 
 /**
@@ -32,24 +34,27 @@ const FiltersWithInputField = ({
   inputType,
   placeholder,
   variant,
+  onRadioChange,
 }: Props) => {
-  const [value, setValue] = useState(defaultValue);
   let Input =
     inputType === "number" ? (
       <label className="border border-fgrey px-4 py-2 block rounded-sm">
         <div className="text-xs mb-1">{label}</div>
         <input
+          // readOnly={readOnly}
           type="number"
           min={1}
-          value={value}
+          value={defaultValue}
           placeholder={placeholder}
-          onChange={(e) => setValue(e.target.value)}
+          // onChange={onChange}
           className="border border-fgrey outline-1 outline-fgrey w-full p-2 text-sm"
         />
       </label>
     ) : inputType === "text" ? (
       <div className="flex space-x-1">
         <input
+          // readOnly={readOnly}
+          value={defaultValue}
           className="border border-fgrey outline-1 outline-fgrey w-full p-2 text-sm "
           placeholder={placeholder}
         />
@@ -67,6 +72,8 @@ const FiltersWithInputField = ({
             text={text}
             count={count}
             variant={variant}
+            radioValue={defaultValue}
+            onRadioChange={onRadioChange}
           />
         ))}
       </ul>

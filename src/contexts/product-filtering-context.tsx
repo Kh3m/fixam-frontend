@@ -13,6 +13,8 @@ interface ProductFilteringContextProps {
   setCategoryId: (categoryId: string) => void;
   setMinPrice: (minPrice: number) => void;
   setMaxPrice: (maxPrice: number) => void;
+  setSearchTerm: (searchTerm: string) => void;
+  setFilteringType: (filteringType: string) => void;
   clearFiltering: () => void;
 }
 
@@ -38,6 +40,10 @@ export const ProductFilteringContextProvider = ({
       dispatch({ type: "SET_MIN_PRICE", minPrice }),
     setMaxPrice: (maxPrice: number) =>
       dispatch({ type: "SET_MAX_PRICE", maxPrice }),
+    setSearchTerm: (searchTerm: string) =>
+      dispatch({ type: "SET_SEARCH_TERM", searchTerm }),
+    setFilteringType: (filteringType: string) =>
+      dispatch({ type: "SET_SEARCH_TYPE", filteringType }),
     clearFiltering,
   };
 

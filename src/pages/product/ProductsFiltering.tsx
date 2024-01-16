@@ -21,14 +21,14 @@ const ProductsFiltering = () => {
   const { filteringState } = useProductFilteringContext();
 
   const { data, isLoading } = useProducts({
-    // categoryId: "bbb7b075-1dab-4276-abfb-a03166b561b2",
     categoryId: filteringState.categoryId,
     minPrice: filteringState.minPrice,
     maxPrice: filteringState.maxPrice,
+    searchTerm: filteringState.searchTerm,
   });
 
   const products = data as FetchResponseType<ProductType>;
-
+  console.log("Serach Term ProductsFiltering", filteringState.searchTerm);
   if (isLoading)
     return (
       <Main>

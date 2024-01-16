@@ -19,13 +19,17 @@ const UserOrderPage = () => {
 
   console.log("userOrders?.results", userOrders?.results);
 
+  // if (!userOrders) return <EmptyStateUser heading="No Order Placed" />;
+
   if (userOrders && !userOrders.results.length)
     return <EmptyStateUser heading="No Order Placed" />;
+
   if (userOrders)
     return (
       <>
         {userOrders?.results.map((order) => (
           <>
+            Orders
             {order.order_items.map((orderitem) => (
               <OrderSummaryCard orderitem={orderitem} />
             ))}

@@ -13,8 +13,8 @@ interface Props {
   quantity: number;
   imageURL: string;
   productId: string;
-  cartId: string;
-  itemId: number;
+  cartId?: string;
+  itemId?: number;
   isCheckingOut?: boolean;
   handleInputChange?: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -115,7 +115,7 @@ const CartItem = ({
             )}
           </div>
 
-          {!isCheckingOut && (
+          {!isCheckingOut && cartId && itemId && (
             <div className="flex space-x-2 items-center">
               <QuantityField
                 cartId={cartId}

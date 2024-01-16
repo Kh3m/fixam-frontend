@@ -20,6 +20,7 @@ import {
   addItemToWishlist,
   removeFromWishlist,
 } from "./product-helpers";
+import BuyNowButton from "./BuyNowButton";
 
 // export type ProductType = {
 //   image: ImageType;
@@ -206,12 +207,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
                   {isLoadingAddToCart ? <Spinner /> : <FiShoppingCart />}
                 </Button>
               </TapEffect>
-              <Button
-                variant="elevated"
-                styles="dark:bg-slate-600 px-2 font-bold text-white bg-fyellow-shades-500"
-              >
-                Buy Now
-              </Button>
+              <BuyNowButton subtotal={selling_price as number} productId={id} />
             </div>
           )}
         </div>

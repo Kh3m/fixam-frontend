@@ -83,7 +83,7 @@ const CategoryFilter = () => {
           </h3>
           <ul className="ml-4">
             {mainCat.slice(0, sliceLen).map(({ name, id }) => (
-              <SubCategoryFilter text={name} mainCategoryId={id} />
+              <SubCategoryFilter key={id} text={name} mainCategoryId={id} />
             ))}
             {/* <Button
               onClick={() => {

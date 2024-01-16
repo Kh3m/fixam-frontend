@@ -1,17 +1,27 @@
-import InputIcon from "./InputIcon";
-import useMicrophone from "./useMicrophone";
-import { type FormEvent, useRef } from "react";
-import { FaMicrophone } from "react-icons/fa6";
+import { useRef, type FormEvent } from "react";
 import { FaSearch } from "react-icons/fa";
+import { FaMicrophone } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import { useProductFilteringContext } from "../../contexts/product-filtering-context";
+import InputIcon from "./InputIcon";
+// import useMicrophone from "./useMicrophone";
 
 const SearchInput = () => {
-  const micRef = useRef<HTMLSpanElement>(null);
+  const navigate = useNavigate();
+
+  // const micRef = useRef<HTMLSpanElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
-  const { searchText, setSearchText } = useMicrophone(micRef, searchRef);
+  // const { searchText, setSearchText } = useMicrophone(micRef, searchRef);
+
+  const {
+    setSearchTerm,
+    filteringState: { searchTerm },
+  } = useProductFilteringContext();
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(searchText);
+    console.log(searchTerm);
+    navigate(`/products/?search=${searchTerm?.toLowerCase()}`);
   };
 
   return (
@@ -22,8 +32,12 @@ const SearchInput = () => {
       >
         {/* <InputIcon image={searchSvg} side="left" /> */}
         <input
-          value={searchText}
-          onChange={(event) => setSearchText(event.target.value)}
+          // value={searchText}
+          value={searchTerm ? searchTerm : ""}
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+            // setSearchText(event.target.value);
+          }}
           ref={searchRef}
           placeholder="Search products, materials, and professionals"
           className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none 
