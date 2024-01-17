@@ -8,20 +8,20 @@ interface UserData {
   id: string;
 }
 
-type UserCredentialType = {
-  email: string;
-  username?: string;
-  password: string;
-};
+// type UserCredentialType = {
+//   email: string;
+//   username?: string;
+//   password: string;
+// };
 
-type UserCredentialRegType = {
-  email: string;
-  password1: string;
-  password2: string;
-  first_name: string;
-  last_name: string;
-  phone: string;
-};
+// type UserCredentialRegType = {
+//   email: string;
+//   password1: string;
+//   password2: string;
+//   first_name: string;
+//   last_name: string;
+//   phone: string;
+// };
 
 const useAuth = () => {
   const [isLoadingUserStore, setIsLoadingUserStore] = useState(false);

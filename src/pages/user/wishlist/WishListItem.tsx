@@ -89,9 +89,9 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
                 setIsMovingItemToCart(true);
                 await addItemToCart(
                   productId,
-                  user.id,
+                  queryClient,
                   isAuthenticated(),
-                  queryClient
+                  user.id
                 );
                 await removeFromWishlist(wishlist.id, user.id, queryClient);
                 setIsMovingItemToCart(true);

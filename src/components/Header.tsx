@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
+import { MenuSliderContextProvider } from "../contexts/menu-slider-context";
 import Container from "./Container";
 import Hamburger from "./Hamburger";
 import Logo from "./Logo";
+import MenuSlider from "./Menu/MenuSlider";
 import HeaderNav from "./Navigations/HeaderNav";
 import SearchInput from "./SearchInput/SearchInput";
-import MenuSlider from "./Menu/MenuSlider";
-import { MenuSliderContextProvider } from "../contexts/menu-slider-context";
 
 const Header = () => {
   const { pathname } = useLocation();

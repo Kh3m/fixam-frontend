@@ -56,7 +56,7 @@ const Payment = () => {
   const { data: userAddresses } = useUserAddresses(user?.id || "");
   const { data: cartForUser, isLoading: isLoadingUserCart } = useCartForUser(
     user?.id || ""
-  );
+  ).withUserId();
   const { data: buyNowProduct } = useProduct(buyNowProductId || "");
 
   const { checkoutState } = useCheckoutContext();
