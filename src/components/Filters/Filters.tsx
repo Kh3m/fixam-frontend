@@ -6,7 +6,7 @@ import PriceFilter from "./PriceFilter";
 import TypeFilter from "./TypeFilter";
 
 const Filters = () => (
-  <>
+  <div className="hidden">
     <CategoryFilter />
     <Space spacing="my-4" />
     <LocationFilter />
@@ -29,7 +29,7 @@ const Filters = () => (
     <Space spacing="my-4" /> */}
     <MiniAdBanner shouldRotate />
     <Space spacing="my-4" />
-  </>
+  </div>
 );
 
 export default Filters;

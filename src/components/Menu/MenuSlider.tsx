@@ -8,6 +8,7 @@ import { CategoryType } from "../../services/category";
 import { getMainCategory } from "../../utils/category";
 import { FetchResponseType } from "../../services/apiClient";
 import MobileCategories from "../Categories/MobileCategories";
+import { Link } from "react-router-dom";
 
 const MenuSlider = () => {
   const { menuState, closeMenu } = useMenuSliderContext();
@@ -56,7 +57,9 @@ const MenuSlider = () => {
         <motion.section className="p-2">
           <div className="flex items-center">
             <IoClose size={38} onClick={closeMenu} />
-            <Logo color={"yellow"} styles="w-12 m-2" />
+            <Link to="/">
+              <Logo color={"yellow"} styles="w-12 m-4" />
+            </Link>
           </div>
 
           {!isLoading && categories && (
