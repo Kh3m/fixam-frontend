@@ -8,6 +8,7 @@ import MainContent from "../../components/MainContent";
 import GoogleSVG from "../../components/SVGs/GoogleSVG";
 import Space from "../../components/Space";
 import useAuth from "../../hooks/useAuth";
+import ToastMessage from "../../components/ToastMessage";
 
 const AuthPage = () => {
   const methods = useForm();
@@ -15,7 +16,14 @@ const AuthPage = () => {
   const isLogin = pathname.includes("login");
   // const href = useHref("/email/confirm/");
 
-  const { register, login, isRegistrationSuccessful } = useAuth();
+  const {
+    register,
+    login,
+    isLoginSuccessful,
+    isRegistrationSuccessful,
+    isAuthenticating,
+    authErrorMessage,
+  } = useAuth();
 
   const { handleSubmit } = methods;
 
@@ -32,13 +40,17 @@ const AuthPage = () => {
     if (isRegistrationSuccessful) {
       location.href = "/email/verify";
     }
-  }, [isRegistrationSuccessful]);
+    if (isLoginSuccessful) location.href = "/";
+  }, [isRegistrationSuccessful, isLoginSuccessful]);
 
   return (
     <MainContent>
       <LogoFormSplitLayout>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          {authErrorMessage && (
+            <ToastMessage message={authErrorMessage} type={"error"} />
+          )}
+          <form onSubmit={handleSubmit(onSubmit)} className="my-6">
             <div className="text-center md:px-28">
               <div className="md:w-[50%] m-auto">
                 <Heading
@@ -56,7 +68,7 @@ const AuthPage = () => {
               <Button
                 variant="text"
                 styles="w-full font-bold text-lg pagination-shadow flex justify-center
-              items-center p-2 space-x-4"
+                items-center p-2 space-x-4"
               >
                 <GoogleSVG />
                 <span>
@@ -71,6 +83,7 @@ const AuthPage = () => {
             </div>
             <div className="w-[80%] m-auto md:px-28">
               <Button
+                disabled={isAuthenticating}
                 variant="elevated"
                 styles="w-full bg-fyellow text-white font-bold text-lg fshadow"
               >
