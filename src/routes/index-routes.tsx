@@ -1,6 +1,7 @@
 import AppLayout from "../pages/AppLayout";
+import ConfirmVerifyEmailPage from "../pages/Email/ConfirmVerifyEmailPage";
+import VerifyEmailPage from "../pages/Email/VerifyEmailPage";
 import HomePage from "../pages/HomePage";
-import VerifyEmailPage from "../pages/VerifyEmailPage";
 import CartPage from "../pages/cart/CartPage";
 import ErrorPage from "../pages/error/ErrorPage";
 import ProductDetailPage from "../pages/product/ProductDetailPage";
@@ -17,7 +18,15 @@ export default {
       index: true,
       element: <HomePage />,
     },
-    { path: "/verify-email", element: <VerifyEmailPage /> },
+    {
+      path: "/email/confirm/:tokenKey",
+
+      element: <VerifyEmailPage />,
+    },
+    {
+      path: "/email/verify",
+      element: <ConfirmVerifyEmailPage />,
+    },
     {
       path: "cart",
       element: <CartPage />,

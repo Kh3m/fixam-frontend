@@ -27,6 +27,9 @@ const useAuth = () => {
   const [isLoadingUserStore, setIsLoadingUserStore] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [userStores, setUserStores] = useState<StoreType[] | null>(null);
+  const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
+    useState(false);
+  // const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
 
   useEffect(() => {
     setIsLoadingUserStore(true);
@@ -99,6 +102,7 @@ const useAuth = () => {
       if (response.status === 201) {
         // Registration successfull, login automatically
         console.log("Registration Successfull", response.status, response.data);
+        setIsRegistrationSuccessful(true);
         // login(credentials);
       }
     } catch (error) {
@@ -157,6 +161,7 @@ const useAuth = () => {
     userStores,
     authUserDummy,
     isLoadingUserStore,
+    isRegistrationSuccessful,
   };
 };
 

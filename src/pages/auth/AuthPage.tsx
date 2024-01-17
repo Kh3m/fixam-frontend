@@ -1,19 +1,21 @@
+import { useEffect } from "react";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Button from "../../components/Button";
+import Heading from "../../components/Heading";
 import LogoFormSplitLayout from "../../components/LogoFormSplitLayout";
 import MainContent from "../../components/MainContent";
 import GoogleSVG from "../../components/SVGs/GoogleSVG";
-import Heading from "../../components/Heading";
 import Space from "../../components/Space";
-import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 
 const AuthPage = () => {
   const methods = useForm();
   const { pathname } = useLocation();
   const isLogin = pathname.includes("login");
+  // const href = useHref("/email/confirm/");
 
-  const { register, login } = useAuth();
+  const { register, login, isRegistrationSuccessful } = useAuth();
 
   const { handleSubmit } = methods;
 
@@ -26,6 +28,12 @@ const AuthPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (isRegistrationSuccessful) {
+      location.href = "/email/verify";
+    }
+  }, [isRegistrationSuccessful]);
+
   return (
     <MainContent>
       <LogoFormSplitLayout>
@@ -36,7 +44,7 @@ const AuthPage = () => {
                 <Heading
                   variant="h1"
                   styles="text-xl md:text-5xl text-fyellow-shades-500 font-bold 
-              md:font-normal md:text-black dark:text-gray-300"
+                md:font-normal md:text-black dark:text-gray-300"
                 >
                   Welcome!
                 </Heading>
