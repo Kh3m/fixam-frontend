@@ -1,14 +1,12 @@
+import AppLayout from "../pages/AppLayout";
 import HomePage from "../pages/HomePage";
+import VerifyEmailPage from "../pages/VerifyEmailPage";
 import CartPage from "../pages/cart/CartPage";
-import CheckoutPage from "../pages/checkout/CheckoutPage";
+import ErrorPage from "../pages/error/ErrorPage";
 import ProductDetailPage from "../pages/product/ProductDetailPage";
 import ProductsPage from "../pages/product/ProductsPage";
-import AppLayout from "../pages/AppLayout";
-import userRoutes from "./user-routes";
 import ReviewsPage from "../pages/review/ReviewsPage";
-import ErrorPage from "../pages/error/ErrorPage";
-import Payment from "../pages/checkout/Payment";
-import PaymentSuccess from "../pages/checkout/PaymentSuccess";
+import userRoutes from "./user-routes";
 
 export default {
   path: "/",
@@ -19,14 +17,7 @@ export default {
       index: true,
       element: <HomePage />,
     },
-    {
-      path: "checkout",
-      element: <CheckoutPage />,
-      children: [
-        { path: "payment", element: <Payment /> },
-        { path: "payment/success", element: <PaymentSuccess /> },
-      ],
-    },
+    { path: "/verify-email", element: <VerifyEmailPage /> },
     {
       path: "cart",
       element: <CartPage />,

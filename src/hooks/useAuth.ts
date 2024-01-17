@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 import { StoreType } from "../entities/store";
 import apiClient from "../services/apiClient";
+import { FieldValues } from "react-hook-form";
 
 interface UserData {
   id: string;
@@ -11,6 +12,15 @@ type UserCredentialType = {
   email: string;
   username?: string;
   password: string;
+};
+
+type UserCredentialRegType = {
+  email: string;
+  password1: string;
+  password2: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
 };
 
 const useAuth = () => {
@@ -38,13 +48,13 @@ const useAuth = () => {
     }
   }, []);
 
-  const login = async (credentials: UserCredentialType) => {
+  const login = async (credentials: FieldValues) => {
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClient.post<UserData>(
-        `/users/auth/login/`,
-        credentials
-      );
+      const res = await apiClient.post<UserData>(`/users/auth/login/`, {
+        email: credentials.email,
+        password: credentials.password,
+      });
 
       if (res.status === 200) {
         const userData = res.data;
@@ -75,18 +85,21 @@ const useAuth = () => {
     }
   };
 
-  const register = async (credentials: UserCredentialType) => {
+  const register = async (credentials: FieldValues) => {
     try {
-      const response = await apiClient.post(
-        `/users/auth/registeration/`,
-        credentials
-      );
-
-      console.log("Registration Successfull", response.status, response.data);
+      const response = await apiClient.post(`/users/auth/registration/`, {
+        email: credentials.email,
+        password1: credentials.password,
+        password2: credentials.confirm_password,
+        first_name: credentials.first_name,
+        last_name: credentials.last_name,
+        phone: credentials.phone,
+      });
 
       if (response.status === 201) {
         // Registration successfull, login automatically
-        login(credentials);
+        console.log("Registration Successfull", response.status, response.data);
+        // login(credentials);
       }
     } catch (error) {
       console.log("Registration failed", error);

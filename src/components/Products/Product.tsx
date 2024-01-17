@@ -67,8 +67,11 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
 
   const handleAddToCart = async (productId: string) => {
     setIsLoadingAddToCart(true);
-    if (user)
-      await addItemToCart(productId, user.id, isAuthenticated(), queryClient);
+    if (user) {
+      await addItemToCart(productId, queryClient, isAuthenticated(), user.id);
+    } else {
+      // await addItemToCart(productId, queryClient, isAuthenticated());
+    }
     setIsLoadingAddToCart(false);
   };
 

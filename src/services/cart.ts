@@ -29,6 +29,10 @@ export const userCartService = (userId?: string) => {
   return new APIClient<CartType>(`/carts/user/${userId}/`);
 };
 
+export const cartService = (cartId?: string) => {
+  return new APIClient<CartType>(`/carts/${cartId ? cartId + "/" : ""}`);
+};
+
 // Service for /carts/:{cartId}/items/
 export const cartItemService = (cartId: string) => {
   return new APIClient<CartItemType, CartItemType>(`/carts/${cartId}/items/`);

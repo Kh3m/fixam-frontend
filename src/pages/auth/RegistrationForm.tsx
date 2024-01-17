@@ -12,12 +12,25 @@ const RegistrationPage = () => {
         rules={{
           required: {
             value: true,
-            message: "Enter your full name {firstname} {lastname}",
+            message: "Enter your first name",
           },
         }}
         control={control}
-        name="fullname"
-        placeholder="Full Name {First Name} {Last Name}"
+        name="first_name"
+        placeholder="First Name"
+        required
+      />
+      <Space spacing="my-4" />
+      <Input
+        rules={{
+          required: {
+            value: true,
+            message: "Enter your last name",
+          },
+        }}
+        control={control}
+        name="last_name"
+        placeholder="Last Name"
         required
       />
       <Space spacing="my-4" />
@@ -62,7 +75,7 @@ const RegistrationPage = () => {
           required: { value: true, message: "Password didn't match" },
         }}
         control={control}
-        name="confirm-password"
+        name="confirm_password"
         placeholder="Confirm Password"
         type="password"
         required
@@ -80,7 +93,7 @@ const RegistrationPage = () => {
           );
         }}
       />
-      <Controller
+      {/* <Controller
         control={control}
         name="agreement_terms"
         render={() => {
@@ -91,7 +104,7 @@ const RegistrationPage = () => {
             />
           );
         }}
-      />
+      /> */}
     </>
   );
 };

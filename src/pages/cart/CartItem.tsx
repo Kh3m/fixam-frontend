@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { formatPrice } from "../../utils/number-formatter";
 import QuantityField from "./QuantityField";
 import apiClient from "../../services/apiClient";
+import { useLocation } from "react-router-dom";
 
 interface Props {
   quantity: number;
@@ -28,6 +29,9 @@ const CartItem = ({
   isCheckingOut,
 }: Props) => {
   const queryClient = useQueryClient();
+  const { pathname } = useLocation();
+  const isCartPage = pathname.endsWith("/cart");
+
   const { user } = useAuth();
 
   const { data: cartProduct } = useProduct(productId);
@@ -86,9 +90,11 @@ const CartItem = ({
                 {formatPrice(cartProduct.selling_price as number)}
               </div>
               <Space spacing="my-1" />
-              <div className="text-xs md:text-base font-semibold dark:text-gray-300">
-                QTY: {quantity}
-              </div>
+              {!isCartPage && (
+                <div className="text-xs md:text-base font-semibold dark:text-gray-300">
+                  QTY: {quantity}
+                </div>
+              )}
               {/* <VariantOption
                 variant="Color"
                 defaultSelectValue={{ label: "Black", value: "Black" }}

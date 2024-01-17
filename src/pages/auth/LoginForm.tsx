@@ -12,7 +12,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   useEffect(() => {
     // Set login to true or false to perform dummy auth or not
-    const login = true;
+    const login = false;
     if (login) {
       authUserDummy("bc0acb18-acd1-4098-bd88-e0e1f5911ef7");
       navigate("/");

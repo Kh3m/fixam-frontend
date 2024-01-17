@@ -46,9 +46,9 @@ const invalidateCartUserQuery = (userId: string, queryClient: QueryClient) => {
 
 export const addItemToCart = async (
   productId: string,
-  userId: string,
+  queryClient: QueryClient,
   isAuthenticated: boolean,
-  queryClient: QueryClient
+  userId: string
 ) => {
   // setIsLoadingAddToCart(true);
 
