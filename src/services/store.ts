@@ -1,7 +1,7 @@
 // import { StoreType } from "../entities/store";
 // import APIClient from "./apiClient";
 
-import { APIClient, FetchResponseType } from "./apiClient";
+import { APIClient } from "./apiClient";
 
 // const apiClient = new APIClient<StoreType | FormData>("/store/");
 

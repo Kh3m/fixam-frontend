@@ -3,10 +3,16 @@ import Button from "../../../components/Button";
 
 interface Props {
   isActive?: boolean;
+  onClick?: () => void;
 }
-const FilterButton = ({ children, isActive }: PropsWithChildren<Props>) => {
+const FilterButton = ({
+  children,
+  isActive,
+  onClick,
+}: PropsWithChildren<Props>) => {
   return (
     <Button
+      onClick={onClick}
       variant="text"
       styles={` mr-8 after:content-[''] 
       ${isActive ? "after:block text-fyellow" : "text-fgrey"}

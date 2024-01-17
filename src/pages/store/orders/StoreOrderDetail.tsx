@@ -10,8 +10,6 @@ import OrderDetailList from "../../user/order/OrderDetailList";
 import OrderSummaryCard from "../../user/order/OrderSummaryCard";
 import OrderPaymentDetail from "../../user/order/OrderPaymentDetail";
 import OderShippingDetail from "../../user/order/OderShippingDetail";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { goBack } from "../../../utils/history";
 import BackArrow from "../../../components/BackArrow";
 
 const StoreOrderDetail = () => {

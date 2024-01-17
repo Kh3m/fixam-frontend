@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/Button";
@@ -12,7 +12,6 @@ import FormFieldCard from "./FormFieldCard";
 import VariantFields from "./VariantFields";
 import apiClient from "../../../services/apiClient";
 import useAuth from "../../../hooks/useAuth";
-import { StoreResponseType } from "../../../entities/store";
 import useProduct from "../../../hooks/products/useProduct";
 
 type VariantOptionType = {

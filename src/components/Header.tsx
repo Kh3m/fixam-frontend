@@ -4,6 +4,8 @@ import Hamburger from "./Hamburger";
 import Logo from "./Logo";
 import HeaderNav from "./Navigations/HeaderNav";
 import SearchInput from "./SearchInput/SearchInput";
+import MenuSlider from "./Menu/MenuSlider";
+import { MenuSliderContextProvider } from "../contexts/menu-slider-context";
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -33,7 +35,10 @@ const Header = () => {
               className="w-16 md:hidden flex-grow flex items-center
               md:w-[95px] md:h-[78px] cursor-pointer"
             >
-              <Hamburger />
+              <MenuSliderContextProvider>
+                <MenuSlider />
+                <Hamburger />
+              </MenuSliderContextProvider>
               <Link to={"/"} className="w-16">
                 <Logo color="white" />
               </Link>

@@ -1,5 +1,5 @@
 import { MdHelpCenter } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useCartForUser from "../../hooks/cart/useCartForUser";
 import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/user/useUser";
@@ -11,9 +11,6 @@ import AccountNav from "./AccountNav";
 import CircledLink from "./CircledLink";
 
 const HeaderNav = () => {
-  const { pathname } = useLocation();
-  const pathHasStores = pathname.includes("stores");
-
   const { isAuthenticated, userStores, isLoadingUserStore, user } = useAuth();
   const { data, isLoading: isLoadingUserCart } = useCartForUser(user?.id || "");
 
@@ -28,7 +25,7 @@ const HeaderNav = () => {
       className="flex items-center
     md:space-x-8"
     >
-      <CircledLink to="" styles="text-lg mr-6">
+      <CircledLink to="" styles="text-lg mr-6 md:mr-0">
         <MdHelpCenter />
       </CircledLink>
       {isLoadingUserCart && (

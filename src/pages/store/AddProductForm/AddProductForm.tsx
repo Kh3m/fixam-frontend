@@ -7,7 +7,6 @@ import Spinner from "../../../components/Spinner";
 import { StoreResponseType } from "../../../entities/store";
 import useAuth from "../../../hooks/useAuth";
 import { ProductType } from "../../../services/product";
-import AddVariantForm from "./AddVariantForm";
 import AlCAtF from "./AlCAtF";
 import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";

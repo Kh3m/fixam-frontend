@@ -15,6 +15,7 @@ import ProductImageUpload from "./ProductImageUpload";
 import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
 import apiClient from "../../../services/apiClient";
+import BackArrow from "../../../components/BackArrow";
 
 type ProductUploadType = {
   name: string;
@@ -129,9 +130,12 @@ const EditProductForm = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Heading variant="h3">
-          Edit Product: <span className="font-semibold">{product?.name}</span>
-        </Heading>
+        <BackArrow>
+          <Heading variant="h3">
+            Edit Product: <span className="font-semibold">{product?.name}</span>
+          </Heading>
+        </BackArrow>
+
         <Space spacing="my-8" />
         <TypeFields defaultTypeValue={product?.type} />
         <Space spacing="my-8" />

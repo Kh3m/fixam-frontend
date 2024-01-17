@@ -22,7 +22,12 @@ const UserOrderPage = () => {
   // if (!userOrders) return <EmptyStateUser heading="No Order Placed" />;
 
   if (userOrders && !userOrders.results.length)
-    return <EmptyStateUser heading="No Order Placed" />;
+    return (
+      <EmptyStateUser
+        heading="You don’t have any order yet"
+        callToActionText="Continue Shopping"
+      />
+    );
 
   if (userOrders)
     return (

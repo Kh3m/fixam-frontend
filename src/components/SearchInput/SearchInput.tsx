@@ -27,6 +27,7 @@ const SearchInput = () => {
     event.preventDefault();
     setSearchTerm(searchText);
     navigate(`/products/?search=${searchTerm?.toLowerCase()}`);
+    // setSearchText("");
   };
 
   return (
@@ -51,7 +52,14 @@ const SearchInput = () => {
           className="h-[46px] pl-5 pr-16 rounded-md w-full outline-none 
           placeholder:dark:text-fgrey text-fgrey"
         />
-        <span className="dark:bg-fdark-100 dark:text-slate-500 text-fyellow bg-white">
+        <span
+          onClick={() => {
+            setSearchTerm(searchText);
+            navigate(`/products/?search=${searchTerm?.toLowerCase()}`);
+            // setSearchText("");
+          }}
+          className="cursor-pointer dark:bg-fdark-100 dark:text-slate-500 text-fyellow bg-white"
+        >
           <InputIcon side="right" image={<FaSearch />} />
         </span>
       </div>

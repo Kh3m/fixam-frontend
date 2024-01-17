@@ -23,7 +23,9 @@ const Banner = ({
     <section
       style={temInlineStyle}
       className={`${
-        isStoreBanner ? "rounded-md h-[238px]" : "h-[338px]"
+        isStoreBanner
+          ? "rounded-md h-[200px] md:h-[238px]"
+          : "h-[300px] md:h-[338px]"
       } relative `}
     >
       <div

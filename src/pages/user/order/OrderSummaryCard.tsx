@@ -4,7 +4,6 @@ import BorderCard from "../BorderCard";
 
 import product1 from "../../../assets/product_1.png";
 import { Link, useParams } from "react-router-dom";
-import DeliveryTimeEstimator from "./BottomSpanMessage";
 import useProduct from "../../../hooks/products/useProduct";
 import Center from "../../../components/Center";
 import Spinner from "../../../components/Spinner";

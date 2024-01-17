@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Center from "../../../components/Center";
 import EmptyStateStore from "../../../components/EmptyStateStore";
-import EmptyStateUser from "../../../components/EmptyStateUser";
 import ActionMenu from "../../../components/Menu/ActionMenu";
 import Space from "../../../components/Space";
 import Spinner from "../../../components/Spinner";
@@ -10,9 +10,10 @@ import useAuth from "../../../hooks/useAuth";
 import { FetchResponseType } from "../../../services/apiClient";
 import { StoreOrderType } from "../../../services/store";
 import { formatPrice } from "../../../utils/number-formatter";
-import removeSpacing from "../../../utils/removeSpacing";
 import StorePageTitle from "../StorePageTitle";
-import OrderQuickFilter from "./OrderQuickFilter";
+import OrderQuickFilter, {
+  DeliveryStatusFilteringType,
+} from "./OrderQuickFilter";
 
 const StoreOrderHistory = () => {
   const { userStores } = useAuth();
@@ -51,9 +52,9 @@ const StoreOrderHistory = () => {
       return (
         <>
           {ordersForStore.results.map((storeOder, index) => {
-            const lowerStatus = removeSpacing(
-              storeOder.order.order_delivery_status
-            );
+            // const lowerStatus = removeSpacing(
+            //   storeOder.order.order_delivery_status
+            // );
 
             return (
               <tr key={index} className="rounded-lg dark:bg-slate-700 fshadow">
@@ -107,10 +108,16 @@ const StoreOrderHistory = () => {
       );
   };
 
+  const [deliveryStatus, setDeliveryStatus] =
+    useState<DeliveryStatusFilteringType>("All Order");
+
   return (
     <section>
       <StorePageTitle title="Order History" />
-      <OrderQuickFilter />
+      <OrderQuickFilter
+        status={deliveryStatus}
+        handleStatusClick={(v) => setDeliveryStatus(v)}
+      />
       <Space spacing="my-8" />
       <Table
         tableHeadings={[

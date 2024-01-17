@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { goBack } from "../utils/history";
 
