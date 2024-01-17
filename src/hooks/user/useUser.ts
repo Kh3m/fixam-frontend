@@ -4,7 +4,7 @@ import { userService } from "../../services/user";
 const useUser = (userId: string) => {
   return useQuery({
     queryKey: ["users", userId],
-    queryFn: () => userService.fetch(userId),
+    queryFn: () => userService.fetchOne(),
     enabled: !!userId,
   });
 };

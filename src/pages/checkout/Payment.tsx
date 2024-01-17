@@ -52,10 +52,11 @@ const Payment = () => {
   const [toastMessage, setToastMessage] = useState("");
 
   const isMd = useResponsive("md");
-  const { user } = useAuth();
-  const { data: userAddresses } = useUserAddresses(user?.id || "");
+  const { userInfo } = useAuth();
+  const { data: userAddresses } = useUserAddresses(userInfo?.user?.id || "");
   const { data: cartForUser, isLoading: isLoadingUserCart } = useCartForUser(
-    user?.id || ""
+    undefined,
+    userInfo?.user?.id || ""
   ).withUserId();
   const { data: buyNowProduct } = useProduct(buyNowProductId || "");
 
@@ -89,17 +90,17 @@ const Payment = () => {
       console.log(
         "userAddresses && user && subtotal",
         userAddresses,
-        user,
+        userInfo,
         subtotal
       );
 
-      if (userAddresses && user && subtotal) {
-        console.log("ENTERED HERER", userAddresses, user, subtotal);
+      if (userAddresses && userInfo && subtotal) {
+        console.log("ENTERED HERER", userAddresses, userInfo, subtotal);
         try {
           if (buyNowProductId && buyNowProduct) {
             await placeOrder(
               checkoutState.paymentMethod,
-              user.id,
+              userInfo?.user.id,
               queryClient,
               subtotal,
               checkoutState.addressId || defautlUserAddressId,
@@ -114,7 +115,7 @@ const Payment = () => {
           } else {
             await placeOrder(
               checkoutState.paymentMethod,
-              user.id,
+              userInfo?.user?.id,
               queryClient,
               subtotal,
               checkoutState.addressId || defautlUserAddressId,

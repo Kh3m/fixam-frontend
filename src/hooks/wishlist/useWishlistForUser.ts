@@ -6,6 +6,7 @@ const useWishlistForUser = (userId: string) =>
     queryKey: ["carts", "wishlist", "user", userId],
     // TODO: FIX avoid using dummyUserCartService
     queryFn: () => userWishlistService(userId).fetchAll(),
+    enabled: !!userId,
   });
 
 export default useWishlistForUser;

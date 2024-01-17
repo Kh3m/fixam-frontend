@@ -35,7 +35,7 @@ export type UserType = {
   is_vendor?: false;
 };
 
-export const userService = new APIClient<UserType>(`/users/`);
+export const userService = new APIClient<UserType>(`/users/auth/user/`);
 export const userAddressService = new APIClient<UserAddressType>(
   `/users/adresses/`
 );

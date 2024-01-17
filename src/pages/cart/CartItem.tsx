@@ -32,7 +32,7 @@ const CartItem = ({
   const { pathname } = useLocation();
   const isCartPage = pathname.endsWith("/cart");
 
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
   const { data: cartProduct } = useProduct(productId);
 
@@ -49,7 +49,7 @@ const CartItem = ({
       if (deleteCartRes.status == 204) {
         // Invalidate the cache for ["carts", "user", user?.id]
         queryClient.invalidateQueries({
-          queryKey: ["carts", "user", user?.id],
+          queryKey: ["carts", "user", userInfo?.user?.id],
         });
 
         setIsDeletingCartItems(false);
@@ -57,7 +57,7 @@ const CartItem = ({
 
       // Invalidate the cache for ["carts", "user", user?.id]
       queryClient.invalidateQueries({
-        queryKey: ["carts", "user", user?.id],
+        queryKey: ["carts", "user", userInfo?.user?.id],
       });
     } catch (error) {
       console.log("ERROR DELETING CART ITEM", error);
@@ -126,7 +126,7 @@ const CartItem = ({
               <QuantityField
                 cartId={cartId}
                 itemId={itemId}
-                userId={user?.id || ""}
+                userId={userInfo?.user?.id || ""}
                 quantity={quantity}
               />
             </div>

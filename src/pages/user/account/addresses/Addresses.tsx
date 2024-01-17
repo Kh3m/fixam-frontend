@@ -9,10 +9,10 @@ import AccountAddressSummary from "../AccountAddressSummary";
 import DeliveryAddressForm from "./DeliveryAddressForm";
 
 const Addresses = () => {
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
   const { data: addresses, isLoading: isLoadingAddresses } = useUserAddresses(
-    user?.id || ""
+    userInfo?.user?.id || ""
   );
 
   const [showDeliveryAddressForm, setShowDeliveryAddressForm] = useState(false);

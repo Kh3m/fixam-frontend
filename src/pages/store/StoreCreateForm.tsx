@@ -21,7 +21,7 @@ interface Props {
 }
 const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, userInfo } = useAuth();
 
   const { stepIndex, setStepIndex } = useStoreProgressContext();
   const { handleSubmit, trigger, getFieldState, getValues } = methods;
@@ -32,8 +32,8 @@ const StoreCreateForm = ({ stepName, isLastStep, methods }: Props) => {
   const onSubmit = async (data: StoreType) => {
     setIsCreatingStore(true);
 
-    if (isAuthenticated() && user) {
-      formData.append("owner", user.id);
+    if (isAuthenticated() && userInfo?.user) {
+      formData.append("owner", userInfo?.user.id);
 
       formData.append("logo", data.logo);
       formData.append("banner", data.banner);

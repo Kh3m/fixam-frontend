@@ -3,7 +3,7 @@ import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 import { StoreType } from "../entities/store";
 import apiClient from "../services/apiClient";
 import { FieldValues } from "react-hook-form";
-import { isAxiosError } from "axios";
+import axios, { isAxiosError } from "axios";
 
 // interface UserData {
 //   id: string;
@@ -32,6 +32,14 @@ interface UserData {
 //   phone: string;
 // };
 
+const authAxios = axios.create({
+  baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
+
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 const useAuth = () => {
   const [isLoadingUserStore, setIsLoadingUserStore] = useState(false);
   const [userInfo, setUserInfo] = useState<UserData | null>(null);
@@ -46,8 +54,8 @@ const useAuth = () => {
     setIsLoadingUserStore(true);
     // Check for an existing user cookie when the component mount
     const userIdFromCookie = getCookie("userId");
-    const accessFromCookie = getCookie("access");
-    const refreshFromCookie = getCookie("refresh");
+    const accessFromCookie = getCookie("accessToken");
+    const refreshFromCookie = getCookie("refreshToken");
     if (userIdFromCookie && accessFromCookie && refreshFromCookie) {
       // If a user cookie exists, set the user's state
       setUserInfo({
@@ -72,13 +80,14 @@ const useAuth = () => {
     setIsAuthenticating(true);
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClient.post<UserData>(`/users/auth/login/`, {
+      const res = await authAxios.post<UserData>(`/users/auth/login/`, {
         email: credentials.email,
         password: credentials.password,
       });
 
       if (res.status === 200) {
         const userData = res.data;
+        console.log("userData = res.data;", userData);
         // TODO: Check for side effect
         setCookie("userId", userData.user.id || "", 7); // Expires in 7 days
         setCookie("accessToken", userData.access || "", 7); // Expires in 7 days
@@ -126,7 +135,7 @@ const useAuth = () => {
   const register = async (credentials: FieldValues) => {
     setIsAuthenticating(true);
     try {
-      const response = await apiClient.post(`/users/auth/registration/`, {
+      const response = await authAxios.post(`/users/auth/registration/`, {
         email: credentials.email,
         password1: credentials.password,
         password2: credentials.confirm_password,
@@ -153,8 +162,8 @@ const useAuth = () => {
 
   const logout = () => {
     removeCookie("userId");
-    removeCookie("refresh");
-    removeCookie("access");
+    removeCookie("refreshToken");
+    removeCookie("accessToken");
     setUserInfo(null);
   };
 

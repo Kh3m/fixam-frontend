@@ -8,7 +8,6 @@ import MainContent from "../../components/MainContent";
 import GoogleSVG from "../../components/SVGs/GoogleSVG";
 import Space from "../../components/Space";
 import useAuth from "../../hooks/useAuth";
-import ToastMessage from "../../components/ToastMessage";
 
 const AuthPage = () => {
   const methods = useForm();
@@ -22,7 +21,7 @@ const AuthPage = () => {
     isLoginSuccessful,
     isRegistrationSuccessful,
     isAuthenticating,
-    authErrorMessage,
+    // authErrorMessage,
   } = useAuth();
 
   const { handleSubmit } = methods;
@@ -47,9 +46,9 @@ const AuthPage = () => {
     <MainContent>
       <LogoFormSplitLayout>
         <FormProvider {...methods}>
-          {authErrorMessage && (
+          {/* {authErrorMessage && (
             <ToastMessage message={authErrorMessage} type={"error"} />
-          )}
+          )} */}
           <form onSubmit={handleSubmit(onSubmit)} className="my-6">
             <div className="text-center md:px-28">
               <div className="md:w-[50%] m-auto">

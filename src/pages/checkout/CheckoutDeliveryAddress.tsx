@@ -24,10 +24,10 @@ const CheckoutInformWithState = ({}: Props) => {
   const handleCloseDeliveryAddressForm = () => {
     setChangeDefault(false);
   };
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
   const { data: userAddresses, isLoading: isLoadingUserAddresses } =
-    useUserAddresses(user?.id || "");
+    useUserAddresses(userInfo?.user.id || "");
 
   if (isLoadingUserAddresses) {
     return (

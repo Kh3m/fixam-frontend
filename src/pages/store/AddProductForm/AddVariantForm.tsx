@@ -37,7 +37,7 @@ const AddVariantForm = ({}: Props) => {
   const methods = useForm({});
   const [variantFields, setVariantFields] = useState<number>(1);
 
-  const { user, isAuthenticated, userStores } = useAuth();
+  const { userInfo, isAuthenticated, userStores } = useAuth();
   const { data: product, isLoading: isLoadingProduct } = useProduct(
     productId || ""
   );
@@ -58,7 +58,7 @@ const AddVariantForm = ({}: Props) => {
       const defaultStoreSlug = userStores[getLastStoreIndex].slug;
       const defaultStoreId = userStores[getLastStoreIndex].id;
 
-      if (user?.id && isAuthenticated()) {
+      if (userInfo?.user?.id && isAuthenticated()) {
         // Check if Variant is selected
         if (newVariantData.variant) {
           try {

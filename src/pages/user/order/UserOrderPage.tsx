@@ -6,9 +6,9 @@ import useAuth from "../../../hooks/useAuth";
 import OrderSummaryCard from "./OrderSummaryCard";
 
 const UserOrderPage = () => {
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
-  const { data: userOrders, isLoading } = useOrders(user?.id || "");
+  const { data: userOrders, isLoading } = useOrders(userInfo?.user?.id || "");
 
   if (isLoading)
     return (

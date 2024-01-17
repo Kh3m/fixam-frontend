@@ -19,7 +19,7 @@ interface Props {
 
 const AccountAddressSummary = ({ address }: Props) => {
   const queryClient = useQueryClient();
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [_, setIsDeleted] = useState(false);
@@ -36,7 +36,7 @@ const AccountAddressSummary = ({ address }: Props) => {
       if (deletedAddress.status == 204) setIsDeleted(true);
 
       queryClient.invalidateQueries({
-        queryKey: ["users", user?.id, "addresses"],
+        queryKey: ["users", userInfo?.user?.id, "addresses"],
       });
 
       setIsDeleting(false);
@@ -93,7 +93,7 @@ const AccountAddressSummary = ({ address }: Props) => {
             });
 
             queryClient.invalidateQueries({
-              queryKey: ["users", user?.id, "addresses"],
+              queryKey: ["users", userInfo?.user?.id, "addresses"],
             });
           }}
         >

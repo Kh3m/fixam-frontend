@@ -25,22 +25,21 @@ const ReviewRating = ({ productId }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const methods = useForm<ReviewType>();
   const { handleSubmit, control } = methods;
-  const { user, isAuthenticated } = useAuth();
+  const { userInfo, isAuthenticated } = useAuth();
 
   const queryClient = useQueryClient();
 
   const onSubmit = async (data: ReviewType) => {
     setIsLoading(true);
-    if (user && isAuthenticated()) {
+    if (userInfo && isAuthenticated()) {
       const revievewData = {
         review_text: data.review_text,
         rating: data.rating,
         prod_id: productId,
       };
-      console.log("Submitted Review: ", revievewData, "user", user);
       try {
         const responseReview = await apiClient.post(
-          `/reviews/user/${user.id}/`,
+          `/reviews/user/${userInfo.user.id}/`,
           revievewData
         );
         console.log("responseReview", responseReview);

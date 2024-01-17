@@ -9,7 +9,7 @@ type CartContextType = {
 // <TData, TError, TVariable, TContext>
 const useCreateCartItem = (cartId: string) => {
   const queryClient = useQueryClient();
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
   return useMutation<CartItemType, Error, CartItemType, CartContextType>({
     mutationKey: ["carts", cartId, "items"],
@@ -17,7 +17,7 @@ const useCreateCartItem = (cartId: string) => {
     onSuccess: () => {
       // Invalidate the cache for ["carts", "user", user?.id]
       queryClient.invalidateQueries({
-        queryKey: ["carts", "user", user?.id],
+        queryKey: ["carts", "user", userInfo?.user?.id],
       });
     },
   });

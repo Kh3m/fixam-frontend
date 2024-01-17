@@ -34,7 +34,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, userInfo } = useAuth();
   const navigate = useNavigate();
 
   const methods = useForm({});
@@ -46,9 +46,9 @@ const AddProductForm = () => {
 
     const formData = new FormData();
 
-    if (user?.id && isAuthenticated()) {
+    if (userInfo?.user?.id && isAuthenticated()) {
       const getStoreForUserId = await apiClient.get<StoreResponseType[]>(
-        `/stores/owner/${user.id}/`
+        `/stores/owner/${userInfo.user.id}/`
       );
 
       const getLastStoreIndex = getStoreForUserId.data.length - 1;
@@ -67,7 +67,7 @@ const AddProductForm = () => {
         formData.append(`image[${index}]`, image as File);
       });
 
-      formData.append("user_id", user.id);
+      formData.append("user_id", userInfo.user.id);
       formData.append("price", newProductData.price.toString());
       formData.append("type", newProductData.type);
       formData.append("category", newProductData.category);

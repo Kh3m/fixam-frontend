@@ -32,7 +32,7 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
   const queryClient = useQueryClient();
 
   const { data: product, isLoading: isLoadingProduct } = useProduct(productId);
-  const { user, isAuthenticated } = useAuth();
+  const { userInfo, isAuthenticated } = useAuth();
 
   const handleShare = async () => {
     if (product) {
@@ -85,15 +85,19 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
         <div className="flex-grow-0 md:basis-[200px] flex md:flex-col items-center">
           <Button
             onClick={async () => {
-              if (user) {
+              if (userInfo) {
                 setIsMovingItemToCart(true);
                 await addItemToCart(
                   productId,
                   queryClient,
                   isAuthenticated(),
-                  user.id
+                  userInfo.user.id
                 );
-                await removeFromWishlist(wishlist.id, user.id, queryClient);
+                await removeFromWishlist(
+                  wishlist.id,
+                  userInfo.user.id,
+                  queryClient
+                );
                 setIsMovingItemToCart(true);
               }
             }}
@@ -123,9 +127,13 @@ const WishListItem = ({ title, imageURL, productId, wishlist }: Props) => {
               <Button
                 disabled={isDeletingWishlist}
                 onClick={async () => {
-                  if (user) {
+                  if (userInfo) {
                     setIsDeletingWishlist(true);
-                    await removeFromWishlist(wishlist.id, user.id, queryClient);
+                    await removeFromWishlist(
+                      wishlist.id,
+                      userInfo.user.id,
+                      queryClient
+                    );
                     setIsDeletingWishlist(true);
                   }
                 }}

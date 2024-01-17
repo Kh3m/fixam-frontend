@@ -11,9 +11,9 @@ import { WishlistType } from "../../../services/wishlist";
 import WishListItems from "./WishListItems";
 
 const WishListPage = () => {
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
   const { data: wishlists, isLoading: isLoadingWishlists } = useWishlistForUser(
-    user?.id || ""
+    userInfo?.user?.id || ""
   );
 
   const wishlistsForUser = wishlists as FetchResponseType<WishlistType>;

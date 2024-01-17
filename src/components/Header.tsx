@@ -10,7 +10,7 @@ import SearchInput from "./SearchInput/SearchInput";
 const Header = () => {
   const { pathname } = useLocation();
   const pathHasStores = pathname.includes("stores");
-
+  // removeCookie("cartId");
   return (
     <header className="dark:bg-slate-800 bg-fyellow-shades-500 py-2 md:py-0">
       <Container>

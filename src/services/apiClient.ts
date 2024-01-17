@@ -1,15 +1,20 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { getCookie } from "../utils/cookies";
 
 export type FetchResponseType<T> = {
   count: number;
   results: T[];
 };
 
+const accessToken = getCookie("accessToken");
+console.log(accessToken);
+
 const apiClient = axios.create({
   // withCredentials: true,
   baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
   },
 });
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaVoicemail } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
-import Button from "../../components/Button";
+import { Link, useParams } from "react-router-dom";
 import Center from "../../components/Center";
 import Heading from "../../components/Heading";
 import Spinner from "../../components/Spinner";
@@ -50,14 +49,17 @@ const VerifyEmailPage = () => {
         </div>
 
         <Heading variant="h2">Your email has been verified</Heading>
-        <p>
+        <p className="dark:text-gray-300">
           Login now to start using fixam.africa and explore the wide range of
           products we have waiting for you.
         </p>
 
-        <Button styles="rounded-md font-bold bg-fyellow-shades-500 text-white w-full py-2">
+        <Link
+          to="/auth/login"
+          className="rounded-md font-bold bg-fyellow-shades-500 text-white w-full py-2"
+        >
           Login Now
-        </Button>
+        </Link>
       </section>
     );
 

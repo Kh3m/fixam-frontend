@@ -20,14 +20,11 @@ import { getCookie } from "../../utils/cookies";
 import { CartType } from "../../services/cart";
 
 const CartPage = () => {
-  const { user } = useAuth();
-
-  // const { data: userCart, isLoading: isLoadingUserCart } = useCartForUser(
-  //   user?.id || ""
-  // );
+  const { userInfo } = useAuth();
 
   const { data, isLoading: isLoadingUserCart } = useCartForUser(
-    user?.id
+    undefined,
+    userInfo?.user?.id
   ).withUserId();
 
   const {

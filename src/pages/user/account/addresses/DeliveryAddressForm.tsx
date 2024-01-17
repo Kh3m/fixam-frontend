@@ -26,7 +26,7 @@ const DeliveryAddressForm = ({
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
   const [severErrorMessage, setServerErrorMessage] = useState("");
 
   const [isCreatingUserAddress, setIsCreatingUserAddress] = useState(false);
@@ -51,24 +51,24 @@ const DeliveryAddressForm = ({
   const onSubmit = async (data: FieldValues) => {
     setIsCreatingUserAddress(true);
     try {
-      if (user) {
+      if (userInfo) {
         // Send request to update user's address
         const createdAddress = !address
           ? await apiClient.post(`/users/adresses/`, {
               ...data,
               receiver_phone_two: data.receiver_phone_two || null,
-              user: user.id,
+              user: userInfo.user.id,
             })
           : await apiClient.put(`/users/adresses/${address.id}/`, {
               ...data,
               receiver_phone_two: data.receiver_phone_two || null,
-              user: user.id,
+              user: userInfo.user.id,
             });
 
         // If the address is created successful, reset the form
         if (createdAddress.status == 201 || createdAddress.status == 200) {
           queryClient.invalidateQueries({
-            queryKey: ["users", user.id, "addresses"],
+            queryKey: ["users", userInfo.user.id, "addresses"],
           });
           reset();
           if (handleCloseDeliveryAddressForm) handleCloseDeliveryAddressForm();

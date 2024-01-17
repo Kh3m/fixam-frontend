@@ -60,29 +60,34 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
   const tempCartColor = isDarkMode ? "#1e293b" : "#FF9900";
 
   // const cartCreateMutation = useCreateCart();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, userInfo } = useAuth();
   const { data: wishlists, isLoading: isLoadingWishlists } = useWishlistForUser(
-    user?.id || ""
+    userInfo?.user?.id || ""
   );
 
   const handleAddToCart = async (productId: string) => {
     setIsLoadingAddToCart(true);
-    if (user) {
-      await addItemToCart(productId, queryClient, isAuthenticated(), user.id);
+    if (userInfo?.user) {
+      await addItemToCart(
+        productId,
+        queryClient,
+        isAuthenticated(),
+        userInfo.user.id
+      );
     } else {
-      // await addItemToCart(productId, queryClient, isAuthenticated());
+      await addItemToCart(productId, queryClient, isAuthenticated(), "");
     }
     setIsLoadingAddToCart(false);
   };
 
   const handleAddToWishList = async (productId: string, wishlistId: string) => {
     setIsFavoritingWishlists(true);
-    if (user) {
+    if (userInfo?.user) {
       try {
         if (wishlistId) {
-          await removeFromWishlist(wishlistId, user.id, queryClient);
+          await removeFromWishlist(wishlistId, userInfo?.user.id, queryClient);
         } else {
-          await addItemToWishlist(productId, user.id, queryClient);
+          await addItemToWishlist(productId, userInfo?.user.id, queryClient);
         }
 
         setIsFavoritingWishlists(false);
@@ -128,7 +133,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
               {type}
             </span>
           )}
-          {isAuthenticated() && user && (
+          {isAuthenticated() && userInfo?.user && (
             <span
               className={`${
                 favorite ? "dark:bg-slate-800 bg-fyellow" : "bg-white"
