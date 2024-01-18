@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { getCookie } from "../utils/cookies";
+import apiClientWithAuth from "./tokenManagement";
 
 export type FetchResponseType<T> = {
   count: number;
@@ -20,37 +21,46 @@ const apiClient = axios.create({
 
 export class APIClient<TData, TVariables = Partial<any>> {
   private endpoint: string;
+  private authRequired: boolean;
 
-  constructor(endpoint: string) {
+  constructor(endpoint: string, authRequired: boolean = true) {
     this.endpoint = endpoint;
+    this.authRequired = authRequired;
+  }
+
+  private getApiClient() {
+    return this.authRequired ? apiClientWithAuth : apiClient;
   }
 
   // Arrow functions don't have their own this context
   // this will refer to the this context of APIClient instance
   fetchAll = async (config?: AxiosRequestConfig) => {
-    return apiClient
+    return this.getApiClient()
       .get<TData[] | FetchResponseType<TData>>(this.endpoint, config)
       .then((res) => res.data);
   };
 
   fetch = async (id: string) => {
-    return apiClient
+    return this.getApiClient()
       .get<TData>(this.endpoint + id + "/")
       .then((res) => res.data);
   };
 
   fetchOne = async () => {
-    return apiClient.get<TData>(this.endpoint).then((res) => res.data);
+    return this.getApiClient()
+      .get<TData>(this.endpoint)
+      .then((res) => res.data);
   };
 
   post = async (data: TVariables, config?: AxiosRequestConfig) => {
-    return apiClient
+    return this.getApiClient()
       .post<TData>(this.endpoint, data, config)
       .then((res) => res.data);
   };
 }
 
 export default apiClient;
+export { apiClientWithAuth };
 
 // const apiClient = axios.create({
 //   baseURL: "http://fixamalb-676692095.eu-north-1.elb.amazonaws.com/api/v1",

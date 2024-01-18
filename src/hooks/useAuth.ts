@@ -1,9 +1,9 @@
+import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { getCookie, removeCookie, setCookie } from "../utils/cookies";
-import { StoreType } from "../entities/store";
-import apiClient from "../services/apiClient";
 import { FieldValues } from "react-hook-form";
-import axios, { isAxiosError } from "axios";
+import { StoreType } from "../entities/store";
+import { apiClientWithAuth } from "../services/apiClient";
+import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 
 // interface UserData {
 //   id: string;
@@ -32,13 +32,13 @@ interface UserData {
 //   phone: string;
 // };
 
-const authAxios = axios.create({
-  baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
+// const authAxios = axios.create({
+//   baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
 
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 
 const useAuth = () => {
   const [isLoadingUserStore, setIsLoadingUserStore] = useState(false);
@@ -54,25 +54,23 @@ const useAuth = () => {
     setIsLoadingUserStore(true);
     // Check for an existing user cookie when the component mount
     const userIdFromCookie = getCookie("userId");
-    const accessFromCookie = getCookie("accessToken");
-    const refreshFromCookie = getCookie("refreshToken");
-    if (userIdFromCookie && accessFromCookie && refreshFromCookie) {
+    if (userIdFromCookie) {
       // If a user cookie exists, set the user's state
       setUserInfo({
         user: { id: userIdFromCookie },
-        access: accessFromCookie,
-        refresh: refreshFromCookie,
       });
     }
 
-    // Set store slug
+    // Set store for user
     if (isAuthenticated()) {
       const userId = getCookie("userId");
 
-      apiClient.get<StoreType[]>(`/stores/owner/${userId}/`).then((res) => {
-        setUserStores(res.data);
-        setIsLoadingUserStore(false);
-      });
+      apiClientWithAuth
+        .get<StoreType[]>(`/stores/owner/${userId}/`)
+        .then((res) => {
+          setUserStores(res.data);
+          setIsLoadingUserStore(false);
+        });
     }
   }, []);
 
@@ -80,7 +78,7 @@ const useAuth = () => {
     setIsAuthenticating(true);
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await authAxios.post<UserData>(`/users/auth/login/`, {
+      const res = await apiClientWithAuth.post<UserData>(`/users/auth/login/`, {
         email: credentials.email,
         password: credentials.password,
       });
@@ -96,7 +94,7 @@ const useAuth = () => {
         if (!!getCookie("cartId")) {
           try {
             // Try to merge cart items
-            const mergeRes = await apiClient.post(
+            const mergeRes = await apiClientWithAuth.post(
               `/carts/${getCookie("cartId")}/merge/${userData.user.id}/`
             );
 
@@ -135,14 +133,17 @@ const useAuth = () => {
   const register = async (credentials: FieldValues) => {
     setIsAuthenticating(true);
     try {
-      const response = await authAxios.post(`/users/auth/registration/`, {
-        email: credentials.email,
-        password1: credentials.password,
-        password2: credentials.confirm_password,
-        first_name: credentials.first_name,
-        last_name: credentials.last_name,
-        phone: credentials.phone,
-      });
+      const response = await apiClientWithAuth.post(
+        `/users/auth/registration/`,
+        {
+          email: credentials.email,
+          password1: credentials.password,
+          password2: credentials.confirm_password,
+          first_name: credentials.first_name,
+          last_name: credentials.last_name,
+          phone: credentials.phone,
+        }
+      );
 
       if (response.status === 201) {
         // Registration successfull, login automatically
