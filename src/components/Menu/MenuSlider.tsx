@@ -46,7 +46,7 @@ const MenuSlider = () => {
         // variants={container}
         // initial="hidden"
         // animate={menuState.openMenu ? "visible":"hidden"}
-        initial={{ x: -200, width: "85%" }}
+        initial={{ x: -200, width: 0 }}
         animate={{
           x: menuState.openMenu ? 0 : -200,
           width: menuState.openMenu ? "85%" : 0,
