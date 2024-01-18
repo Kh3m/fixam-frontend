@@ -2,6 +2,7 @@ import {
   ForwardedRef,
   Fragment,
   InputHTMLAttributes,
+  ReactNode,
   TextareaHTMLAttributes,
   forwardRef,
   useEffect,
@@ -9,12 +10,11 @@ import {
   useState,
 } from "react";
 
-import emailIcon from "../assets/email-icon.svg";
-
 import { Controller, Control, FieldValues } from "react-hook-form";
 
 type CommonProps = {
-  withIcon?: boolean;
+  Icon?: ReactNode;
+  iconRight?: boolean;
   isTextArea?: boolean;
   hint?: string;
   customPlaceholder?: string;
@@ -35,7 +35,8 @@ type Props = MyInputProps | MyTextareaProps;
 const Input = forwardRef(
   (
     {
-      withIcon,
+      Icon,
+      iconRight,
       isTextArea,
       customPlaceholder,
       hint,
@@ -128,7 +129,7 @@ const Input = forwardRef(
               }
               ${customPlaceholder && ""}
               ${
-                withIcon ? "px-11" : "px-4"
+                !Icon ? "px-4" : iconRight ? "pr-11" : "pl-11"
               } py-2 outline-1 border outline-slate-700 blur-0 rounded-md h-full
               text-gray-600 w-full focus:outline-fyellow`}
                   {...(props as InputHTMLAttributes<HTMLInputElement>)}
@@ -144,7 +145,9 @@ const Input = forwardRef(
             )}
           />
         )}
-
+        <span className="absolute top-[50%] -translate-y-[50%] right-5 text-gray-400">
+          {Icon}
+        </span>
         {customPlaceholder && (
           <div
             ref={targetElementRef}
@@ -152,13 +155,6 @@ const Input = forwardRef(
           >
             {customPlaceholder}
           </div>
-        )}
-        {withIcon && (
-          <img
-            src={emailIcon}
-            alt="icon"
-            className="h-5 w-5 absolute top-[10px] left-3"
-          />
         )}
       </div>
     );

@@ -1,21 +1,11 @@
 import { useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input";
+import PasswordInput from "../../components/PasswordInput";
 import Space from "../../components/Space";
 
 const LoginForm = () => {
   const { control } = useFormContext();
-  // const { authUserDummy } = useAuth();
-
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   // Set login to true or false to perform dummy auth or not
-  //   const login = false;
-  //   if (login) {
-  //     authUserDummy("bc0acb18-acd1-4098-bd88-e0e1f5911ef7");
-  //     navigate("/");
-  //   }
-  // }, []);
 
   return (
     <>
@@ -24,21 +14,17 @@ const LoginForm = () => {
           required: { value: true, message: "Enter your email" },
         }}
         control={control}
+        defaultInputValue=""
         name="email"
         placeholder="Email"
         type="email"
-        required
       />
       <Space spacing="my-4" />
-      <Input
-        rules={{
-          required: { value: true, message: "Enter your email" },
-        }}
+      <PasswordInput
+        defaultInputValue=""
         control={control}
         name="password"
         placeholder="Password"
-        type="password"
-        required
       />
       <Space spacing="my-4" />
       <Link

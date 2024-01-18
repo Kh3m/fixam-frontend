@@ -21,6 +21,12 @@ export const validateGeneralInternationalPhoneNumber = (value: string) => {
   );
 };
 
+export const validateEmail = (email: string) => {
+  if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email))
+    return true;
+  return "Enter a valid email address";
+};
+
 export const validateImage = (file: File) => {
   const acceptedTypes = ["image/jpeg", "image/png", "image/webp"];
 

@@ -2,13 +2,13 @@ import { LinkType } from "../../utils/types";
 import FixamBrief from "./FixamBrief";
 import QuickLinks from "./QuickLinks";
 
-const tips: LinkType[] = [
-  { to: "#", text: "Selling Tips" },
-  { to: "#", text: "Buy and Sell Quickly" },
-  { to: "#", text: "Membership" },
-  { to: "#", text: "Banner Advertising" },
-  { to: "#", text: "Promote Your Ad" },
-];
+// const tips: LinkType[] = [
+//   { to: "#", text: "Selling Tips" },
+//   { to: "#", text: "Buy and Sell Quickly" },
+//   { to: "#", text: "Membership" },
+//   { to: "#", text: "Banner Advertising" },
+//   { to: "#", text: "Promote Your Ad" },
+// ];
 
 const info: LinkType[] = [
   { to: "#", text: "Company & Contact Info" },
@@ -27,11 +27,11 @@ const helpAndSupports: LinkType[] = [
 ];
 
 const resources: LinkType[] = [
-  { to: "#", text: "Fixam Blog" },
-  { to: "#", text: "Fixam on FB" },
-  { to: "#", text: "Our Instagram" },
-  { to: "#", text: "Our YouTube" },
-  { to: "#", text: "Our Twitter" },
+  { to: "https://web.facebook.com/fixamnow", text: "Fixam on FB" },
+  { to: "https://www.instagram.com/fixamng/", text: "Our Instagram" },
+  { to: "https://www.linkedin.com/company/fixam-africa/", text: "Our YouTube" },
+  { to: "https://www.linkedin.com/company/fixam-africa/", text: "Our Linked" },
+  { to: "https://twitter.com/FixamAfrica", text: "Our Twitter" },
 ];
 
 const Footer = () => {
@@ -41,7 +41,7 @@ const Footer = () => {
     md:flex-row"
     >
       <FixamBrief />
-      <QuickLinks title="Tips for Quick Sales" links={tips} />
+      {/* <QuickLinks title="Tips for Quick Sales" links={tips} /> */}
       <QuickLinks title="Information" links={info} />
       <QuickLinks title="Help and Support" links={helpAndSupports} />
       <QuickLinks title="Our Resources" links={resources} />

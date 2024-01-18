@@ -150,7 +150,7 @@ const EditProductForm = () => {
         <ProductInfoFields
           defaultProductInfo={{
             name: product?.name || "",
-            price: (product?.price || "") as string,
+            price: (product?.selling_price || "") as string,
             description: product?.description || "",
           }}
         />

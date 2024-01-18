@@ -1,37 +1,48 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useEffect } from "react";
-import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
+import GoogleAuthButton from "../../components/Logins/GoogleAuthButton";
 import LogoFormSplitLayout from "../../components/LogoFormSplitLayout";
 import MainContent from "../../components/MainContent";
-import GoogleSVG from "../../components/SVGs/GoogleSVG";
 import Space from "../../components/Space";
-import useAuth from "../../hooks/useAuth";
+import useAuth, {
+  UserCredentialLoginType,
+  UserCredentialRegType,
+} from "../../hooks/useAuth";
+import { getCookie } from "../../utils/cookies";
 
 const AuthPage = () => {
-  const methods = useForm();
+  const methods = useForm<UserCredentialRegType>();
   const { pathname } = useLocation();
   const isLogin = pathname.includes("login");
   // const href = useHref("/email/confirm/");
 
+  const clientId = import.meta.env.VITE_G_CLIENT_ID;
+
+  console.log("!!getCookie('cartId')", !!getCookie("cartId"));
   const {
     register,
     login,
     isLoginSuccessful,
     isRegistrationSuccessful,
     isAuthenticating,
-    // authErrorMessage,
+    authErrorMessage,
   } = useAuth();
 
   const { handleSubmit } = methods;
 
-  const onSubmit = async (credentials: FieldValues) => {
+  console.log("authErrorMessage", authErrorMessage);
+  const onSubmit = async (
+    credentials: UserCredentialRegType | UserCredentialLoginType
+  ) => {
     if (isLogin) {
-      await login(credentials);
+      await login(credentials as UserCredentialLoginType);
     } else {
       console.log("Credentials", credentials);
-      await register(credentials);
+      await register(credentials as UserCredentialRegType);
     }
   };
 
@@ -46,11 +57,8 @@ const AuthPage = () => {
     <MainContent>
       <LogoFormSplitLayout>
         <FormProvider {...methods}>
-          {/* {authErrorMessage && (
-            <ToastMessage message={authErrorMessage} type={"error"} />
-          )} */}
           <form onSubmit={handleSubmit(onSubmit)} className="my-6">
-            <div className="text-center md:px-28">
+            <div className="md:px-28">
               <div className="md:w-[50%] m-auto">
                 <Heading
                   variant="h1"
@@ -64,7 +72,7 @@ const AuthPage = () => {
               </p> */}
               </div>
               <Space spacing="my-4" />
-              <Button
+              {/* <Button
                 variant="text"
                 styles="w-full font-bold text-lg pagination-shadow flex justify-center
                 items-center p-2 space-x-4"
@@ -73,7 +81,11 @@ const AuthPage = () => {
                 <span>
                   {isLogin ? "Sign in with Google" : "Sign up with Google"}
                 </span>
-              </Button>
+              </Button> */}
+              <GoogleOAuthProvider clientId={clientId}>
+                <GoogleAuthButton />
+              </GoogleOAuthProvider>
+
               <Space spacing="my-8" />
 
               <Outlet />

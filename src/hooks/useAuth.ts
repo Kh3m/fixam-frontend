@@ -1,6 +1,5 @@
 import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { FieldValues } from "react-hook-form";
 import { StoreType } from "../entities/store";
 import { apiClientWithAuth } from "../services/apiClient";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
@@ -17,20 +16,20 @@ interface UserData {
   refresh_expiration?: string;
 }
 
-// type UserCredentialType = {
-//   email: string;
-//   username?: string;
-//   password: string;
-// };
+export type UserCredentialLoginType = {
+  email: string;
+  username?: string;
+  password: string;
+};
 
-// type UserCredentialRegType = {
-//   email: string;
-//   password1: string;
-//   password2: string;
-//   first_name: string;
-//   last_name: string;
-//   phone: string;
-// };
+export type UserCredentialRegType = {
+  email: string;
+  password1: string;
+  password2: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+};
 
 // const authAxios = axios.create({
 //   baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
@@ -50,6 +49,7 @@ const useAuth = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [authErrorMessage, setAuthErrorMessage] = useState("");
 
+  useEffect(() => {}, [authErrorMessage]);
   useEffect(() => {
     setIsLoadingUserStore(true);
     // Check for an existing user cookie when the component mount
@@ -74,7 +74,7 @@ const useAuth = () => {
     }
   }, []);
 
-  const login = async (credentials: FieldValues) => {
+  const login = async (credentials: UserCredentialLoginType) => {
     setIsAuthenticating(true);
     try {
       // Make API call to backend auth endpoint using axios
@@ -83,6 +83,7 @@ const useAuth = () => {
         password: credentials.password,
       });
 
+      console.log("res.status === 200", res.status === 200, res);
       if (res.status === 200) {
         const userData = res.data;
         console.log("userData = res.data;", userData);
@@ -95,7 +96,7 @@ const useAuth = () => {
           try {
             // Try to merge cart items
             const mergeRes = await apiClientWithAuth.post(
-              `/carts/${getCookie("cartId")}/merge/${userData.user.id}/`
+              `/carts/${getCookie("cartId")}/merge/${userData.user.id}`
             );
 
             // If successfully merged, remove cartId from cookie
@@ -130,15 +131,74 @@ const useAuth = () => {
     }
   };
 
-  const register = async (credentials: FieldValues) => {
+  const loginWithGoogle = async (credential: {
+    access_token?: string;
+    id_token?: string;
+  }) => {
+    setIsAuthenticating(true);
+    try {
+      // Make API call to backend auth endpoint using axios
+      const res = await apiClientWithAuth.post<UserData>(
+        `/users/auth/google/`,
+        credential
+      );
+
+      if (res.status === 200) {
+        const userData = res.data;
+        console.log("userData = res.data;", userData);
+        // TODO: Check for side effect
+        setCookie("userId", userData.user.id || "", 7); // Expires in 7 days
+        setCookie("accessToken", userData.access || "", 7); // Expires in 7 days
+        setCookie("refreshToken", userData?.refresh || "", 7); // Expires in 7 days
+
+        if (!!getCookie("cartId")) {
+          try {
+            // Try to merge cart items
+            const mergeRes = await apiClientWithAuth.post(
+              `/carts/${getCookie("cartId")}/merge/${userData.user.id}`
+            );
+
+            // If successfully merged, remove cartId from cookie
+            console.log("MergeRes", mergeRes);
+            removeCookie("cartId");
+            setIsAuthenticating(false);
+          } catch (error) {
+            console.log("MERGING ERROR", error);
+            setIsAuthenticating(false);
+            if (isAxiosError(error))
+              setAuthErrorMessage(error.response?.data[0]);
+          }
+        }
+        setUserInfo({
+          user: { id: userData.user.id },
+          access: userData.access,
+          refresh: userData.refresh,
+          access_expiration: userData.access_expiration,
+          refresh_expiration: userData.refresh_expiration,
+        });
+        setIsAuthenticating(false);
+        setIsLoginSuccessful(true);
+      } else {
+        // TODO: Handle authentication error
+        console.error("Authentication failed");
+        setIsAuthenticating(false);
+      }
+    } catch (error) {
+      console.error("Something went wrong while authenticating user", error);
+      setIsAuthenticating(false);
+      if (isAxiosError(error)) setAuthErrorMessage(error.response?.data[0]);
+    }
+  };
+
+  const register = async (credentials: UserCredentialRegType) => {
     setIsAuthenticating(true);
     try {
       const response = await apiClientWithAuth.post(
         `/users/auth/registration/`,
         {
           email: credentials.email,
-          password1: credentials.password,
-          password2: credentials.confirm_password,
+          password1: credentials.password1,
+          password2: credentials.password2,
           first_name: credentials.first_name,
           last_name: credentials.last_name,
           phone: credentials.phone,
@@ -210,6 +270,7 @@ const useAuth = () => {
   return {
     userInfo,
     login,
+    loginWithGoogle,
     logout,
     register,
     userStores,

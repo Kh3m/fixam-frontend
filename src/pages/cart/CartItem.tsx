@@ -12,7 +12,6 @@ import { useLocation } from "react-router-dom";
 
 interface Props {
   quantity: number;
-  imageURL: string;
   productId: string;
   cartId?: string;
   itemId?: number;
@@ -22,7 +21,6 @@ interface Props {
 }
 const CartItem = ({
   quantity,
-  imageURL,
   productId,
   itemId,
   cartId,
@@ -70,7 +68,7 @@ const CartItem = ({
       <section className="last-of-type:border-b-0:border-b border-gray-300 py-6">
         <div className="flex space-x-5 w-full">
           <img
-            src={imageURL}
+            src={cartProduct.images[0]}
             alt={cartProduct.name}
             className="w-24 object-contain overflow-hidden rounded-lg"
           />

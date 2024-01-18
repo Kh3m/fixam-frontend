@@ -12,7 +12,6 @@ import UserAccountCard from "./UserAccountCard";
 import LoadingFixam from "./skeletons/LoadingFixam";
 import SideBarSkeleton from "./skeletons/SideBarSkeleton";
 import UserAccountCardSkeleton from "./skeletons/UserAccountCardSkeleton";
-import Header from "../../components/Header";
 import NewsLetter from "../../components/NewsLetter";
 import Footer from "../../components/Footer/Footer";
 import apiClient from "../../services/apiClient";
@@ -60,7 +59,7 @@ const StorePage = () => {
 
   return (
     <Main>
-      <Header />
+      {/* <Header /> */}
 
       <Space spacing="my-14" />
       <Container

@@ -20,9 +20,8 @@ import OrderSummary from "../cart/OrderSummary";
 import CheckoutDeliveryAddress from "./CheckoutDeliveryAddress";
 import CheckoutPaymentInfo from "./CheckoutPaymentInfo";
 
-import product1 from "../../assets/product_1.png";
-import { placeOrder } from "./checkout-helpers";
 import useProduct from "../../hooks/products/useProduct";
+import { placeOrder } from "./checkout-helpers";
 
 // type PaymentType = {
 //   id: string;
@@ -183,7 +182,6 @@ const Payment = () => {
                   <CartItem
                     key={cartItem.id}
                     quantity={cartItem.quantity}
-                    imageURL={product1}
                     productId={cartItem.prod_id}
                     cartId={cartForUser.id!}
                     itemId={cartItem.id!}
@@ -193,7 +191,6 @@ const Payment = () => {
               ) : (
                 <CartItem
                   quantity={1}
-                  imageURL={buyNowProduct?.images[0] || ""}
                   productId={buyNowProduct?.id || ""}
                   isCheckingOut
                 />
