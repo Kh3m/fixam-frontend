@@ -67,7 +67,7 @@ const Payment = () => {
     (address) => address.is_default
   )?.id;
 
-  console.log("defautlUserAddressId", defautlUserAddressId);
+  console.log("defautlUserAddressId", defautlUserAddressId, userAddresses);
   // useEffect(() => {
   //   if (orderSuccessful) {
   //     location.href = `/checkout/payment/success`;

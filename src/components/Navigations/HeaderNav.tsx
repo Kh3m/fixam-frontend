@@ -30,6 +30,12 @@ const HeaderNav = () => {
   const userCartData = data as CartType;
   const userCartWithCartId = userCartWithCartIdData as CartType;
 
+  const determineStoreText = () => {
+    if (isAuthenticated() && userStores && userStores.length > 0)
+      return "Store";
+    if (isAuthenticated() && !userStores?.length) return "Own a Store";
+    if (!isAuthenticated()) return "Be a vendor";
+  };
   if (!!getCookie("cartId"))
     return (
       <nav
@@ -121,9 +127,7 @@ const HeaderNav = () => {
               variant="elevated"
               styles="hidden md:block bg-white text-fyellow border-2 border-white"
             >
-              {isAuthenticated() && userStores?.length && "Store"}
-              {isAuthenticated() && !userStores?.length && "Own a Store"}
-              {!isAuthenticated() && "Be a vendor"}
+              {determineStoreText()}
             </Button>
           </Link>
         )}
@@ -220,9 +224,7 @@ const HeaderNav = () => {
             variant="elevated"
             styles="hidden md:block bg-white text-fyellow border-2 border-white"
           >
-            {isAuthenticated() && userStores?.length && "Store"}
-            {isAuthenticated() && !userStores?.length && "Own a Store"}
-            {!isAuthenticated() && "Be a vendor"}
+            {determineStoreText()}
           </Button>
         </Link>
       )}

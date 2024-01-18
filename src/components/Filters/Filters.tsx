@@ -6,7 +6,7 @@ import PriceFilter from "./PriceFilter";
 import TypeFilter from "./TypeFilter";
 
 const Filters = () => (
-  <div className="hidden">
+  <div className="hidden md:block">
     <CategoryFilter />
     <Space spacing="my-4" />
     <LocationFilter />

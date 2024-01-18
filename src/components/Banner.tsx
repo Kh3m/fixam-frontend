@@ -26,14 +26,16 @@ const Banner = ({
         isStoreBanner
           ? "rounded-md h-[200px] md:h-[238px]"
           : "h-[300px] md:h-[338px]"
-      } relative `}
+      } relative`}
     >
       <div
         className={`${styles} ${
           isStoreBanner && "rounded-md"
-        } bg-fblack/75 absolute top-0 bottom-0 right-0 left-0 flex justify-center items-center`}
+        } bg-fblack/75 absolute top-0 bottom-0 right-0 
+        left-0 flex justify-center items-center
+        `}
       >
-        <div className="text-center text-white">
+        <div className="text-center text-white w-[95%] md:w-auto">
           <Heading variant="h1" styles="text-[36px] font-bold">
             {heading}
           </Heading>

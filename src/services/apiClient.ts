@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import apiClientWithAuth from "./tokenManagement";
 
 export type FetchResponseType<T> = {
@@ -6,13 +6,15 @@ export type FetchResponseType<T> = {
   results: T[];
 };
 
-const apiClient = axios.create({
-  // withCredentials: true,
-  baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const apiClient = apiClientWithAuth;
+
+// axios.create({
+//   // withCredentials: true,
+//   baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 
 export class APIClient<TData, TVariables = Partial<any>> {
   private endpoint: string;

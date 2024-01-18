@@ -19,13 +19,16 @@ const PrivateRoutes = () => {
   return (
     <Main>
       {!pathname.includes("stores") && <ScrollRestoration />}
-
       {pathname === "/" && <TopAdBanner />}
 
-      <Header />
+      {!pathname.includes("create-store") && <Header />}
       <Outlet />
-      <NewsLetter />
-      <Footer />
+      {!pathname.includes("create-store") && (
+        <>
+          <NewsLetter />
+          <Footer />
+        </>
+      )}
     </Main>
   );
 };
