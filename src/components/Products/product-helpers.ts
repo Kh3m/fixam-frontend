@@ -129,22 +129,19 @@ export const addItemToCart = async (
 
     if (cartIdFromCookie) {
       // Use the cartId in cookie to find a cart by it's cartId
-      const foundCart = await apiClient.get(`/carts/${cartIdFromCookie}/`);
+      const foundCart = await apiClient.get<CartType>(
+        `/carts/${cartIdFromCookie}/`
+      );
 
       if (foundCart.status === 200) {
         // Add Items to cart
-        const addedItem = await apiClient.post(
-          `/carts/${cartIdFromCookie}/items/`,
-          item
-        );
+        await apiClient.post(`/carts/${cartIdFromCookie}/items/`, item);
 
-        invalidateCartUserQuery(userId, queryClient);
+        // invalidateCartUserQuery(userId, queryClient);
+        queryClient.invalidateQueries({
+          queryKey: ["carts", foundCart.data.id],
+        });
         // setIsLoadingAddToCart(false);
-
-        console.log(
-          "AddedItem to Cart from cookie's cartid is not authenticated",
-          addedItem
-        );
       }
     } else {
       // There is no cartId in cookie and user is not authenticated
@@ -157,12 +154,15 @@ export const addItemToCart = async (
           setCookie("cartId", createdCart.data.id, 7);
 
           // Add item to newCartForUser
-          const addedCartItem = await apiClient.post(
+          const addedCartItem = await apiClient.post<CartType>(
             `/carts/${createdCart.data.id}/items/`,
             item
           );
 
-          invalidateCartUserQuery(userId, queryClient);
+          // invalidateCartUserQuery(userId, queryClient);
+          queryClient.invalidateQueries({
+            queryKey: ["carts", addedCartItem.data.id],
+          });
           // setIsLoadingAddToCart(false);
 
           console.log(

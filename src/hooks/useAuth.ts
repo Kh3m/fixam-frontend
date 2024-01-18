@@ -47,9 +47,9 @@ const useAuth = () => {
     useState(false);
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const [authErrorMessage, setAuthErrorMessage] = useState("");
+  const [authErrorMessages, setAuthErrorMessages] = useState({});
 
-  useEffect(() => {}, [authErrorMessage]);
+  useEffect(() => {}, [authErrorMessages]);
   useEffect(() => {
     setIsLoadingUserStore(true);
     // Check for an existing user cookie when the component mount
@@ -106,8 +106,7 @@ const useAuth = () => {
           } catch (error) {
             console.log("MERGING ERROR", error);
             setIsAuthenticating(false);
-            if (isAxiosError(error))
-              setAuthErrorMessage(error.response?.data[0]);
+            if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
           }
         }
         setUserInfo({
@@ -127,7 +126,7 @@ const useAuth = () => {
     } catch (error) {
       console.error("Something went wrong while authenticating user", error);
       setIsAuthenticating(false);
-      if (isAxiosError(error)) setAuthErrorMessage(error.response?.data[0]);
+      if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
     }
   };
 
@@ -165,8 +164,7 @@ const useAuth = () => {
           } catch (error) {
             console.log("MERGING ERROR", error);
             setIsAuthenticating(false);
-            if (isAxiosError(error))
-              setAuthErrorMessage(error.response?.data[0]);
+            if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
           }
         }
         setUserInfo({
@@ -186,7 +184,7 @@ const useAuth = () => {
     } catch (error) {
       console.error("Something went wrong while authenticating user", error);
       setIsAuthenticating(false);
-      if (isAxiosError(error)) setAuthErrorMessage(error.response?.data[0]);
+      if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
     }
   };
 
@@ -215,7 +213,7 @@ const useAuth = () => {
     } catch (error) {
       console.log("Registration failed", error);
       setIsAuthenticating(false);
-      if (isAxiosError(error)) setAuthErrorMessage(error.response?.data[0]);
+      if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
     }
 
     setIsAuthenticating(false);
@@ -276,7 +274,8 @@ const useAuth = () => {
     userStores,
     // authUserDummy,
     isAuthenticated,
-    authErrorMessage,
+    setAuthErrorMessages,
+    authErrorMessages,
     isAuthenticating,
     isLoginSuccessful,
     isLoadingUserStore,

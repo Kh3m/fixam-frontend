@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import Input from "../../components/Input";
 import PasswordInput from "../../components/PasswordInput";
 import Space from "../../components/Space";
+import useAuth from "../../hooks/useAuth";
 
 const LoginForm = () => {
   const { control } = useFormContext();
+  const { authErrorMessages } = useAuth();
 
+  console.log("authErrorMessages from LoginForm", authErrorMessages);
   return (
     <>
       <Input

@@ -36,6 +36,10 @@ const QuantityField = ({ quantity, cartId, itemId, userId }: Props) => {
     queryClient.invalidateQueries({
       queryKey: ["carts", "user", userId],
     });
+    // Invalidate the cache for ["carts", cartId]
+    queryClient.invalidateQueries({
+      queryKey: ["carts", cartId],
+    });
     setIsHandlingQty(false);
     // setIsDeletingCartItems(false);
   };
@@ -49,6 +53,10 @@ const QuantityField = ({ quantity, cartId, itemId, userId }: Props) => {
     // Invalidate the cache for ["carts", "user", user?.id]
     queryClient.invalidateQueries({
       queryKey: ["carts", "user", userId],
+    });
+    // Invalidate the cache for ["carts", cartId]
+    queryClient.invalidateQueries({
+      queryKey: ["carts", cartId],
     });
     setIsHandlingQty(false);
     // setIsDeletingCartItems(false);

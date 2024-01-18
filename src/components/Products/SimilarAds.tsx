@@ -21,6 +21,17 @@ const similarProducts = [
     selling_price: 4566.87,
   },
   {
+    id: "1",
+    images: [product1],
+    name: "Leather Sofa Chair",
+    price: 34_557.537,
+    category: "546556",
+    category_name: "Buildings",
+    type: " Sale",
+    description: "Love To Code",
+    selling_price: 4566.87,
+  },
+  {
     id: "2",
     images: [product2],
     name: "Leather Sofa Chair",
@@ -68,7 +79,7 @@ const SimilarAds = ({ heading, products }: Props) => {
       <>
         <h3 className="dark:text-white text-2xl">{heading}</h3>
         <Space spacing="my-4" />
-        <Scroll direction="horizontal">
+        <Scroll direction="horizontal" itemsLength={dummyProducts.length}>
           {products.map((prod, i) => (
             // TODO: className="w-[665px]"
             <div key={i}>
@@ -89,7 +100,7 @@ const SimilarAds = ({ heading, products }: Props) => {
     <>
       <h3 className="dark:text-white text-2xl">{heading}</h3>
       <Space spacing="my-4" />
-      <Scroll direction="horizontal">
+      <Scroll direction="horizontal" itemsLength={dummyProducts.length}>
         {dummyProducts.map((prod, i) => (
           <div key={i} className="w-[665px]">
             <Product product={prod} isAdProduct isDummy />

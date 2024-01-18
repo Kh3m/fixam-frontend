@@ -12,29 +12,25 @@ import useAuth, {
   UserCredentialLoginType,
   UserCredentialRegType,
 } from "../../hooks/useAuth";
-import { getCookie } from "../../utils/cookies";
 
 const AuthPage = () => {
   const methods = useForm<UserCredentialRegType>();
   const { pathname } = useLocation();
   const isLogin = pathname.includes("login");
-  // const href = useHref("/email/confirm/");
+  const { state } = useLocation();
 
   const clientId = import.meta.env.VITE_G_CLIENT_ID;
 
-  console.log("!!getCookie('cartId')", !!getCookie("cartId"));
   const {
     register,
     login,
     isLoginSuccessful,
     isRegistrationSuccessful,
     isAuthenticating,
-    authErrorMessage,
   } = useAuth();
 
   const { handleSubmit } = methods;
 
-  console.log("authErrorMessage", authErrorMessage);
   const onSubmit = async (
     credentials: UserCredentialRegType | UserCredentialLoginType
   ) => {
@@ -47,10 +43,18 @@ const AuthPage = () => {
   };
 
   useEffect(() => {
-    if (isRegistrationSuccessful) {
-      location.href = "/email/verify";
+    // console.log("LOGIN SUCCESS", state, state.from);
+    if (isLoginSuccessful || isRegistrationSuccessful) {
+      console.log("LOGIN SUCCESS", state, state.from);
+      // if (state && state.from && state.from.includes("/checkout/payment")) {
+      //   location.href = "/checkout/payment";
+      // } else {
+      if (isLoginSuccessful) location.href = "/";
+      if (isRegistrationSuccessful) {
+        location.href = "/email/verify";
+        // }
+      }
     }
-    if (isLoginSuccessful) location.href = "/";
   }, [isRegistrationSuccessful, isLoginSuccessful]);
 
   return (

@@ -25,7 +25,9 @@ const Reviews = () => {
         <Spinner />
       </Center>
     );
-  if (reviews)
+  console.log("Reviews", reviews);
+
+  if (reviews && reviews.length)
     return (
       <section className=" m-auto">
         <Heading variant="h3" styles="text-[24px] font-semibold">

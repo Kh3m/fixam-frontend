@@ -1,6 +1,5 @@
 import AppLayout from "../pages/AppLayout";
 import ConfirmVerifyEmailPage from "../pages/email/ConfirmVerifyEmailPage";
-import VerifyEmailPage from "../pages/email/VerifyEmailPage";
 import HomePage from "../pages/HomePage";
 import CartPage from "../pages/cart/CartPage";
 import ErrorPage from "../pages/error/ErrorPage";
@@ -8,6 +7,7 @@ import ProductDetailPage from "../pages/product/ProductDetailPage";
 import ProductsPage from "../pages/product/ProductsPage";
 import ReviewsPage from "../pages/review/ReviewsPage";
 import userRoutes from "./user-routes";
+import VerifyEmailPage from "../pages/email/VerifyEmailPage";
 
 export default {
   path: "/",

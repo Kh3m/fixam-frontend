@@ -45,11 +45,10 @@ const CartItem = ({
       );
 
       if (deleteCartRes.status == 204) {
-        // Invalidate the cache for ["carts", "user", user?.id]
+        // Invalidate the cache for ["carts", cartId]
         queryClient.invalidateQueries({
-          queryKey: ["carts", "user", userInfo?.user?.id],
+          queryKey: ["carts", cartId],
         });
-
         setIsDeletingCartItems(false);
       }
 

@@ -34,7 +34,7 @@ const OrderSummaryCard = ({ hasCancel, orderitem }: Props) => {
       <BorderCard>
         <section className="flex items-start space-x-2">
           <img
-            src={product1}
+            src={orderProduct.images[0]}
             alt="Order Product Image"
             className="w-24 rounded-md"
           />
