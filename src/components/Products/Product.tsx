@@ -44,14 +44,6 @@ interface Props {
 const Product = ({ product, isAdProduct, categoryId }: Props) => {
   const [isLoadingAddToCart, setIsLoadingAddToCart] = useState(false);
   const [isFavoritingWishlists, setIsFavoritingWishlists] = useState(false);
-  const {
-    type,
-    name: productName,
-    selling_price,
-    images,
-    id,
-    category_name,
-  } = product;
 
   const queryClient = useQueryClient();
 
@@ -105,10 +97,10 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
       </Center>
     );
 
-  if (wishlists || product) {
+  if (wishlists && product) {
     const userWishedLists = wishlists as FetchResponseType<WishlistType>;
     const favorite = wishlists
-      ? userWishedLists.results.some((item) => item.product_id === id)
+      ? userWishedLists.results.some((item) => item.product_id === product.id)
       : false;
 
     return (
@@ -116,8 +108,8 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
         <div className="relative">
           <div className="h-[250px]">
             <img
-              src={images[0]}
-              alt={productName}
+              src={product.images[0]}
+              alt={product.name}
               className={`${
                 isAdProduct ? " rounded-t-lg" : ""
               } object-cover h-full w-full`}
@@ -130,7 +122,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
             rounded-e-full inline-flex justify-center items-center
             md:px-4 md:w-28 "
             >
-              {type}
+              {product.type}
             </span>
           )}
           {isAuthenticated() && userInfo?.user && (
@@ -144,9 +136,10 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
               <Button
                 onClick={() =>
                   handleAddToWishList(
-                    id,
-                    userWishedLists.results.find((w) => w.product_id === id)
-                      ?.id || ""
+                    product.id,
+                    userWishedLists.results.find(
+                      (w) => w.product_id === product.id
+                    )?.id || ""
                   )
                 }
               >
@@ -177,7 +170,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
         <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
           <Link
             // to={`/products/${productName}`}
-            to={`${category_name}/${id}`}
+            to={`${product.category_name}/${product.id}`}
             state={{ categoryId }}
           >
             <p
@@ -185,7 +178,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
             hover:underline hover:underline-offset-4
             md:text-lg"
             >
-              {productName}
+              {product.name}
             </p>
           </Link>
           <p
@@ -193,7 +186,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
           font-bold my-2 flex md:items-center md:space-x-3
           flex-col md:flex-row"
           >
-            <span>{formatPrice(selling_price as number)}</span>
+            <span>{formatPrice(product.selling_price as number)}</span>
             {/* <span className="text-fgrey text-[10px] font-semibold">
               (5 items left)
             </span> */}
@@ -205,7 +198,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
             >
               <TapEffect>
                 <Button
-                  onClick={() => handleAddToCart(id)}
+                  onClick={() => handleAddToCart(product.id)}
                   variant="elevated"
                   styles="mr-2 font-bold md:bg-fyellow-shades-500 md:py-[6px] text-[1.3rem] font-bold
                   md:px-3 md:mr-0"
@@ -215,7 +208,10 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
                   {isLoadingAddToCart ? <Spinner /> : <FiShoppingCart />}
                 </Button>
               </TapEffect>
-              <BuyNowButton subtotal={selling_price as number} productId={id} />
+              <BuyNowButton
+                subtotal={product.selling_price as number}
+                productId={product.id}
+              />
             </div>
           )}
         </div>

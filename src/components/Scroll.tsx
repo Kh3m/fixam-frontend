@@ -4,6 +4,7 @@ import { DirectionType } from "../utils/types";
 import Flex from "./Flex";
 import { motion } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import useResponsive from "../hooks/useResponsive";
 
 interface Props extends DirectionType {
   itemsLength: number;
@@ -15,6 +16,7 @@ const Scroll = ({
   children,
 }: PropsWithChildren<Props>) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isMd = useResponsive("md");
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -42,7 +44,7 @@ const Scroll = ({
         flex relative
     `}
     >
-      {itemsLength >= 5 && (
+      {isMd && itemsLength >= 5 && (
         <motion.span
           initial={{ y: -50, scale: 0.9 }}
           whileHover={{ scale: 1 }}
@@ -54,7 +56,7 @@ const Scroll = ({
           <FaChevronLeft />
         </motion.span>
       )}
-      {itemsLength >= 5 && (
+      {isMd && itemsLength >= 5 && (
         <motion.span
           initial={{ y: -50, scale: 0.9 }}
           whileHover={{ scale: 1 }}

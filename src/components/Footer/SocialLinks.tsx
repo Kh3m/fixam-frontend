@@ -24,7 +24,7 @@ const SocialLinks = () => {
         <Link to="https://www.instagram.com/fixamng/">
           <AiFillInstagram size={32} />
         </Link>
-        <Link to="https://www.linkedin.com/company/fixam-africa/">
+        <Link to="https://web.facebook.com/fixamnow">
           <FaFacebook size={32} />
         </Link>
       </div>

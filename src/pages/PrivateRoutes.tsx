@@ -13,9 +13,11 @@ import TopAdBanner from "../components/TopAdBannner";
 
 const PrivateRoutes = () => {
   const location = useLocation();
+  // const location = useLocation();
   const { isAuthenticated, userInfo } = useAuth();
   if (!isAuthenticated() && !userInfo)
     return <Navigate to="/auth/login" state={{ from: location.pathname }} />;
+  // return <Navigate to="/auth/login" state={{ from: location.pathname }} />;
 
   const { pathname } = useLocation();
   return (

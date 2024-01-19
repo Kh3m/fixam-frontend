@@ -6,7 +6,7 @@ import {
   FormProvider,
   useForm,
 } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import CheckBox from "../../components/CheckBox";
 import Heading from "../../components/Heading";
@@ -20,7 +20,7 @@ import { ErrorMessage } from "./LoginForm";
 
 const RegistrationPage = () => {
   const methods = useForm();
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
   const clientId = import.meta.env.VITE_G_CLIENT_ID;
 
@@ -40,7 +40,7 @@ const RegistrationPage = () => {
   useEffect(() => {
     // console.log("LOGIN SUCCESS", state, state.from);
     if (isRegistrationSuccessful) {
-      console.log("LOGIN SUCCESS", state, state.from);
+      // console.log("LOGIN SUCCESS", state, state.from);
       // if (state && state.from && state.from.includes("/checkout/payment")) {
       //   location.href = "/checkout/payment";
       // } else {

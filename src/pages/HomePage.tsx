@@ -14,13 +14,14 @@ import { getMainCategory } from "../utils/category";
 
 function HomePage() {
   const { data: categories, isLoading } = useCategories();
-
+  // const { logout } = useAuth();
   let mainCat: CategoryType[] = [];
 
   if (categories) {
     mainCat = getMainCategory(categories as FetchResponseType<CategoryType>);
   }
 
+  // logout();
   const isMd = useResponsive("md");
 
   return (

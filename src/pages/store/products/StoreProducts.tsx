@@ -17,6 +17,7 @@ import { formatPrice } from "../../../utils/number-formatter";
 import { getRandomInt } from "../../../utils/randomValues";
 import StorePageTitle from "../StorePageTitle";
 import EmptyStateStore from "../../../components/EmptyStateStore";
+import capitalize from "../../../utils/capitalize";
 
 const StoreProducts = () => {
   const { userStores } = useAuth();
@@ -109,7 +110,7 @@ const StoreProducts = () => {
                   Number.parseFloat(product.selling_price as string)
                 )}
               </td>
-              <td className="text-center">8</td>
+              <td className="text-center">{capitalize(product.type)}</td>
               <td className="text-center">
                 <ActionMenu
                   actions={[
@@ -129,14 +130,14 @@ const StoreProducts = () => {
                         }/products/${product.id}/edit`,
                       },
                     },
-                    {
-                      label: "Add Variant",
-                      link: {
-                        to: `/stores/${
-                          userStores && userStores[userStores?.length - 1].slug
-                        }/products/${product.id}/add-variant`,
-                      },
-                    },
+                    // {
+                    //   label: "Add Variant",
+                    //   link: {
+                    //     to: `/stores/${
+                    //       userStores && userStores[userStores?.length - 1].slug
+                    //     }/products/${product.id}/add-variant`,
+                    //   },
+                    // },
                     { label: "Delete" },
                   ]}
                 />
@@ -157,7 +158,7 @@ const StoreProducts = () => {
           <StorePageTitle title="Products" />
           <Fragment>
             <Table
-              tableHeadings={["Product Name", "Category", "Price", "Stock"]}
+              tableHeadings={["Product Name", "Category", "Price", "Type"]}
               TableData={generateTableProductData()}
             />
             {products && products.length >= 10 && <Pagination toEnd />}

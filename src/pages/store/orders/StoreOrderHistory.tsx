@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Center from "../../../components/Center";
 import EmptyStateStore from "../../../components/EmptyStateStore";
 import ActionMenu from "../../../components/Menu/ActionMenu";
@@ -11,9 +10,6 @@ import { FetchResponseType } from "../../../services/apiClient";
 import { StoreOrderType } from "../../../services/store";
 import { formatPrice } from "../../../utils/number-formatter";
 import StorePageTitle from "../StorePageTitle";
-import OrderQuickFilter, {
-  DeliveryStatusFilteringType,
-} from "./OrderQuickFilter";
 
 const StoreOrderHistory = () => {
   const { userStores } = useAuth();
@@ -108,16 +104,16 @@ const StoreOrderHistory = () => {
       );
   };
 
-  const [deliveryStatus, setDeliveryStatus] =
-    useState<DeliveryStatusFilteringType>("All Order");
+  // const [deliveryStatus, setDeliveryStatus] =
+  //   useState<DeliveryStatusFilteringType>("All Order");
 
   return (
     <section>
       <StorePageTitle title="Order History" />
-      <OrderQuickFilter
+      {/* <OrderQuickFilter
         status={deliveryStatus}
         handleStatusClick={(v) => setDeliveryStatus(v)}
-      />
+      /> */}
       <Space spacing="my-8" />
       <Table
         tableHeadings={[

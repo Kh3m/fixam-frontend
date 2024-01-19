@@ -1,10 +1,16 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import { ProductType } from "../../services/product";
 import capitalize from "../../utils/capitalize";
 import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
 import Rating from "../Rating";
 import Space from "../Space";
+import BuyNowButton from "./BuyNowButton";
 import ProductSummary from "./ProductSummary";
+import { addItemToCart } from "./product-helpers";
 
 const TempLocationSVG = () => (
   <svg
@@ -40,6 +46,11 @@ const ProductDetail = ({
     { label: "Place of Use", value: "Indoor" },
     { label: "Warranty", value: "Yes" },
   ];
+
+  const queryClient = useQueryClient();
+  const { isAuthenticated, userInfo } = useAuth();
+  const [isAddingItemToCart, setIsAddingItemToCart] = useState(false);
+  const { pathname } = useLocation();
 
   if (product)
     return (
@@ -95,21 +106,53 @@ const ProductDetail = ({
           </span>
         </p>
         <Space spacing="my-3" />
-        <Button
-          variant="elevated"
-          styles="w-full bg-fyellow text-white font-semibold text-xs"
-        >
-          {isStore ? "Edit" : "Buy Now"}
-        </Button>
+        {!isStore && (
+          <BuyNowButton
+            productId={product.id}
+            subtotal={product.selling_price as number}
+          />
+        )}
+        {isStore && (
+          <Link to={`${pathname}/edit`}>
+            <Button
+              variant="elevated"
+              styles="w-full bg-fyellow text-white font-semibold text-xs"
+            >
+              Edit
+            </Button>
+          </Link>
+        )}
         <Space spacing="my-3" />
-        <Button
-          onClick={isStore && onDeleteProduct ? onDeleteProduct : () => {}}
-          disabled={isStore && isDeletingProduct}
-          variant="outlined"
-          styles="w-full border-2 border-fyellow text-fyellow "
-        >
-          {isStore ? "Delete" : "Add to Cart"}
-        </Button>
+        {!isStore && (
+          <Button
+            onClick={async () => {
+              setIsAddingItemToCart(true);
+              await addItemToCart(
+                product.id,
+                queryClient,
+                isAuthenticated(),
+                userInfo && userInfo.user ? userInfo.user.id : ""
+              );
+              setIsAddingItemToCart(false);
+            }}
+            disabled={isAddingItemToCart}
+            variant="outlined"
+            styles=" border-2 border-fyellow text-fyellow "
+          >
+            {isStore ? "Delete" : "Add to Cart"}
+          </Button>
+        )}
+
+        {isStore && (
+          <Button
+            onClick={isStore && onDeleteProduct ? onDeleteProduct : () => {}}
+            disabled={isStore && isDeletingProduct}
+            variant="outlined"
+            styles="w-full border-2 border-fyellow text-fyellow "
+          >
+            {isStore ? "Delete" : "Add to Cart"}
+          </Button>
+        )}
       </div>
     );
 

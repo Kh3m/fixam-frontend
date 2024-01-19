@@ -107,9 +107,7 @@ const HeaderNav = () => {
             </Button>
           </Link>
         )}
-        {/* <Link to={`/auth/register`}>
-              <Button variant="outlined">Register</Button>
-            </Link> */}
+
         {isAuthenticated() && isLoadingUserStore ? (
           <div
             className="hidden md:block bg-gray-50/50 text-fyellow 
@@ -204,9 +202,7 @@ const HeaderNav = () => {
           </Button>
         </Link>
       )}
-      {/* <Link to={`/auth/register`}>
-              <Button variant="outlined">Register</Button>
-            </Link> */}
+
       {isAuthenticated() && isLoadingUserStore ? (
         <div
           className="hidden md:block bg-gray-50/50 text-fyellow 

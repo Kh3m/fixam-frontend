@@ -7,6 +7,8 @@ import useProduct from "../../../hooks/products/useProduct";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import apiClient from "../../../services/apiClient";
+import BackArrow from "../../../components/BackArrow";
+import Heading from "../../../components/Heading";
 
 type ParamsType = {
   productId: string;
@@ -63,7 +65,10 @@ const ViewProduct = () => {
   if (product)
     return (
       <div className="">
-        <h2 className="dark:text-white text-3xl">{product.name}</h2>
+        <BackArrow>
+          <Heading variant="h3">{product?.name}</Heading>
+        </BackArrow>
+        {/* <h2 className="dark:text-white text-3xl">{product.name}</h2> */}
         <Space spacing="my-12" />
         <section>
           <div>

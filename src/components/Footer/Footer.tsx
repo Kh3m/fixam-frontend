@@ -29,7 +29,7 @@ const helpAndSupports: LinkType[] = [
 const resources: LinkType[] = [
   { to: "https://web.facebook.com/fixamnow", text: "Fixam on FB" },
   { to: "https://www.instagram.com/fixamng/", text: "Our Instagram" },
-  { to: "https://www.linkedin.com/company/fixam-africa/", text: "Our YouTube" },
+  { to: "https://www.youtube.com/@fixamafrica4908", text: "Our YouTube" },
   { to: "https://www.linkedin.com/company/fixam-africa/", text: "Our Linked" },
   { to: "https://twitter.com/FixamAfrica", text: "Our Twitter" },
 ];

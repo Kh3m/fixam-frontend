@@ -6,11 +6,12 @@ const LogoutPage = () => {
   const { logout } = useAuth();
 
   const navigate = useNavigate();
-
+  alert("CALLEDDD useAuth useNavigate");
   useEffect(() => {
-    logout();
     navigate("/");
+    logout();
   }, []);
+
   return <div>LogoutPage</div>;
 };
 

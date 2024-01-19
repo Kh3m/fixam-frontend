@@ -220,6 +220,7 @@ const useAuth = () => {
   };
 
   const logout = () => {
+    console.log("LOGOUT CALLED___DDD");
     removeCookie("userId");
     removeCookie("refreshToken");
     removeCookie("accessToken");

@@ -1,15 +1,15 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useEffect } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import Input from "../../components/Input";
 import GoogleAuthButton from "../../components/Logins/GoogleAuthButton";
 import PasswordInput from "../../components/PasswordInput";
 import Space from "../../components/Space";
-import useAuth, { UserCredentialLoginType } from "../../hooks/useAuth";
 import ToastMessage from "../../components/ToastMessage";
+import useAuth, { UserCredentialLoginType } from "../../hooks/useAuth";
 import { ErrorMessagesType } from "../../utils/types";
 
 interface Props {
@@ -33,7 +33,7 @@ export const ErrorMessage = ({ authErrorMessages }: Props) => {
 const LoginForm = () => {
   const clientId = import.meta.env.VITE_G_CLIENT_ID;
   const methods = useForm();
-  const { state } = useLocation();
+  // const { state } = useLocation();
   const { login, isLoginSuccessful, isAuthenticating, authErrorMessages } =
     useAuth();
 
@@ -46,7 +46,7 @@ const LoginForm = () => {
   useEffect(() => {
     // console.log("LOGIN SUCCESS", state, state.from);
     if (isLoginSuccessful) {
-      console.log("LOGIN SUCCESS", state, state.from);
+      // console.log("LOGIN SUCCESS", state, state.from);
       // if (state && state.from && state.from.includes("/checkout/payment")) {
       //   location.href = "/checkout/payment";
       // } else {

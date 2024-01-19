@@ -13,6 +13,7 @@ import ProductInfoFields from "./ProductInfoFields";
 import TypeFields from "./TypeFields";
 import apiClient from "../../../services/apiClient";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 // type ProductUploadType = {
 //   name: string;
@@ -34,8 +35,9 @@ import { useNavigate } from "react-router-dom";
 
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { isAuthenticated, userInfo } = useAuth();
+  const { isAuthenticated, userInfo, userStores } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const methods = useForm({});
   // const productImageMethods = useForm();
@@ -88,9 +90,18 @@ const AddProductForm = () => {
           }
         );
         console.log("createdProduct", createdProduct);
+        if (userStores)
+          queryClient.invalidateQueries({
+            queryKey: [
+              "products",
+              "store",
+              userStores[userStores?.length - 1].id,
+            ],
+          });
         setIsLoading(false);
         navigate(
-          `/stores/${defaultStoreSlug}/products/${createdProduct.data.id}/add-variant`
+          // `/stores/${defaultStoreSlug}/products/${createdProduct.data.id}/add-variant`
+          `/stores/${defaultStoreSlug}/products`
         );
       } catch (error) {
         //   console.log(`Error - Failed to create product ${error}`);
