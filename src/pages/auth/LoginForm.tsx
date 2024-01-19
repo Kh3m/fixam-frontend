@@ -130,7 +130,7 @@ const LoginForm = () => {
             />
             <Space spacing="my-4" />
             <Link
-              to="/auth/reset-password"
+              to="/forget-password"
               className="text-left block text-fyellow  font-semibold"
             >
               Forgot Password?

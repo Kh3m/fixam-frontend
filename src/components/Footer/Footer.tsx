@@ -11,18 +11,14 @@ import QuickLinks from "./QuickLinks";
 // ];
 
 const info: LinkType[] = [
-  { to: "#", text: "Company & Contact Info" },
-  { to: "#", text: "Blog & Articles" },
   { to: "#", text: "About Us" },
-  { to: "#", text: "Terms of Service" },
+  { to: "#", text: "Terms & Conditions" },
   { to: "#", text: "Privacy Policy" },
 ];
 
 const helpAndSupports: LinkType[] = [
-  { to: "#", text: "Live Chat" },
   { to: "#", text: "FAQ" },
   { to: "#", text: "How to Stay Safe" },
-  { to: "#", text: "Terms & Conditions" },
   { to: "#", text: "Contact Us" },
 ];
 

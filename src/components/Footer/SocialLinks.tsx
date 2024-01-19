@@ -2,7 +2,7 @@
 // import Icon from "../../components/IconHolder";
 
 import { AiFillInstagram } from "react-icons/ai";
-import { FaFacebook, FaLinkedin } from "react-icons/fa6";
+import { FaFacebook, FaLinkedin, FaYoutube } from "react-icons/fa6";
 import { RiTwitterXFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
@@ -26,6 +26,9 @@ const SocialLinks = () => {
         </Link>
         <Link to="https://web.facebook.com/fixamnow">
           <FaFacebook size={32} />
+        </Link>
+        <Link to="https://www.youtube.com/@fixamafrica4908">
+          <FaYoutube size={32} />
         </Link>
       </div>
     </section>

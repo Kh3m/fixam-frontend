@@ -7,6 +7,7 @@ export default {
   element: <AuthPage />,
   children: [
     { path: "login", element: <LoginForm /> },
+
     { path: "register", element: <RegistrationForm /> },
   ],
 };
