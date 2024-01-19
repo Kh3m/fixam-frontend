@@ -1,23 +1,56 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useEffect } from "react";
+import {
+  Controller,
+  FieldValues,
+  FormProvider,
+  useForm,
+} from "react-hook-form";
+import { Link, useLocation } from "react-router-dom";
+import Button from "../../components/Button";
 import CheckBox from "../../components/CheckBox";
+import Heading from "../../components/Heading";
 import Input from "../../components/Input";
+import GoogleAuthButton from "../../components/Logins/GoogleAuthButton";
 import PasswordInput from "../../components/PasswordInput";
 import Space from "../../components/Space";
+import useAuth, { UserCredentialRegType } from "../../hooks/useAuth";
 import { validateEmail } from "../../utils/validationRules";
-import { ErrorMessagesType } from "../../utils/types";
-import ToastMessage from "../../components/ToastMessage";
-
-const errors: ErrorMessagesType = {
-  email: [
-    "A user is already registered with this e-mail address.",
-    "KHEM",
-    "ERRO",
-  ],
-  phone: ["Enter a valid phone number."],
-};
+import { ErrorMessage } from "./LoginForm";
 
 const RegistrationPage = () => {
-  const { control, watch } = useFormContext();
+  const methods = useForm();
+  const { state } = useLocation();
+
+  const clientId = import.meta.env.VITE_G_CLIENT_ID;
+
+  const {
+    register,
+    isRegistrationSuccessful,
+    isAuthenticating,
+    authErrorMessages,
+  } = useAuth();
+
+  const { handleSubmit, watch, control } = methods;
+
+  const onSubmit = async (credentials: FieldValues) => {
+    await register(credentials as UserCredentialRegType);
+  };
+
+  useEffect(() => {
+    // console.log("LOGIN SUCCESS", state, state.from);
+    if (isRegistrationSuccessful) {
+      console.log("LOGIN SUCCESS", state, state.from);
+      // if (state && state.from && state.from.includes("/checkout/payment")) {
+      //   location.href = "/checkout/payment";
+      // } else {
+
+      location.href = "/email/verify";
+      // }
+      // }
+    }
+  }, [isRegistrationSuccessful]);
+
   // const {user}
   const password1 = watch("password1"); // Get the value of the "password" field
 
@@ -47,106 +80,126 @@ const RegistrationPage = () => {
 
   return (
     <>
-      {errors && Object.values(errors).length && (
-        <ToastMessage
-          message={Object.values(errors).toString().replace(",", "\n")}
-          type={"error"}
-          shoudlShowToast
-        />
-      )}
-      <div>
-        {/* {Object.keys(errors).map((field) => (
-          <p key={field}>{errors[field][0]}</p>
-        ))} */}
-        {/* {Object.values(errors)} */}
-      </div>
-      <Input
-        rules={{
-          required: {
-            value: true,
-            message: "Enter your first name",
-          },
-        }}
-        control={control}
-        defaultInputValue=""
-        name="first_name"
-        placeholder="First Name"
-      />
-      <Space spacing="my-4" />
-      <Input
-        rules={{
-          required: {
-            value: true,
-            message: "Enter your last name",
-          },
-        }}
-        defaultInputValue=""
-        control={control}
-        name="last_name"
-        placeholder="Last Name"
-      />
-      <Space spacing="my-4" />
-      <Input
-        rules={{
-          required: { value: true, message: "Enter your email" },
-          validate: validateEmail,
-        }}
-        defaultInputValue=""
-        control={control}
-        name="email"
-        placeholder="Email"
-        type="email"
-      />
-      <Space spacing="my-4" />
-      <Input
-        rules={{
-          required: {
-            value: true,
-            message: "Enter your phone number",
-          },
-        }}
-        defaultInputValue=""
-        control={control}
-        name="phone"
-        placeholder="Phone"
-        type="tel"
-      />
-      <Space spacing="my-4" />
-      <PasswordInput
-        rules={{
-          required: { value: true, message: "Enter Password" },
-          validate: isPasswordValid,
-        }}
-        defaultInputValue=""
-        control={control}
-        name="password1"
-        placeholder="Password"
-      />
-      <Space spacing="my-4" />
-      <PasswordInput
-        rules={{
-          required: { value: true, message: "Password didn't match" },
-          validate: validateConfirmPassword,
-        }}
-        defaultInputValue=""
-        control={control}
-        name="password2"
-        placeholder="Confirm Password"
-      />
-      <Space spacing="my-4" />
-      <Controller
-        control={control}
-        name="agreement_newsletter"
-        render={() => {
-          return (
-            <CheckBox
-              boxFor="agreement"
-              text="Yes, I want to receive daily newsletters and email notification"
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} className="my-6">
+          <div className="md:px-28">
+            <div className="md:w-[50%] m-auto">
+              <Heading
+                variant="h1"
+                styles="text-xl md:text-5xl text-fyellow-shades-500 font-bold 
+                md:font-normal md:text-black dark:text-gray-300"
+              >
+                Welcome!
+              </Heading>
+              {/* <p>
+                Please enter your email and password to login or create an account
+              </p> */}
+            </div>
+            <Space spacing="my-4" />
+            {/* <Button
+                variant="text"
+                styles="w-full font-bold text-lg pagination-shadow flex justify-center
+                items-center p-2 space-x-4"
+              >
+                <GoogleSVG />
+                <span>
+                  {isLogin ? "Sign in with Google" : "Sign up with Google"}
+                </span>
+              </Button> */}
+            <GoogleOAuthProvider clientId={clientId}>
+              <GoogleAuthButton />
+            </GoogleOAuthProvider>
+
+            <Space spacing="my-8" />
+            <ErrorMessage authErrorMessages={authErrorMessages} />
+            <Space spacing="my-4" />
+            <Input
+              rules={{
+                required: {
+                  value: true,
+                  message: "Enter your first name",
+                },
+              }}
+              control={control}
+              defaultInputValue=""
+              name="first_name"
+              placeholder="First Name"
             />
-          );
-        }}
-      />
-      {/* <Controller
+            <Space spacing="my-4" />
+            <Input
+              rules={{
+                required: {
+                  value: true,
+                  message: "Enter your last name",
+                },
+              }}
+              defaultInputValue=""
+              control={control}
+              name="last_name"
+              placeholder="Last Name"
+            />
+            <Space spacing="my-4" />
+            <Input
+              rules={{
+                required: { value: true, message: "Enter your email" },
+                validate: validateEmail,
+              }}
+              defaultInputValue=""
+              control={control}
+              name="email"
+              placeholder="Email"
+              type="email"
+            />
+            <Space spacing="my-4" />
+            <Input
+              rules={{
+                required: {
+                  value: true,
+                  message: "Enter your phone number",
+                },
+              }}
+              defaultInputValue=""
+              control={control}
+              name="phone"
+              placeholder="Phone"
+              type="tel"
+            />
+            <Space spacing="my-4" />
+            <PasswordInput
+              rules={{
+                required: { value: true, message: "Enter Password" },
+                validate: isPasswordValid,
+              }}
+              defaultInputValue=""
+              control={control}
+              name="password1"
+              placeholder="Password"
+            />
+            <Space spacing="my-4" />
+            <PasswordInput
+              rules={{
+                required: { value: true, message: "Password didn't match" },
+                validate: validateConfirmPassword,
+              }}
+              defaultInputValue=""
+              control={control}
+              name="password2"
+              placeholder="Confirm Password"
+            />
+            <Space spacing="my-4" />
+            <Controller
+              control={control}
+              name="agreement_newsletter"
+              render={() => {
+                return (
+                  <CheckBox
+                    boxFor="agreement"
+                    text="Yes, I want to receive daily newsletters and email notification"
+                  />
+                );
+              }}
+            />
+            {/* <Controller
         control={control}
         name="agreement_terms"
         render={() => {
@@ -158,6 +211,30 @@ const RegistrationPage = () => {
           );
         }}
       /> */}
+
+            <Space spacing="my-8" />
+          </div>
+          <div className="w-[80%] m-auto md:px-28">
+            <Button
+              disabled={isAuthenticating}
+              variant="elevated"
+              styles="w-full bg-fyellow text-white font-bold text-lg fshadow"
+            >
+              Create Account
+            </Button>
+            <Space spacing="my-4" />
+            <div className="text-center">
+              <span>Already have an account?</span>
+              <Link
+                className="text-fyellow ml-2 font-semibold cursor-pointer"
+                to="/auth/login"
+              >
+                Log in
+              </Link>
+            </div>
+          </div>
+        </form>
+      </FormProvider>
     </>
   );
 };

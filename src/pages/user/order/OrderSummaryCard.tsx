@@ -1,12 +1,10 @@
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
 import BorderCard from "../BorderCard";
-
-import product1 from "../../../assets/product_1.png";
 import { Link, useParams } from "react-router-dom";
-import useProduct from "../../../hooks/products/useProduct";
 import Center from "../../../components/Center";
 import Spinner from "../../../components/Spinner";
+import useProduct from "../../../hooks/products/useProduct";
 import { OrderItemType } from "../../../services/order";
 import { formatPrice } from "../../../utils/number-formatter";
 
