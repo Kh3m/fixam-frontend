@@ -24,7 +24,7 @@ interface Props {
 const ReviewRating = ({ productId }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const methods = useForm<ReviewType>();
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, reset } = methods;
   const { userInfo, isAuthenticated } = useAuth();
 
   const queryClient = useQueryClient();
@@ -43,19 +43,17 @@ const ReviewRating = ({ productId }: Props) => {
           revievewData
         );
         console.log("responseReview", responseReview);
-        setIsLoading(false);
 
-        // TODO: Remove after DEMO
-        queryClient.invalidateQueries();
+        queryClient.invalidateQueries({
+          queryKey: ["reviews", "products", productId],
+        });
+        reset();
+        setIsLoading(false);
 
         // navigate("/Laptops/product/");
       } catch (error) {
         console.log("Review Error", error);
         setIsLoading(false);
-
-        // TODO: Remove after DEMO
-        queryClient.invalidateQueries();
-        // navigate("/Laptops/product/");
       }
     }
   };
@@ -81,7 +79,8 @@ const ReviewRating = ({ productId }: Props) => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className="p-4 border border-fgrey rounded-lg outline-fyellow w-full h-20"
+                  className="p-4 border border-fgrey rounded-lg 
+                  outline-fyellow w-full h-20 text-gray-500 "
                   style={{ resize: "none" }}
                 ></textarea>
               )}
