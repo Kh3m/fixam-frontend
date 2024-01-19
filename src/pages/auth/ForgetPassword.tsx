@@ -7,13 +7,16 @@ import LogoFormSplitLayout from "../../components/LogoFormSplitLayout";
 import MainContent from "../../components/MainContent";
 import Space from "../../components/Space";
 import apiClient from "../../services/apiClient";
+import { useState } from "react";
 
 const ForgetPassword = () => {
   const methods = useForm();
 
   const { control, handleSubmit } = methods;
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (value: FieldValues) => {
+    setIsLoading(true);
     console.log("Email", value);
     const responseforgetPass = await apiClient.post(
       `/users/auth/password/reset/`,
@@ -23,6 +26,7 @@ const ForgetPassword = () => {
     );
 
     console.log("responseforgetPass", responseforgetPass);
+    setIsLoading(false);
   };
   return (
     <MainContent>
@@ -49,6 +53,7 @@ const ForgetPassword = () => {
               <Space spacing="my-4" />
               <div className="px-5">
                 <Button
+                  disabled={isLoading}
                   variant="elevated"
                   styles="text-xl pagination-shadow
                         w-full font-semibold bg-fyellow-shades-500 text-white font-semibold text-center"
