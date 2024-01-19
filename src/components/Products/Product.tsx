@@ -97,7 +97,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
       </Center>
     );
 
-  if (wishlists && product) {
+  if (wishlists || product) {
     const userWishedLists = wishlists as FetchResponseType<WishlistType>;
     const favorite = wishlists
       ? userWishedLists.results.some((item) => item.product_id === product.id)
