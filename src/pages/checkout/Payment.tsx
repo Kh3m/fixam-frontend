@@ -76,6 +76,7 @@ const Payment = () => {
   const handleCheckout = async () => {
     setIsCreatingOrder(true);
     const cartData = cartForUser as CartType;
+    console.log("CartData", cartData);
 
     if (
       checkoutState.paymentMethod &&
