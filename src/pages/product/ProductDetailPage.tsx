@@ -50,7 +50,7 @@ const ProductDetailPage = () => {
               className="flex flex-col
               md:space-x-8 md:flex-row md:px-0"
             >
-              <div className="md:w-[80%]">
+              <div className="w-full md:w-[80%]">
                 <Preview
                   // images={[{ alt: "", src: "" }]}
                   images={foundProduct?.images.map((imageURl) => ({

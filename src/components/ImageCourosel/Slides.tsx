@@ -18,7 +18,7 @@ const Slides = ({
     <section
       className={`${
         direction === "vertical" ? "flex-row md:flex-col" : ""
-      } flex `}
+      } flex space-x-2 md:space-x-0`}
     >
       {images.map((image, index) => (
         <ImageSlide
