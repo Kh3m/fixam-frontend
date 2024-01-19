@@ -14,8 +14,12 @@ import { ErrorMessagesType } from "../../utils/types";
 
 interface Props {
   authErrorMessages: ErrorMessagesType;
+  axiosErrorMessage?: string;
 }
-export const ErrorMessage = ({ authErrorMessages }: Props) => {
+export const ErrorMessage = ({
+  authErrorMessages,
+}: // axiosErrorMessage,
+Props) => {
   return (
     <>
       {authErrorMessages && Object.values(authErrorMessages).length > 0 && (
@@ -30,12 +34,18 @@ export const ErrorMessage = ({ authErrorMessages }: Props) => {
     </>
   );
 };
+
 const LoginForm = () => {
   const clientId = import.meta.env.VITE_G_CLIENT_ID;
   const methods = useForm();
   // const { state } = useLocation();
-  const { login, isLoginSuccessful, isAuthenticating, authErrorMessages } =
-    useAuth();
+  const {
+    login,
+    isLoginSuccessful,
+    isAuthenticating,
+    authErrorMessages,
+    axiosErrorMessage,
+  } = useAuth();
 
   const { handleSubmit, control } = methods;
 
@@ -91,7 +101,15 @@ const LoginForm = () => {
             </GoogleOAuthProvider>
 
             <Space spacing="my-8" />
-            <ErrorMessage authErrorMessages={authErrorMessages} />
+            {axiosErrorMessage ? (
+              <ToastMessage
+                message={axiosErrorMessage}
+                type={"error"}
+                shoudlShowToast={!!axiosErrorMessage}
+              />
+            ) : (
+              <ErrorMessage authErrorMessages={authErrorMessages} />
+            )}
             <Space spacing="my-4" />
             <Input
               rules={{

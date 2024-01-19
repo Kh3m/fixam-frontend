@@ -26,7 +26,7 @@ const ProductDetailPage = () => {
   // const { state } = useLocation();
   const { productId } = useParams<{ productId: string }>();
 
-  const { data: foundProduct, isLoading, isSuccess } = useProduct(productId!);
+  const { data: foundProduct, isLoading } = useProduct(productId!);
 
   console.log("productId", productId, foundProduct);
 
@@ -39,7 +39,7 @@ const ProductDetailPage = () => {
   const { data: foundRandomProduct } =
     useRandomProductsFromCategory(categoryId);
 
-  if (isSuccess && foundProduct && foundProduct?.images) {
+  if (foundProduct) {
     return (
       <Main>
         <Container>
@@ -69,7 +69,7 @@ const ProductDetailPage = () => {
           <Space spacing="my-8" />
           <Reviews />
           <div className="md:hidden">
-            <ReviewRating productId={""} />
+            <ReviewRating productId={foundProduct.id} />
           </div>
         </Container>
         <Space spacing="my-12" />
@@ -88,7 +88,7 @@ const ProductDetailPage = () => {
 
   return (
     <MainContent>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center my-6">
         <Spinner />
       </div>
     </MainContent>

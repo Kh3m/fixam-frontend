@@ -8,13 +8,14 @@ import BorderCard from "../user/BorderCard";
 import CustomerReviews from "./CustomerReviews";
 import ReviewsRatingSummary from "./ReviewsRatingSummary";
 import { ReviewType } from "../../services/review";
+import { FetchResponseType } from "../../services/apiClient";
 
 const ReviewsPage = () => {
   const { productId } = useParams();
 
   const { data, isLoading: isLoading } = useReviewsForProduct(productId!);
 
-  const reviews = data as ReviewType[];
+  const reviews = data as FetchResponseType<ReviewType>;
   if (isLoading)
     return (
       <MainContent>
@@ -24,7 +25,7 @@ const ReviewsPage = () => {
       </MainContent>
     );
 
-  if (!isLoading && reviews)
+  if (!isLoading && reviews.results)
     return (
       <MainContent>
         <BorderCard>
@@ -34,12 +35,12 @@ const ReviewsPage = () => {
             hasBackArrow
           />
           <Space spacing="my-4" />
-          <ReviewsRatingSummary reviews={reviews} />
+          <ReviewsRatingSummary reviews={reviews.results} />
         </BorderCard>
         <Space spacing="my-4" />
         <div className="flex space-x-24">
           <div className="flex-grow">
-            <CustomerReviews reviews={reviews} />
+            <CustomerReviews reviews={reviews.results} />
           </div>
           <div
             className="h-screen w-52 bg-gray-300 

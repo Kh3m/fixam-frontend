@@ -51,7 +51,7 @@ export const addItemToCart = async (
   userId: string
 ) => {
   // setIsLoadingAddToCart(true);
-
+  console.log("productId", productId);
   // Create item
   const item: CartItemType = {
     prod_id: productId,

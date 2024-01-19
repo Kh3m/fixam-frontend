@@ -48,6 +48,7 @@ const useAuth = () => {
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [authErrorMessages, setAuthErrorMessages] = useState({});
+  const [axiosErrorMessage, setAxiosErrorMessage] = useState("");
 
   useEffect(() => {}, [authErrorMessages]);
   useEffect(() => {
@@ -125,8 +126,12 @@ const useAuth = () => {
       }
     } catch (error) {
       console.error("Something went wrong while authenticating user", error);
+      if (isAxiosError(error)) {
+        setAuthErrorMessages(error.response?.data);
+        setAxiosErrorMessage(error.message);
+      }
+
       setIsAuthenticating(false);
-      if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
     }
   };
 
@@ -274,6 +279,7 @@ const useAuth = () => {
     register,
     userStores,
     // authUserDummy,
+    axiosErrorMessage,
     isAuthenticated,
     setAuthErrorMessages,
     authErrorMessages,

@@ -97,6 +97,7 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
       </Center>
     );
 
+  // TODO: Review this code
   if (wishlists || product) {
     const userWishedLists = wishlists as FetchResponseType<WishlistType>;
     const favorite = wishlists

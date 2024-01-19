@@ -4,6 +4,7 @@ interface Props {
   itemCount: number;
 }
 const ShoppingCart = ({ itemCount }: Props) => {
+  console.log("itemCount", itemCount);
   return (
     <div className="relative">
       <FaCartShopping />

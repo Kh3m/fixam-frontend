@@ -8,6 +8,7 @@ import Spinner from "../Spinner";
 import Review from "./Review";
 import { ReviewType } from "../../services/review";
 import Center from "../Center";
+import { FetchResponseType } from "../../services/apiClient";
 
 const Reviews = () => {
   const { pathname } = useLocation();
@@ -17,7 +18,7 @@ const Reviews = () => {
     productId!
   );
 
-  const reviews = data as ReviewType[];
+  const reviews = data as FetchResponseType<ReviewType>;
 
   if (isLoadingReviews)
     return (
@@ -25,9 +26,10 @@ const Reviews = () => {
         <Spinner />
       </Center>
     );
-  console.log("Reviews", reviews);
 
-  if (reviews && reviews.length)
+  console.log("Reviews from REVIEWS COMPONENT", reviews);
+
+  if (reviews && reviews.results.length)
     return (
       <section className=" m-auto">
         <Heading variant="h3" styles="text-[24px] font-semibold">
@@ -38,7 +40,7 @@ const Reviews = () => {
           {isLoadingReviews ? (
             <Spinner />
           ) : (
-            reviews
+            reviews.results
               ?.slice(0, 3)
               .reverse()
               .map((review) => <Review review={review} />)
