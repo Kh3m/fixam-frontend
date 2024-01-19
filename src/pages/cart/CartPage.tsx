@@ -118,7 +118,7 @@ const CartPage = () => {
       <Main>
         <Space spacing="my-14" />
         <Container>
-          <Link to={"/checkout"} state={{ userCart, subtotal }}>
+          <Link to={"/checkout/payment"} state={{ userCart, subtotal }}>
             <Button
               styles="text-center w-full mb-4 bg-fyellow-shades-500 py-2
             text-white font-semibold pagination-shadow md:hidden"
@@ -210,7 +210,10 @@ const CartPage = () => {
       <Main>
         <Space spacing="my-14" />
         <Container>
-          <Link to={"/checkout"} state={{ userCartWithCartId, subtotal }}>
+          <Link
+            to={"/checkout/payment"}
+            state={{ userCartWithCartId, subtotal }}
+          >
             <Button
               styles="text-center w-full mb-4 bg-fyellow-shades-500 py-2
             text-white font-semibold pagination-shadow md:hidden"
