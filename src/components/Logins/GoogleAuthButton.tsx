@@ -1,6 +1,7 @@
 import { GoogleLogin } from "@react-oauth/google";
 // import { GoogleLogin } from "@react-oauth/google";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 //   access_token: string;
 //   token_type: string;
@@ -12,6 +13,7 @@ import useAuth from "../../hooks/useAuth";
 
 const GoogleAuthButton = () => {
   const { loginWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="flex justify-center">
@@ -23,7 +25,7 @@ const GoogleAuthButton = () => {
             access_token: credentialResponse.credential,
             id_token: credentialResponse.credential,
           });
-          location.href = "/";
+          navigate("/");
         }}
         onError={() => {
           console.log("Login Failed");

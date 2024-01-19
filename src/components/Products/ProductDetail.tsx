@@ -6,7 +6,7 @@ import { ProductType } from "../../services/product";
 import capitalize from "../../utils/capitalize";
 import { formatPrice } from "../../utils/number-formatter";
 import Button from "../Button";
-import Rating from "../Rating";
+// import Rating from "../Rating";
 import Space from "../Space";
 import BuyNowButton from "./BuyNowButton";
 import ProductSummary from "./ProductSummary";
@@ -66,7 +66,7 @@ const ProductDetail = ({
           {formatPrice(product.selling_price as number)}
         </span>
         <Space spacing="my-3" />
-        <Rating count={5} withViews />
+        {/* <Rating count={5} withViews /> */}
         <Space spacing="my-3" />
         <ProductSummary direction="horizontal" labelValues={labelValuesProd} />
         <Space spacing="my-6" />

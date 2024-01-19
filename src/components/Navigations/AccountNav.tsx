@@ -70,7 +70,7 @@ const AccountNav = ({ userData }: Props) => {
     //   text: "Notification",
     // },
     {
-      to: "/auth/logout",
+      to: "/logout",
       img: { src: logoutSVG, alt: "Logout" },
       text: "Logout",
     },

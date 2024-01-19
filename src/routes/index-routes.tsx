@@ -8,6 +8,7 @@ import ProductsPage from "../pages/product/ProductsPage";
 import ReviewsPage from "../pages/review/ReviewsPage";
 import userRoutes from "./user-routes";
 import VerifyEmailPage from "../pages/email/VerifyEmailPage";
+import LogoutPage from "../pages/auth/LogoutPage";
 
 export default {
   path: "/",
@@ -45,6 +46,7 @@ export default {
       path: ":categoryName/:productId/reviews",
       element: <ReviewsPage />,
     },
+    { path: "logout", element: <LogoutPage /> },
     userRoutes,
   ],
 };

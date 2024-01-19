@@ -1,7 +1,7 @@
 import { ProductType } from "../../services/product";
 import ExpandableText from "../ExpandableText";
 import Heading from "../Heading";
-import ReviewRating from "../Reviews/ReviewRating";
+// import ReviewRating from "../Reviews/ReviewRating";
 import Space from "../Space";
 
 interface Props {
@@ -16,9 +16,9 @@ const ProductDescription = ({ product }: Props) => {
           <Heading variant="h4">Description</Heading>
           <ExpandableText>{product?.description || ""}</ExpandableText>
         </div>
-        <div className="hidden md:block md:w-[30%]">
+        {/* <div className="hidden md:block md:w-[30%]">
           <ReviewRating productId={product?.id || ""} />
-        </div>
+        </div> */}
       </div>
       <Space spacing="my-8" />
     </div>

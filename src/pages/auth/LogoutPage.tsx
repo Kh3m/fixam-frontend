@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useEffect } from "react";
 
@@ -6,13 +6,17 @@ const LogoutPage = () => {
   const { logout } = useAuth();
 
   const navigate = useNavigate();
-  alert("CALLEDDD useAuth useNavigate");
+  // alert("CALLEDDD useAuth useNavigate");
   useEffect(() => {
-    navigate("/");
     logout();
+    navigate("/");
   }, []);
 
-  return <div>LogoutPage</div>;
+  return (
+    <div>
+      <Navigate to={"/"} />
+    </div>
+  );
 };
 
 export default LogoutPage;

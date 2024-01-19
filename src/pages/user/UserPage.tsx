@@ -14,7 +14,7 @@ const UserPage = () => {
     { text: "Orders", to: `/users/orders` },
     { text: "Wishlist", to: `/users/wishlist` },
     // { text: "Notification", to: `/users/notification` },
-    { text: "Log out", to: "/auth/logout" },
+    { text: "Log out", to: "/logout" },
   ];
 
   const isMd = useResponsive("md");

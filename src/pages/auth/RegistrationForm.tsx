@@ -18,9 +18,18 @@ import useAuth, { UserCredentialRegType } from "../../hooks/useAuth";
 import { validateEmail } from "../../utils/validationRules";
 import { ErrorMessage } from "./LoginForm";
 
-const RegistrationPage = () => {
+const RegistrationForm = () => {
   const methods = useForm();
   // const { state } = useLocation();
+
+  // const { logout } = useAuth();
+
+  // const navigate = useNavigate();
+  // console.log("CALLEDDD useAuth useNavigate in RegistrationForm");
+  // useEffect(() => {
+  //   logout();
+  //   navigate("/");
+  // }, []);
 
   const clientId = import.meta.env.VITE_G_CLIENT_ID;
 
@@ -239,4 +248,4 @@ const RegistrationPage = () => {
   );
 };
 
-export default RegistrationPage;
+export default RegistrationForm;

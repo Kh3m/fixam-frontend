@@ -1,7 +1,6 @@
 import AuthPage from "../pages/auth/AuthPage";
-import RegistrationForm from "../pages/auth/RegistrationForm";
 import LoginForm from "../pages/auth/LoginForm";
-import LogoutPage from "../pages/auth/LogoutPage";
+import RegistrationForm from "../pages/auth/RegistrationForm";
 
 export default {
   path: "/auth",
@@ -9,6 +8,5 @@ export default {
   children: [
     { path: "login", element: <LoginForm /> },
     { path: "register", element: <RegistrationForm /> },
-    { path: "logout", element: <LogoutPage /> },
   ],
 };
