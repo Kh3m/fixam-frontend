@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaVoicemail } from "react-icons/fa6";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Center from "../../components/Center";
-import Heading from "../../components/Heading";
 import Spinner from "../../components/Spinner";
+import SuccessfulLogin from "../../components/SuccessfulLogin";
 import apiClient from "../../services/apiClient";
 
 const VerifyEmailPage = () => {
@@ -40,27 +39,11 @@ const VerifyEmailPage = () => {
 
   if (isVerficationSuccessful)
     return (
-      <section
-        className="flex w-1/3 items-center justify-center py-8 flex-col m-auto
-    text-center space-y-4"
-      >
-        <div>
-          <FaVoicemail size={42} />
-        </div>
-
-        <Heading variant="h2">Your email has been verified</Heading>
-        <p className="dark:text-gray-300">
-          Login now to start using fixam.africa and explore the wide range of
-          products we have waiting for you.
-        </p>
-
-        <Link
-          to="/auth/login"
-          className="rounded-md font-bold bg-fyellow-shades-500 text-white w-full py-2"
-        >
-          Login Now
-        </Link>
-      </section>
+      <SuccessfulLogin
+        message="Login now to start using fixam.africa and explore the wide range of
+  products we have waiting for you."
+        heading="Your email has been verified"
+      />
     );
 
   return (
