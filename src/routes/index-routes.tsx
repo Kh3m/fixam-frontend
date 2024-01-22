@@ -49,7 +49,7 @@ export default {
       element: <ReviewsPage />,
     },
     { path: "forget-password", element: <ForgetPassword /> },
-    { path: "reset-password", element: <ResetPassword /> },
+    { path: "reset-password/:uid/:token", element: <ResetPassword /> },
     { path: "logout", element: <LogoutPage /> },
     userRoutes,
   ],

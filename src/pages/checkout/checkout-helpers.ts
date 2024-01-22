@@ -117,6 +117,8 @@ export const placeOrder = async (
         );
 
         return (location.href = createdPayment.data.data.authorization_url);
+      } else {
+        location.href = "/payment/success";
       }
     }
   } catch (error) {

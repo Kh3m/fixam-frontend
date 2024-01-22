@@ -1,7 +1,12 @@
 import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { StoreType } from "../entities/store";
-import { apiClientWithAuth } from "../services/apiClient";
+import apiClient from "../services/apiClient";
+import {
+  getTokenExpirationTime,
+  isAccessTokenValid,
+  setTokens,
+} from "../services/tokenManagement";
 import { getCookie, removeCookie, setCookie } from "../utils/cookies";
 
 // interface UserData {
@@ -66,12 +71,10 @@ const useAuth = () => {
     if (isAuthenticated()) {
       const userId = getCookie("userId");
 
-      apiClientWithAuth
-        .get<StoreType[]>(`/stores/owner/${userId}/`)
-        .then((res) => {
-          setUserStores(res.data);
-          setIsLoadingUserStore(false);
-        });
+      apiClient.get<StoreType[]>(`/stores/owner/${userId}/`).then((res) => {
+        setUserStores(res.data);
+        setIsLoadingUserStore(false);
+      });
     }
   }, []);
 
@@ -79,7 +82,7 @@ const useAuth = () => {
     setIsAuthenticating(true);
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClientWithAuth.post<UserData>(`/users/auth/login/`, {
+      const res = await apiClient.post<UserData>(`/users/auth/login/`, {
         email: credentials.email,
         password: credentials.password,
       });
@@ -89,14 +92,32 @@ const useAuth = () => {
         const userData = res.data;
         console.log("userData = res.data;", userData);
         // TODO: Check for side effect
-        setCookie("userId", userData.user.id || "", 7); // Expires in 7 days
-        setCookie("accessToken", userData.access || "", 7); // Expires in 7 days
-        setCookie("refreshToken", userData?.refresh || "", 7); // Expires in 7 days
+        setCookie(
+          "userId",
+          userData.user.id || "",
+          getTokenExpirationTime(userData.access_expiration || "")
+        );
+        setTokens({
+          access: userData.access || "",
+          refresh: userData.refresh || "",
+          access_expiration: userData.access_expiration || "",
+          refresh_expiration: userData.refresh_expiration || "",
+        });
+
+        // store in local storage
+        localStorage.setItem(
+          "oldAT",
+          new Date(userData.access_expiration || "").getTime().toString()
+        );
+        localStorage.setItem(
+          "oldRT",
+          new Date(userData.refresh_expiration || "").getTime().toString()
+        );
 
         if (!!getCookie("cartId")) {
           try {
             // Try to merge cart items
-            const mergeRes = await apiClientWithAuth.post(
+            const mergeRes = await apiClient.post(
               `/carts/${getCookie("cartId")}/merge/${userData.user.id}`
             );
 
@@ -112,10 +133,10 @@ const useAuth = () => {
         }
         setUserInfo({
           user: { id: userData.user.id },
-          access: userData.access,
-          refresh: userData.refresh,
-          access_expiration: userData.access_expiration,
-          refresh_expiration: userData.refresh_expiration,
+          // access: userData.access,
+          // refresh: userData.refresh,
+          // access_expiration: userData.access_expiration,
+          // refresh_expiration: userData.refresh_expiration,
         });
         setIsAuthenticating(false);
         setIsLoginSuccessful(true);
@@ -142,28 +163,36 @@ const useAuth = () => {
     setIsAuthenticating(true);
     try {
       // Make API call to backend auth endpoint using axios
-      const res = await apiClientWithAuth.post<UserData>(
+      const res = await apiClient.post<UserData>(
         `/users/auth/google/`,
         credential
       );
 
       if (res.status === 200) {
         const userData = res.data;
-        console.log("userData = res.data;", userData);
         // TODO: Check for side effect
-        setCookie("userId", userData.user.id || "", 7); // Expires in 7 days
-        setCookie("accessToken", userData.access || "", 7); // Expires in 7 days
-        setCookie("refreshToken", userData?.refresh || "", 7); // Expires in 7 days
+        setCookie(
+          "userId",
+          userData.user.id || "",
+          getTokenExpirationTime(userData.access_expiration || "")
+        );
+        setTokens({
+          access: userData.access || "",
+          refresh: userData.refresh || "",
+          access_expiration: userData.access_expiration || "",
+          refresh_expiration: userData.refresh_expiration || "",
+        });
 
+        // Check if there is cartId in cookie
         if (!!getCookie("cartId")) {
           try {
             // Try to merge cart items
-            const mergeRes = await apiClientWithAuth.post(
+            const mergeRes = await apiClient.post(
               `/carts/${getCookie("cartId")}/merge/${userData.user.id}`
             );
 
             // If successfully merged, remove cartId from cookie
-            console.log("MergeRes", mergeRes);
+            console.log("MergeRes SUCCESSFULLY", mergeRes);
             removeCookie("cartId");
             setIsAuthenticating(false);
           } catch (error) {
@@ -172,13 +201,15 @@ const useAuth = () => {
             if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
           }
         }
+
         setUserInfo({
           user: { id: userData.user.id },
-          access: userData.access,
-          refresh: userData.refresh,
-          access_expiration: userData.access_expiration,
-          refresh_expiration: userData.refresh_expiration,
+          // access: userData.access,
+          // refresh: userData.refresh,
+          // access_expiration: userData.access_expiration,
+          // refresh_expiration: userData.refresh_expiration,
         });
+
         setIsAuthenticating(false);
         setIsLoginSuccessful(true);
       } else {
@@ -196,31 +227,25 @@ const useAuth = () => {
   const register = async (credentials: UserCredentialRegType) => {
     setIsAuthenticating(true);
     try {
-      const response = await apiClientWithAuth.post(
-        `/users/auth/registration/`,
-        {
-          email: credentials.email,
-          password1: credentials.password1,
-          password2: credentials.password2,
-          first_name: credentials.first_name,
-          last_name: credentials.last_name,
-          phone: credentials.phone,
-        }
-      );
+      const response = await apiClient.post(`/users/auth/registration/`, {
+        email: credentials.email,
+        password1: credentials.password1,
+        password2: credentials.password2,
+        first_name: credentials.first_name,
+        last_name: credentials.last_name,
+        phone: credentials.phone,
+      });
 
       if (response.status === 201) {
-        // Registration successfull, login automatically
-        console.log("Registration Successfull", response.status, response.data);
+        // Registration successfull
         setIsRegistrationSuccessful(true);
         setIsAuthenticating(false);
         // login(credentials);
       }
     } catch (error) {
-      console.log("Registration failed", error);
       setIsAuthenticating(false);
       if (isAxiosError(error)) setAuthErrorMessages(error.response?.data);
     }
-
     setIsAuthenticating(false);
   };
 
@@ -233,7 +258,14 @@ const useAuth = () => {
   };
 
   const isAuthenticated = () => {
-    return !!getCookie("userId"); // !!"user" convert to it's boolean equivalent -> true
+    // !!"user" convert to it's boolean equivalent -> true
+    return !!getCookie("userId") && isAccessTokenValid();
+  };
+
+  const autoLogout = () => {
+    if (!isAuthenticated()) {
+      logout();
+    }
   };
 
   // const authUserDummy = async (userId: string) => {
@@ -276,6 +308,7 @@ const useAuth = () => {
     login,
     loginWithGoogle,
     logout,
+    autoLogout,
     register,
     userStores,
     // authUserDummy,

@@ -15,7 +15,10 @@ import GoogleAuthButton from "../../components/Logins/GoogleAuthButton";
 import PasswordInput from "../../components/PasswordInput";
 import Space from "../../components/Space";
 import useAuth, { UserCredentialRegType } from "../../hooks/useAuth";
-import { validateEmail } from "../../utils/validationRules";
+import {
+  validateConfirmPassword,
+  validateEmail,
+} from "../../utils/validationRules";
 import { ErrorMessage } from "./LoginForm";
 
 const RegistrationForm = () => {
@@ -62,11 +65,6 @@ const RegistrationForm = () => {
 
   // const {user}
   const password1 = watch("password1"); // Get the value of the "password" field
-
-  const validateConfirmPassword = (value: string) => {
-    if (value !== password1) return "Passwords do not match";
-    return true;
-  };
 
   // const username = watch("username");
   const email = watch("email");
@@ -188,7 +186,8 @@ const RegistrationForm = () => {
             <PasswordInput
               rules={{
                 required: { value: true, message: "Password didn't match" },
-                validate: validateConfirmPassword,
+                validate: (value: string) =>
+                  validateConfirmPassword(password1, value),
               }}
               defaultInputValue=""
               control={control}

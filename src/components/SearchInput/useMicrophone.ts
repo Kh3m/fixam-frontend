@@ -32,8 +32,7 @@ const useMicrophone = (
       recognition.onend = () => {
         setIsListening(false);
         searchRef.current?.focus();
-        console.log(`END and isListening: ${isListening}`);
-        navigate(`/products/?search=${searchText?.toLowerCase()}`);
+        // navigate(`/products/?search=${searchText?.toLowerCase()}`);
       };
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {
@@ -41,10 +40,21 @@ const useMicrophone = (
         if (searchRef && searchRef.current) {
           searchRef.current.value = result;
           setSearchText(searchRef.current.value);
+
+          // Trigger search when speech recognition ends
+          navigate(`/products/?search=${result.toLowerCase()}`);
+
+          // Delay clearing the search field for 1.2 second
+          setTimeout(() => {
+            if (searchRef && searchRef.current) {
+              searchRef.current.value = "";
+              setSearchText("");
+            }
+          }, 1200);
         }
       };
     } else {
-      console.log("YOUR BROWSER DOESN't SUPPORT SPEACH RECOGNITION");
+      console.log("YOUR BROWSER DOESN'T SUPPORT SPEACH RECOGNITION");
     }
   }, [isListening]);
 

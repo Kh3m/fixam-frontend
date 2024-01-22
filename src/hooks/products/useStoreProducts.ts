@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { APIClient } from "../../services/apiClient";
-import { ProductType } from "../../services/product";
+import { storeProductsService } from "../../services/store";
 
 const useStoreProducts = (storeId: string) => {
-  const apiClient = new APIClient<ProductType>(`/products/store/${storeId}/`);
-
   return useQuery({
     queryKey: ["products", "store", storeId],
-    queryFn: apiClient.fetchAll,
+    queryFn: storeProductsService(storeId).fetchAll,
     enabled: !!storeId,
   });
 };

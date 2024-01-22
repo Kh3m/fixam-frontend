@@ -164,3 +164,36 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+// {
+//   "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1OTI3MTcxLCJpYXQiOjE3MDU5MjY1NzEsImp0aSI6IjgwMGFmODYxNzBlYTQ3ODM4MDYzYjdmN2Q1MGZhMjk1IiwidXNlcl9pZCI6IjBmYTIxMzZlLTljNDUtNDJlMC05ZWFhLTMyODUxOGM1MjIwOSJ9.3owFIFElwIaDk7vnlt6oSIyObpGGLZNdm4-1b6_kZi4",
+//   "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTkyNzc3MSwiaWF0IjoxNzA1OTI2NTcxLCJqdGkiOiIxZDQwMGJlNDE5YWI0ODY5ODMxYTFhMjE0OTAzZGIzMyIsInVzZXJfaWQiOiIwZmEyMTM2ZS05YzQ1LTQyZTAtOWVhYS0zMjg1MThjNTIyMDkifQ.PmLhc0vlCrWcX2cwyUUa1mL9tXyCs4DDPI3Sdw7v-CM",
+//   "user": {
+//       "id": "0fa2136e-9c45-42e0-9eaa-328518c52209",
+//       "last_login": "2024-01-22T12:29:31.450450Z",
+//       "is_superuser": false,
+//       "first_name": "Sir",
+//       "last_name": "IKE",
+//       "is_active": true,
+//       "date_joined": "2024-01-17T13:52:10.839266Z",
+//       "is_vendor": false,
+//       "phone": "+2347062528242",
+//       "email": "imchukwu@gmail.com",
+//       "profile": null,
+//       "addresses": [
+//           "1c9d7bb9-1058-4f75-bde5-726a8baba489"
+//       ]
+//   },
+//   "access_expiration": "2024-01-22T12:39:31.452909Z",
+//   "refresh_expiration": "2024-01-22T12:49:31.452914Z"
+// }
+
+// cartId=a1de70e4-f4f8-45e6-86c5-202157f1caec;
+// userId=0fa2136e-9c45-42e0-9eaa-328518c52209;
+// accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1OTI3MTcxLCJpYXQiOjE3MDU5MjY1NzEsImp0aSI6IjgwMGFmODYxNzBlYTQ3ODM4MDYzYjdmN2Q1MGZhMjk1IiwidXNlcl9pZCI6IjBmYTIxMzZlLTljNDUtNDJlMC05ZWFhLTMyODUxOGM1MjIwOSJ9.3owFIFElwIaDk7vnlt6oSIyObpGGLZNdm4-1b6_kZi4;
+// refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTkyNzc3MSwiaWF0IjoxNzA1OTI2NTcxLCJqdGkiOiIxZDQwMGJlNDE5YWI0ODY5ODMxYTFhMjE0OTAzZGIzMyIsInVzZXJfaWQiOiIwZmEyMTM2ZS05YzQ1LTQyZTAtOWVhYS0zMjg1MThjNTIyMDkifQ.PmLhc0vlCrWcX2cwyUUa1mL9tXyCs4DDPI3Sdw7v-CM'
+
+// g_state={"i_l":0}; cartId=a1de70e4-f4f8-45e6-86c5-202157f1caec;
+// userId=0fa2136e-9c45-42e0-9eaa-328518c52209;
+// accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1OTI3ODQ0LCJpYXQiOjE3MDU5MjcyNDMsImp0aSI6ImI4NDkxYzBlOGU5ZjQ0MzRiYjBhMWEzZTk3MGRhZjY0IiwidXNlcl9pZCI6IjBmYTIxMzZlLTljNDUtNDJlMC05ZWFhLTMyODUxOGM1MjIwOSJ9.diseZgO1sP9XkqUSKOqwsWqqLVKPU9QybimdcC-ppE8;
+// refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTkyODQ0NCwiaWF0IjoxNzA1OTI3MjQ0LCJqdGkiOiJjZTZhMTI1NDU0NGM0OTkxYTdiMWM3OTkwY2Y2OWZhZCIsInVzZXJfaWQiOiIwZmEyMTM2ZS05YzQ1LTQyZTAtOWVhYS0zMjg1MThjNTIyMDkifQ.P15sDmZTszPNSO9D-RPBgB0R6okbfcz__60NHU7EUQM

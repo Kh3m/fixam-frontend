@@ -2,6 +2,7 @@
 // import APIClient from "./apiClient";
 
 import { APIClient } from "./apiClient";
+import { ProductType } from "./product";
 
 // const apiClient = new APIClient<StoreType | FormData>("/store/");
 
@@ -30,3 +31,6 @@ export type StoreOrderType = {
 
 export const storeOrdersService = (storeId: string) =>
   new APIClient<StoreOrderType>(`/orders/${storeId}/store`);
+
+export const storeProductsService = (storeId: string) =>
+  new APIClient<ProductType>(`/products/store/${storeId}/`);

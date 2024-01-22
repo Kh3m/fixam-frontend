@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Center from "../../components/Center";
 import Container from "../../components/Container";
@@ -67,11 +67,11 @@ const Payment = () => {
   )?.id;
 
   console.log("defautlUserAddressId", defautlUserAddressId, userAddresses);
-  // useEffect(() => {
-  //   if (orderSuccessful) {
-  //     location.href = `/checkout/payment/success`;
-  //   }
-  // }, [orderSuccessful]);
+  useEffect(() => {
+    if (orderSuccessful) {
+      location.href = `/checkout/payment/success`;
+    }
+  }, [orderSuccessful]);
 
   const handleCheckout = async () => {
     setIsCreatingOrder(true);

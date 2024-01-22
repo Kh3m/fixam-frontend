@@ -59,6 +59,27 @@ const EditProductForm = () => {
     },
   });
 
+  const fetchImagesAsFile = async () => {
+    if (product) {
+      const filePromises = product.images.map(async (imageUrl, index) => {
+        const response = await fetch(imageUrl);
+        const contentType = response.headers.get("Content-Type");
+        const blob = await response.blob();
+
+        // Use the contentType to set the appropriate file extension
+        const fileExtension = contentType?.split("/")[1];
+        const fileName = `image${index + 1}.${fileExtension}`;
+
+        return new File([blob], fileName, { type: contentType || "image" });
+      });
+      const imageFiles = await Promise.all(filePromises);
+      // Now 'imageFiles' is an array of File objects
+      console.log(imageFiles);
+    }
+  };
+
+  console.log("fetchImagesAsFile", fetchImagesAsFile);
+
   // const productImageMethods = useForm();
   const { handleSubmit } = methods;
 

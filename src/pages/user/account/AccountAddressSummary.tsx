@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import apiClient from "../../../services/apiClient";
+import useUser from "../../../hooks/user/useUser";
+import Spinner from "../../../components/Spinner";
 
 const VerticalSeperator = () => (
   <div className="h-full w-[2px] rounded-sm bg-fyellow-shades-500"></div>
@@ -23,6 +25,9 @@ const AccountAddressSummary = ({ address }: Props) => {
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [_, setIsDeleted] = useState(false);
+  const { data: userData, isLoading: isLoadingUserData } = useUser(
+    userInfo?.user.id || ""
+  );
 
   const handleDeleteAddress = async (addressId: string) => {
     setIsDeleting(true);
@@ -54,7 +59,9 @@ const AccountAddressSummary = ({ address }: Props) => {
       <span className="font-medium">
         {address.receiver_phone_one} , {address.receiver_phone_two}
       </span>
-      <div className="font-medium">abdulkareem150@gmail.com</div>
+      <div className="font-medium">
+        {isLoadingUserData ? <Spinner /> : userData ? userData.email : ""}
+      </div>
       <Space spacing="my-4" />
       <address className="text-gray-500 font-semibold">
         <p>{address.street_address}</p>

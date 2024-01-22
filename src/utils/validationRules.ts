@@ -1,5 +1,13 @@
 import { wordCount } from "./words";
 
+export const validateConfirmPassword = (
+  password1: string,
+  password2: string
+) => {
+  if (password1 !== password2) return "Passwords do not match";
+  return true;
+};
+
 export const wordCountValidation = (value: string) => {
   if (wordCount(value) < 50) {
     return "Enter atleast 50 words.";

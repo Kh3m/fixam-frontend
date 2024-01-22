@@ -8,9 +8,7 @@ export type CategoryType = {
   parent: string | null;
 };
 
-const apiClient = new APIClient<CategoryType>(`/products/categories/`);
-
-const categoryService = apiClient;
+const categoryService = new APIClient<CategoryType>(`/products/categories/`);
 
 export const subCategoryService = (categoryId?: string) => {
   return new APIClient<CategoryType>(

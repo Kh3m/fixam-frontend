@@ -26,4 +26,14 @@ export const productVariantsService = new APIClient<ProductVariantType>(
   `/products/variants/`
 );
 
+export const productsFromCategoryService = (categoryId: string) =>
+  new APIClient<ProductType>(
+    `/products/categories/${categoryId}/products/?levels_deep=all`
+  );
+
+export const randomProductsFromCategoryService = (categoryId: string) =>
+  new APIClient<ProductType>(
+    `/products/categories/${categoryId}/random_products/`
+  );
+
 export default productService;

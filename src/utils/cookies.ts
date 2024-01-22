@@ -1,10 +1,10 @@
-export const setCookie = (name: string, value: string, days: number | null) => {
+export const setCookie = (name: string, value: string, expiration: number) => {
   const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + (days || 0));
+  expirationDate.setTime(expirationDate.getTime() + (expiration || 0));
 
   const cookieValue =
     encodeURIComponent(value) +
-    (days ? `; expires=${expirationDate.toUTCString()}` : "");
+    (expiration ? `; expires=${expirationDate.toUTCString()}` : "");
 
   document.cookie = `${name}=${cookieValue}; path=/`;
 };

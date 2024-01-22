@@ -107,15 +107,22 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
     return (
       <article className={`${isAdProduct && " w-52 md:w-[265px]"} fshadow`}>
         <div className="relative">
-          <div className="h-[250px]">
-            <img
-              src={product.images[0]}
-              alt={product.name}
-              className={`${
-                isAdProduct ? " rounded-t-lg" : ""
-              } object-cover h-full w-full`}
-            />
-          </div>
+          <Link
+            // to={`/products/${productName}`}
+            to={`${product.category_name}/${product.id}`}
+            state={{ categoryId }}
+          >
+            <div className="h-[250px]">
+              <img
+                src={product.images[0]}
+                alt={product.name}
+                className={`${
+                  isAdProduct ? " rounded-t-lg" : ""
+                } object-cover h-full w-full`}
+              />
+            </div>
+          </Link>
+
           {!isAdProduct && (
             <span
               className="py-2 absolute w-16 top-10 text-xs font-semibold
@@ -169,19 +176,19 @@ const Product = ({ product, isAdProduct, categoryId }: Props) => {
           )}
         </div>
         <div className="p-5 dark:bg-slate-800 bg-white  rounded-b-lg">
-          <Link
+          {/* <Link
             // to={`/products/${productName}`}
             to={`${product.category_name}/${product.id}`}
             state={{ categoryId }}
-          >
-            <p
-              className="text-sm dark:text-white text-fblack my-2 font-bold 
+          > */}
+          <p
+            className="text-sm dark:text-white text-fblack my-2 font-bold 
             hover:underline hover:underline-offset-4
             md:text-lg"
-            >
-              {product.name}
-            </p>
-          </Link>
+          >
+            {product.name}
+          </p>
+          {/* </Link> */}
           <p
             className="dark:text-white text-fyellow text-sm md:text-xl 
           font-bold my-2 flex md:items-center md:space-x-3
