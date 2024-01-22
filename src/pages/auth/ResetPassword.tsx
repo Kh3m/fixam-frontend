@@ -8,23 +8,33 @@ import Space from "../../components/Space";
 import { useParams } from "react-router-dom";
 import apiClient from "../../services/apiClient";
 import { validateConfirmPassword } from "../../utils/validationRules";
+import { useState } from "react";
 
 const ResetPassword = () => {
   const methods = useForm();
   const { uid, token } = useParams();
+  const [isLoadingResetPassword, setIsLoadingResetPassword] = useState(false);
 
   const { control, handleSubmit, watch, getFieldState } = methods;
 
   const password1 = watch("new_password", "");
-  console.log("getFieldState", getFieldState);
+  console.log("getFieldState", getFieldState.toString());
   const onSubmit = async (fieldValues: FieldValues) => {
+    setIsLoadingResetPassword(true);
+    console.log("uid && token", uid, token);
     if (uid && token) {
-      await apiClient.post(`/users/auth/password/reset/confirm/`, {
-        new_password1: fieldValues.new_password,
-        new_password2: fieldValues.confirm_password,
-        uid,
-        token,
-      });
+      const responseReset = await apiClient.post(
+        `/users/auth/password/reset/confirm/`,
+        {
+          new_password1: fieldValues.new_password,
+          new_password2: fieldValues.confirm_password,
+          uid,
+          token,
+        }
+      );
+
+      console.log("responseReset", responseReset);
+      setIsLoadingResetPassword(false);
     }
   };
 
@@ -56,6 +66,7 @@ const ResetPassword = () => {
               <Space spacing="my-4" />
               <div className="px-5">
                 <Button
+                  disabled={isLoadingResetPassword}
                   variant="elevated"
                   styles="text-xl pagination-shadow
                 w-full font-semibold bg-fyellow-shades-500 text-white font-semibold text-center"
