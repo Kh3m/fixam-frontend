@@ -78,7 +78,7 @@ const EditProductForm = () => {
     }
   };
 
-  console.log("fetchImagesAsFile", fetchImagesAsFile);
+  console.log("fetchImagesAsFile", fetchImagesAsFile());
 
   // const productImageMethods = useForm();
   const { handleSubmit } = methods;

@@ -3,8 +3,8 @@ import Heading from "./Heading";
 interface Props {
   styles?: string;
   bannerURL: string;
-  description: string;
-  heading: string;
+  description?: string;
+  heading?: string;
   isStoreBanner?: boolean;
 }
 

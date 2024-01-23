@@ -81,7 +81,7 @@ export const addItemToCart = async (
       );
       console.log("Found User's Cart user isAuthenticated", foundUserCart);
       // Check if the user already has a cart
-      if (foundUserCart.status === 200) {
+      if (foundUserCart.status == 200) {
         // Add item to the cart
         const addedCartItem = await apiClient.post(
           `/carts/${foundUserCart.data.id}/items/`,
@@ -96,8 +96,8 @@ export const addItemToCart = async (
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (
-          error.response?.status === 404 &&
-          error.response.data.detail === "Not found."
+          error.response?.status == 404 &&
+          error.response.data.detail == "Not found."
         ) {
           // No Cart Found - Create a New Cart
           console.log("NO CART FOUND!!! user isAuthenticated", error.response);
@@ -133,7 +133,7 @@ export const addItemToCart = async (
         `/carts/${cartIdFromCookie}/`
       );
 
-      if (foundCart.status === 200) {
+      if (foundCart.status == 200) {
         // Add Items to cart
         await apiClient.post(`/carts/${cartIdFromCookie}/items/`, item);
 
@@ -150,8 +150,9 @@ export const addItemToCart = async (
         const createdCart = await apiClient.post<{ id: string }>(`/carts/`, {
           user_id: null,
         });
-        if (createdCart.status === 201) {
-          setCookie("cartId", createdCart.data.id, 7);
+        if (createdCart.status == 201) {
+          setCookie("cartId", createdCart.data.id, 7 * 24 * 60 * 60 * 1000);
+          console.log("setCookie('c_id', createdCart.data.id, 7days);");
 
           // Add item to newCartForUser
           const addedCartItem = await apiClient.post<CartType>(
@@ -164,9 +165,8 @@ export const addItemToCart = async (
             queryKey: ["carts", addedCartItem.data.id],
           });
           // setIsLoadingAddToCart(false);
-
           console.log(
-            "no cookie cartId, createdCart user is not authenticated",
+            "==== no cookie cartId, createdCart user is not authenticated ====",
             createdCart.data,
             addedCartItem
           );

@@ -49,9 +49,9 @@ const DashboardPage = () => {
         bannerURL={
           storeData.length ? storeData[storeData.length - 1].banner_img_url : ""
         }
-        heading="Elevate Your Code"
-        description="Welcome to our developer shop, where creativity meets functionality. 
-        Explore a curated collections of tools, frameworks, and accessories tailored for developers"
+        // heading="Elevate Your Code"
+        // description="Welcome to our developer shop, where creativity meets functionality.
+        // Explore a curated collections of tools, frameworks, and accessories tailored for developers"
         isStoreBanner
       />
     </section>
