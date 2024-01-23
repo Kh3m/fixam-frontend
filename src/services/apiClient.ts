@@ -14,7 +14,9 @@ export type FetchResponseType<T> = {
 };
 
 const apiClient = axios.create({
-  baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
+  // baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
+  baseURL: "https://fixam-dev-ge6zf.ondigitalocean.app/api/v1",
+
   headers: {
     "Content-Type": "application/json",
   },

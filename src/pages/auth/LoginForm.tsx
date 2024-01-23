@@ -44,7 +44,7 @@ const LoginForm = () => {
     isLoginSuccessful,
     isAuthenticating,
     authErrorMessages,
-    axiosErrorMessage,
+    // axiosErrorMessage,
   } = useAuth();
 
   const { handleSubmit, control } = methods;
@@ -101,15 +101,15 @@ const LoginForm = () => {
             </GoogleOAuthProvider>
 
             <Space spacing="my-8" />
-            {axiosErrorMessage ? (
+            {/* {axiosErrorMessage ? (
               <ToastMessage
                 message={axiosErrorMessage}
                 type={"error"}
                 shoudlShowToast={!!axiosErrorMessage}
               />
-            ) : (
-              <ErrorMessage authErrorMessages={authErrorMessages} />
-            )}
+            ) : ( */}
+            <ErrorMessage authErrorMessages={authErrorMessages} />
+            {/* )} */}
             <Space spacing="my-4" />
             <Input
               rules={{

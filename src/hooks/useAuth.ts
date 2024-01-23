@@ -36,14 +36,6 @@ export type UserCredentialRegType = {
   phone: string;
 };
 
-// const authAxios = axios.create({
-//   baseURL: "https://fixam-mono-production.up.railway.app/api/v1",
-
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
-
 const useAuth = () => {
   const [isLoadingUserStore, setIsLoadingUserStore] = useState(false);
   const [userInfo, setUserInfo] = useState<UserData | null>(null);
